@@ -3,7 +3,10 @@ import { Caveat } from "next/font/google";
 import "./globals.css";
 import Navbar from "./(routes)/(root)/_components/navbar";
 
-const caveat = Caveat({ subsets: ["latin"] });
+const caveat = Caveat({
+  subsets: ["latin"],
+  weight: "700"
+});
 
 export const metadata: Metadata = {
   title: "Create Next App",
