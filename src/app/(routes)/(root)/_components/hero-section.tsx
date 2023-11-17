@@ -2,13 +2,19 @@
 
 import { Button } from "@/components/ui/button";
 import { PlayCircle, StopCircle } from "lucide-react";
-import { useState } from "react";
+import { useRef, useState } from "react";
+import VideoPlayer from "./video-player";
 
 export default function HeroSection() {
-  const [isPlay, setIsPlay] = useState(true);
-  function onClick() {
-    setIsPlay(isPlay ? false : true);
-  }
+  const [isPlaying, setIsPlaying] = useState(false);
+  const videoRef = useRef<HTMLVideoElement | null>(null);
+  const togglePlay = () => {
+    const video = videoRef.current;
+    if (video) {
+      isPlaying ? video.pause() : video.play();
+      setIsPlaying(!isPlaying);
+    }
+  };
 
   return (
     <section>
@@ -36,8 +42,8 @@ export default function HeroSection() {
             </Button>
           </div>
           <div className="flex flex-[.5] items-end justify-end ">
-            <div onClick={onClick} className="cursor-pointer">
-              {isPlay ? (
+            <div onClick={togglePlay} className="cursor-pointer">
+              {isPlaying ? (
                 <StopCircle className="w-[50px] h-[50px] text-white" />
               ) : (
                 <PlayCircle className="w-[50px] h-[50px] text-white" />
@@ -45,17 +51,10 @@ export default function HeroSection() {
             </div>
           </div>
         </div>
-        <video
-          _ngcontent-skr-c111
-          playsInline
-          loop
-          className="aspect-[3/2] object-cover object-bottom brightness-50 relative z-[-500]"
-          autoPlay={isPlay ? true : false}
-          muted
-          src="/hero/video/2023-p10-SAR-202310251109PCC.mp4"
-        >
-          Browser not supported
-        </video>
+        <VideoPlayer
+          videoRef={videoRef}
+          videoSrc={"/hero/video/2023-p10-SAR-202310251109PCC.mp4"}
+        />
       </div>
     </section>
   );
