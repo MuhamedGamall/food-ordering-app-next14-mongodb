@@ -10,7 +10,7 @@ export default function VideoPlayer({ videoRef, videoSrc }: VideoPlayerProps) {
       ref={videoRef}
       playsInline
       loop
-      className="aspect-[5/2] object-cover object-center brightness-[.7] relative z-[-500] h-full w-full"
+      className="aspect-[5/2] object-cover object-center brightness-[.9] relative z-[-500] h-full w-full"
       muted
       autoPlay={true}
     >

@@ -4,6 +4,10 @@ import Logo from "./Logo";
 import { MobileMenu } from "@/app/(routes)/(root)/_components/mobile-menu";
 const routes: { title: string; href: string }[] = [
   {
+    title: "Menu",
+    href: "/menu",
+  },
+  {
     title: "About",
     href: "/about",
   },
@@ -21,15 +25,6 @@ export default function NavberRoutes() {
       </Link>
       <nav className="flex gap-x-3 items-centr">
         <div className="hidden md:block">
-          <Link href={""}>
-            <Button
-              variant={"ghost"}
-              className=" text-[25px] rounded-full"
-              size={"lg"}
-            >
-              Menu
-            </Button>
-          </Link>
           {routes.map((route) => (
             <Link key={route.title} href={route.href}>
               <Button
