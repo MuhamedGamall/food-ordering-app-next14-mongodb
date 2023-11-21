@@ -3,7 +3,7 @@
 import { Button } from "@/components/ui/button";
 import {
   ArrowRightCircle,
-  MoveRight,
+
   PlayCircle,
   StopCircle,
 } from "lucide-react";
@@ -24,8 +24,8 @@ export default function HeroSection() {
 
   return (
     <section>
-      <div className="relative  h-[500px]">
-        <div className="absolute flex justify-between  w-[85%]   left-[50%] translate-x-[-50%] bottom-5 h-full">
+      <div className="relative h-[500px]">
+        <div className="mx-auto max-w-[90rem] absolute flex justify-between  w-[85%]   left-[50%] translate-x-[-50%] bottom-5 h-full">
           <div className="text-white flex flex-1 items-start justify-end flex-col  w-full h-full pb-[30px]">
             <span className="skew-y-[-7deg] text-[2.5rem] px-3 bg-black  font-[900]  tracking-tighter ">
               $13{" "}

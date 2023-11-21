@@ -3,10 +3,9 @@ import {
   MenubarContent,
   MenubarItem,
   MenubarMenu,
-  MenubarSeparator,
   MenubarTrigger,
 } from "@/components/ui/menubar";
-import { ArrowRightCircle, Menu } from "lucide-react";
+import { Menu } from "lucide-react";
 import Link from "next/link";
 const routes: { title: string; href: string }[] = [
   {

@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Caveat } from "next/font/google";
 import "./globals.css";
 import Navbar from "./(routes)/(root)/_components/navbar";
+import { cn } from "@/lib/utils";
 
 const caveat = Caveat({
   subsets: ["latin"],
@@ -20,7 +21,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={caveat.className}>
+      <body className={cn(caveat.className)}>
         <div>
           <Navbar />
           {children}
