@@ -1,8 +1,13 @@
+"use client";
 import Link from "next/link";
 import { Button } from "./ui/button";
 import Logo from "./Logo";
+import { useSession } from "next-auth/react";
 
 export default function NavbarTop() {
+  const session = useSession();
+  console.log(session);
+
   return (
     <header className=" py-2">
       <nav className="flex items-center justify-between w-full">

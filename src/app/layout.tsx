@@ -3,10 +3,12 @@ import { Caveat } from "next/font/google";
 import "./globals.css";
 import Navbar from "./(routes)/(root)/_components/navbar";
 import { cn } from "@/lib/utils";
+import ToastProvider from "@/components/providers/toaster-provider";
+import AuthSessionProvider from "@/components/providers/session-provider";
 
 const caveat = Caveat({
   subsets: ["latin"],
-  weight: "700"
+  weight: "600",
 });
 
 export const metadata: Metadata = {
@@ -23,8 +25,11 @@ export default function RootLayout({
     <html lang="en">
       <body className={cn(caveat.className)}>
         <div>
-          <Navbar />
-          {children}
+          {/* <AuthSessionProvider> */}
+            <ToastProvider />
+            <Navbar />
+            {children}
+          {/* </AuthSessionProvider> */}
         </div>
       </body>
     </html>
