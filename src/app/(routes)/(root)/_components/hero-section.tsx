@@ -1,12 +1,7 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
-import {
-  ArrowRightCircle,
-
-  PlayCircle,
-  StopCircle,
-} from "lucide-react";
+import { ArrowRightCircle, PlayCircle, StopCircle } from "lucide-react";
 import { useRef, useState } from "react";
 import VideoPlayer from "./video-player";
 import Link from "next/link";
@@ -36,7 +31,7 @@ export default function HeroSection() {
             <span className="text-[2rem] w-[10rem]   mt-5 font-[900] bg-[#ff0000] px-2 ">
               Limited Time
             </span>
-            <h4 className=" text-[3rem] md:text-[4rem] font-bold mt-3 md:mt-9">
+            <h4 className=" text-[3rem] md:text-[4rem] font-bold mt-3 md:mt-9 md:leading-[.6]">
               Shaq-a-Roni Pizza
             </h4>
             <p className="text-[1.5rem] md:text-[2.7rem] font-[200]">

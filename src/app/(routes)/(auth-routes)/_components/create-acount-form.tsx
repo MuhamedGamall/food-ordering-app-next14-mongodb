@@ -18,6 +18,7 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import { signIn } from "next-auth/react";
 
 interface CreateAcountFormProps {
   onSubmit: ({ values }: any) => Promise<void>;
@@ -34,8 +35,10 @@ const formSchema = z.object({
   email: z.string().email("Please enter valid email address"),
 });
 
-export default function CreateAcountForm({ onSubmit, isError }: CreateAcountFormProps) {
-
+export default function CreateAcountForm({
+  onSubmit,
+  isError,
+}: CreateAcountFormProps) {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -69,14 +72,7 @@ export default function CreateAcountForm({ onSubmit, isError }: CreateAcountForm
               variant="outline"
               disabled={isSubmitting}
               className={cn("text-[19px] py-6 border-slate-500 border-[2.5px]")}
-            >
-              <FaFacebook className="mr-2 h-6 w-6 " />
-              Facebook
-            </Button>
-            <Button
-              variant="outline"
-              disabled={isSubmitting}
-              className={cn("text-[19px] py-6 border-slate-500 border-[2.5px]")}
+              onClick={() => signIn("google",  { redirect:false,callbackUrl: "/" })}
             >
               <FaGoogle className="mr-2 h-6 w-6" />
               Google
@@ -153,10 +149,10 @@ export default function CreateAcountForm({ onSubmit, isError }: CreateAcountForm
                 <span className="text-[16px] ">
                   You have already account
                   <Link
-                    href={"create-acount"}
+                    href={"log-in"}
                     className="underline text-[#2D5D2A]"
                   >
-                    Sign up
+                    Log In
                   </Link>
                 </span>
                 <Button

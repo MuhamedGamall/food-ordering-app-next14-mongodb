@@ -19,11 +19,10 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { useSession } from "next-auth/react";
+import { signIn, useSession } from "next-auth/react";
 
 interface LogInFormProps {
   onSubmit: ({ values }: any) => Promise<void>;
-
 }
 
 const formSchema = z.object({
@@ -69,19 +68,19 @@ export default function LogInForm({ onSubmit }: LogInFormProps) {
             </h1>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 text-slate-500 ">
+          <div className="flex text-slate-500 ">
             <Button
               variant="outline"
               disabled={isSubmitting}
-              className={cn("text-[19px] py-6 border-slate-500 border-[2.5px]")}
-            >
-              <FaFacebook className="mr-2 h-6 w-6 " />
-              Facebook
-            </Button>
-            <Button
-              variant="outline"
-              disabled={isSubmitting}
-              className={cn("text-[19px] py-6 border-slate-500 border-[2.5px]")}
+              className={cn(
+                " flex-1 text-[19px] py-6 border-slate-500 border-[2.5px]"
+              )}
+              onClick={() =>
+                signIn("google", {
+                  redirect: false,
+                  callbackUrl: "/",
+                })
+              }
             >
               <FaGoogle className="mr-2 h-6 w-6" />
               Google
@@ -155,14 +154,18 @@ export default function LogInForm({ onSubmit }: LogInFormProps) {
                 <span className="text-[20px] text-red-400">
                   {userIsVaild && (
                     <div className="flex gap-1 items-center">
-                      <MdError />Wrong email or password
+                      <MdError />
+                      Wrong email or password
                     </div>
                   )}
                 </span>
                 <span className="text-[16px] ">
                   Don`&#39;t have an account?
-                  <Link href={"log-in"} className="underline text-[#2D5D2A]">
-                    Log in
+                  <Link
+                    href={"create-acount"}
+                    className="underline text-[#2D5D2A]"
+                  >
+                    Sign Up
                   </Link>
                 </span>
                 <Button

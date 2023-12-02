@@ -7,6 +7,11 @@ import { signOut, useSession } from "next-auth/react";
 export default function NavbarTop() {
   const session = useSession();
   const status = session.status;
+  const loading = status === 'loading'
+  const email = session.data?.user?.email;
+  const userImage = session.data?.user?.image;
+  let userName =
+    session.data?.user?.name?.split(" ")[0] || email?.split("@")[0];
 
   return (
     <header className=" py-2">
@@ -14,23 +19,34 @@ export default function NavbarTop() {
         <Link href={"/"}>
           <Logo color="red" />
         </Link>
-        <div className=" flex items-center">
+        <div className=" flex items-center gap-3">
           <>
-            {status === "authenticated" ? (
-              <Button
-                variant={"green"}
-                className="rounded-full text-[16px] md:text-[20px]"
-                size={"lg"}
-                onClick={()=>signOut()}
-              >
-                Sign out
-              </Button>
+            {loading?<span className="text-lg mr-20">
+              Loading... 
+            </span>:
+            
+            
+            status === "authenticated" ? (
+              <>
+                <div className="flex items-center gap-1 max-w-[100px] overflow-hidden">
+                  Hello,
+                  <Link href={"edit-profile"} className="underline">{userName}</Link>
+                </div>
+                <Button
+                  variant={"green"}
+                  className="rounded-full text-[16px] md:text-[20px]"
+                  size={"lg"}
+                  onClick={() => signOut()}
+                >
+                  Sign out
+                </Button>
+              </>
             ) : (
               <>
                 <Link href={"/create-acount"}>
                   <Button
                     variant={"ghost"}
-                    className=" rounded-full text-[16px] md:text-[20px]"
+                    className=" rounded-full text-[18px] md:text-[20px]"
                     size={"lg"}
                   >
                     Sign Up
@@ -46,7 +62,9 @@ export default function NavbarTop() {
                   </Button>
                 </Link>
               </>
-            )}
+            )
+            
+            }
           </>
         </div>
       </nav>

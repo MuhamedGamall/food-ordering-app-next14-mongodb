@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@auth/mongodb-adapter": "^2.0.7",
     "@hookform/resolvers": "^3.3.2",
     "@radix-ui/react-label": "^2.0.2",
     "@radix-ui/react-menubar": "^1.0.4",
@@ -19,6 +20,7 @@
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.0.0",
     "lucide-react": "^0.292.0",
+    "mongodb": "^6.3.0",
     "mongoose": "^8.0.1",
     "next": "14.0.2",
     "next-auth": "^4.24.5",
