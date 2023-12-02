@@ -6,7 +6,6 @@ import { signOut, useSession } from "next-auth/react";
 
 export default function NavbarTop() {
   const session = useSession();
-  console.log("session", session);
   const status = session.status;
 
   return (

@@ -3,16 +3,16 @@ import HeroAcountSection from "../_components/hero-acount-section";
 import { useState } from "react";
 import axios from "axios";
 import toast from "react-hot-toast";
-import FormInputs from "../_components/form-inputs";
 import { redirect, useRouter } from "next/navigation";
 import { useSession } from "next-auth/react";
+import CreateAcountForm from "../_components/create-acount-form";
 
 export default function CreateAcountPage() {
   const [isError, setIsError] = useState<boolean>(false);
   const router = useRouter();
   const session = useSession();
   if (session.status === "authenticated") {
-    return redirect("/");
+    redirect("/");
   }
   async function onSubmit(values: { password: string; email: string }) {
     try {
@@ -27,7 +27,7 @@ export default function CreateAcountPage() {
   return (
     <>
       <HeroAcountSection />
-      <FormInputs onSubmit={onSubmit} isError={isError} />
+      <CreateAcountForm onSubmit={onSubmit} isError={isError} />
     </>
   );
 }
