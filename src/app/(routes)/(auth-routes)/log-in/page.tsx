@@ -18,9 +18,9 @@ export default function LoginPage() {
     redirect("/");
   }
   return (
-    <>
+    <section>
       <HeroAcountSection />
       <LogInForm onSubmit={onSubmit} />
-    </>
+    </section>
   );
 }

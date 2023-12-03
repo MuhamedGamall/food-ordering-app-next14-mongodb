@@ -7,11 +7,11 @@ import { signOut, useSession } from "next-auth/react";
 export default function NavbarTop() {
   const session = useSession();
   const status = session.status;
-  const loading = status === 'loading'
+  const loading = status === "loading";
   const email = session.data?.user?.email;
-  const userImage = session.data?.user?.image;
-  let userName =
+  const userName =
     session.data?.user?.name?.split(" ")[0] || email?.split("@")[0];
+
 
   return (
     <header className=" py-2">
@@ -21,16 +21,15 @@ export default function NavbarTop() {
         </Link>
         <div className=" flex items-center gap-3">
           <>
-            {loading?<span className="text-lg mr-20">
-              Loading... 
-            </span>:
-            
-            
-            status === "authenticated" ? (
+            {loading ? (
+              <span className="text-lg mr-20">Loading...</span>
+            ) : status === "authenticated" ? (
               <>
                 <div className="flex items-center gap-1 max-w-[100px] overflow-hidden">
                   Hello,
-                  <Link href={"edit-profile"} className="underline">{userName}</Link>
+                  <Link href={"edit-profile"} className="underline">
+                    {userName}
+                  </Link>
                 </div>
                 <Button
                   variant={"green"}
@@ -62,9 +61,7 @@ export default function NavbarTop() {
                   </Button>
                 </Link>
               </>
-            )
-            
-            }
+            )}
           </>
         </div>
       </nav>

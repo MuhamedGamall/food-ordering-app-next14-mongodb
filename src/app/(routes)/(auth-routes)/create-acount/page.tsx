@@ -25,9 +25,9 @@ export default function CreateAcountPage() {
     }
   }
   return (
-    <>
+    <section>
       <HeroAcountSection />
       <CreateAcountForm onSubmit={onSubmit} isError={isError} />
-    </>
+    </section>
   );
 }

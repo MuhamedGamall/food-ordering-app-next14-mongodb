@@ -26,13 +26,10 @@ interface LogInFormProps {
 }
 
 const formSchema = z.object({
-  password: z
-    .string()
-    .min(5, {
-      message: "password must be at least 5 characters.",
-    })
-    .max(30, { message: "password should be on a lot of 50 characters." }),
-  email: z.string().email("Please enter valid email address"),
+  password: z.string().trim().min(5, {
+    message: "password is required",
+  }),
+  email: z.string().trim().email("Please enter valid email address"),
 });
 
 export default function LogInForm({ onSubmit }: LogInFormProps) {
@@ -59,13 +56,11 @@ export default function LogInForm({ onSubmit }: LogInFormProps) {
               <Loader className="animate-spin h-6 w-6 text-sky-700" />
             </div>
           )}
-          <div className="space-y-1 mb-3">
-            <h1 className="text-[40px] mb-5">
-              LOG IN
-              <div className="text-slate-500 text-[19px]">
-                Enter your email below to log in
-              </div>
-            </h1>
+          <div className="space-y-1 mb-5">
+            <h1 className="text-[40px] ">LOG IN</h1>
+            <span className="text-slate-500 text-[19px]">
+              Enter your email below to log in
+            </span>
           </div>
 
           <div className="flex text-slate-500 ">
@@ -113,9 +108,10 @@ export default function LogInForm({ onSubmit }: LogInFormProps) {
                       </FormLabel>
                       <FormControl>
                         <Input
+                          type="email"
                           placeholder="m@example.com"
                           className={cn(
-                            "text-[22px] border-slate-500 border-[2.5px] p-6 focus:bg-slate-200"
+                            "text-[18px] md:text-[22px]  bg-slate-100 focus:border-slate-500 border-[2.5px] p-6 "
                           )}
                           {...field}
                           disabled={isSubmitting}
@@ -137,9 +133,10 @@ export default function LogInForm({ onSubmit }: LogInFormProps) {
                       </FormLabel>
                       <FormControl>
                         <Input
+                          type="password"
                           placeholder="Enter password"
                           className={cn(
-                            "text-[22px] border-slate-500 border-[2.5px] p-6 focus:bg-slate-200"
+                            "text-[18px] md:text-[22px]  bg-slate-100 focus:border-slate-500 border-[2.5px] p-6 "
                           )}
                           {...field}
                           disabled={isSubmitting}

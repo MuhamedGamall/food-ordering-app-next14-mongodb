@@ -27,12 +27,13 @@ interface CreateAcountFormProps {
 
 const formSchema = z.object({
   password: z
-    .string()
+    .string().trim()
     .min(5, {
       message: "password must be at least 5 characters.",
+      
     })
-    .max(30, { message: "password should be on a lot of 50 characters." }),
-  email: z.string().email("Please enter valid email address"),
+    .max(30, { message: "password should be on a lot of 30 characters." }),
+  email: z.string().trim().email("Please enter valid email address"),
 });
 
 export default function CreateAcountForm({
@@ -58,13 +59,13 @@ export default function CreateAcountForm({
               <Loader className="animate-spin h-6 w-6 text-sky-700" />
             </div>
           )}
-          <div className="space-y-1 mb-3">
-            <h1 className="text-[40px] mb-5">
+          <div className="space-y-1 mb-5">
+            <h1 className="text-[40px] ">
               CREATE YOUR ACCOUNT
-              <div className="text-slate-500 text-[19px]">
-                Enter your email below to create your account
-              </div>
             </h1>
+              <span className="text-slate-500 text-[19px]">
+                Enter your email below to create your account
+              </span>
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 text-slate-500 ">
@@ -105,9 +106,10 @@ export default function CreateAcountForm({
                       </FormLabel>
                       <FormControl>
                         <Input
+                        type="text"
                           placeholder="m@example.com"
                           className={cn(
-                            "text-[22px] border-slate-500 border-[2.5px] p-6 focus:bg-slate-200"
+                            "text-[18px] md:text-[22px]  bg-slate-100 focus:border-slate-500 border-[2.5px] p-6 "
                           )}
                           {...field}
                           disabled={isSubmitting}
@@ -129,9 +131,11 @@ export default function CreateAcountForm({
                       </FormLabel>
                       <FormControl>
                         <Input
+                        type="password"
+
                           placeholder="Enter password"
                           className={cn(
-                            "text-[22px] border-slate-500 border-[2.5px] p-6 focus:bg-slate-200"
+                            "text-[18px] md:text-[22px]  bg-slate-100 focus:border-slate-500 border-[2.5px] p-6 "
                           )}
                           {...field}
                           disabled={isSubmitting}
