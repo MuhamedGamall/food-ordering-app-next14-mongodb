@@ -8,7 +8,7 @@ import AuthSessionProvider from "@/components/providers/session-provider";
 
 const caveat = Caveat({
   subsets: ["latin"],
-  weight: "600",
+  weight: "700",
 });
 
 export const metadata: Metadata = {

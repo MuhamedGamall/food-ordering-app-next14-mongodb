@@ -15,7 +15,7 @@ export default function EditProfilePage() {
   async function onSubmit(values: { usernaem: string }) {
     try {
       await axios.put("/api/edit-profile", values);
-      toast.success("Username updated");
+      toast.success("Profile updated");
     } catch (error: any) {
       console.log(error);
     }
