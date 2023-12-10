@@ -1,38 +1,83 @@
 import { useSession } from "next-auth/react";
-import ImageForm from "./image-form";
 import imageCompression from "browser-image-compression";
 import toast from "react-hot-toast";
+import { Dispatch, SetStateAction, useState } from "react";
 import axios from "axios";
-export default function UploadImageForm() {
-  const session = useSession();
-  const avatarUrl = session.data?.user?.image || "/avatar/avatar.jpeg";
+import Image from "next/image";
+import { Label } from "@/components/ui/label";
+import { Input } from "@/components/ui/input";
 
+interface UploadImageFormProps {
+  avatar64: any;
+  setAvatar64: Dispatch<SetStateAction<any>>;
+}
+export default function UploadImageForm({
+  avatar64,
+  setAvatar64,
+}: UploadImageFormProps) {
+  // const [imageForUi, setImageForUi] = useState<any>(null);
+  const avatarUrl = avatar64 || "/avatar/avatar.jpeg";
   async function onChange(event: any) {
-    const imageFile = event.target.files[0];
+    const imageFile = event.target.files?.[0];
     const options = {
-      maxSizeMB: 30,
-      maxWidthOrHeight: 1920,
+      maxSizeMB: 3,
+      maxWidthOrHeight: 2000,
       useWebWorker: true,
     };
-    try {
-      if (imageFile) {
-        const compressedFile = await imageCompression(imageFile, options);
-        const data = new FormData();
-        data.set("userImage", compressedFile);
 
-        await axios.post("/api/upload", data);
-        toast.success("Profile updated");
+    if (imageFile) {
+      try {
+        const compressedFile = await imageCompression(imageFile, options);
+
+        // reader image
+        const reader = new FileReader();
+        reader.readAsDataURL(compressedFile);
+
+        reader.onloadend = () => {
+          // setImageForUi(reader.result);
+          setAvatar64(reader.result);
+        };
+      } catch (error) {
+        if (
+          !imageFile.type.startsWith("image") ||
+          imageFile.type === "image/NEF"
+        ) {
+          toast.error("This type of file is not supported");
+        } else {
+          toast.error("Something went wrong");
+        }
+        toast.error("Something went wrong while uploading");
+        console.log(error);
       }
-    } catch (error: any) {
-      if (
-        !imageFile.type.startsWith("image") ||
-        imageFile.type === "image/NEF"
-      ) {
-        toast.error("This type of file is not supported");
-      }
-      toast.error("Somethig went worng");
     }
   }
 
-  return <ImageForm onChange={onChange} avatarUrl={avatarUrl} />;
+  return (
+    <div className="w-fit flex flex-col gap-2">
+      <div className="flex flex-col items-center justify-center gap-2  w-fit ">
+        <Image
+          src={avatarUrl}
+          alt="avatar"
+          width={250}
+          height={250}
+          className="w-[140px] max-w-full rounded-md"
+        />
+      </div>
+      <form onChange={(e) => onChange(e)}>
+        <Label
+          htmlFor="upload"
+          className="hover:bg-slate-200 bg-slate-100 flex justify-center items-center w-full p-2 transition text-center rounded-md"
+        >
+          Change photo
+        </Label>
+        <Input
+          name="image"
+          id="upload"
+          type="file"
+          className="hidden"
+          accept="image/*"
+        />
+      </form>
+    </div>
+  );
 }

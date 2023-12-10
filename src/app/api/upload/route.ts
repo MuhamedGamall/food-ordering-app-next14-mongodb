@@ -1,11 +1,16 @@
 import { NextRequest, NextResponse } from "next/server";
+import { editUserAvatar } from "@/utils/cloudinary";
 
 export async function POST(req: NextRequest) {
-  console.log('upload body',await req.formData());
-  const data = await req.formData()
-  const userImage = data.get('userImage')
-  if (userImage) {
-    // TODO: upload logic here
+  try {
+    const avatar = await req.json();
+    if (!avatar) {
+      return new NextResponse("Image not found", { status: 404 });
+    }
+    const result = await editUserAvatar(avatar.image, "food-ordering-users");
+    return NextResponse.json(result);
+  } catch (error) {
+    console.log("error");
+    return new NextResponse(error + "", { status: 401 });
   }
-  return NextResponse.json(true);
 }

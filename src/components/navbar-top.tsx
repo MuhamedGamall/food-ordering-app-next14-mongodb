@@ -12,7 +12,6 @@ export default function NavbarTop() {
   const userName =
     session.data?.user?.name?.split(" ")[0] || email?.split("@")[0];
 
-
   return (
     <header className=" py-2">
       <nav className="flex items-center justify-between w-full">

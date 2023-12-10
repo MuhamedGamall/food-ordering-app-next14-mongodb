@@ -7,20 +7,24 @@ import { authOptions } from "../auth/[...nextauth]/route";
 export async function PUT(req: NextRequest) {
   try {
     mongoose.connect(process.env.MONGO_URL!);
-    const { name } = await req.json();
-    const session = await getServerSession(authOptions);
-    const email = session?.user?.email;
+    const values = await req.json();
 
+    const session = await getServerSession(authOptions);
+
+    const email = session?.user?.email;
     const user = await User.findOne({ email });
 
-    if (!user && !name && name.length === 0) {
+    if (
+      !user &&
+      (!values?.name || !values?.image) &&
+      values?.name.length === 0
+    ) {
       return new NextResponse("Unauthorized", { status: 401 });
     } else {
-      await User.updateOne({ email }, { name });
+      const result = await User.updateOne({ email }, values);
 
+      return NextResponse.json(result);
     }
-
-    return NextResponse.json(true);
   } catch (error) {
     console.log("[EDIT-PROFILE]", error);
     return new NextResponse("Internal Error", { status: 500 });
