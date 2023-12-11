@@ -26,7 +26,6 @@ import { useEffect, useState } from "react";
 interface FormInputsProps {
   onSubmit: ({ values }: any) => Promise<void>;
   isError?: boolean;
-
 }
 
 const formSchema = z.object({
@@ -39,10 +38,7 @@ const formSchema = z.object({
   email: z.string().email("Please enter valid email address"),
 });
 
-export default function FormInputs({
-  onSubmit,
-  isError,
-}: FormInputsProps) {
+export default function FormInputs({ onSubmit, isError }: FormInputsProps) {
   const pathName = usePathname();
   const signUpOrLogin = pathName.includes("create-acount");
   const session = useSession();

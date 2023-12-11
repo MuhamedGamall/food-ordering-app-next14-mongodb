@@ -4,7 +4,7 @@ import { NextRequest, NextResponse } from "next/server";
 
 import { getServerSession } from "next-auth";
 import { authOptions } from "../auth/[...nextauth]/route";
-export async function PUT(req: NextRequest) {
+export async function PATCH(req: NextRequest) {
   try {
     mongoose.connect(process.env.MONGO_URL!);
     const values = await req.json();
@@ -25,6 +25,25 @@ export async function PUT(req: NextRequest) {
 
       return NextResponse.json(result);
     }
+  } catch (error) {
+    console.log("[EDIT-PROFILE]", error);
+    return new NextResponse("Internal Error", { status: 500 });
+  }
+}
+
+export async function GET(req: NextRequest) {
+  try {
+    mongoose.connect(process.env.MONGO_URL!);
+
+    const session = await getServerSession(authOptions);
+    const email = session?.user?.email;
+    const user = await User.findOne({ email });
+
+    if (!user) {
+      return new NextResponse("Unauthorized", { status: 401 });
+    }
+
+    return Response.json(user);
   } catch (error) {
     console.log("[EDIT-PROFILE]", error);
     return new NextResponse("Internal Error", { status: 500 });

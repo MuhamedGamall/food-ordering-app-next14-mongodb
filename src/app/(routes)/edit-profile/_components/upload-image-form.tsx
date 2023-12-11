@@ -6,17 +6,22 @@ import axios from "axios";
 import Image from "next/image";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 
 interface UploadImageFormProps {
   avatar64: any;
   setAvatar64: Dispatch<SetStateAction<any>>;
+  currentAvatar: string;
+
 }
 export default function UploadImageForm({
   avatar64,
   setAvatar64,
+  currentAvatar,
+
 }: UploadImageFormProps) {
-  // const [imageForUi, setImageForUi] = useState<any>(null);
-  const avatarUrl = avatar64 || "/avatar/avatar.jpeg";
+
+  const avatarUrl = currentAvatar;
   async function onChange(event: any) {
     const imageFile = event.target.files?.[0];
     const options = {
@@ -60,7 +65,7 @@ export default function UploadImageForm({
           alt="avatar"
           width={250}
           height={250}
-          className="w-[140px] max-w-full rounded-md"
+          className="w-[140px] max-w-full rounded-md aspect-[1] object-cover"
         />
       </div>
       <form onChange={(e) => onChange(e)}>

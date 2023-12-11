@@ -11,10 +11,16 @@ export default function EditProfilePage() {
   if (session.status === "unauthenticated") {
     redirect("/");
   }
-
+  // if (performance.navigation.type === 1) {
+  //   console.log("Page reloaded");
+  // } else {
+  //   console.log("Page not reloaded");
+  // }
+  
   return (
     <section>
       <EditProfileForm />
     </section>
   );
 }
+ 

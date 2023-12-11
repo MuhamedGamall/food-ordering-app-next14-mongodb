@@ -11,6 +11,7 @@ import { Dispatch, SetStateAction } from "react";
 interface Username_EmailFormProps {
   name: string;
   setName: Dispatch<SetStateAction<string>>;
+  currentName: string;
 }
 
 const formSchema = z.object({
@@ -26,19 +27,21 @@ const formSchema = z.object({
 export default function Username_EmailForm({
   name,
   setName,
+  currentName,
 }: Username_EmailFormProps) {
   const session = useSession();
   const loading = session.status === "loading";
   const email = session.data?.user?.email as string;
-  const currentUsername = session.data?.user?.name || email?.split("@")[0];
 
-  const { formState, register,clearErrors } = useForm<z.infer<typeof formSchema>>({
+  const { formState, register, clearErrors } = useForm<
+    z.infer<typeof formSchema>
+  >({
     resolver: zodResolver(formSchema),
     defaultValues: {
       name: "",
     },
     values: {
-      name: currentUsername,
+      name: currentName,
     },
   });
 
@@ -62,7 +65,6 @@ export default function Username_EmailForm({
               required
               disabled={isSubmitting || loading}
             />
-    
           </div>
           <div className="mt-[10px_!important] ">
             <Label className="text-slate-500 text-[20px] ">Email</Label>

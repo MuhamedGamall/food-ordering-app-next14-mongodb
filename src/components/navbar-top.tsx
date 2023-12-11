@@ -3,14 +3,17 @@ import Link from "next/link";
 import { Button } from "./ui/button";
 import Logo from "./Logo";
 import { signOut, useSession } from "next-auth/react";
+import { useProfile } from "@/hooks/user-profile";
 
 export default function NavbarTop() {
   const session = useSession();
+  const {data} = useProfile()
   const status = session.status;
   const loading = status === "loading";
-  const email = session.data?.user?.email;
+
+  const email = data?.email;
   const userName =
-    session.data?.user?.name?.split(" ")[0] || email?.split("@")[0];
+    data?.name?.split(" ")?.[0] || email?.split("@")
 
   return (
     <header className=" py-2">

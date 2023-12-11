@@ -27,10 +27,10 @@ interface CreateAcountFormProps {
 
 const formSchema = z.object({
   password: z
-    .string().trim()
+    .string()
+    .trim()
     .min(5, {
       message: "password must be at least 5 characters.",
-      
     })
     .max(30, { message: "password should be on a lot of 30 characters." }),
   email: z.string().trim().email("Please enter valid email address"),
@@ -60,12 +60,10 @@ export default function CreateAcountForm({
             </div>
           )}
           <div className="space-y-1 mb-5">
-            <h1 className="text-[40px] ">
-              CREATE YOUR ACCOUNT
-            </h1>
-              <span className="text-slate-500 text-[19px]">
-                Enter your email below to create your account
-              </span>
+            <h1 className="text-[40px] ">CREATE YOUR ACCOUNT</h1>
+            <span className="text-slate-500 text-[19px]">
+              Enter your email below to create your account
+            </span>
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 text-slate-500 ">
@@ -73,7 +71,9 @@ export default function CreateAcountForm({
               variant="outline"
               disabled={isSubmitting}
               className={cn("text-[19px] py-6 border-slate-500 border-[2.5px]")}
-              onClick={() => signIn("google",  { redirect:false,callbackUrl: "/" })}
+              onClick={() =>
+                signIn("google", { redirect: false, callbackUrl: "/" })
+              }
             >
               <FaGoogle className="mr-2 h-6 w-6" />
               Google
@@ -106,7 +106,7 @@ export default function CreateAcountForm({
                       </FormLabel>
                       <FormControl>
                         <Input
-                        type="text"
+                          type="text"
                           placeholder="m@example.com"
                           className={cn(
                             "text-[18px] md:text-[22px]  bg-slate-100 focus:border-slate-500 border-[2.5px] p-6 "
@@ -131,8 +131,7 @@ export default function CreateAcountForm({
                       </FormLabel>
                       <FormControl>
                         <Input
-                        type="password"
-
+                          type="password"
                           placeholder="Enter password"
                           className={cn(
                             "text-[18px] md:text-[22px]  bg-slate-100 focus:border-slate-500 border-[2.5px] p-6 "
@@ -152,10 +151,7 @@ export default function CreateAcountForm({
                 </span>
                 <span className="text-[16px] ">
                   You have already account
-                  <Link
-                    href={"log-in"}
-                    className="underline text-[#2D5D2A]"
-                  >
+                  <Link href={"log-in"} className="underline text-[#2D5D2A]">
                     Log In
                   </Link>
                 </span>

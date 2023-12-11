@@ -4,7 +4,7 @@ import { User } from "@/models/User";
 import CredentialsProvider from "next-auth/providers/credentials";
 import NextAuth, { NextAuthOptions } from "next-auth";
 import GoogleProvider from "next-auth/providers/google";
-import clientPromise from "@/libs/mongoConnect";
+import clientPromise from "@/lib/mongoConnect";
 import { MongoDBAdapter } from "@auth/mongodb-adapter";
 export const authOptions: NextAuthOptions = {
   session: {
@@ -54,7 +54,7 @@ export const authOptions: NextAuthOptions = {
   //     // Send properties to the client, like an access_token and user id from a provider.
   //     session.accessToken = token.accessToken
   //     session.user.id = token.id
-      
+
   //     return session
   //   }
   // },

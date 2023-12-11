@@ -5,19 +5,38 @@ cloudinaryV2.config({
   api_key: process.env.CLOUDINARY_API_KEY,
   api_secret: process.env.CLOUDINARY_API_SECRET,
 });
-
-export const editUserAvatar = async (
-  file: any,
-  folderName: string
-): Promise<string> => {
+interface editUserAvatarProps {
+  file: any;
+  folderName: string;
+  existingPublicId?: string;
+}
+export const editUserAvatar = async ({
+  file,
+  folderName,
+  existingPublicId,
+}: editUserAvatarProps): Promise<object> => {
   try {
-    const result = await cloudinaryV2.uploader.upload(file, {
+    const uploadOptions: any = {
       folder: folderName,
-    });
+      public_id: existingPublicId,
+      overwrite: true,
+      inavlidate: true,
+    };
 
-    return result.secure_url;
+    // if (existingPublicId) {
+    //   uploadOptions.public_id = existingPublicId;
+    //   uploadOptions.overwrite = true;
+    //   uploadOptions.inavlidate = true;
+    // } else {
+    //   // uploadOptions.folder = folderName;
+    // }
+
+    const result = await cloudinaryV2.uploader.upload(file, uploadOptions);
+    return result;
+    // {secure_url:''}
   } catch (error) {
     console.error("Error uploading to Cloudinary:", error);
     throw error;
   }
 };
+// ?

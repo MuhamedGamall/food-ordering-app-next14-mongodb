@@ -20,13 +20,12 @@ export default function RootLayout({
   children,
 }: {
   children: React.ReactNode;
-
 }) {
   return (
     <html lang="en">
-      <body className={cn(caveat.className)}>
+      <body>
         <div>
-          <AuthSessionProvider >
+          <AuthSessionProvider>
             <ToastProvider />
             <Navbar />
             {children}
