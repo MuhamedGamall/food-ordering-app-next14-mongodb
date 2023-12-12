@@ -12,6 +12,7 @@ interface Username_EmailFormProps {
   name: string;
   setName: Dispatch<SetStateAction<string>>;
   currentName: string;
+  isSubmitting: boolean;
 }
 
 const formSchema = z.object({
@@ -28,12 +29,13 @@ export default function Username_EmailForm({
   name,
   setName,
   currentName,
+  isSubmitting,
 }: Username_EmailFormProps) {
   const session = useSession();
   const loading = session.status === "loading";
   const email = session.data?.user?.email as string;
 
-  const { formState, register, clearErrors } = useForm<
+  const {register } = useForm<
     z.infer<typeof formSchema>
   >({
     resolver: zodResolver(formSchema),
@@ -45,7 +47,7 @@ export default function Username_EmailForm({
     },
   });
 
-  const { isValid, isSubmitting } = formState;
+  // const { isValid, isSubmitting } = formState;
 
   return (
     <>

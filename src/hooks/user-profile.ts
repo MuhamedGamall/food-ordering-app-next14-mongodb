@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 export function useProfile() {
   const session = useSession();
   const [data, setData] = useState<any>(null);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     async function getUser() {

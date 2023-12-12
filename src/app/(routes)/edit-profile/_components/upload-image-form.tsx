@@ -12,15 +12,14 @@ interface UploadImageFormProps {
   avatar64: any;
   setAvatar64: Dispatch<SetStateAction<any>>;
   currentAvatar: string;
-
+  isSubmitting: boolean;
 }
 export default function UploadImageForm({
   avatar64,
   setAvatar64,
   currentAvatar,
-
+  isSubmitting,
 }: UploadImageFormProps) {
-
   const avatarUrl = currentAvatar;
   async function onChange(event: any) {
     const imageFile = event.target.files?.[0];
@@ -49,9 +48,8 @@ export default function UploadImageForm({
         ) {
           toast.error("This type of file is not supported");
         } else {
-          toast.error("Something went wrong");
+          toast.error("Something went wrong while uploading");
         }
-        toast.error("Something went wrong while uploading");
         console.log(error);
       }
     }
@@ -76,6 +74,7 @@ export default function UploadImageForm({
           Change photo
         </Label>
         <Input
+          disabled={isSubmitting}
           name="image"
           id="upload"
           type="file"

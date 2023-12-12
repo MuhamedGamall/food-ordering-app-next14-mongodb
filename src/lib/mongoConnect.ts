@@ -16,6 +16,7 @@ if (process.env.NODE_ENV === "development") {
   if (!global._mongoClientPromise) {
     client = new MongoClient(url, options)
     global._mongoClientPromise = client.connect()
+    
   }
   clientPromise = global._mongoClientPromise
 } else {
