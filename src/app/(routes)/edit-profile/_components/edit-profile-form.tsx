@@ -1,17 +1,16 @@
 "use client";
-import { Button } from "@/components/ui/button";
-import { cn } from "@/lib/utils";
 
-import UploadImageForm from "./upload-image-form";
+import ImageForm from "./image-form";
 import axios from "axios";
 import toast from "react-hot-toast";
 import { useState } from "react";
-import Username_EmailForm from "./username-email-form";
+
 import { useProfile } from "@/hooks/user-profile";
 import { Loader } from "lucide-react";
 import { useRouter } from "next/navigation";
+import ProfileFormInputs from "./profile-form-inputs";
+// import deleteAvatar from "../actions/delete-avatar";
 export default function EditProfileForm() {
-  const [name, setName] = useState("");
   const [avatar64, setAvatar64] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
 
@@ -20,20 +19,28 @@ export default function EditProfileForm() {
   const router = useRouter();
 
   const email = data?.email;
-  const currentName = data?.name || email?.split("@")[0];
   const currentAvatar = avatar64 || data?.image || "/avatar/avatar.jpeg";
-  async function onSubmit() {
+  async function onSubmit(value: any) {
+    console.log(value);
+
     try {
       setIsSubmitting(true);
+
+      // if (data?.image.length !==0) {
+      //   await deleteAvatar();
+      // }
+      // post avatar to cloudinary
       const { data: avatarUrl } = avatar64
-        ? await axios.post("/api/upload", {
+        ? await axios.post("/api/upload-avatar", {
             image: { avatar64, publicId: email },
           })
         : { data: "" };
       const values = {
-        name: name || currentName,
-        ...(avatarUrl && { image: avatarUrl }),
+        ...value,
+        ...(avatarUrl&&{image: avatarUrl}),
       };
+    
+      // edit profile
       await axios.patch("/api/edit-profile", values);
       router.refresh();
       toast.success("Profile updated");
@@ -46,7 +53,7 @@ export default function EditProfileForm() {
 
   return (
     <>
-      <div className="sm:w-[80%] max-w-[80rem] mx-auto  mt-5 p-5">
+      <div className="sm:w-[80%] max-w-[80rem] mx-auto mt-5 p-5">
         <div className="space-y-1 mb-5">
           <h1 className="text-[40px] ">Profile</h1>
         </div>
@@ -57,28 +64,14 @@ export default function EditProfileForm() {
             </div>
           )}
           <div className="flex gap-5 sm:flex-nowrap flex-wrap">
-            <UploadImageForm
+            <ImageForm
               avatar64={avatar64}
               setAvatar64={setAvatar64}
               currentAvatar={currentAvatar}
               isSubmitting={isSubmitting}
             />
-            <Username_EmailForm
-              currentName={currentName}
-              name={name}
-              setName={setName}
-              isSubmitting={isSubmitting}
-            />
+            <ProfileFormInputs onSubmit={onSubmit} />
           </div>
-          <Button
-            type="button"
-            variant={"green"}
-            disabled={loading || isSubmitting}
-            onClick={onSubmit}
-            className={cn("  text-2xl text-center rounded-full  mt-5 w-fit")}
-          >
-            Save
-          </Button>
         </div>
       </div>
     </>

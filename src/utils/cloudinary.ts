@@ -6,9 +6,10 @@ cloudinaryV2.config({
   api_secret: process.env.CLOUDINARY_API_SECRET,
 });
 interface editUserAvatarProps {
-  file: any;
-  folderName: string;
+  file?: any;
+  folderName?: string;
   existingPublicId?: string;
+  isDeleting?: boolean;
 }
 export const editUserAvatar = async ({
   file,
@@ -23,20 +24,32 @@ export const editUserAvatar = async ({
       inavlidate: true,
     };
 
-    // if (existingPublicId) {
-    //   uploadOptions.public_id = existingPublicId;
-    //   uploadOptions.overwrite = true;
-    //   uploadOptions.inavlidate = true;
-    // } else {
-    //   // uploadOptions.folder = folderName;
-    // }
-
     const result = await cloudinaryV2.uploader.upload(file, uploadOptions);
     return result;
-    // {secure_url:''}
   } catch (error) {
-    console.error("Error uploading to Cloudinary:", error);
+    console.error("Error Cloudinary: upload ", error);
     throw error;
   }
 };
-// ?
+
+interface DeleteUserAvatarProps {
+  existingPublicId: string;
+  folderName: string;
+}
+
+export const DeleteUserAvatar = async ({
+  existingPublicId,
+  folderName,
+}: DeleteUserAvatarProps): Promise<void> => {
+  try {
+    const uploadOptions: any = {
+      folder: folderName,
+      inavlidate: true,
+    };
+
+    await cloudinaryV2.uploader.destroy(existingPublicId, uploadOptions);
+  } catch (error) {
+    console.error("Error Cloudinary: delete ", error);
+    throw error;
+  }
+};
