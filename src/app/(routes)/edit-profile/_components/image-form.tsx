@@ -22,13 +22,6 @@ export default function ImageForm({
   currentAvatar,
   isSubmitting,
 }: UploadImageFormProps) {
-  const [isDeleting, setIsDeleting] = useState(false);
-
-  useEffect(() => {
-    setIsDeleting(false);
-  }, [avatar64]);
-
-  const avatarUrl = !isDeleting ? currentAvatar : "/avatar/avatar.jpeg";
   async function onChange(event: any) {
     const imageFile = event.target.files?.[0];
     const options = {
@@ -60,16 +53,12 @@ export default function ImageForm({
       }
     }
   }
-  function onDelete(e: any) {
-    e.preventDefault();
-    setIsDeleting(true);
-    setAvatar64('')
-  }
+
   return (
     <div className="relative w-[140px] flex flex-col gap-2">
       <div className="flex flex-col items-center justify-center gap-2  w-fit ">
         <Image
-          src={avatarUrl}
+          src={currentAvatar}
           alt="avatar"
           width={250}
           height={250}
@@ -78,19 +67,9 @@ export default function ImageForm({
       </div>
       <form onChange={(e) => onChange(e)}>
         <div className="flex items-center gap-2  sm:flex-nowrap flex-wrap-reverse ">
-          <Button
-            onClick={onDelete}
-            className={cn(
-              !isDeleting
-                ? " hover:bg-red-200 bg-slate-100 text-red-800 w-full  sm:p-3 p-2 transition text-center rounded-md h-full"
-                : "hidden"
-            )}
-          >
-            Delete
-          </Button>
           <Label
             htmlFor="upload"
-            className="cursor-pointer   hover:bg-slate-200 bg-slate-100 flex justify-center items-center w-full sm:p-2 p-5  transition text-center rounded-md"
+            className="cursor-pointer   hover:bg-slate-200 bg-slate-100 flex justify-center items-center w-full  p-2  transition text-center rounded-md"
           >
             Change photo
           </Label>

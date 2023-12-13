@@ -9,7 +9,7 @@ import { useProfile } from "@/hooks/user-profile";
 import { Loader } from "lucide-react";
 import { useRouter } from "next/navigation";
 import ProfileFormInputs from "./profile-form-inputs";
-// import deleteAvatar from "../actions/delete-avatar";
+
 export default function EditProfileForm() {
   const [avatar64, setAvatar64] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -25,10 +25,6 @@ export default function EditProfileForm() {
 
     try {
       setIsSubmitting(true);
-
-      // if (data?.image.length !==0) {
-      //   await deleteAvatar();
-      // }
       // post avatar to cloudinary
       const { data: avatarUrl } = avatar64
         ? await axios.post("/api/upload-avatar", {
@@ -37,9 +33,9 @@ export default function EditProfileForm() {
         : { data: "" };
       const values = {
         ...value,
-        ...(avatarUrl&&{image: avatarUrl}),
+        ...(avatarUrl && { image: avatarUrl }),
       };
-    
+
       // edit profile
       await axios.patch("/api/edit-profile", values);
       router.refresh();
@@ -54,15 +50,15 @@ export default function EditProfileForm() {
   return (
     <>
       <div className="sm:w-[80%] max-w-[80rem] mx-auto mt-5 p-5">
-        <div className="space-y-1 mb-5">
-          <h1 className="text-[40px] ">Profile</h1>
-        </div>
         <div className=" mx-auto relative max-w-full md:max-w-[80%]  flex gap-5 flex-col  sm:flex-nowrap flex-wrap">
           {(loading || isSubmitting) && (
             <div className="absolute h-full w-full bg-slate-200/20 top-0 right-0 rounded-m flex items-center justify-center">
               <Loader className="animate-spin h-6 w-6 text-sky-700" />
             </div>
           )}
+          <div className="space-y-2 ">
+            <h1 className="text-[50px]">Profile</h1>
+          </div>
           <div className="flex gap-5 sm:flex-nowrap flex-wrap">
             <ImageForm
               avatar64={avatar64}

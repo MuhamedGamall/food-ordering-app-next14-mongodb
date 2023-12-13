@@ -23,7 +23,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body>
+      <body className={caveat.className}>
         <div>
           <AuthSessionProvider>
             <ToastProvider />
