@@ -4,8 +4,8 @@ import NavberMain from "@/components/navbar-main";
 
 export default function Navbar() {
   return (
-    <header className="w-full">
-      <div className="mx-auto max-w-[100rem]  px-4  py-2 shadow-sm">
+    <header className="w-full  shadow-header-shadow ">
+      <div className="mx-auto max-w-[100rem]  px-4  py-1 shadow-sm">
         <NavbarTop />
       </div>
       <div className="border-t">

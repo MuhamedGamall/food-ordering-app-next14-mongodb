@@ -29,7 +29,7 @@ export default function NavbarTop() {
               <>
                 <div className="flex items-center gap-1 max-w-[100px] overflow-hidden">
                   Hello,
-                  <Link href={"edit-profile"} className="underline">
+                  <Link href={"/edit-profile"} className="underline">
                     {userName}
                   </Link>
                 </div>

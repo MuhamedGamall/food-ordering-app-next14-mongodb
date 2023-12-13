@@ -5,7 +5,7 @@ import React from "react";
 
 export default function FoodCard() {
   return (
-    <div className="w-fit min-h-[250px] p-1 bg-white border hover:bg-slate-100 hover:shadow-card-shadow transition rounded-[5px] overflow-hidden ">
+    <div className="w-fit min-h-[250px] p-1 bg-white border mx-auto hover:bg-slate-100 hover:shadow-card-shadow transition rounded-[5px] overflow-hidden ">
       <Link href={""} className=" block ">
         <Image
           src={"/hero/pizza.png"}

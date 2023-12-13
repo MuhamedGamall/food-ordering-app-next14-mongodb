@@ -4,26 +4,38 @@ import { NextRequest, NextResponse } from "next/server";
 
 import { getServerSession } from "next-auth";
 import { authOptions } from "../auth/[...nextauth]/route";
+import { UserInfos } from "@/models/UserInfos";
+
 export async function PATCH(req: NextRequest) {
   mongoose.connect(process.env.MONGO_URL!);
   try {
-    const values = await req.json();
+    const { _id, name, email, image, ...otherData } = await req.json();
 
-    const session = await getServerSession(authOptions);
+    let filter = {};
+    if (_id) {
+      filter = { _id };
+    } else {
+      const session = await getServerSession(authOptions);
+      const email = session?.user?.email;
+      filter = { email };
+    }
+    const user = await User.findOne(filter);
+    const userEmail = user?.email;
 
-    const email = session?.user?.email;
-    const user = await User.findOne({ email });
-
-    if (
-      !user &&
-      (!values?.name || values?.email) &&
-      values?.name.length === 0
-    ) {
+    if (!user && (!name || userEmail) && name?.length === 0) {
       return new NextResponse("Unauthorized", { status: 401 });
     } else {
-      const result = await User.updateOne({ email }, values).lean();
+      const userData = await User.updateOne(filter, { name, image });
+      const userInfos = await UserInfos.findOneAndUpdate(
+        { email: user.email },
+        otherData,
+        { upsert: true }
+      );
 
-      return NextResponse.json(result);
+      const fullData = { ...userData, ...userInfos };
+      console.log(otherData);
+
+      return NextResponse.json(fullData);
     }
   } catch (error) {
     console.log("[EDIT-PROFILE]", error);
@@ -32,18 +44,20 @@ export async function PATCH(req: NextRequest) {
 }
 
 export async function GET(req: NextRequest) {
+  mongoose.connect(process.env.MONGO_URL!);
   try {
-    mongoose.connect(process.env.MONGO_URL!);
-
     const session = await getServerSession(authOptions);
     const email = session?.user?.email;
-    const user = await User.findOne({ email });
 
-    if (!user) {
+    const user: any = await User.findOne({ email }).lean();
+    const userInfos = await UserInfos.findOne({ email }).lean();
+    const fullData = { ...user, ...userInfos };
+    if (!email || !fullData) {
       return new NextResponse("Unauthorized", { status: 401 });
     }
+    console.log("[EDIT-PROFILE]", userInfos);
 
-    return Response.json(user);
+    return NextResponse.json(fullData);
   } catch (error) {
     console.log("[EDIT-PROFILE]", error);
     return new NextResponse("Internal Error", { status: 500 });

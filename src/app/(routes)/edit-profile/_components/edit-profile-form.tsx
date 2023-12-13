@@ -11,26 +11,25 @@ import { useRouter } from "next/navigation";
 import ProfileFormInputs from "./profile-form-inputs";
 
 export default function EditProfileForm() {
+  const router = useRouter();
   const [avatar64, setAvatar64] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
-
   const { loading, data } = useProfile();
-
-  const router = useRouter();
 
   const email = data?.email;
   const currentAvatar = avatar64 || data?.image || "/avatar/avatar.jpeg";
-  async function onSubmit(value: any) {
-    console.log(value);
 
+  async function onSubmit(value: any) {
     try {
       setIsSubmitting(true);
+
       // post avatar to cloudinary
       const { data: avatarUrl } = avatar64
         ? await axios.post("/api/upload-avatar", {
             image: { avatar64, publicId: email },
           })
         : { data: "" };
+
       const values = {
         ...value,
         ...(avatarUrl && { image: avatarUrl }),
@@ -49,7 +48,7 @@ export default function EditProfileForm() {
 
   return (
     <>
-      <div className="sm:w-[80%] max-w-[80rem] mx-auto mt-5 p-5">
+      <div className="">
         <div className=" mx-auto relative max-w-full md:max-w-[80%]  flex gap-5 flex-col  sm:flex-nowrap flex-wrap">
           {(loading || isSubmitting) && (
             <div className="absolute h-full w-full bg-slate-200/20 top-0 right-0 rounded-m flex items-center justify-center">
