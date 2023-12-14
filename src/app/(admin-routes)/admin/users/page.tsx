@@ -1,18 +1,15 @@
 "use client";
-import AdminMenuBar from "@/components/admin/admin-menu-bar";
-import { useProfile } from "@/hooks/user-profile";
+
+import useProfile from "@/hooks/user-profile";
+import { useSession } from "next-auth/react";
 import { redirect } from "next/navigation";
 import React from "react";
 
 export default function UsersPage() {
-  const {  data } = useProfile();
-
-  if (data && !data?.admin) {
+  const { data } = useProfile();
+  const session = useSession();
+  if (session.status === "unauthenticated" && !data && !data?.admin) {
     redirect("/");
   }
-  return (
-    <section className="sm:w-[90%] max-w-[80rem] mx-auto mt-5 p-5">
-      <AdminMenuBar path={"users"} />
-    </section>
-  );
+  return <section></section>;
 }

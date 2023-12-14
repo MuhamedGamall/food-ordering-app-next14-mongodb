@@ -16,7 +16,7 @@ export default function AdminMenuBarItems({
   const isActive = useActiveLink(path);
 
   return (
-    <div className="overflow-x-auto  py-2 mb-5   max-w-[80rem]  ">
+    <div className="overflow-x-auto  py-3 mb-5   max-w-[80rem]  ">
       <ul className="flex mx-auto  items-center gap-3 relative max-w-full md:max-w-[90%]">
         <li>
           <Link

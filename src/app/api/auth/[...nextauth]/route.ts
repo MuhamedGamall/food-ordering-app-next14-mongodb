@@ -2,10 +2,11 @@ import bcrypt from "bcrypt";
 import * as mongoose from "mongoose";
 import { User } from "@/models/User";
 import CredentialsProvider from "next-auth/providers/credentials";
-import NextAuth, { NextAuthOptions } from "next-auth";
+import NextAuth, { NextAuthOptions, getServerSession } from "next-auth";
 import GoogleProvider from "next-auth/providers/google";
 import clientPromise from "@/lib/mongoConnect";
 import { MongoDBAdapter } from "@auth/mongodb-adapter";
+import { UserInfos } from "@/models/UserInfos";
 export const authOptions: NextAuthOptions = {
   session: {
     strategy: "jwt",
@@ -41,23 +42,6 @@ export const authOptions: NextAuthOptions = {
       },
     }),
   ],
-  // callbacks: {
-  //   async jwt({ token, account, profile }) {
-  //     // Persist the OAuth access_token and or the user id to the token right after signin
-  //     if (account) {
-  //       token.accessToken = account.access_token
-  //       token.id = profile.id
-  //     }
-  //     return token
-  //   },
-  //   async session({ session, token, user }) {
-  //     // Send properties to the client, like an access_token and user id from a provider.
-  //     session.accessToken = token.accessToken
-  //     session.user.id = token.id
-
-  //     return session
-  //   }
-  // },
 };
 const handler = NextAuth(authOptions);
 export { handler as GET, handler as POST };

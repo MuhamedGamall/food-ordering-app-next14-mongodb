@@ -16,7 +16,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 
 import { cn } from "@/lib/utils";
-import { useProfile } from "@/hooks/user-profile";
+import useProfile from "@/hooks/user-profile";
 
 interface ProfileFormInputsProps {
   onSubmit: (v: any) => Promise<void>;
@@ -30,7 +30,11 @@ const formSchema = z.object({
       message: "Username is required.",
     })
     .max(30, { message: "Username should be on a lot of 30 characters." }),
-  email: z.string().email("Please enter a valid email address.").trim().optional(),
+  email: z
+    .string()
+    .email("Please enter a valid email address.")
+    .trim()
+    .optional(),
   phone: z.string().max(20, "Invalid phone number").optional(),
 
   street_address: z.string().trim().max(191, "Address is too long").optional(),
@@ -254,7 +258,7 @@ export default function ProfileFormInputs({
         <Button
           type="submit"
           variant={"green"}
-          disabled={isSubmitting|| !isValid}
+          disabled={isSubmitting || !isValid}
           className={cn("  text-2xl text-center rounded-full  mt-5 w-fit")}
         >
           Save

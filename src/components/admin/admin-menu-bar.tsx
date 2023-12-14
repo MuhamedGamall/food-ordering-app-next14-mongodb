@@ -1,5 +1,5 @@
-'use client'
-import { useProfile } from "@/hooks/user-profile";
+"use client";
+import useProfile from "@/hooks/user-profile";
 import AdminMenuBarItems from "./admin-menu-bar-items";
 
 const AdminMenuBarRoutes: { title: string; href: string }[] = [
@@ -16,11 +16,11 @@ const AdminMenuBarRoutes: { title: string; href: string }[] = [
     href: "/admin/users",
   },
 ];
-export default function AdminMenuBar({path}:{path:string}) {
+export default function AdminMenuBar({ path }: { path: string }) {
   const { data } = useProfile();
 
-  if (data&&!data?.admin) {
-    return <></>;
-  }
-  return <AdminMenuBarItems routes={AdminMenuBarRoutes} path={path}/>;
+  return (
+    data &&
+    data?.admin && <AdminMenuBarItems routes={AdminMenuBarRoutes} path={path} />
+  );
 }

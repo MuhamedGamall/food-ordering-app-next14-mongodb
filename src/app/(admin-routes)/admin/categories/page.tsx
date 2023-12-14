@@ -1,19 +1,23 @@
 "use client";
-import AdminMenuBar from "@/components/admin/admin-menu-bar";
-import { useProfile } from "@/hooks/user-profile";
+
+import useProfile from "@/hooks/user-profile";
 import { redirect } from "next/navigation";
 import React from "react";
+import CategoriesForm from "./_components/categories-form";
+import { useSession } from "next-auth/react";
 
 export default function CategoriesPage() {
   const { data } = useProfile();
-
-  if (data && !data?.admin) {
+  const session = useSession();
+  if (session.status === "unauthenticated" && !data && !data?.admin) {
     redirect("/");
   }
 
+  console.log(session);
+
   return (
-    <section className="sm:w-[90%] max-w-[80rem] mx-auto mt-5 p-5">
-      <AdminMenuBar path="categories" />
+    <section>
+      <CategoriesForm />
     </section>
   );
 }

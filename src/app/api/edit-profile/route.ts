@@ -19,24 +19,24 @@ export async function PATCH(req: NextRequest) {
       const email = session?.user?.email;
       filter = { email };
     }
+
     const user = await User.findOne(filter);
-    const userEmail = user?.email;
 
-    if (!user && (!name || userEmail) && name?.length === 0) {
+    if (!user && !name && name?.length === 0) {
       return new NextResponse("Unauthorized", { status: 401 });
-    } else {
-      const userData = await User.updateOne(filter, { name, image });
-      const userInfos = await UserInfos.findOneAndUpdate(
-        { email: user.email },
-        otherData,
-        { upsert: true }
-      );
-
-      const fullData = { ...userData, ...userInfos };
-      console.log(otherData);
-
-      return NextResponse.json(fullData);
     }
+
+    const userData = await User.updateOne(filter, { name, image });
+    const userInfos = await UserInfos.findOneAndUpdate(
+      { email: user.email },
+      otherData,
+      { upsert: true }
+    );
+
+    const fullData = { ...userData, ...userInfos };
+    console.log(otherData);
+
+    return NextResponse.json(fullData);
   } catch (error) {
     console.log("[EDIT-PROFILE]", error);
     return new NextResponse("Internal Error", { status: 500 });
@@ -52,10 +52,10 @@ export async function GET(req: NextRequest) {
     const user: any = await User.findOne({ email }).lean();
     const userInfos = await UserInfos.findOne({ email }).lean();
     const fullData = { ...user, ...userInfos };
-    if (!email || !fullData) {
+    
+    if (!fullData) {
       return new NextResponse("Unauthorized", { status: 401 });
     }
-    console.log("[EDIT-PROFILE]", userInfos);
 
     return NextResponse.json(fullData);
   } catch (error) {

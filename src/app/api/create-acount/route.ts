@@ -2,7 +2,6 @@ import { User } from "@/models/User";
 import mongoose from "mongoose";
 import { NextRequest, NextResponse } from "next/server";
 import bcrypt from "bcrypt";
-import { redirect } from "next/navigation";
 export async function POST(req: NextRequest) {
   try {
     const body = await req.json();

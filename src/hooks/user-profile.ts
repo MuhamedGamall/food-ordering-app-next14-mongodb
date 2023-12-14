@@ -2,7 +2,7 @@ import axios from "axios";
 import { useSession } from "next-auth/react";
 import { useEffect, useState } from "react";
 
-export function useProfile() {
+export default function useProfile() {
   const session = useSession();
   const [data, setData] = useState<any>(null);
   const [loading, setLoading] = useState(false);
@@ -24,5 +24,5 @@ export function useProfile() {
     getUser();
   }, [session.status]);
 
-  return { loading, data };
+  return { loading, data }
 }

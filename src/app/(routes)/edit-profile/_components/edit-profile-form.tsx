@@ -5,7 +5,7 @@ import axios from "axios";
 import toast from "react-hot-toast";
 import { useState } from "react";
 
-import { useProfile } from "@/hooks/user-profile";
+import useProfile from "@/hooks/user-profile";
 import { Loader } from "lucide-react";
 import { useRouter } from "next/navigation";
 import ProfileFormInputs from "./profile-form-inputs";
