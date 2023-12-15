@@ -13,8 +13,6 @@ export default function CategoriesPage() {
     redirect("/");
   }
 
-  console.log(session);
-
   return (
     <section>
       <CategoriesForm />

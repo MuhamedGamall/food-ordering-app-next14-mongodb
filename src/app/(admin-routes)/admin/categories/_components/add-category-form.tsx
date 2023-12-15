@@ -20,6 +20,10 @@ import { Input } from "@/components/ui/input";
 
 import { cn } from "@/lib/utils";
 import { Loader } from "lucide-react";
+import { useRouter } from "next/navigation";
+import { useAppDispatch } from "@/hooks/redux";
+import { postCategory } from "@/lib/RTK/slices/categories-slice";
+import HandleLoader from "@/components/loader";
 
 const formSchema = z.object({
   title: z
@@ -30,15 +34,14 @@ const formSchema = z.object({
     })
     .max(30, { message: "Categories should be on a lot of 30 characters." }),
 });
-export default function AddCatigoryForm() {
+export default function AddCategoryForm() {
+  const router = useRouter();
+  const dispatch = useAppDispatch();
   async function onSubmit(value: any) {
-    try {
-      if (value?.length !== 0) {
-        await axios.post("/api/categories", value);
-      }
-      toast.success("Category added");
-    } catch (error: any) {
-      toast.error("Somethig went wrong try again");
+    if (value?.length !== 0) {
+      dispatch(postCategory(value));
+form.setValue('title','')
+      // router.refresh();
     }
   }
 
@@ -52,11 +55,9 @@ export default function AddCatigoryForm() {
   const { isSubmitting, isValid } = form.formState;
 
   return (
-    <div>
+    <div className="">
       {isSubmitting && (
-        <div className="absolute h-full w-full bg-slate-200/20 top-0 right-0 rounded-m flex items-center justify-center">
-          <Loader className="animate-spin h-6 w-6 text-sky-700" />
-        </div>
+        <HandleLoader/>
       )}
       <Form {...form}>
         <form
@@ -89,7 +90,7 @@ export default function AddCatigoryForm() {
           <Button
             type="submit"
             variant={"green"}
-            // disabled={isSubmitting || !isValid}
+            disabled={isSubmitting || !isValid}
             className={cn("  text-2xl text-center rounded-full  mt-5 w-fit")}
           >
             Save

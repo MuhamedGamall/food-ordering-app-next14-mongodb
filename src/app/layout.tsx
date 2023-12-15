@@ -4,6 +4,7 @@ import "./globals.css";
 import Navbar from "../components/navbar";
 import ToastProvider from "@/components/providers/toaster-provider";
 import AuthSessionProvider from "@/components/providers/session-provider";
+import StoreProvider from "@/components/providers/redux-provider";
 
 const caveat = Caveat({
   subsets: ["latin"],
@@ -20,16 +21,18 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en">
-      <body className={caveat.className}>
-        <div>
-          <AuthSessionProvider>
-            <ToastProvider />
-            <Navbar />
-            {children}
-          </AuthSessionProvider>
-        </div>
-      </body>
-    </html>
+    <StoreProvider>
+      <html lang="en">
+        <body className={caveat.className}>
+          <div>
+            <AuthSessionProvider>
+              <ToastProvider />
+              <Navbar />
+              {children}
+            </AuthSessionProvider>
+          </div>
+        </body>
+      </html>
+    </StoreProvider>
   );
 }

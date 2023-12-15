@@ -20,6 +20,7 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { signIn, useSession } from "next-auth/react";
+import HandleLoader from "@/components/loader";
 
 interface LogInFormProps {
   onSubmit: ({ values }: any) => Promise<void>;
@@ -52,9 +53,8 @@ export default function LogInForm({ onSubmit }: LogInFormProps) {
       <div className="sm:w-[80%] max-w-[80rem] mx-auto  mt-5 p-5">
         <div className="relative max-w-full md:max-w-[70%]">
           {isSubmitting && (
-            <div className="absolute h-full w-full bg-slate-200/20 top-0 right-0 rounded-m flex items-center justify-center">
-              <Loader className="animate-spin h-6 w-6 text-sky-700" />
-            </div>
+                    <HandleLoader/>
+
           )}
           <div className="space-y-1 mb-5">
             <h1 className="text-[40px] ">LOG IN</h1>

@@ -25,6 +25,7 @@ export async function POST(req: NextRequest) {
     return new NextResponse("Internal Error", { status: 500 });
   }
 }
+
 export async function PUT(req: NextRequest) {
   mongoose.connect(process.env.MONGO_URL!);
   try {
@@ -38,7 +39,7 @@ export async function PUT(req: NextRequest) {
       return new NextResponse("Unauthorized", { status: 401 });
     }
 
-    const editCategory = Category.updateOne({ _id }, title);
+    const editCategory = await Category.updateOne({ _id }, { title });
     return NextResponse.json(editCategory);
   } catch (error) {
     console.log("[CATEGORIES]", error);
@@ -50,7 +51,9 @@ export async function DELETE(req: NextRequest) {
   mongoose.connect(process.env.MONGO_URL!);
   try {
     const url = new URL(req.url);
-    const _id = url.searchParams.get("_id");
+    const _ids = url.searchParams.get("_ids")?.split(',')
+
+
     const session = await getServerSession(authOptions);
     const email = session?.user?.email;
     const user = await User.findOne({ email });
@@ -58,10 +61,16 @@ export async function DELETE(req: NextRequest) {
     if (!user && !user?.admin) {
       return new NextResponse("Unauthorized", { status: 401 });
     }
+    if (_ids?.length! > 0) {
+      const deleteMenyCategories = await Category.deleteMany({
+        _id: { $in: _ids},
+      });
+      return NextResponse.json(deleteMenyCategories);
+    }
 
-    const deleteCategory = Category.deleteOne({ _id });
+    // const deleteCategory = await Category.deleteOne({ _id: _ids?.[0] });
 
-    return NextResponse.json(deleteCategory);
+    // return NextResponse.json(deleteCategory);
   } catch (error) {
     console.log("[CATEGORIES]", error);
     return new NextResponse("Internal Error", { status: 500 });

@@ -9,6 +9,7 @@ import useProfile from "@/hooks/user-profile";
 import { Loader } from "lucide-react";
 import { useRouter } from "next/navigation";
 import ProfileFormInputs from "./profile-form-inputs";
+import HandleLoader from "@/components/loader";
 
 export default function EditProfileForm() {
   const router = useRouter();
@@ -51,9 +52,8 @@ export default function EditProfileForm() {
       <div className="">
         <div className=" mx-auto relative max-w-full md:max-w-[80%]  flex gap-5 flex-col  sm:flex-nowrap flex-wrap">
           {(loading || isSubmitting) && (
-            <div className="absolute h-full w-full bg-slate-200/20 top-0 right-0 rounded-m flex items-center justify-center">
-              <Loader className="animate-spin h-6 w-6 text-sky-700" />
-            </div>
+                 <HandleLoader/>
+
           )}
           <div className="space-y-2 ">
             <h1 className="text-[50px]">Profile</h1>
