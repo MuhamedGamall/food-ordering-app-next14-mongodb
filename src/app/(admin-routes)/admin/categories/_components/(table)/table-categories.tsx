@@ -49,12 +49,14 @@ import { useAppDispatch } from "@/hooks/redux";
 import {
   deleteCategory,
   editCategory,
+  postCategory,
 } from "@/lib/RTK/slices/categories-slice";
 import deleteSelected from "../../actions/table-delete-selected";
 import { columns } from "./table-column";
 import HandleLoader from "@/components/loader";
 import SearchInputs from "./search-inputs";
 import DeleteActionsBtns from "./delete-actions";
+import AddCategoryForm from "../add-category-form";
 
 export type Catygory = {
   title: string;
@@ -123,15 +125,19 @@ export function DataTable({
     } else toast.error("Invaild input value");
   };
   const handleDeleteClick = async (_id: string) => {
-    dispatch(deleteCategory([_id]));
-    setEditingRowId(null);
+    if (_id) {
+      dispatch(deleteCategory([_id]));
+      setEditingRowId(null);
+      table.resetRowSelection(false);
+      table.toggleAllRowsSelected(false);
+    }
   };
 
   return (
-    <div className="w-full">
+    <div className="w-full mt-5">
       {isLoading || (tableLoading && <HandleLoader />)}
       <div className="flex items-center py-4">
-        <div className="flex gap-5 items-center w-[60%] ">
+        <div className="flex gap-2 items-center ">
           <SearchInputs dataLength={data?.length} table={table} />
           <DeleteActionsBtns
             dispatch={dispatch}

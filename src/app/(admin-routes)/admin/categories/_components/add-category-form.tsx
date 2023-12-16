@@ -40,7 +40,7 @@ export default function AddCategoryForm() {
   async function onSubmit(value: any) {
     if (value?.length !== 0) {
       dispatch(postCategory(value));
-form.setValue('title','')
+      form.setValue("title", "");
       // router.refresh();
     }
   }
@@ -55,10 +55,8 @@ form.setValue('title','')
   const { isSubmitting, isValid } = form.formState;
 
   return (
-    <div className="">
-      {isSubmitting && (
-        <HandleLoader/>
-      )}
+    <>
+      {isSubmitting && <HandleLoader />}
       <Form {...form}>
         <form
           onSubmit={form.handleSubmit(onSubmit)}
@@ -97,6 +95,6 @@ form.setValue('title','')
           </Button>
         </form>
       </Form>
-    </div>
+    </>
   );
 }

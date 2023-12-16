@@ -50,9 +50,10 @@ export async function PUT(req: NextRequest) {
 export async function DELETE(req: NextRequest) {
   mongoose.connect(process.env.MONGO_URL!);
   try {
-    const url = new URL(req.url);
-    const _ids = url.searchParams.get("_ids")?.split(',')
+    const category = await Category.find();
 
+    const url = new URL(req.url);
+    const _ids = url.searchParams.get("_ids")?.split(",");
 
     const session = await getServerSession(authOptions);
     const email = session?.user?.email;
@@ -63,14 +64,14 @@ export async function DELETE(req: NextRequest) {
     }
     if (_ids?.length! > 0) {
       const deleteMenyCategories = await Category.deleteMany({
-        _id: { $in: _ids},
+        _id: { $in: _ids },
       });
       return NextResponse.json(deleteMenyCategories);
     }
-
-    // const deleteCategory = await Category.deleteOne({ _id: _ids?.[0] });
-
-    // return NextResponse.json(deleteCategory);
+    if (category.length > 0) {
+      const deleteAllCategories = await Category.deleteMany({});
+      return NextResponse.json(deleteAllCategories);
+    }
   } catch (error) {
     console.log("[CATEGORIES]", error);
     return new NextResponse("Internal Error", { status: 500 });

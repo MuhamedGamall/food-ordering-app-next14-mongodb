@@ -36,10 +36,20 @@ export const deleteCategory: any = createAsyncThunk(
   async (_ids: string[], thunkApi) => {
     const { rejectWithValue } = thunkApi;
     try {
-      await axios.delete(
-        "/api/categories?_ids=" + _ids
-      );
+      await axios.delete("/api/categories?_ids=" + _ids);
       return _ids;
+    } catch (error: any) {
+      return rejectWithValue(error.message);
+    }
+  }
+);
+
+export const deleteAllCategories: any = createAsyncThunk(
+  "categoriesSlice/deleteAllCategories",
+  async (_, thunkApi) => {
+    const { rejectWithValue } = thunkApi;
+    try {
+      await axios.delete("/api/categories");
     } catch (error: any) {
       return rejectWithValue(error.message);
     }
@@ -132,12 +142,34 @@ const categoriesSlice = createSlice({
         (state: AppState, action: PayloadAction<any>) => {
           state.loading = false;
           state.categories = state.categories.filter(
-            (el: any) => el._id !== action.payload
+            (el) => !action.payload.some((xl: string) => el._id === xl)
           );
         }
       )
       .addCase(
         deleteCategory.rejected,
+        (state: AppState, action: PayloadAction<any>) => {
+          state.loading = false;
+          state.error = action.payload;
+        }
+      );
+    builder
+      .addCase(
+        deleteAllCategories.pending,
+        (state: AppState, action: PayloadAction<any>) => {
+          state.loading = true;
+          state.error = null;
+        }
+      )
+      .addCase(
+        deleteAllCategories.fulfilled,
+        (state: AppState, action: PayloadAction<any>) => {
+          state.loading = false;
+          state.categories = [];
+        }
+      )
+      .addCase(
+        deleteAllCategories.rejected,
         (state: AppState, action: PayloadAction<any>) => {
           state.loading = false;
           state.error = action.payload;
@@ -156,7 +188,7 @@ const categoriesSlice = createSlice({
         (state: AppState, action: PayloadAction<any>) => {
           state.loading = false;
           state.categories = state.categories.map((el) =>
-            el?.id === action.payload?.id
+            el?._id === action.payload?._id
               ? { ...state.categories, ...action.payload }
               : el
           );

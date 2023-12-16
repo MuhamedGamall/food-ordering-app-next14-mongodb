@@ -18,6 +18,7 @@ export default function SearchInputs({
         }
         type="text"
         disabled={!dataLength}
+        className="grow"
       />
       <Input
         placeholder="Filter by ID..."
