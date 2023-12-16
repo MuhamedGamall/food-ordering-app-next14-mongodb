@@ -18,7 +18,7 @@ export async function POST(req: NextRequest) {
       return new NextResponse("Unauthorized", { status: 401 });
     }
 
-    const createCategory = Category.create({ title });
+    const createCategory = await Category.create({ title });
     return NextResponse.json(createCategory);
   } catch (error) {
     console.log("[CATEGORIES]", error);

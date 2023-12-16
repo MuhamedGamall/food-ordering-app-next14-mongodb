@@ -1,25 +1,21 @@
 import imageCompression from "browser-image-compression";
 import toast from "react-hot-toast";
-import { Dispatch, SetStateAction, useEffect, useState } from "react";
+import { Dispatch, SetStateAction } from "react";
 
 import Image from "next/image";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
-import { Button } from "@/components/ui/button";
-import { cn } from "../../../../lib/utils";
-
-// import deleteAvatar from "../actions/delete-avatar";
 
 interface UploadImageFormProps {
-  avatar64: any;
-  setAvatar64: Dispatch<SetStateAction<any>>;
-  currentAvatar: string;
+  image64: any;
+  setImage64: Dispatch<SetStateAction<any>>;
+  currentImage: string;
   isSubmitting: boolean;
 }
 export default function ImageForm({
-  avatar64,
-  setAvatar64,
-  currentAvatar,
+  image64,
+  setImage64,
+  currentImage,
   isSubmitting,
 }: UploadImageFormProps) {
   async function onChange(event: any) {
@@ -33,12 +29,11 @@ export default function ImageForm({
     if (imageFile) {
       try {
         const compressedFile = await imageCompression(imageFile, options);
-
         // reader image
         const reader = new FileReader();
         reader.readAsDataURL(compressedFile);
         reader.onloadend = () => {
-          setAvatar64(reader.result);
+          setImage64(reader.result);
         };
       } catch (error) {
         if (
@@ -58,7 +53,7 @@ export default function ImageForm({
     <div className="relative w-[140px] flex flex-col gap-2">
       <div className="flex flex-col items-center justify-center gap-2  w-fit ">
         <Image
-          src={currentAvatar}
+          src={currentImage}
           alt="avatar"
           width={250}
           height={250}

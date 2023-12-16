@@ -16,6 +16,8 @@ export const editUserAvatar = async ({
   folderName,
   existingPublicId,
 }: editUserAvatarProps): Promise<object> => {
+  console.log(folderName);
+  
   try {
     const uploadOptions: any = {
       folder: folderName,
@@ -32,24 +34,24 @@ export const editUserAvatar = async ({
   }
 };
 
-interface DeleteUserAvatarProps {
-  existingPublicId: string;
-  folderName: string;
-}
+// interface DeleteUserAvatarProps {
+//   existingPublicId: string;
+//   folderName: string;
+// }
 
-export const DeleteUserAvatar = async ({
-  existingPublicId,
-  folderName,
-}: DeleteUserAvatarProps): Promise<void> => {
-  try {
-    const uploadOptions: any = {
-      folder: folderName,
-      inavlidate: true,
-    };
+// export const DeleteUserAvatar = async ({
+//   existingPublicId,
+//   folderName,
+// }: DeleteUserAvatarProps): Promise<void> => {
+//   try {
+//     const uploadOptions: any = {
+//       folder: folderName,
+//       inavlidate: true,
+//     };
 
-    await cloudinaryV2.uploader.destroy(existingPublicId, uploadOptions);
-  } catch (error) {
-    console.error("Error Cloudinary: delete ", error);
-    throw error;
-  }
-};
+//     await cloudinaryV2.uploader.destroy(existingPublicId, uploadOptions);
+//   } catch (error) {
+//     console.error("Error Cloudinary: delete ", error);
+//     throw error;
+//   }
+// };

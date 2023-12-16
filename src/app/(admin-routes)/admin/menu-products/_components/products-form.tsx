@@ -1,60 +1,53 @@
 "use client";
 
-import ImageForm from "../../../../components/image-form";
 import axios from "axios";
 import toast from "react-hot-toast";
 import { useState } from "react";
 
 import useProfile from "@/hooks/user-profile";
-import { Loader } from "lucide-react";
+
 import { useRouter } from "next/navigation";
-import ProfileFormInputs from "./profile-form-inputs";
 import HandleLoader from "@/components/loader";
-import { uploadImage } from "@/lib/RTK/slices/upload-image-slice";
-import { postProduct } from "@/lib/RTK/slices/menu-products-slice";
+import AddProductForm from "./add-product-form";
 import { useAppDispatch, useAppSelector } from "@/hooks/redux";
-import { PayloadAction } from "@reduxjs/toolkit";
+import { postProduct } from "@/lib/RTK/slices/menu-products-slice";
+import { uploadImage } from "@/lib/RTK/slices/upload-image-slice";
+import ImageForm from "@/components/image-form";
 
-export default function EditProfileForm() {
-  const router = useRouter();
-
+export default function ProductForm() {
   const dispatch = useAppDispatch();
+  // const { imageURL } = useAppSelector((state) => state);
 
   const [image64, setImage64] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
-
   const { loading, data } = useProfile();
 
   const email = data?.email;
-  const currentImage = image64 || data?.image || "/avatar/avatar.jpeg";
+  const currentImage = image64;
 
   async function onSubmit(value: any) {
     try {
-      if (!!value?.name) {
+      if (!!image64 && Object.values({ value }).every((el) => !!el)) {
         setIsSubmitting(true);
         // && Object.values({ value }).every((el) => !!el)
-        let imageURL = "";
-        if (!!image64) {
-          const data = await dispatch(
-            uploadImage({
-              image64,
-              publicId: email,
-              folderName: "food-ordering-users",
-            })
-          );
-          imageURL = await data?.payload;
-        }
+        const data = await dispatch(
+          uploadImage({
+            image64,
+            publicId: email,
+            folderName: "food-ordering-products",
+          })
+        );
+        const imageURL = await data?.payload;
 
         const values = {
           ...value,
           ...(imageURL && { image: imageURL }),
         };
         console.log(values);
-        
-        // if (Object.values({ values }).every((el) => !!el)) {
-        // }
-        (await axios.patch("/api/edit-profile", values)).data;
-        toast.success("Product added");
+
+        await dispatch(postProduct(values));
+      } else {
+        toast.error("Please fill all fields");
       }
     } catch (error: any) {
       toast.error("Somethig went wrong try again");
@@ -69,7 +62,7 @@ export default function EditProfileForm() {
         <div className=" mx-auto relative max-w-full md:max-w-[80%]  flex gap-5 flex-col  sm:flex-nowrap flex-wrap">
           {(loading || isSubmitting) && <HandleLoader />}
           <div className="space-y-2 ">
-            <h1 className="text-[50px]">Profile</h1>
+            <h1 className="text-[50px]">Menu products</h1>
           </div>
           <div className="flex gap-5 sm:flex-nowrap flex-wrap">
             <ImageForm
@@ -78,7 +71,7 @@ export default function EditProfileForm() {
               currentImage={currentImage}
               isSubmitting={isSubmitting}
             />
-            <ProfileFormInputs onSubmit={onSubmit} />
+            <AddProductForm onSubmit={onSubmit} />
           </div>
         </div>
       </div>

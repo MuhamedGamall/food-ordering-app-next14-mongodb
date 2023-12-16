@@ -6,11 +6,11 @@ import { User } from "@/models/User";
 
 export async function POST(req: NextRequest) {
   try {
-    const folderName = "food-ordering-users";
     const {
-      image: { avatar64, publicId },
+      image: { image64, publicId,folderName},
     } = await req.json();
-    if (!avatar64) {
+
+    if (!image64) {
       return new NextResponse("Image not found", { status: 404 });
     }
     const session = await getServerSession(authOptions);
@@ -21,12 +21,12 @@ export async function POST(req: NextRequest) {
       return new NextResponse("Unauthorized", { status: 401 });
     }
 
-    const uploadAvatar: any = await editUserAvatar({
-      file: avatar64,
+    const uploadImage: any = await editUserAvatar({
+      file: image64,
       existingPublicId:publicId,
       folderName,
     });
-    const url = uploadAvatar.secure_url;
+    const url = uploadImage.secure_url;
     return NextResponse.json(url);
   } catch (error) {
     console.log(error);

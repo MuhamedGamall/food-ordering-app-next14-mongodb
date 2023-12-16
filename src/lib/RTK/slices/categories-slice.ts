@@ -1,5 +1,5 @@
 import { PayloadAction, createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { AppState, FormValues } from "../../../../types";
+import { AppCategoryState, FormCategoryValues } from "../../../../types";
 import axios from "axios";
 import toast from "react-hot-toast";
 
@@ -58,7 +58,7 @@ export const deleteAllCategories: any = createAsyncThunk(
 
 export const editCategory: any = createAsyncThunk(
   "categoriesSlice/editCategory",
-  async (item: FormValues, thunkApi) => {
+  async (item: FormCategoryValues, thunkApi) => {
     const { rejectWithValue } = thunkApi;
     try {
       await axios.put("/api/categories", {
@@ -74,7 +74,7 @@ export const editCategory: any = createAsyncThunk(
   }
 );
 
-const initialState: AppState = {
+const initialState: AppCategoryState = {
   categories: [],
   loading: false,
   error: null,
@@ -88,21 +88,21 @@ const categoriesSlice = createSlice({
     builder
       .addCase(
         getCategories.pending,
-        (state: AppState, action: PayloadAction<any>) => {
+        (state: AppCategoryState, action: PayloadAction<any>) => {
           state.loading = true;
           state.error = null;
         }
       )
       .addCase(
         getCategories.fulfilled,
-        (state: AppState, action: PayloadAction<any>) => {
+        (state: AppCategoryState, action: PayloadAction<any>) => {
           state.loading = false;
           state.categories = action.payload;
         }
       )
       .addCase(
         getCategories.rejected,
-        (state: AppState, action: PayloadAction<any>) => {
+        (state: AppCategoryState, action: PayloadAction<any>) => {
           state.loading = false;
           state.error = action.payload;
         }
@@ -110,21 +110,21 @@ const categoriesSlice = createSlice({
     builder
       .addCase(
         postCategory.pending,
-        (state: AppState, action: PayloadAction<any>) => {
+        (state: AppCategoryState, action: PayloadAction<any>) => {
           state.loading = true;
           state.error = null;
         }
       )
       .addCase(
         postCategory.fulfilled,
-        (state: AppState, action: PayloadAction<any>) => {
+        (state: AppCategoryState, action: PayloadAction<any>) => {
           state.loading = false;
           state.categories.push(action.payload);
         }
       )
       .addCase(
         postCategory.rejected,
-        (state: AppState, action: PayloadAction<any>) => {
+        (state: AppCategoryState, action: PayloadAction<any>) => {
           state.loading = false;
           state.error = action.payload;
         }
@@ -132,14 +132,14 @@ const categoriesSlice = createSlice({
     builder
       .addCase(
         deleteCategory.pending,
-        (state: AppState, action: PayloadAction<any>) => {
+        (state: AppCategoryState, action: PayloadAction<any>) => {
           state.loading = true;
           state.error = null;
         }
       )
       .addCase(
         deleteCategory.fulfilled,
-        (state: AppState, action: PayloadAction<any>) => {
+        (state: AppCategoryState, action: PayloadAction<any>) => {
           state.loading = false;
           state.categories = state.categories.filter(
             (el) => !action.payload.some((xl: string) => el._id === xl)
@@ -148,7 +148,7 @@ const categoriesSlice = createSlice({
       )
       .addCase(
         deleteCategory.rejected,
-        (state: AppState, action: PayloadAction<any>) => {
+        (state: AppCategoryState, action: PayloadAction<any>) => {
           state.loading = false;
           state.error = action.payload;
         }
@@ -156,21 +156,21 @@ const categoriesSlice = createSlice({
     builder
       .addCase(
         deleteAllCategories.pending,
-        (state: AppState, action: PayloadAction<any>) => {
+        (state: AppCategoryState, action: PayloadAction<any>) => {
           state.loading = true;
           state.error = null;
         }
       )
       .addCase(
         deleteAllCategories.fulfilled,
-        (state: AppState, action: PayloadAction<any>) => {
+        (state: AppCategoryState, action: PayloadAction<any>) => {
           state.loading = false;
           state.categories = [];
         }
       )
       .addCase(
         deleteAllCategories.rejected,
-        (state: AppState, action: PayloadAction<any>) => {
+        (state: AppCategoryState, action: PayloadAction<any>) => {
           state.loading = false;
           state.error = action.payload;
         }
@@ -178,14 +178,14 @@ const categoriesSlice = createSlice({
     builder
       .addCase(
         editCategory.pending,
-        (state: AppState, action: PayloadAction<any>) => {
+        (state: AppCategoryState, action: PayloadAction<any>) => {
           state.loading = true;
           state.error = null;
         }
       )
       .addCase(
         editCategory.fulfilled,
-        (state: AppState, action: PayloadAction<any>) => {
+        (state: AppCategoryState, action: PayloadAction<any>) => {
           state.loading = false;
           state.categories = state.categories.map((el) =>
             el?._id === action.payload?._id
@@ -196,7 +196,7 @@ const categoriesSlice = createSlice({
       )
       .addCase(
         editCategory.rejected,
-        (state: AppState, action: PayloadAction<any>) => {
+        (state: AppCategoryState, action: PayloadAction<any>) => {
           state.loading = false;
           state.error = action.payload;
         }

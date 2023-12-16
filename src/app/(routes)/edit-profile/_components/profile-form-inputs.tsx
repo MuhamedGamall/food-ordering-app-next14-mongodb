@@ -17,52 +17,20 @@ import { Input } from "@/components/ui/input";
 
 import { cn } from "@/lib/utils";
 import useProfile from "@/hooks/user-profile";
+import { profileSchema } from '../validation-schema/profile-schema';
 
 interface ProfileFormInputsProps {
   onSubmit: (v: any) => Promise<void>;
 }
 
-const formSchema = z.object({
-  name: z
-    .string()
-    .trim()
-    .min(1, {
-      message: "Username is required.",
-    })
-    .max(30, { message: "Username should be on a lot of 30 characters." }),
-  email: z
-    .string()
-    .email("Please enter a valid email address.")
-    .trim()
-    .optional(),
-  phone: z.string().max(20, "Invalid phone number").optional(),
-
-  street_address: z.string().trim().max(191, "Address is too long").optional(),
-
-  city: z
-    .string()
-    .trim()
-    .max(48, "City must be at most 30 characters long")
-    .optional(),
-  postal_code: z
-    .string()
-    .trim()
-    .max(6, "Postal code must be at most 30 characters long")
-    .optional(),
-  country: z
-    .string()
-    .trim()
-    .max(30, "Country must be at most 30 characters long")
-    .optional(),
-});
 
 export default function ProfileFormInputs({
   onSubmit,
 }: ProfileFormInputsProps) {
   const { data } = useProfile();
   const currentName = data?.name || data?.email?.split("@")[0];
-  const form = useForm<z.infer<typeof formSchema>>({
-    resolver: zodResolver(formSchema),
+  const form = useForm<z.infer<typeof profileSchema>>({
+    resolver: zodResolver(profileSchema),
     defaultValues: {
       name: "",
       email: "",
