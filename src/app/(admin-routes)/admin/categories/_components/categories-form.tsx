@@ -1,7 +1,16 @@
+import { useAppDispatch } from "@/hooks/redux";
 import AddCategoryForm from "./add-category-form";
 import AllCategorios from "./all-categorios-form";
-import ForceRefresh from "./lol";
+import { postCategory } from "@/lib/RTK/slices/categories-slice";
+
 export default function CatigoiesForm() {
+  const dispatch = useAppDispatch();
+  async function onAdd(value: string,form:any) {
+    if (value?.length !== 0) {
+      await dispatch(postCategory(value));
+      form.setValue("title", "");
+    }
+  }
   return (
     <>
       <div className="mx-auto  max-w-full md:max-w-[80%]  ">
@@ -9,11 +18,8 @@ export default function CatigoiesForm() {
           <div className="space-y-2 ">
             <h1 className="text-[45px]">Add Category</h1>
           </div>
-     
-          <AddCategoryForm />
-          
+          <AddCategoryForm onAdd={onAdd} />
           <AllCategorios />
-          
         </div>
       </div>
     </>

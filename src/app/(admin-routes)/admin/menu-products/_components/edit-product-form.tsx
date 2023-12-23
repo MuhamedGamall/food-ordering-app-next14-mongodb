@@ -30,31 +30,36 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 
 import { cn } from "@/lib/utils";
-import useProfile from "@/hooks/user-profile";
+
 import { productSchema } from "../validation-schema/product-schema";
 import { Check, ChevronsUpDown } from "lucide-react";
 import { useSession } from "next-auth/react";
 import { useAppDispatch, useAppSelector } from "@/hooks/redux";
 import { useEffect, useState } from "react";
 import { getCategories } from "@/lib/RTK/slices/categories-slice";
-import { InitCategoryState } from "../../../../../../types";
+import { InitProductState, InitCategoryState } from "../../../../../../types";
 import HandleLoader from "@/components/loader";
 import formatPrice from "@/utils/format/format-price";
+import { getProducts } from "@/lib/RTK/slices/menu-products-slice";
+import { useRouter } from "next/navigation";
 
-interface AddProductFormProps {
+interface EditProductFormProps {
   onSubmit: (v: any) => Promise<void>;
+  product: InitProductState | undefined;
   imageURL64: string;
 }
 
-export default function AddProductForm({
+export default function EditProductForm({
   onSubmit,
+  product,
   imageURL64,
-}: AddProductFormProps) {
+}: EditProductFormProps) {
   const session = useSession();
+  const router = useRouter();
   const { categories } = useAppSelector((state) => state.catygories);
+
   const [selectLoading, setSelectLoading] = useState(false);
   const dispatch = useAppDispatch();
-
   const form = useForm<z.infer<typeof productSchema>>({
     resolver: zodResolver(productSchema),
     defaultValues: {
@@ -64,10 +69,10 @@ export default function AddProductForm({
       base_price: "",
     },
     values: {
-      title: "",
-      description: "",
-      category: "",
-      base_price: "",
+      title: product?.title || "",
+      description: product?.description || "",
+      category: product?.category || "",
+      base_price: product?.base_price || "",
     },
   });
 
@@ -81,6 +86,10 @@ export default function AddProductForm({
     }
     getData();
   }, [dispatch, session.status]);
+
+  const isValid = !Object.values({ ...form.getValues(), imageURL64 }).some(
+    (el) => !!el
+  );
 
   const { isSubmitting } = form.formState;
   return (
@@ -228,14 +237,17 @@ export default function AddProductForm({
             </FormItem>
           )}
         />
-        <Button
-          type="submit"
-          variant={"green"}
-          disabled={isSubmitting }
-          className={cn("  text-2xl text-center rounded-full  mt-5 w-fit")}
-        >
-          Add product
-        </Button>
+        <div className="flex items justify-between">
+          <Button
+            type="submit"
+            variant={"green"}
+            disabled={isSubmitting || isValid}
+            onClick={() => router.replace("/admin/menu-products")}
+            className={cn("  text-2xl text-center rounded-full  mt-5 w-fit")}
+          >
+            Save
+          </Button>
+        </div>
       </form>
     </Form>
   );

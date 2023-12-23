@@ -1,5 +1,5 @@
 import { PayloadAction, createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { AppProductState, ProductProps } from "../../../../types";
+import { AppProductState } from "../../../../types";
 import axios from "axios";
 import toast from "react-hot-toast";
 
@@ -8,7 +8,7 @@ export const getProducts: any = createAsyncThunk(
   async (_, thunkApi) => {
     const { rejectWithValue } = thunkApi;
     try {
-      const data = (await axios.get("/api/menu-products")).data;
+      const data = (await axios.get("/api/admin/menu-products")).data;
       return data;
     } catch (error: any) {
       console.log(error);
@@ -22,9 +22,9 @@ export const postProduct: any = createAsyncThunk(
   async (item, thunkApi) => {
     const { rejectWithValue } = thunkApi;
     try {
-      const data = (await axios.post("/api/menu-products", item)).data;
+      const data = (await axios.post("/api/admin/menu-products", item)).data;
       toast.success("Product added");
-      console.log("data", data);
+
       return data;
     } catch (error: any) {
       toast.error("Somethig went wrong try again");
@@ -35,11 +35,13 @@ export const postProduct: any = createAsyncThunk(
 
 export const deleteProduct: any = createAsyncThunk(
   "menuProductsSlice/deleteProduct",
-  async (_id, thunkApi) => {
+  async (_ids, thunkApi) => {
     const { rejectWithValue } = thunkApi;
     try {
-      await axios.delete("/api/menu-products?_id=" + _id);
-      return _id;
+      await axios.delete("/api/admin/menu-products?_ids=" + _ids);
+      toast.success("Product deleted");
+
+      return _ids;
     } catch (error: any) {
       return rejectWithValue(error.message);
     }
@@ -51,7 +53,8 @@ export const deleteAllProducts: any = createAsyncThunk(
   async (_, thunkApi) => {
     const { rejectWithValue } = thunkApi;
     try {
-      await axios.delete("/api/menu-products");
+      await axios.delete("/api/admin/menu-products");
+      toast.success("All products is deleted");
     } catch (error: any) {
       return rejectWithValue(error.message);
     }
@@ -60,10 +63,15 @@ export const deleteAllProducts: any = createAsyncThunk(
 
 export const editProduct: any = createAsyncThunk(
   "menuProductsSlice/editProduct",
-  async (item: ProductProps, thunkApi) => {
+  async (item: any, thunkApi) => {
     const { rejectWithValue } = thunkApi;
+    console.log(item);
     try {
-      await axios.put("/api/menu-products", item);
+      await axios.patch(
+        "/api/admin/menu-products/edit-product/" + item._id,
+        item
+      );
+      
       toast.success("Product updated");
       return item;
     } catch (error: any) {
@@ -188,7 +196,14 @@ const menuProductsSlice = createSlice({
           state.loading = false;
           state.products = state.products.map((el) =>
             el?._id === action.payload?._id
-              ? { ...state.products, ...action.payload }
+              ? {
+                  ...state.products,
+                  ...{
+                    ...action.payload,
+                    createdAt: el.createdAt,
+                    updatedAt: el.updatedAt,
+                  },
+                }
               : el
           );
         }

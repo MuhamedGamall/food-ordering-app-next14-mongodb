@@ -1,6 +1,7 @@
 import { MenuProduct } from "@/models/MenuProducts";
+import { Category } from "@/models/Categories";
 // category schema
-export interface initCategoryState {
+export interface InitCategoryState {
   _id: string;
   title: string;
   createdAt: string;
@@ -9,7 +10,7 @@ export interface initCategoryState {
 }
 
 export interface AppCategoryState {
-  categories: Product[];
+  categories: InitCategoryState[];
   loading: boolean;
   error: string | null;
 }
@@ -20,7 +21,7 @@ export interface FormCategoryValues {
 }
 
 // product schema
-export interface initProductState {
+export interface InitProductState {
   _id: string;
   title: string;
   image: string;
@@ -32,10 +33,10 @@ export interface initProductState {
   __v: number;
 }
 
-export interface ProductProps extends MenuProduct {}
+// export interface ProductProps extends MenuProduct {}
 
 export interface AppProductState {
-  products: Product[];
+  products: InitProductState[];
   loading: boolean;
   error: string | null;
 }

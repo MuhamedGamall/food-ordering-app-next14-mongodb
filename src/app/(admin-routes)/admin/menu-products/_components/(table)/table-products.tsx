@@ -12,14 +12,7 @@ import {
   getSortedRowModel,
   useReactTable,
 } from "@tanstack/react-table";
-import {
-  ChevronDown,
-  Edit,
-  Loader,
-  MoreHorizontal,
-  Trash2,
-  XIcon,
-} from "lucide-react";
+import { ChevronDown, Edit, MoreHorizontal, Trash2, XIcon } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 
@@ -51,25 +44,24 @@ import {
   editCategory,
 } from "@/lib/RTK/slices/categories-slice";
 
-import { columns } from "./table-column";
 import HandleLoader from "@/components/loader";
 import SearchInputs from "./search-inputs";
 import DeleteActionsBtns from "./delete-actions";
-
-export type Catygory = {
-  title: string;
-  createdAt: string;
-  updatedAt: string;
-  __v: number;
-  _id: string;
-};
+import { columnsFnc } from "./table-column";
+import { deleteProduct } from "@/lib/RTK/slices/menu-products-slice";
+import { cn } from "@/lib/utils";
+import Link from "next/link";
 
 export function DataTable({
   data,
   tableLoading,
+  categories,
+
 }: {
   data: any;
   tableLoading: boolean;
+  categories: any;
+
 }) {
   const dispatch = useAppDispatch();
   // const router = useRouter();
@@ -78,9 +70,9 @@ export function DataTable({
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
   const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({});
   const [rowSelection, setRowSelection] = useState({});
-  const [inputValue, setinputValue] = useState("");
   const [isLoading, setIsLoading] = useState(false);
-
+  const router = useRouter();
+  const { columns } = columnsFnc(categories);
   const table = useReactTable({
     data,
     columns,
@@ -103,34 +95,15 @@ export function DataTable({
   const selectedRows = table.getFilteredSelectedRowModel().rows;
   const idsSelectedToDelete = selectedRows.map((row) => row.original._id);
 
-  const isEditing = (rowId: string) => editingRowId === rowId;
 
-  // handle actions functoins
-  const handleEditClick = (rowId: string) => {
-    isEditing(rowId) ? setEditingRowId(null) : setEditingRowId(rowId);
-  };
-
-  const handleSaveClick = async ({
-    _id,
-    currentTitle,
-  }: {
-    _id: string;
-    currentTitle: string;
-  }) => {
-    if (inputValue.length !== 0 || currentTitle.length) {
-      dispatch(editCategory({ _id, title: inputValue || currentTitle }));
-      setEditingRowId(null);
-    } else toast.error("Invaild input value");
-  };
   const handleDeleteClick = async (_id: string) => {
     if (_id) {
-      dispatch(deleteCategory([_id]));
+      dispatch(deleteProduct([_id]));
       setEditingRowId(null);
       table.resetRowSelection(false);
       table.toggleAllRowsSelected(false);
     }
   };
-
   return (
     <div className="w-full mt-5">
       {isLoading || (tableLoading && <HandleLoader />)}
@@ -204,41 +177,17 @@ export function DataTable({
                 <TableRow
                   key={row.id}
                   data-state={row.getIsSelected() && "selected"}
+                 
                 >
-                  {isEditing(row.id) ? (
-                    <TableCell colSpan={columns.length}>
-                      <div className="flex gap-1 ">
-                        <Input
-                          className="grow"
-                          defaultValue={row.original.title}
-                          onChange={(e) => setinputValue(e.target.value)}
-                        />
-                        <Button
-                          type="button"
-                          className="text-[18px] text-slate-600 hover:bg-slate-300/20 bg-slate-400/20"
-                          onClick={() =>
-                            handleSaveClick({
-                              _id: row?.original._id,
-                              currentTitle: row.original.title,
-                            })
-                          }
-                        >
-                          Save
-                        </Button>
-                      </div>
+                  {row.getVisibleCells().map((cell) => (
+                    <TableCell key={cell.id}>
+                      {flexRender(
+                        cell.column.columnDef.cell,
+                        cell.getContext()
+                      )}
                     </TableCell>
-                  ) : (
-                    row
-                      .getVisibleCells()
-                      .map((cell) => (
-                        <TableCell key={cell.id}>
-                          {flexRender(
-                            cell.column.columnDef.cell,
-                            cell.getContext()
-                          )}
-                        </TableCell>
-                      ))
-                  )}
+                  ))}
+                  <TableRow />
                   <TableCell className="text-center">
                     <DropdownMenu>
                       <DropdownMenuTrigger asChild>
@@ -257,19 +206,23 @@ export function DataTable({
                             navigator.clipboard.writeText(row.original._id)
                           }
                         >
-                          Copy catygory ID
+                          Copy product ID
                         </DropdownMenuItem>
                         <DropdownMenuSeparator />
-                        {!isEditing(row.id) && (
-                          <DropdownMenuItem
-                            onClick={() => handleEditClick(row.id)}
+                        <DropdownMenuItem
+                       
+                        >
+                          <Link
+                            href={
+                              "/admin/menu-products/edit-product/" +
+                              row.original._id
+                            }
+                            className="flex items-center gap-1 text-[16px]"
                           >
-                            <div className="flex items-center gap-1 text-[16px]">
-                              <Edit className="w-4" />
-                              Go to edit mood
-                            </div>
-                          </DropdownMenuItem>
-                        )}
+                            <Edit className="w-4" />
+                            Edit product
+                          </Link>
+                        </DropdownMenuItem>
                         <DropdownMenuItem>
                           <div
                             className="flex items-center gap-1 text-[16px]"

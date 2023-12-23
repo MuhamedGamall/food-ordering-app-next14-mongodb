@@ -14,6 +14,10 @@ import {
   DropdownMenuTrigger,
   DropdownMenuLabel,
 } from "@/components/ui/dropdown-menu";
+import {
+  deleteAllProducts,
+  deleteProduct,
+} from "@/lib/RTK/slices/menu-products-slice";
 
 interface DeleteActionsBtnsProps {
   dispatch: any;
@@ -34,7 +38,7 @@ export default function DeleteActionsBtns({
   async function deleteSelected() {
     if (idsSelectedToDelete.length > 0) {
       setIsLoading(true);
-      await dispatch(deleteCategory(idsSelectedToDelete));
+      await dispatch(deleteProduct(idsSelectedToDelete));
       setIsLoading(false);
     } else {
       toast.error("No rows selected for deletion");
@@ -46,9 +50,9 @@ export default function DeleteActionsBtns({
   async function deleteAllData() {
     if (data.length > 0) {
       setIsLoading(true);
-      await dispatch(deleteAllCategories());
+      await dispatch(deleteAllProducts());
       setIsLoading(false);
-    } else toast.error("No categories for deletion");
+    } else toast.error("No Products for deletion");
   }
 
   return (

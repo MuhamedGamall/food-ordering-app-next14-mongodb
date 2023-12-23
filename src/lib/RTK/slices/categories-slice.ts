@@ -8,7 +8,7 @@ export const getCategories: any = createAsyncThunk(
   async (_, thunkApi) => {
     const { rejectWithValue } = thunkApi;
     try {
-      const data = (await axios.get("/api/categories")).data;
+      const data = (await axios.get("/api/admin/categories")).data;
       return data;
     } catch (error: any) {
       console.log(error);
@@ -22,7 +22,7 @@ export const postCategory: any = createAsyncThunk(
   async (item, thunkApi) => {
     const { rejectWithValue } = thunkApi;
     try {
-      const data = (await axios.post("/api/categories", item)).data;
+      const data = (await axios.post("/api/admin/categories", item)).data;
       toast.success("Category added");
       return data;
     } catch (error: any) {
@@ -36,7 +36,7 @@ export const deleteCategory: any = createAsyncThunk(
   async (_ids: string[], thunkApi) => {
     const { rejectWithValue } = thunkApi;
     try {
-      await axios.delete("/api/categories?_ids=" + _ids);
+      await axios.delete("/api/admin/categories?_ids=" + _ids);
       return _ids;
     } catch (error: any) {
       return rejectWithValue(error.message);
@@ -49,7 +49,7 @@ export const deleteAllCategories: any = createAsyncThunk(
   async (_, thunkApi) => {
     const { rejectWithValue } = thunkApi;
     try {
-      await axios.delete("/api/categories");
+      await axios.delete("/api/admin/categories");
     } catch (error: any) {
       return rejectWithValue(error.message);
     }
@@ -61,10 +61,7 @@ export const editCategory: any = createAsyncThunk(
   async (item: FormCategoryValues, thunkApi) => {
     const { rejectWithValue } = thunkApi;
     try {
-      await axios.put("/api/categories", {
-        _id: item?._id,
-        title: item?.title,
-      });
+      await axios.put("/api/admin/categories", item);
       toast.success("Category updated");
       return item;
     } catch (error: any) {

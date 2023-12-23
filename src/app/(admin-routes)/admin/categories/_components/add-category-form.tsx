@@ -34,23 +34,30 @@ const formSchema = z.object({
     })
     .max(30, { message: "Categories should be on a lot of 30 characters." }),
 });
-export default function AddCategoryForm() {
-  const router = useRouter();
-  const dispatch = useAppDispatch();
-  async function onSubmit(value: any) {
-    if (value?.length !== 0) {
-      dispatch(postCategory(value));
-      form.setValue("title", "");
-      // router.refresh();
-    }
-  }
-
+export default function AddCategoryForm({
+  onAdd,
+}: {
+  onAdd: (value: string, form: any) => Promise<void>;
+}) {
+  // const router = useRouter();
+  // const dispatch = useAppDispatch();
+  // async function onSubmit(value: any) {
+  //   if (value?.length !== 0) {
+  //     dispatch(postCategory(value));
+  //     form.setValue("title", "");
+  //     // router.refresh();
+  //   }
+  // }
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
       title: "",
     },
   });
+  
+  async function onSubmit(value: any) {
+    onAdd(value, form);
+  }
 
   const { isSubmitting, isValid } = form.formState;
 

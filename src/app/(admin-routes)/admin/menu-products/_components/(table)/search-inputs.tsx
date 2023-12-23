@@ -52,7 +52,6 @@ export default function SearchInputs({
                 table.getColumn(searchBy)?.setFilterValue("");
                 setSearchBy("title");
               }}
-              disabled={!dataLength}
             >
               title
             </DropdownMenuItem>
@@ -62,10 +61,35 @@ export default function SearchInputs({
                 setSearchBy("_id");
                 table.getColumn(searchBy)?.setFilterValue("");
               }}
-              disabled={!dataLength}
-
             >
               _id
+            </DropdownMenuItem>
+            <DropdownMenuItem
+              className=" text-[15px]  cursor-pointer"
+              onClick={() => {
+                table.getColumn(searchBy)?.setFilterValue("");
+                setSearchBy("category");
+              }}
+            >
+              category
+            </DropdownMenuItem>
+            <DropdownMenuItem
+              className=" text-[15px]    cursor-pointer"
+              onClick={() => {
+                table.getColumn(searchBy)?.setFilterValue("");
+                setSearchBy("base_price");
+              }}
+            >
+              base_price
+            </DropdownMenuItem>
+            <DropdownMenuItem
+              className=" text-[15px]    cursor-pointer"
+              onClick={() => {
+                table.getColumn(searchBy)?.setFilterValue("");
+                setSearchBy("description");
+              }}
+            >
+              description
             </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>

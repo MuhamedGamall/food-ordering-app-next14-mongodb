@@ -21,7 +21,7 @@ export default function ImageForm({
   async function onChange(event: any) {
     const imageFile = event.target.files?.[0];
     const options = {
-      maxSizeMB: 3,
+      maxSizeMB: 1,
       maxWidthOrHeight: 2000,
       useWebWorker: true,
     };
@@ -54,7 +54,7 @@ export default function ImageForm({
       <div className="flex flex-col items-center justify-center gap-2  w-fit ">
         <Image
           src={currentImage}
-          alt="avatar"
+          alt="image"
           width={250}
           height={250}
           className="w-[140px] max-w-full rounded-md aspect-[1] object-cover"
@@ -66,7 +66,7 @@ export default function ImageForm({
             htmlFor="upload"
             className="cursor-pointer   hover:bg-slate-200 bg-slate-100 flex justify-center items-center w-full  p-2  transition text-center rounded-md"
           >
-            Change photo
+            Edit photo
           </Label>
         </div>
         <Input
