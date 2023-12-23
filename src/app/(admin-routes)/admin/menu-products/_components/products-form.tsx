@@ -169,6 +169,8 @@ import AllProducts from "./all-products-form";
 import formatPrice from "@/utils/format/format-price";
 import EditProductForm from "./edit-product-form";
 import { useSession } from "next-auth/react";
+import { Button } from "@/components/ui/button";
+import { ArrowDownNarrowWide, ArrowUpNarrowWide } from "lucide-react";
 
 export default function ProductForm() {
   const session = useSession();
@@ -177,6 +179,7 @@ export default function ProductForm() {
 
   const [image64, setImage64] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isAddMood, setIsAddMood] = useState(false);
 
   const email = data?.email;
 
@@ -211,17 +214,33 @@ export default function ProductForm() {
           <div className="space-y-2 ">
             <h1 className="text-[50px]">Menu products</h1>
           </div>
-          <div>
-            <div className="flex gap-5 sm:flex-nowrap flex-wrap">
-              <ImageForm
-                image64={image64}
-                setImage64={setImage64}
-                currentImage={AddCurrentImage}
-                isSubmitting={isSubmitting}
-              />
-              <AddProductForm onSubmit={onSubmit} imageURL64={image64} />
-            </div>
-            <AllProducts  />
+          <div className="w-full">
+            <Button
+              onClick={() => setIsAddMood((cur) => !cur)}
+              className="flex items-center gap-2 ml-auto text-[18px]"
+            >
+              {!isAddMood ? (
+                <>
+                  <ArrowDownNarrowWide /> Open add product mood
+                </>
+              ) : (
+                <>
+                  <ArrowUpNarrowWide /> Close add product mood
+                </>
+              )}
+            </Button>
+            {isAddMood && (
+              <div className="flex justify-center gap-5 sm:flex-nowrap flex-wrap">
+                <ImageForm
+                  image64={image64}
+                  setImage64={setImage64}
+                  currentImage={AddCurrentImage}
+                  isSubmitting={isSubmitting}
+                />
+                <AddProductForm onSubmit={onSubmit} imageURL64={image64} />
+              </div>
+            )}
+            <AllProducts />
           </div>
         </div>
       </div>

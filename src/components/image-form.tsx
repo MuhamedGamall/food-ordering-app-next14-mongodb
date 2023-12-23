@@ -50,14 +50,14 @@ export default function ImageForm({
   }
 
   return (
-    <div className="relative w-[140px] flex flex-col gap-2">
+    <div className="relative w-[250px] flex flex-col gap-2">
       <div className="flex flex-col items-center justify-center gap-2  w-fit ">
         <Image
           src={currentImage}
           alt="image"
           width={250}
           height={250}
-          className="w-[140px] max-w-full rounded-md aspect-[1] object-cover"
+          className="w-[250px]  max-w-full rounded-md aspect-[1] object-cover"
         />
       </div>
       <form onChange={(e) => onChange(e)}>
