@@ -1,14 +1,15 @@
 import { PayloadAction, createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { AppProductState } from "../../../../types";
 import axios from "axios";
 import toast from "react-hot-toast";
 
-export const getProducts: any = createAsyncThunk(
-  "menuProductsSlice/getProducts",
+export const getProfile: any = createAsyncThunk(
+  "profileSlice/getProfile",
   async (_, thunkApi) => {
     const { rejectWithValue } = thunkApi;
     try {
-      const data = (await axios.get("/api/admin/menu-products")).data;
+      const data = (await axios.get("/api/edit-profile")).data;
+      console.log(data);
+
       return data;
     } catch (error: any) {
       console.log(error);
@@ -17,63 +18,14 @@ export const getProducts: any = createAsyncThunk(
   }
 );
 
-export const postProduct: any = createAsyncThunk(
-  "menuProductsSlice/postProduct",
-  async (item, thunkApi) => {
+export const editProfile: any = createAsyncThunk(
+  "profileSlice/editProfile",
+  async (values: any, thunkApi) => {
     const { rejectWithValue } = thunkApi;
     try {
-      const data = (await axios.post("/api/admin/menu-products", item)).data;
-      toast.success("Product added");
-
-      return data;
-    } catch (error: any) {
-      toast.error("Somethig went wrong try again");
-      return rejectWithValue(error.message);
-    }
-  }
-);
-
-export const deleteProduct: any = createAsyncThunk(
-  "menuProductsSlice/deleteProduct",
-  async (_ids, thunkApi) => {
-    const { rejectWithValue } = thunkApi;
-    try {
-      await axios.delete("/api/admin/menu-products?_ids=" + _ids);
-      toast.success("Product deleted");
-
-      return _ids;
-    } catch (error: any) {
-      return rejectWithValue(error.message);
-    }
-  }
-);
-
-export const deleteAllProducts: any = createAsyncThunk(
-  "menuProductsSlice/deleteAllProducts",
-  async (_, thunkApi) => {
-    const { rejectWithValue } = thunkApi;
-    try {
-      await axios.delete("/api/admin/menu-products");
-      toast.success("All products is deleted");
-    } catch (error: any) {
-      return rejectWithValue(error.message);
-    }
-  }
-);
-
-export const editProduct: any = createAsyncThunk(
-  "menuProductsSlice/editProduct",
-  async (item: any, thunkApi) => {
-    const { rejectWithValue } = thunkApi;
-    console.log(item);
-    try {
-      await axios.patch(
-        "/api/admin/menu-products/edit-product/" + item._id,
-        item
-      );
-      
-      toast.success("Product updated");
-      return item;
+      (await axios.patch("/api/edit-profile", values)).data;
+      toast.success("Profile updated");
+      return values;
     } catch (error: any) {
       toast.error("Something wnt worng try again");
       return rejectWithValue(error.message);
@@ -81,140 +33,60 @@ export const editProduct: any = createAsyncThunk(
   }
 );
 
-const initialState: AppProductState = {
-  products: [],
+const initialState: any = {
+  profile: {},
   loading: false,
   error: null,
 };
 
-const menuProductsSlice = createSlice({
-  name: "menuProductsSlice",
+const profileSlice = createSlice({
+  name: "profileSlice",
   initialState,
   reducers: {},
   extraReducers: (builder) => {
     builder
+      .addCase(getProfile.pending, (state: any, action: PayloadAction<any>) => {
+        state.loading = true;
+        state.error = null;
+      })
       .addCase(
-        getProducts.pending,
-        (state: AppProductState, action: PayloadAction<any>) => {
-          state.loading = true;
-          state.error = null;
-        }
-      )
-      .addCase(
-        getProducts.fulfilled,
-        (state: AppProductState, action: PayloadAction<any>) => {
+        getProfile.fulfilled,
+        (state: any, action: PayloadAction<any>) => {
           state.loading = false;
-          state.products = action.payload;
+          
+          state.profile = action.payload;
+          console.log(state.profile);
         }
       )
       .addCase(
-        getProducts.rejected,
-        (state: AppProductState, action: PayloadAction<any>) => {
-          state.loading = false;
-          state.error = action.payload;
-        }
-      );
-    builder
-      .addCase(
-        postProduct.pending,
-        (state: AppProductState, action: PayloadAction<any>) => {
-          state.loading = true;
-          state.error = null;
-        }
-      )
-      .addCase(
-        postProduct.fulfilled,
-        (state: AppProductState, action: PayloadAction<any>) => {
-          state.loading = false;
-          state.products.push(action.payload);
-        }
-      )
-      .addCase(
-        postProduct.rejected,
-        (state: AppProductState, action: PayloadAction<any>) => {
+        getProfile.rejected,
+        (state: any, action: PayloadAction<any>) => {
           state.loading = false;
           state.error = action.payload;
         }
       );
     builder
       .addCase(
-        deleteProduct.pending,
-        (state: AppProductState, action: PayloadAction<any>) => {
+        editProfile.pending,
+        (state: any, action: PayloadAction<any>) => {
           state.loading = true;
           state.error = null;
         }
       )
       .addCase(
-        deleteProduct.fulfilled,
-        (state: AppProductState, action: PayloadAction<any>) => {
+        editProfile.fulfilled,
+        (state: any, action: PayloadAction<any>) => {
           state.loading = false;
-          state.products = state.products.filter(
-            (el) => !action.payload.some((xl: string) => el._id === xl)
-          );
+          state.profile = { ...state.profile, ...action.payload };
         }
       )
       .addCase(
-        deleteProduct.rejected,
-        (state: AppProductState, action: PayloadAction<any>) => {
-          state.loading = false;
-          state.error = action.payload;
-        }
-      );
-    builder
-      .addCase(
-        deleteAllProducts.pending,
-        (state: AppProductState, action: PayloadAction<any>) => {
-          state.loading = true;
-          state.error = null;
-        }
-      )
-      .addCase(
-        deleteAllProducts.fulfilled,
-        (state: AppProductState, action: PayloadAction<any>) => {
-          state.loading = false;
-          state.products = [];
-        }
-      )
-      .addCase(
-        deleteAllProducts.rejected,
-        (state: AppProductState, action: PayloadAction<any>) => {
-          state.loading = false;
-          state.error = action.payload;
-        }
-      );
-    builder
-      .addCase(
-        editProduct.pending,
-        (state: AppProductState, action: PayloadAction<any>) => {
-          state.loading = true;
-          state.error = null;
-        }
-      )
-      .addCase(
-        editProduct.fulfilled,
-        (state: AppProductState, action: PayloadAction<any>) => {
-          state.loading = false;
-          state.products = state.products.map((el) =>
-            el?._id === action.payload?._id
-              ? {
-                  ...state.products,
-                  ...{
-                    ...action.payload,
-                    createdAt: el.createdAt,
-                    updatedAt: el.updatedAt,
-                  },
-                }
-              : el
-          );
-        }
-      )
-      .addCase(
-        editProduct.rejected,
-        (state: AppProductState, action: PayloadAction<any>) => {
+        editProfile.rejected,
+        (state: any, action: PayloadAction<any>) => {
           state.loading = false;
           state.error = action.payload;
         }
       );
   },
 });
-export default menuProductsSlice.reducer;
+export default profileSlice.reducer;

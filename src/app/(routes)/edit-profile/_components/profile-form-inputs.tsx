@@ -16,13 +16,13 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 
 import { cn } from "@/lib/utils";
+import { profileSchema } from "../validation-schema/profile-schema";
 import useProfile from "@/hooks/user-profile";
-import { profileSchema } from '../validation-schema/profile-schema';
 
 interface ProfileFormInputsProps {
   onSubmit: (v: any) => Promise<void>;
+  data: any;
 }
-
 
 export default function ProfileFormInputs({
   onSubmit,

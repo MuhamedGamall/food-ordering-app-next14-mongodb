@@ -33,17 +33,13 @@ export default function ProductForm({
   const email = data?.email;
   const product = products.find((el) => el._id === id);
 
-  // console.log(product, products);
-  // if (
-  //   !products.length &&
-  //   product === undefined &&
-  //   session.status === "unauthenticated" &&
-  //   !data 
-  //   &&
-  //   !data?.admin
-  // ) {
-  //   redirect("/admin/menu-products");
-  // }
+  if (!products || product === undefined) {
+    redirect("/admin/menu-products");
+  }
+
+  if (session.status === "unauthenticated" && !data && !data?.admin) {
+    redirect("/");
+  }
   const EditCurrentImage = image64
     ? image64
     : product?.image || "/product-placeholder/th.jpeg";

@@ -9,12 +9,12 @@ import useProfile from "@/hooks/user-profile";
 export default function EditProfilePage() {
   const { data } = useProfile();
   const session = useSession();
-  if (  session.status === "unauthenticated" && !data && !data?.admin) {
+  if (session.status === "unauthenticated" || !data || !data?.admin) {
     redirect("/");
   }
   return (
     <section className="">
-      <ProductForm/>
+      <ProductForm />
     </section>
   );
 }

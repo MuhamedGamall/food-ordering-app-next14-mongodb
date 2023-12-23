@@ -1,28 +1,22 @@
 import axios from "axios";
 import { useSession } from "next-auth/react";
 import { useEffect, useState } from "react";
+import { useAppDispatch, useAppSelector } from "./redux";
+import { getProfile } from "@/lib/RTK/slices/profile-slice";
 
 export default function useProfile() {
+  const dispatch = useAppDispatch();
   const session = useSession();
-  const [data, setData] = useState<any>(null);
-  const [loading, setLoading] = useState(false);
+  const { profile, loading } = useAppSelector((state) => state.profileData);
 
   useEffect(() => {
-    async function getUser() {
+    async function getData() {
       if (session.status === "authenticated") {
-        try {
-          setLoading(true);
-          const user = (await axios.get("/api/edit-profile")).data;
-          setData(user);
-        } catch (error: any) {
-          console.log(error);
-        } finally {
-          setLoading(false);
-        }
+        await dispatch(getProfile());
       }
     }
-    getUser();
-  }, [session.status]);
+    getData();
+  }, [dispatch, session.status]);
 
-  return { loading, data }
+  return { loading, data: profile };
 }
