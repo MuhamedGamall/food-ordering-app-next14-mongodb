@@ -73,6 +73,7 @@ export default function EditProductForm({
       base_price: "",
     },
     values: {
+      
       title: product?.title || "",
       description: product?.description || "",
       category: product?.category || "",

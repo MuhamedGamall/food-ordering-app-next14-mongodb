@@ -56,12 +56,10 @@ export function DataTable({
   data,
   tableLoading,
   categories,
-
 }: {
   data: any;
   tableLoading: boolean;
   categories: any;
-
 }) {
   const dispatch = useAppDispatch();
   // const router = useRouter();
@@ -94,7 +92,6 @@ export function DataTable({
 
   const selectedRows = table.getFilteredSelectedRowModel().rows;
   const idsSelectedToDelete = selectedRows.map((row) => row.original._id);
-
 
   const handleDeleteClick = async (_id: string) => {
     if (_id) {
@@ -177,7 +174,6 @@ export function DataTable({
                 <TableRow
                   key={row.id}
                   data-state={row.getIsSelected() && "selected"}
-                 
                 >
                   {row.getVisibleCells().map((cell) => (
                     <TableCell key={cell.id}>
@@ -209,9 +205,7 @@ export function DataTable({
                           Copy product ID
                         </DropdownMenuItem>
                         <DropdownMenuSeparator />
-                        <DropdownMenuItem
-                       
-                        >
+                        <DropdownMenuItem>
                           <Link
                             href={
                               "/admin/menu-products/edit-product/" +

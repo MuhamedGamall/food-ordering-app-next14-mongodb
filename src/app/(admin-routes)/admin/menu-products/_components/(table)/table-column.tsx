@@ -92,8 +92,6 @@ export function columnsFnc(categories: any) {
         );
       },
       cell: ({ row }) => {
-        console.log(row.getValue("base_price"));
-
         return (
           <div>
             <div className="max-w-[100px] overflow-x-auto whitespace-nowrap">

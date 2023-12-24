@@ -30,7 +30,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 
 import { cn } from "@/lib/utils";
-import useProfile from "@/hooks/user-profile";
+
 import { productSchema } from "../validation-schema/product-schema";
 import { Check, ChevronsUpDown } from "lucide-react";
 import { useSession } from "next-auth/react";
@@ -39,9 +39,8 @@ import { useEffect, useState } from "react";
 import { getCategories } from "@/lib/RTK/slices/categories-slice";
 import { InitCategoryState } from "../../../../../../types";
 import HandleLoader from "@/components/loader";
-import formatPrice from "@/utils/format/format-price";
 import { Textarea } from "@/components/ui/textarea";
-
+import ExtraPriceFiled from "./extra-price-filed";
 interface AddProductFormProps {
   onSubmit: (v: any) => Promise<void>;
   imageURL64: string;
@@ -52,21 +51,36 @@ export default function AddProductForm({
   imageURL64,
 }: AddProductFormProps) {
   const session = useSession();
+  const dispatch = useAppDispatch();
   const { categories } = useAppSelector((state) => state.catygories);
   const [selectLoading, setSelectLoading] = useState(false);
-  const dispatch = useAppDispatch();
 
   const form = useForm<z.infer<typeof productSchema>>({
     resolver: zodResolver(productSchema),
-    defaultValues: {
-      title: "",
-      description: "",
-      category: "",
-      base_price: "",
-    },
+    // defaultValues: {
+    //   title: "",
+    //   description: "",
+    //   sizes: [
+    //     {
+    //       name: "",
+    //       extra_price: "",
+    //     },
+    //   ],
+
+    //   extra_increases_price: [
+    //     {
+    //       name: "",
+    //       extra_price: "",
+    //     },
+    //   ],
+    //   category: "",
+    //   base_price: "",
+    // },
     values: {
       title: "",
       description: "",
+      sizes: [],
+      extra_increases_price: [],
       category: "",
       base_price: "",
     },
@@ -82,14 +96,15 @@ export default function AddProductForm({
     }
     getData();
   }, [dispatch, session.status]);
-
+  function lol(e: any) {
+    e.preventDefault();
+    console.log(form.getValues());
+  }
   const { isSubmitting } = form.formState;
+
   return (
     <Form {...form}>
-      <form
-        onSubmit={form.handleSubmit(onSubmit)}
-        className="space-y-4 mt-4 w-full"
-      >
+      <form onSubmit={(e) => lol(e)} className="space-y-4 mt-4 w-full">
         <FormField
           control={form.control}
           name="title"
@@ -158,8 +173,6 @@ export default function AddProductForm({
                           value={category.title}
                           key={category._id}
                           onSelect={() => {
-                            console.log(category._id);
-
                             form.setValue("category", category._id);
                           }}
                         >
@@ -195,7 +208,6 @@ export default function AddProductForm({
                 <Textarea
                   disabled={isSubmitting}
                   placeholder="Description"
-
                   {...field}
                   className={cn(
                     "text-[18px] md:text-[22px]  bg-slate-100 focus:border-slate-500 border-[2.5px] p-6 h-[120px] min-h-[120px] max-h-[200px]"
@@ -206,6 +218,26 @@ export default function AddProductForm({
             </FormItem>
           )}
         />
+
+        <ExtraPriceFiled
+          form={form}
+          isSubmitting={isSubmitting}
+          inputName={{ name: "sizes.name", price: "sizes.extra_price" }}
+          labelName={{ label: "Size", price: "Extra price" }}
+          btnName={"Add item size"}
+        />
+
+        <ExtraPriceFiled
+          form={form}
+          isSubmitting={isSubmitting}
+          inputName={{
+            name: "extra_increases_price.name",
+            price: "extra_increases_price.extra_price",
+          }}
+          labelName={{ label: "Increase name", price: "Extra price" }}
+          btnName={"Add item increase"}
+        />
+
         <FormField
           control={form.control}
           name="base_price"
@@ -232,7 +264,7 @@ export default function AddProductForm({
         <Button
           type="submit"
           variant={"green"}
-          disabled={isSubmitting }
+          disabled={isSubmitting}
           className={cn("  text-2xl text-center rounded-full  mt-5 w-fit")}
         >
           Add product
