@@ -167,10 +167,17 @@ import { uploadImage } from "@/lib/RTK/slices/upload-image-slice";
 import ImageForm from "@/components/image-form";
 import AllProducts from "./all-products-form";
 import formatPrice from "@/utils/format/format-price";
-import EditProductForm from "./edit-product-form";
+import EditProductForm from "../edit-product/_components/edit-product-form";
 import { useSession } from "next-auth/react";
 import { Button } from "@/components/ui/button";
-import { ArrowDownNarrowWide, ArrowUpNarrowWide } from "lucide-react";
+import {
+  ArrowDownNarrowWide,
+  ArrowUpNarrowWide,
+  Minus,
+  MinusCircle,
+  Plus,
+  PlusCircle,
+} from "lucide-react";
 
 export default function ProductForm() {
   const session = useSession();
@@ -221,11 +228,11 @@ export default function ProductForm() {
             >
               {!isAddMood ? (
                 <>
-                  <ArrowDownNarrowWide /> Open add product mood
+                  <PlusCircle /> Open add product mood
                 </>
               ) : (
                 <>
-                  <ArrowUpNarrowWide /> Close add product mood
+                  <MinusCircle /> Close add product mood
                 </>
               )}
             </Button>

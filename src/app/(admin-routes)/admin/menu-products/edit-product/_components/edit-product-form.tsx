@@ -31,17 +31,21 @@ import { Input } from "@/components/ui/input";
 
 import { cn } from "@/lib/utils";
 
-import { productSchema } from "../validation-schema/product-schema";
+import { productSchema } from "../../validation-schema/product-schema";
 import { Check, ChevronsUpDown } from "lucide-react";
 import { useSession } from "next-auth/react";
 import { useAppDispatch, useAppSelector } from "@/hooks/redux";
 import { useEffect, useState } from "react";
 import { getCategories } from "@/lib/RTK/slices/categories-slice";
-import { InitProductState, InitCategoryState } from "../../../../../../types";
+import {
+  InitProductState,
+  InitCategoryState,
+} from "../../../../../../../types";
 import HandleLoader from "@/components/loader";
 import formatPrice from "@/utils/format/format-price";
 import { getProducts } from "@/lib/RTK/slices/menu-products-slice";
 import { useRouter } from "next/navigation";
+import { Textarea } from "@/components/ui/textarea";
 
 interface EditProductFormProps {
   onSubmit: (v: any) => Promise<void>;
@@ -200,13 +204,12 @@ export default function EditProductForm({
                 Description
               </FormLabel>
               <FormControl>
-                <Input
+                <Textarea
                   disabled={isSubmitting}
                   placeholder="Description"
-                  type="text"
                   {...field}
                   className={cn(
-                    "text-[18px] md:text-[22px]  bg-slate-100 focus:border-slate-500 border-[2.5px] p-6 "
+                    "text-[18px] md:text-[22px]  bg-slate-100 focus:border-slate-500 border-[2.5px] p-6 h-[120px] min-h-[120px] max-h-[200px]"
                   )}
                 />
               </FormControl>

@@ -40,6 +40,7 @@ import { getCategories } from "@/lib/RTK/slices/categories-slice";
 import { InitCategoryState } from "../../../../../../types";
 import HandleLoader from "@/components/loader";
 import formatPrice from "@/utils/format/format-price";
+import { Textarea } from "@/components/ui/textarea";
 
 interface AddProductFormProps {
   onSubmit: (v: any) => Promise<void>;
@@ -191,13 +192,13 @@ export default function AddProductForm({
                 Description
               </FormLabel>
               <FormControl>
-                <Input
+                <Textarea
                   disabled={isSubmitting}
                   placeholder="Description"
-                  type="text"
+
                   {...field}
                   className={cn(
-                    "text-[18px] md:text-[22px]  bg-slate-100 focus:border-slate-500 border-[2.5px] p-6 "
+                    "text-[18px] md:text-[22px]  bg-slate-100 focus:border-slate-500 border-[2.5px] p-6 h-[120px] min-h-[120px] max-h-[200px]"
                   )}
                 />
               </FormControl>

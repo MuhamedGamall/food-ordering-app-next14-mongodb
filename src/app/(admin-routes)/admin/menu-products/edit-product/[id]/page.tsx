@@ -12,7 +12,7 @@ import { editProduct, getProducts } from "@/lib/RTK/slices/menu-products-slice";
 import { uploadImage } from "@/lib/RTK/slices/upload-image-slice";
 import ImageForm from "@/components/image-form";
 import { useSession } from "next-auth/react";
-import EditProductForm from "../../_components/edit-product-form";
+import EditProductForm from "../_components/edit-product-form";
 import { redirect, useRouter } from "next/navigation";
 import { MoveLeft } from "lucide-react";
 
