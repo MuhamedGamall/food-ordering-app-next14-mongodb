@@ -46,7 +46,6 @@ export default function ProductForm() {
   const AddCurrentImage = image64 || "/product-placeholder/th.jpeg";
 
   async function onSubmit(value: any) {
-    console.log(value);
     
     if (Object.values({ value, image64 }).every((el) => !!el)) {
       setIsSubmitting(true);
@@ -99,7 +98,7 @@ export default function ProductForm() {
                   currentImage={AddCurrentImage}
                   isSubmitting={isSubmitting}
                 />
-                <AddProductForm onSubmit={onSubmit} imageURL64={image64} />
+                <AddProductForm onSubmit={onSubmit} />
               </div>
             )}
             <AllProducts />

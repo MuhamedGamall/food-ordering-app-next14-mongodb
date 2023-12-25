@@ -8,11 +8,9 @@ export const getProfile: any = createAsyncThunk(
     const { rejectWithValue } = thunkApi;
     try {
       const data = (await axios.get("/api/edit-profile")).data;
-      console.log(data);
 
       return data;
     } catch (error: any) {
-      console.log(error);
       return rejectWithValue(error.message);
     }
   }
@@ -53,10 +51,7 @@ const profileSlice = createSlice({
         getProfile.fulfilled,
         (state: any, action: PayloadAction<any>) => {
           state.loading = false;
-          
-          state.profile = action.payload;
-          console.log(state.profile);
-        }
+          state.profile = action.payload;        }
       )
       .addCase(
         getProfile.rejected,

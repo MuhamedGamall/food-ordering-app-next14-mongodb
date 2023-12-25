@@ -18,38 +18,35 @@ export const productSchema = z.object({
       200,
       "Description is too long! It should contain maximum 200 characters."
     ),
+
   category: z.string().min(1, "Category is required"),
-  sizes: z.array(
-    z.object({
-      name: z
-        .string()
-        .trim()
-        .min(1, "Size filed is required")
-        .max(30, "Size is too long! It should contain maximum 30 characters."),
-      extra_price: z
-        .string()
-        .trim()
-        .min(1, "Extra price must contain at least 1 characters.")
-        .max(12, "Maximum extra price allowed is $999999999999."),
-    })
-  ),
-  extra_increases_price: z.array(
-    z.object({
-      name: z
-        .string()
-        .trim()
-        .min(1, "addition filed is required")
-        .max(30, "Size is too long! It should contain maximum 30 characters."),
-      extra_price: z
-        .string()
-        .trim()
-        .min(1, "Extra price must contain at least 1 characters.")
-        .max(12, "Maximum extra price allowed is $999999999999."),
-    })
-  ),
   base_price: z
     .string()
     .trim()
-    .min(1, "Price must contain at least one digit")
+    .min(1, "Must contain at least  0.09")
     .max(12, "Maximum price allowed is $999999999999"),
+  // sizes: z.object({
+  //   name: z
+  //     .string()
+  //     .trim()
+  //     .min(1, "Size filed is required")
+  //     .max(30, "Should contain maximum 30 characters."),
+  //   extra_price: z
+  //     .string()
+  //     .trim()
+  //     .min(1, "Must contain at least  0.09")
+  //     .max(12, "Maximum extra price allowed is $999999999999."),
+  // }),
+  // extra_increases_price: z.object({
+  //   name: z
+  //     .string()
+  //     .trim()
+  //     .min(1, "Increases filed is required")
+  //     .max(30, " Should contain maximum 30 characters."),
+  //   extra_price: z
+  //     .string()
+  //     .trim()
+  //     .min(1, "Must contain at least  0.09")
+  //     .max(12, "Maximum extra price allowed is $999999999999."),
+  // }),
 });
