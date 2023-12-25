@@ -1,4 +1,3 @@
-
 "use client";
 
 import axios from "axios";
@@ -31,12 +30,14 @@ import {
   Plus,
   PlusCircle,
 } from "lucide-react";
+import { Field } from "./extra-price-field";
 
 export default function ProductForm() {
   const session = useSession();
   const dispatch = useAppDispatch();
   const { loading, data } = useProfile();
 
+  const [extraPricesValues, setExtraPricesValues] = useState<any>({});
   const [image64, setImage64] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isAddMood, setIsAddMood] = useState(false);
@@ -45,8 +46,8 @@ export default function ProductForm() {
 
   const AddCurrentImage = image64 || "/product-placeholder/th.jpeg";
 
+  console.log(extraPricesValues);
   async function onSubmit(value: any) {
-    
     if (Object.values({ value, image64 }).every((el) => !!el)) {
       setIsSubmitting(true);
       const data = await dispatch(
@@ -58,6 +59,8 @@ export default function ProductForm() {
       );
       const imageURL = await data?.payload;
       const values = {
+        ...extraPricesValues,
+
         ...value,
         ...(imageURL && { image: imageURL }),
       };
@@ -98,7 +101,10 @@ export default function ProductForm() {
                   currentImage={AddCurrentImage}
                   isSubmitting={isSubmitting}
                 />
-                <AddProductForm onSubmit={onSubmit} />
+                <AddProductForm
+                  onSubmit={onSubmit}
+                  setExtraPricesValues={setExtraPricesValues}
+                />
               </div>
             )}
             <AllProducts />

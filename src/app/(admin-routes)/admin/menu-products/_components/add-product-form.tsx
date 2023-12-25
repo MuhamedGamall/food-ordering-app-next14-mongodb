@@ -41,14 +41,19 @@ import { InitCategoryState } from "../../../../../../types";
 import HandleLoader from "@/components/loader";
 import { Textarea } from "@/components/ui/textarea";
 import ExtraPriceField from "./extra-price-field";
-interface AddProductFormProps {
-  onSubmit: (v: any) => Promise<void>;
-}
 export interface Field {
   name: string;
   extra_price: string;
 }
-export default function AddProductForm({ onSubmit }: AddProductFormProps) {
+interface AddProductFormProps {
+  onSubmit: (v: any) => Promise<void>;
+  setExtraPricesValues: any;
+}
+
+export default function AddProductForm({
+  onSubmit,
+  setExtraPricesValues,
+}: AddProductFormProps) {
   const session = useSession();
   const dispatch = useAppDispatch();
   const { categories } = useAppSelector((state) => state.catygories);
@@ -66,7 +71,7 @@ export default function AddProductForm({ onSubmit }: AddProductFormProps) {
       base_price: "",
     },
   });
-  
+
   useEffect(() => {
     async function getData() {
       if (session.status === "authenticated") {
@@ -77,6 +82,9 @@ export default function AddProductForm({ onSubmit }: AddProductFormProps) {
     }
     getData();
   }, [dispatch, session.status]);
+  useEffect(() => {
+    setExtraPricesValues({ sizes, extra_increases_price: extraIncreasesPrice });
+  }, [extraIncreasesPrice, setExtraPricesValues, sizes]);
 
   const { isSubmitting } = form.formState;
 
