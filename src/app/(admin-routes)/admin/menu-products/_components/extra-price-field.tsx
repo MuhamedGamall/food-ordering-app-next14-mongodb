@@ -56,7 +56,7 @@ export default function ExtraPriceField({
 
     let isValid = true;
 
-    if (!valuesTriming.name) {
+    if (valuesTriming.name.length === 0) {
       setNameError("This field is required");
       isValid = false;
     } else {

@@ -59,7 +59,6 @@ export default function ProductForm() {
       const imageURL = await data?.payload;
       const values = {
         ...extraPricesValues,
-
         ...value,
         ...(imageURL && { image: imageURL }),
       };

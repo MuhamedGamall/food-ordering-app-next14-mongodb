@@ -61,10 +61,7 @@ export function DataTable({
   tableLoading: boolean;
   categories: any;
 }) {
-  console.log(categories);
-  
   const dispatch = useAppDispatch();
-  // const router = useRouter();
   const [sorting, setSorting] = useState<SortingState>([]);
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
   const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({});
