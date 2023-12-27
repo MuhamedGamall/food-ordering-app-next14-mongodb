@@ -17,7 +17,7 @@ import {
 } from "@/lib/RTK/slices/menu-products-slice";
 import { uploadImage } from "@/lib/RTK/slices/upload-image-slice";
 import ImageForm from "@/components/image-form";
-import AllProducts from "./all-products-form";
+import AllProducts from "./all-products-table";
 import formatPrice from "@/utils/format/format-price";
 import EditProductForm from "../edit-product/_components/edit-product-form";
 import { useSession } from "next-auth/react";
