@@ -35,19 +35,17 @@ import { productSchema } from "../validation-schema/product-schema";
 import { Check, ChevronsUpDown } from "lucide-react";
 import { useSession } from "next-auth/react";
 import { useAppDispatch, useAppSelector } from "@/hooks/redux";
-import { useEffect, useState } from "react";
+import { Dispatch, SetStateAction, useEffect, useState } from "react";
 import { getCategories } from "@/lib/RTK/slices/categories-slice";
 import { InitCategoryState } from "../../../../../../types";
 import HandleLoader from "@/components/loader";
 import { Textarea } from "@/components/ui/textarea";
-import ExtraPriceField from "./extra-price-field";
-export interface Field {
-  name: string;
-  extra_price: string;
-}
+import ExtraPriceField, { Field } from "./extra-price-field";
+import { ExtraPricesValues } from "./products-form";
+
 interface AddProductFormProps {
   onSubmit: (v: any) => Promise<void>;
-  setExtraPricesValues: any;
+  setExtraPricesValues: Dispatch<SetStateAction<ExtraPricesValues>>;
 }
 
 export default function AddProductForm({

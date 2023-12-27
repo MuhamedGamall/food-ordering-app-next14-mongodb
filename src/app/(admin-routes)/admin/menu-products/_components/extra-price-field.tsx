@@ -56,20 +56,20 @@ export default function ExtraPriceField({
 
     let isValid = true;
 
-    if (valuesTriming.name.length === 0) {
-      setNameError("This field is required");
-      isValid = false;
-    } else {
-      setNameError("");
-    }
+    // if (valuesTriming.name.length === 0) {
+    //   setNameError("This field is required");
+    //   isValid = false;
+    // } else {
+    //   setNameError("");
+    // }
 
-    const priceRegex = /^\d+(\.\d{1,2})?$/;
-    if (!priceRegex.test(valuesTriming.extra_price)) {
-      setPriceError("Please enter a valid price ");
-      isValid = false;
-    } else {
-      setPriceError("");
-    }
+    // const priceRegex = /^\d+(\.\d{1,2})?$/;
+    // if (!priceRegex.test(valuesTriming.extra_price)) {
+    //   setPriceError("Please enter a valid price ");
+    //   isValid = false;
+    // } else {
+    //   setPriceError("");
+    // }
 
     if (!isEditMood && isValid) {
       setData((curr: any) => [...curr, valuesTriming]);

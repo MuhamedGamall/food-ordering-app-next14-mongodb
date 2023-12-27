@@ -15,13 +15,19 @@ import AllProducts from "./all-products-table";
 import { useSession } from "next-auth/react";
 import { Button } from "@/components/ui/button";
 import { MinusCircle, PlusCircle } from "lucide-react";
-
+import { Field } from "./extra-price-field";
+export interface ExtraPricesValues {
+  sizes: Field[];
+  extra_increases_price: Field[];
+}
 export default function ProductForm() {
   const session = useSession();
   const dispatch = useAppDispatch();
   const { loading, data } = useProfile();
 
-  const [extraPricesValues, setExtraPricesValues] = useState<any>({});
+  const [extraPricesValues, setExtraPricesValues] = useState<ExtraPricesValues>(
+    { sizes: [], extra_increases_price: [] }
+  );
   const [image64, setImage64] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isAddMood, setIsAddMood] = useState(false);
@@ -29,9 +35,21 @@ export default function ProductForm() {
   const email = data?.email;
 
   const AddCurrentImage = image64 || "/product-placeholder/th.jpeg";
+  const priceRegex = /^\d+(\.\d{1,2})?$/;
+  const sizesExtraPricesValuesCheck =
+    extraPricesValues.sizes.length > 0 &&
+    extraPricesValues.sizes
+      .map(
+        (el) =>
+          el.name.trim().length > 0 &&
+          el.name.trim().length <= 30 &&
+          el.extra_price.trim() >= "0" &&
+          priceRegex.test(el.extra_price)
+      )
+      .every(Boolean);
 
   async function onSubmit(value: any) {
-    if (Object.values({ value, image64 }).every((el) => !!el)) {
+    if (Object.values({ value, image64 }).every((el) => !!el) && sizesExtraPricesValuesCheck) {
       setIsSubmitting(true);
       const data = await dispatch(
         uploadImage({

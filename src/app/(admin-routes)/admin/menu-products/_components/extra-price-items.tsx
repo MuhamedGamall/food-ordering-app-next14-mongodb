@@ -12,7 +12,7 @@ import { Separator } from "@radix-ui/react-menubar";
 
 import { cn } from "@/lib/utils";
 import formatPrice from "@/utils/format/format-price";
-import { Field } from "./add-product-form";
+import { Field } from "./extra-price-field";
 
 interface ExtraPriceItemsProps {
   accordLabelName: string;
