@@ -28,6 +28,8 @@ export interface InitProductState {
   base_price: string;
   description: string;
   category: string;
+  sizes: [];
+  extra_increases_price: [];
   createdAt: string;
   updatedAt: string;
   __v: number;

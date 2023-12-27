@@ -36,20 +36,27 @@ export default function ProductForm() {
 
   const AddCurrentImage = image64 || "/product-placeholder/th.jpeg";
   const priceRegex = /^\d+(\.\d{1,2})?$/;
-  const sizesExtraPricesValuesCheck =
-    extraPricesValues.sizes.length > 0 &&
-    extraPricesValues.sizes
-      .map(
-        (el) =>
-          el.name.trim().length > 0 &&
-          el.name.trim().length <= 30 &&
-          el.extra_price.trim() >= "0" &&
-          priceRegex.test(el.extra_price)
-      )
-      .every(Boolean);
+  const validateExtraPricesValues = (array: Field[]) =>
+    array.every(
+      (el) =>
+        el.name.trim().length > 0 &&
+        el.name.trim().length <= 30 &&
+        el.extra_price.trim() >= "0" &&
+        priceRegex.test(el.extra_price)
+    );
 
+  const sizesExtraPricesValuesCheck =
+    extraPricesValues.sizes.length &&
+    validateExtraPricesValues(extraPricesValues.sizes);
+  const increasesExtraPricesValuesCheck = validateExtraPricesValues(
+    extraPricesValues.extra_increases_price
+  );
   async function onSubmit(value: any) {
-    if (Object.values({ value, image64 }).every((el) => !!el) && sizesExtraPricesValuesCheck) {
+    if (
+      Object.values({ value, image64 }).every(Boolean) &&
+      sizesExtraPricesValuesCheck &&
+      increasesExtraPricesValuesCheck
+    ) {
       setIsSubmitting(true);
       const data = await dispatch(
         uploadImage({

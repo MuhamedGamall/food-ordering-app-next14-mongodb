@@ -18,7 +18,7 @@ export async function POST(req: NextRequest) {
     if (!user) {
       return new NextResponse("Unauthorized", { status: 401 });
     }
-    if (!Object.values({ product }).every((el) => !!el)) {
+    if (!Object.values({ product }).every(Boolean) ){
       return new NextResponse("Not Found", { status: 404 });
     }
     const createProduct = await MenuProduct.create(product);

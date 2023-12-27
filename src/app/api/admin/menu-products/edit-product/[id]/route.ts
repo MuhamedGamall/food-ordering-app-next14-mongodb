@@ -24,7 +24,7 @@ export async function PATCH(
       return new NextResponse("Unauthorized", { status: 401 });
     }
 
-    if (!Object.values(otherData).some((el) => !!el)) {
+    if (!Object.values(otherData).some(Boolean)) {
       return new NextResponse("Not Found", { status: 404 });
     }
 

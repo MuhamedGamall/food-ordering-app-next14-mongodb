@@ -35,7 +35,7 @@ import { productSchema } from "../../validation-schema/product-schema";
 import { Check, ChevronsUpDown } from "lucide-react";
 import { useSession } from "next-auth/react";
 import { useAppDispatch, useAppSelector } from "@/hooks/redux";
-import { useEffect, useState } from "react";
+import { Dispatch, SetStateAction, useEffect, useState } from "react";
 import { getCategories } from "@/lib/RTK/slices/categories-slice";
 import {
   InitProductState,
@@ -46,21 +46,27 @@ import formatPrice from "@/utils/format/format-price";
 import { getProducts } from "@/lib/RTK/slices/menu-products-slice";
 import { useRouter } from "next/navigation";
 import { Textarea } from "@/components/ui/textarea";
+import ExtraPriceField, { Field } from "../../_components/extra-price-field";
+import { ExtraPricesValues } from "../../_components/products-form";
 
 interface EditProductFormProps {
   onSubmit: (v: any) => Promise<void>;
   product: InitProductState | undefined;
   imageURL64: string;
+  setExtraPricesValues: Dispatch<SetStateAction<ExtraPricesValues>>;
 }
 
 export default function EditProductForm({
   onSubmit,
   product,
   imageURL64,
+  setExtraPricesValues,
 }: EditProductFormProps) {
   const session = useSession();
   const router = useRouter();
   const { categories } = useAppSelector((state) => state.catygories);
+  const [sizes, setSizes] = useState<Field[]>([]);
+  const [extraIncreasesPrice, setExtraIncreasesPrice] = useState<Field[]>([]);
 
   const [selectLoading, setSelectLoading] = useState(false);
   const dispatch = useAppDispatch();
@@ -73,7 +79,6 @@ export default function EditProductForm({
       base_price: "",
     },
     values: {
-      
       title: product?.title || "",
       description: product?.description || "",
       category: product?.category || "",
@@ -92,10 +97,18 @@ export default function EditProductForm({
     getData();
   }, [dispatch, session.status]);
 
-  const isValid = !Object.values({ ...form.getValues(), imageURL64 }).some(
-    (el) => !!el
-  );
+  useEffect(() => {
+    setExtraPricesValues({ sizes, extra_increases_price: extraIncreasesPrice });
+  }, [extraIncreasesPrice, setExtraPricesValues, sizes]);
 
+  useEffect(() => {
+    setSizes(product?.sizes || []);
+    setExtraIncreasesPrice(product?.extra_increases_price || []);
+  }, [product?.extra_increases_price, product?.sizes]);
+
+  const isValid = !Object.values({ ...form.getValues(), imageURL64 }).some(
+    Boolean
+  );
   const { isSubmitting } = form.formState;
   return (
     <Form {...form}>
@@ -241,15 +254,46 @@ export default function EditProductForm({
             </FormItem>
           )}
         />
+        <div className="my-4">
+          <FormLabel className="text-slate-500 text-[17px]">Sizes</FormLabel>
+          <ExtraPriceField
+            fieldName={{ name: "sizes", price: "sizes_extra_price" }}
+            labelName={{ label: "Size", price: "Extra price" }}
+            btnName={"Add item size"}
+            accordLabelName={"Sizes list"}
+            setData={setSizes}
+            data={sizes}
+            form={form}
+            isSubmitting={isSubmitting}
+          />
+        </div>
+        <div className="my-4">
+          <FormLabel className="text-slate-500 text-[17px] ">
+            Increases
+          </FormLabel>
+          <ExtraPriceField
+            fieldName={{
+              name: "increases",
+              price: "increases_extra_price",
+            }}
+            labelName={{ label: "Increase", price: "Extra price" }}
+            btnName={"Add item increase"}
+            accordLabelName={"Increases list"}
+            setData={setExtraIncreasesPrice}
+            data={extraIncreasesPrice}
+            form={form}
+            isSubmitting={isSubmitting}
+          />
+        </div>
         <div className="flex items justify-between">
           <Button
             type="submit"
             variant={"green"}
             disabled={isSubmitting || isValid}
-            onClick={() => router.replace("/admin/menu-products")}
+            // onClick={() => router.replace("/admin/menu-products")}
             className={cn("  text-2xl text-center rounded-full  mt-5 w-fit")}
           >
-            Save
+            Update
           </Button>
         </div>
       </form>

@@ -15,6 +15,8 @@ import { useSession } from "next-auth/react";
 import EditProductForm from "../_components/edit-product-form";
 import { redirect, useRouter } from "next/navigation";
 import { MoveLeft } from "lucide-react";
+import { ExtraPricesValues } from "../../_components/products-form";
+import { Field } from "../../_components/extra-price-field";
 
 export default function ProductForm({
   params: { id },
@@ -29,7 +31,9 @@ export default function ProductForm({
 
   const [image64, setImage64] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
-
+  const [extraPricesValues, setExtraPricesValues] = useState<ExtraPricesValues>(
+    { sizes: [], extra_increases_price: [] }
+  );
   const email = data?.email;
 
   useEffect(() => {
@@ -42,23 +46,43 @@ export default function ProductForm({
   }, [dispatch, session.status]);
 
   const product = products.find((el) => el._id === id);
-  if (products.length === 0 || !product) {
-   return redirect("/admin/menu-products");
-  }
+  // if (products.length === 0 || !product) {
+  //   return redirect("/admin/menu-products");
+  // }
 
-    // if (session.status === "unauthenticated" || !data?.admin) {
-    //   redirect("/");
-    // }
-  
-  const EditCurrentImage = image64|| product?.image || "/product-placeholder/th.jpeg";
+  // if (session.status === "unauthenticated" || !data?.admin) {
+  //   redirect("/");
+  // }
+
+  const EditCurrentImage =
+    image64 || product?.image || "/product-placeholder/th.jpeg";
+  const priceRegex = /^\d+(\.\d{1,2})?$/;
+  const validateExtraPricesValues = (array: Field[]) =>
+    array.every(
+      (el) =>
+        el.name.trim().length > 0 &&
+        el.name.trim().length <= 30 &&
+        el.extra_price.trim() >= "0" &&
+        priceRegex.test(el.extra_price)
+    );
+
+  const sizesExtraPricesValuesCheck =
+    extraPricesValues.sizes.length &&
+    validateExtraPricesValues(extraPricesValues.sizes);
+  const increasesExtraPricesValuesCheck = validateExtraPricesValues(
+    extraPricesValues.extra_increases_price
+  );
 
   async function onSubmit(value: any) {
-    if (Object.values({ value, image64 }).some((el) => !!el)) {
+    if (
+      Object.values({ value, image64 }).some(Boolean) &&
+      sizesExtraPricesValuesCheck &&
+      increasesExtraPricesValuesCheck
+    ) {
       setIsSubmitting(true);
       const filteredData = Object.fromEntries(
         Object.entries(value).filter(([key, value]) => value !== "")
       );
-
       const data =
         image64 &&
         (await dispatch(
@@ -68,8 +92,10 @@ export default function ProductForm({
             folderName: "food-ordering-products",
           })
         ));
+
       const imageURL = (await data?.payload) || product?.image;
       const values = {
+        ...extraPricesValues,
         ...filteredData,
         ...(imageURL && { image: imageURL }),
         _id: id,
@@ -105,8 +131,9 @@ export default function ProductForm({
               />
               <EditProductForm
                 onSubmit={onSubmit}
-                product={product}
+                product={product || undefined}
                 imageURL64={image64}
+                setExtraPricesValues={setExtraPricesValues}
               />
             </div>
           </div>

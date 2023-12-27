@@ -52,29 +52,29 @@ export default function ExtraPriceField({
       name: values.name.trim(),
       extra_price: values.extra_price.trim(),
     };
-    console.log(valuesTriming);
 
     let isValid = true;
 
-    // if (valuesTriming.name.length === 0) {
-    //   setNameError("This field is required");
-    //   isValid = false;
-    // } else {
-    //   setNameError("");
-    // }
+    if (valuesTriming.name.length === 0) {
+      setNameError("This field is required");
+      isValid = false;
+    } else {
+      setNameError("");
+    }
 
-    // const priceRegex = /^\d+(\.\d{1,2})?$/;
-    // if (!priceRegex.test(valuesTriming.extra_price)) {
-    //   setPriceError("Please enter a valid price ");
-    //   isValid = false;
-    // } else {
-    //   setPriceError("");
-    // }
-
+    const priceRegex = /^\d+(\.\d{1,2})?$/;
+    if (!priceRegex.test(valuesTriming.extra_price)) {
+      setPriceError("Please enter a valid price ");
+      isValid = false;
+    } else {
+      setPriceError("");
+    }
+    // post
     if (!isEditMood && isValid) {
       setData((curr: any) => [...curr, valuesTriming]);
       setValues({ name: "", extra_price: "" });
     }
+    // edit
     if (isEditMood && isValid) {
       setData((curr: any) => {
         const newArr = [...curr];
