@@ -1,36 +1,20 @@
 "use client";
 
-import axios from "axios";
 import toast from "react-hot-toast";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 import useProfile from "@/hooks/user-profile";
 
-import { useRouter } from "next/navigation";
 import HandleLoader from "@/components/loader";
 import AddProductForm from "./add-product-form";
-import { useAppDispatch, useAppSelector } from "@/hooks/redux";
-import {
-  editProduct,
-  getProducts,
-  postProduct,
-} from "@/lib/RTK/slices/menu-products-slice";
+import { useAppDispatch } from "@/hooks/redux";
+import { postProduct } from "@/lib/RTK/slices/menu-products-slice";
 import { uploadImage } from "@/lib/RTK/slices/upload-image-slice";
 import ImageForm from "@/components/image-form";
 import AllProducts from "./all-products-table";
-import formatPrice from "@/utils/format/format-price";
-import EditProductForm from "../edit-product/_components/edit-product-form";
 import { useSession } from "next-auth/react";
 import { Button } from "@/components/ui/button";
-import {
-  ArrowDownNarrowWide,
-  ArrowUpNarrowWide,
-  Minus,
-  MinusCircle,
-  Plus,
-  PlusCircle,
-} from "lucide-react";
-import { Field } from "./extra-price-field";
+import { MinusCircle, PlusCircle } from "lucide-react";
 
 export default function ProductForm() {
   const session = useSession();
