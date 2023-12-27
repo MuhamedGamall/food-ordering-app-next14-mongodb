@@ -9,7 +9,7 @@ export const getProfile: any = createAsyncThunk(
     try {
       const data = (await axios.get("/api/edit-profile")).data;
 
-      return data;
+      return data || null;
     } catch (error: any) {
       return rejectWithValue(error.message);
     }
@@ -51,7 +51,8 @@ const profileSlice = createSlice({
         getProfile.fulfilled,
         (state: any, action: PayloadAction<any>) => {
           state.loading = false;
-          state.profile = action.payload;        }
+          state.profile = action.payload;
+        }
       )
       .addCase(
         getProfile.rejected,

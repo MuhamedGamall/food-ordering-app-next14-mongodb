@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Dispatch, SetStateAction, useState } from "react";
 
 import {
   Accordion,
@@ -6,7 +6,7 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
-import { PenBox, Trash2 } from "lucide-react";
+import { PenBox, Trash2, Undo2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@radix-ui/react-menubar";
 
@@ -19,17 +19,57 @@ interface ExtraPriceItemsProps {
   labelName: { label: string; price: string };
   data: Field[];
   isSubmitting: boolean;
-  onRemove: (i: number) => void;
-  onEdit: () => void;
+  setData: Dispatch<SetStateAction<any>>;
+  setIsEditMood: Dispatch<SetStateAction<boolean>>;
+  setValues: Dispatch<SetStateAction<any>>;
+  setEditItemIdx: Dispatch<SetStateAction<string>>;
+  editItemIdx: string;
+  isEditMood: boolean;
 }
 export default function ExtraPriceItems({
   accordLabelName,
   labelName,
   data,
   isSubmitting,
-  onRemove,
-  onEdit,
+  setData,
+  setIsEditMood,
+  setValues,
+  setEditItemIdx,
+  editItemIdx,
+  isEditMood,
 }: ExtraPriceItemsProps) {
+  const checkItem = (i: number) => isEditMood && i === +editItemIdx;
+  const onRemove = (idx: number) => {
+    if (isEditMood) {
+      setValues({
+        name: "",
+        extra_price: "",
+      });
+      setIsEditMood(false);
+    }
+    setData((curr: Field[]) => curr.filter((_, i) => i !== idx));
+  };
+  const onEdit = (idx: number) => {
+    if (!isEditMood) {
+      const fieldChoiced = data?.find((_, i) => i === idx);
+      setIsEditMood(true);
+      setValues({
+        name: fieldChoiced?.name || "",
+        extra_price: fieldChoiced?.extra_price || "",
+      });
+      setEditItemIdx(`${idx}`);
+    } else {
+      if (idx === +editItemIdx) {
+        setIsEditMood(false);
+        setValues({
+          name: "",
+          extra_price: "",
+        });
+        setEditItemIdx("");
+      }
+    }
+  };
+
   return (
     <Accordion type="single" collapsible>
       <AccordionItem value="item-1 ">
@@ -41,7 +81,7 @@ export default function ExtraPriceItems({
             <Separator className="h-[1px] w-full bg-slate-200" />
             <div className="flex items-center justify-between w-full text-[20px] py-4 px-1">
               <div className="flex items-center w-full">
-                <span className="w-[50%]">{labelName.label}</span>
+                <span className="w-[50%] ">{labelName.label}</span>
                 <span>Extra price</span>
               </div>
               <span>Actions</span>
@@ -49,28 +89,40 @@ export default function ExtraPriceItems({
             <Separator className="h-[1px] w-full bg-slate-200" />
             {data.length > 0 ? (
               data.map((el, i) => (
-                <>
+                
                   <div
                     key={i}
                     className={cn(
                       i! % 2 === 1 && "bg-slate-200",
+                      checkItem(i) && "bg-sky-300 ",
                       "flex items-center gap-2 p-2 w-full"
                     )}
                   >
-                    <div className="flex items-center flex-grow text-[18px]">
-                      <span className="w-[50%]"> {el.name}</span>
-                      <span>{formatPrice(el.extra_price)}</span>
+                    <div className="flex items-center flex-grow text-[18px] gap-2">
+                      <span className="w-[50%] min-w-[90px] overflow-x-auto whitespace-nowrap py-1">
+                        {el.name}
+                      </span>
+                      <span className=" min-w-[90px] overflow-x-auto whitespace-nowrap py-1">
+                        {formatPrice(el.extra_price)}
+                      </span>
                     </div>
                     <div className="flex items-center gap-1">
                       <Button
                         type="button"
                         variant={"ghost"}
                         disabled={isSubmitting}
+                        onClick={() => {
+                          onEdit(i);
+                        }}
                         className={cn(
-                          " text-sky-400 hover:text-sky-500 text-center rounded-md flex-shrink  p-1  hover:bg-slate-200 "
+                          " text-sky-500 hover:text-sky-600 text-center rounded-md flex-shrink  p-1  hover:bg-slate-200 "
                         )}
                       >
-                        <PenBox className="h-5 w-5" />
+                        {checkItem(i) ? (
+                          <Undo2 className="h-5 w-5" />
+                        ) : (
+                          <PenBox className="h-5 w-5" />
+                        )}
                       </Button>
                       <Button
                         type="button"
@@ -85,7 +137,7 @@ export default function ExtraPriceItems({
                       </Button>
                     </div>
                   </div>
-                </>
+               
               ))
             ) : (
               <span className="text-center p-3">No result.</span>

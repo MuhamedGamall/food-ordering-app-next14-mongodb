@@ -46,7 +46,6 @@ export default function ProductForm() {
 
   const AddCurrentImage = image64 || "/product-placeholder/th.jpeg";
 
-  console.log(extraPricesValues);
   async function onSubmit(value: any) {
     if (Object.values({ value, image64 }).every((el) => !!el)) {
       setIsSubmitting(true);

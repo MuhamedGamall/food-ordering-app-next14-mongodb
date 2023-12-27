@@ -5,6 +5,7 @@ import { getProducts } from "@/lib/RTK/slices/menu-products-slice";
 import { useSession } from "next-auth/react";
 import { useEffect, useState } from "react";
 import { DataTable } from "./(table)/table-products";
+import { getCategories } from "@/lib/RTK/slices/categories-slice";
 
 export default function AllProducts() {
   const session = useSession();
@@ -18,6 +19,7 @@ export default function AllProducts() {
       if (session.status === "authenticated") {
         setTableLoading(true);
         await dispatch(getProducts());
+        await dispatch(getCategories());
         setTableLoading(false);
       }
     }
@@ -27,7 +29,6 @@ export default function AllProducts() {
   return (
     <div>
       <DataTable
-
         data={products}
         categories={categories}
         tableLoading={tableLoading}

@@ -1,6 +1,8 @@
 "use client";
 import AdminMenuBar from "@/components/admin/admin-menu-bar";
-import { usePathname } from "next/navigation";
+import useProfile from "@/hooks/user-profile";
+import { useSession } from "next-auth/react";
+import { redirect, usePathname } from "next/navigation";
 
 export default function RootLayout({
   children,

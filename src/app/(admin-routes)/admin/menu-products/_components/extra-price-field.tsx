@@ -15,7 +15,6 @@ import { cn } from "@/lib/utils";
 import { useState } from "react";
 import ExtraPriceItems from "./extra-price-items";
 
-
 export interface Field {
   name: string;
   extra_price: string;
@@ -45,11 +44,19 @@ export default function ExtraPriceField({
 
   const [nameError, setNameError] = useState("");
   const [priceError, setPriceError] = useState("");
-
+  const [isEditMood, setIsEditMood] = useState(false);
+  const [editItemIdx, setEditItemIdx] = useState("");
+  // submit for edit & post
   function onSubmit() {
+    const valuesTriming = {
+      name: values.name.trim(),
+      extra_price: values.extra_price.trim(),
+    };
+    console.log(valuesTriming);
+
     let isValid = true;
 
-    if (!values.name) {
+    if (!valuesTriming.name) {
       setNameError("This field is required");
       isValid = false;
     } else {
@@ -57,29 +64,31 @@ export default function ExtraPriceField({
     }
 
     const priceRegex = /^\d+(\.\d{1,2})?$/;
-    if (!priceRegex.test(values.extra_price)) {
+    if (!priceRegex.test(valuesTriming.extra_price)) {
       setPriceError("Please enter a valid price ");
       isValid = false;
     } else {
       setPriceError("");
     }
 
-    if (isValid) {
-      setData((curr: any) => [...curr, values]);
-      console.log(data);
+    if (!isEditMood && isValid) {
+      setData((curr: any) => [...curr, valuesTriming]);
+      setValues({ name: "", extra_price: "" });
     }
-    setValues({ name: "", extra_price: "" });
+    if (isEditMood && isValid) {
+      setData((curr: any) => {
+        const newArr = [...curr];
+        newArr[+editItemIdx] = { ...newArr[+editItemIdx], ...valuesTriming };
+        return newArr;
+      });
+      setValues({ name: "", extra_price: "" });
+      setIsEditMood(false);
+    }
   }
-
-  const onRemove = (idx: number) => {
-    setData((curr: Field[]) => curr.filter((_, i) => i !== idx));
-  };
 
   function onChange(val: string, prop: string) {
     setValues((curr: any): any => {
       return { ...curr, [prop]: val };
-      // curr[prop] = val;
-      // return curr;
     });
   }
 
@@ -100,9 +109,9 @@ export default function ExtraPriceField({
                   placeholder={labelName.label}
                   type="text"
                   value={values.name}
-                  onChange={(e) => onChange(e.target.value.trim(), "name")}
+                  onChange={(e) => onChange(e.target.value, "name")}
                   className={cn(
-                    "text-[17px]    bg-slate-100 focus:border-slate-500 border-[2.5px] p-5 "
+                    "text-[17px] bg-slate-100 focus:border-slate-500 border-[2.5px] p-5 "
                   )}
                 />
               </FormControl>
@@ -125,9 +134,7 @@ export default function ExtraPriceField({
                   disabled={isSubmitting}
                   placeholder="Add extra price"
                   type="text"
-                  onChange={(e) =>
-                    onChange(e.target.value.trim(), "extra_price")
-                  }
+                  onChange={(e) => onChange(e.target.value, "extra_price")}
                   value={values.extra_price}
                   className={cn(
                     "text-[17px]   bg-slate-100 focus:border-slate-500 border-[2.5px] p-5 "
@@ -149,7 +156,7 @@ export default function ExtraPriceField({
           )}
           onClick={onSubmit}
         >
-          {btnName}
+          {isEditMood ? btnName.replace("Add", "Update") : btnName}
         </Button>
       </div>
       <ExtraPriceItems
@@ -157,8 +164,12 @@ export default function ExtraPriceField({
         data={data}
         isSubmitting={isSubmitting}
         labelName={labelName}
-        onEdit={() => ""}
-        onRemove={onRemove}
+        setData={setData}
+        setValues={setValues}
+        setIsEditMood={setIsEditMood}
+        editItemIdx={editItemIdx}
+        setEditItemIdx={setEditItemIdx}
+        isEditMood={isEditMood}
       />
     </div>
   );

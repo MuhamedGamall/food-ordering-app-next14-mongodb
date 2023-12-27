@@ -229,9 +229,9 @@ export default function AddProductForm({
             )}
           />
           <div className="my-4">
-            <FormLabel className="text-slate-500 text-[17px] ">Sizes</FormLabel>
+            <FormLabel className="text-slate-500 text-[17px]">Sizes</FormLabel>
             <ExtraPriceField
-              fieldName={{ name: "sizes.name", price: "sizes.extra_price" }}
+              fieldName={{ name: "sizes", price: "sizes_extra_price" }}
               labelName={{ label: "Size", price: "Extra price" }}
               btnName={"Add item size"}
               accordLabelName={"Sizes list"}
@@ -247,8 +247,8 @@ export default function AddProductForm({
             </FormLabel>
             <ExtraPriceField
               fieldName={{
-                name: "extra_increases_price.name",
-                price: "extra_increases_price.extra_price",
+                name: "increases",
+                price: "increases_extra_price",
               }}
               labelName={{ label: "Increase", price: "Extra price" }}
               btnName={"Add item increase"}

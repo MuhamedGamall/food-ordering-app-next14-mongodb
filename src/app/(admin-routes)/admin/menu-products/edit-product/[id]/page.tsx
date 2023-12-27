@@ -24,25 +24,33 @@ export default function ProductForm({
   const session = useSession();
   const router = useRouter();
   const dispatch = useAppDispatch();
-  const { loading, data } = useProfile();
-  const { products } = useAppSelector((state) => state.menuProducts);
+  const { data } = useProfile();
+  const { products, loading } = useAppSelector((state) => state.menuProducts);
 
   const [image64, setImage64] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const email = data?.email;
+
+  useEffect(() => {
+    async function getData() {
+      if (session.status === "authenticated") {
+        await dispatch(getProducts());
+      }
+    }
+    getData();
+  }, [dispatch, session.status]);
+
   const product = products.find((el) => el._id === id);
-
-  if (!products || product === undefined) {
-    redirect("/admin/menu-products");
+  if (products.length === 0 || !product) {
+   return redirect("/admin/menu-products");
   }
 
-  if (session.status === "unauthenticated" && !data && !data?.admin) {
-    redirect("/");
-  }
-  const EditCurrentImage = image64
-    ? image64
-    : product?.image || "/product-placeholder/th.jpeg";
+    // if (session.status === "unauthenticated" || !data?.admin) {
+    //   redirect("/");
+    // }
+  
+  const EditCurrentImage = image64|| product?.image || "/product-placeholder/th.jpeg";
 
   async function onSubmit(value: any) {
     if (Object.values({ value, image64 }).some((el) => !!el)) {
@@ -72,15 +80,6 @@ export default function ProductForm({
       toast.error("Please fill all fields");
     }
   }
-
-  useEffect(() => {
-    async function getData() {
-      if (session.status === "authenticated") {
-        await dispatch(getProducts());
-      }
-    }
-    getData();
-  }, [dispatch, session.status]);
 
   return (
     <>

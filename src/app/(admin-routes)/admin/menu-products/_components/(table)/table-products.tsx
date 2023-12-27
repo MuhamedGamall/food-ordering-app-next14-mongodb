@@ -61,15 +61,15 @@ export function DataTable({
   tableLoading: boolean;
   categories: any;
 }) {
+  console.log(categories);
+  
   const dispatch = useAppDispatch();
   // const router = useRouter();
-  const [editingRowId, setEditingRowId] = useState<string | null>(null);
   const [sorting, setSorting] = useState<SortingState>([]);
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
   const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({});
   const [rowSelection, setRowSelection] = useState({});
   const [isLoading, setIsLoading] = useState(false);
-  const router = useRouter();
   const { columns } = columnsFnc(categories);
   const table = useReactTable({
     data,
@@ -96,7 +96,6 @@ export function DataTable({
   const handleDeleteClick = async (_id: string) => {
     if (_id) {
       dispatch(deleteProduct([_id]));
-      setEditingRowId(null);
       table.resetRowSelection(false);
       table.toggleAllRowsSelected(false);
     }

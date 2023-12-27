@@ -119,9 +119,9 @@ export function columnsFnc(categories: any) {
           <div>
             <div className="lowercase max-w-[100px] overflow-x-auto whitespace-nowrap">
               {
-                categories.filter(
+                categories.find(
                   (el: any) => el._id === row.getValue("category")
-                )[0]?.title
+                )?.title
               }
             </div>
           </div>
