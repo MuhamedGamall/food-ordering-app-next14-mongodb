@@ -184,10 +184,9 @@ export default function EditProductForm({
                           value={category.title}
                           key={category._id}
                           onSelect={() => {
-                            console.log(category._id);
-
                             form.setValue("category", category._id);
                           }}
+                          className="hover:bg-sky-100 transition"
                         >
                           <Check
                             className={cn(
@@ -290,7 +289,9 @@ export default function EditProductForm({
             type="submit"
             variant={"green"}
             disabled={isSubmitting || isValid}
-            // onClick={() => router.replace("/admin/menu-products")}
+            onClick={() =>
+              setTimeout(() => router.replace("/admin/menu-products"), 1000)
+            }
             className={cn("  text-2xl text-center rounded-full  mt-5 w-fit")}
           >
             Update

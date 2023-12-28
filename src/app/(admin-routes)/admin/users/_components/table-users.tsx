@@ -1,6 +1,5 @@
 "use client";
 
-import * as React from "react";
 import {
   ColumnFiltersState,
   SortingState,
@@ -12,7 +11,7 @@ import {
   getSortedRowModel,
   useReactTable,
 } from "@tanstack/react-table";
-import { ChevronDown, Edit, MoreHorizontal, Trash2, XIcon } from "lucide-react";
+import { ChevronDown, Edit, MoreHorizontal } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 
@@ -24,7 +23,6 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { Input } from "@/components/ui/input";
 import { useState } from "react";
 
 import {
@@ -36,38 +34,26 @@ import {
   TableRow,
 } from "@/components/ui/table";
 
-import toast from "react-hot-toast";
-import { useRouter } from "next/navigation";
 import { useAppDispatch } from "@/hooks/redux";
-import {
-  deleteCategory,
-  editCategory,
-} from "@/lib/RTK/slices/categories-slice";
 
 import HandleLoader from "@/components/loader";
 import SearchInputs from "./search-inputs";
-import DeleteActionsBtns from "./delete-actions";
-import { columnsFnc } from "./table-column";
-import { deleteProduct } from "@/lib/RTK/slices/menu-products-slice";
-import { cn } from "@/lib/utils";
+
 import Link from "next/link";
+import { columns } from "./table-column";
 
 export function DataTable({
   data,
   tableLoading,
-  categories,
 }: {
   data: any;
   tableLoading: boolean;
-  categories: any;
 }) {
-  const dispatch = useAppDispatch();
   const [sorting, setSorting] = useState<SortingState>([]);
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
   const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({});
   const [rowSelection, setRowSelection] = useState({});
-  const [isLoading, setIsLoading] = useState(false);
-  const { columns } = columnsFnc(categories);
+
   const table = useReactTable({
     data,
     columns,
@@ -87,30 +73,12 @@ export function DataTable({
     },
   });
 
-  const selectedRows = table.getFilteredSelectedRowModel().rows;
-  const idsSelectedToDelete = selectedRows.map((row) => row.original._id);
-
-  const handleDeleteClick = async (_id: string) => {
-    if (_id) {
-      dispatch(deleteProduct([_id]));
-      table.resetRowSelection(false);
-      table.toggleAllRowsSelected(false);
-    }
-  };
   return (
     <div className="w-full mt-5">
-      {isLoading || (tableLoading && <HandleLoader />)}
+      {tableLoading && <HandleLoader />}
       <div className="flex items-center justify-between gap-1 py-4">
         <div className="flex items-center gap-1">
           <SearchInputs dataLength={data?.length} table={table} />
-          <DeleteActionsBtns
-            dispatch={dispatch}
-            table={table}
-            setIsLoading={setIsLoading}
-            idsSelectedToDelete={idsSelectedToDelete}
-            data={data}
-            isLoading={isLoading}
-          />
         </div>
         <div className="bg-slate-100 rounded-md p-1">
           <DropdownMenu>
@@ -198,29 +166,17 @@ export function DataTable({
                             navigator.clipboard.writeText(row.original._id)
                           }
                         >
-                          Copy product ID
+                          Copy user ID
                         </DropdownMenuItem>
                         <DropdownMenuSeparator />
                         <DropdownMenuItem>
                           <Link
-                            href={
-                              "/admin/menu-products/edit-product/" +
-                              row.original._id
-                            }
+                            href={"/admin/users/" + row.original._id}
                             className="flex items-center gap-1 text-[16px]"
                           >
                             <Edit className="w-4" />
-                            View & Edit product
+                            View user
                           </Link>
-                        </DropdownMenuItem>
-                        <DropdownMenuItem>
-                          <div
-                            className="flex items-center gap-1 text-[16px]"
-                            onClick={() => handleDeleteClick(row.original._id)}
-                          >
-                            <Trash2 className="w-4" />
-                            Delete
-                          </div>
                         </DropdownMenuItem>
                       </DropdownMenuContent>
                     </DropdownMenu>

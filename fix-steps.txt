@@ -1,5 +1,4 @@
 - fix updatedAt & createdAt sorting products table 
 - add image for category
-- create product page
-- 
+- replace admin menu par to dashboard
 - 

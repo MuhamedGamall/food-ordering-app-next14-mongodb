@@ -6,6 +6,7 @@ import { getServerSession } from "next-auth";
 import { authOptions } from "../../auth/[...nextauth]/route";
 
 import { MenuProduct } from "@/models/MenuProducts";
+import { UserInfos } from "@/models/UserInfos";
 
 export async function POST(req: NextRequest) {
   mongoose.connect(process.env.MONGO_URL!);
@@ -15,10 +16,11 @@ export async function POST(req: NextRequest) {
     const session = await getServerSession(authOptions);
     const email = session?.user?.email;
     const user = await User.findOne({ email });
-    if (!user) {
+    const userInfos: any = await UserInfos.findOne({ email });
+    if (!user || !userInfos.admin) {
       return new NextResponse("Unauthorized", { status: 401 });
     }
-    if (!Object.values({ product }).every(Boolean) ){
+    if (!Object.values({ product }).every(Boolean)) {
       return new NextResponse("Not Found", { status: 404 });
     }
     const createProduct = await MenuProduct.create(product);
@@ -36,8 +38,9 @@ export async function GET(req: NextRequest) {
     const email = session?.user?.email;
 
     const user = await User.findOne({ email });
+    const userInfos: any = await UserInfos.findOne({ email });
 
-    if (!user) {
+    if (!user || !userInfos.admin) {
       return new NextResponse("Unauthorized", { status: 401 });
     }
     const menuProducts = await MenuProduct.find();
@@ -60,8 +63,9 @@ export async function DELETE(req: NextRequest) {
     const session = await getServerSession(authOptions);
     const email = session?.user?.email;
     const user = await User.findOne({ email });
+    const userInfos: any = await UserInfos.findOne({ email });
 
-    if (!user && !user?.admin) {
+    if (!user || !userInfos?.admin) {
       return new NextResponse("Unauthorized", { status: 401 });
     }
     if (_ids?.length! > 0) {

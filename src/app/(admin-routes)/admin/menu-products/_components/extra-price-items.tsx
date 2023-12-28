@@ -74,7 +74,7 @@ export default function ExtraPriceItems({
     <Accordion type="single" collapsible>
       <AccordionItem value="item-1 ">
         <AccordionTrigger className="text-slate-900 text-[19px] px-2">
-          {accordLabelName} / {data.length}
+          {accordLabelName} ({data.length})
         </AccordionTrigger>
         <AccordionContent>
           <div className="flex flex-col items-center ">

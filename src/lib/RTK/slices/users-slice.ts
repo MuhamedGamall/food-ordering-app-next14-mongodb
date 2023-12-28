@@ -2,14 +2,30 @@ import { PayloadAction, createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 import toast from "react-hot-toast";
 
-export const getProfile: any = createAsyncThunk(
-  "profileSlice/getProfile",
+export const getUsers: any = createAsyncThunk(
+  "usersSlice/getUsers",
   async (_, thunkApi) => {
     const { rejectWithValue } = thunkApi;
     try {
-      const data = (await axios.get("/api/edit-profile")).data;
+      const data = (await axios.get("/api/admin/users")).data;
+      console.log('data',data);
+      return data || [];
+    } catch (error: any) {
+      console.log(error);
+      
+      return rejectWithValue(error.message);
+    }
+  }
+);
+export const getProfile: any = createAsyncThunk(
+  "usersSlice/getProfile",
+  async (_, thunkApi) => {
 
-      return data || null;
+    const { rejectWithValue } = thunkApi;
+    try {
+      const data = (await axios.get("/api/profile")).data;
+
+      return data || [];
     } catch (error: any) {
       return rejectWithValue(error.message);
     }
@@ -17,11 +33,11 @@ export const getProfile: any = createAsyncThunk(
 );
 
 export const editProfile: any = createAsyncThunk(
-  "profileSlice/editProfile",
+  "usersSlice/editProfile",
   async (values: any, thunkApi) => {
     const { rejectWithValue } = thunkApi;
     try {
-      (await axios.patch("/api/edit-profile", values)).data;
+      (await axios.patch("/api/profile", values)).data;
       toast.success("Profile updated");
       return values;
     } catch (error: any) {
@@ -32,16 +48,30 @@ export const editProfile: any = createAsyncThunk(
 );
 
 const initialState: any = {
+  users: [],
   profile: {},
   loading: false,
   error: null,
 };
 
-const profileSlice = createSlice({
-  name: "profileSlice",
+const usersSlice = createSlice({
+  name: "usersSlice",
   initialState,
   reducers: {},
   extraReducers: (builder) => {
+    builder
+      .addCase(getUsers.pending, (state: any, action: PayloadAction<any>) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(getUsers.fulfilled, (state: any, action: PayloadAction<any>) => {
+        state.loading = false;
+        state.users = action.payload;
+      })
+      .addCase(getUsers.rejected, (state: any, action: PayloadAction<any>) => {
+        state.loading = false;
+        state.error = action.payload;
+      });
     builder
       .addCase(getProfile.pending, (state: any, action: PayloadAction<any>) => {
         state.loading = true;
@@ -85,4 +115,4 @@ const profileSlice = createSlice({
       );
   },
 });
-export default profileSlice.reducer;
+export default usersSlice.reducer;

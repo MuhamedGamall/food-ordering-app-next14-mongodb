@@ -48,11 +48,10 @@ export async function GET(req: NextRequest) {
   try {
     const session = await getServerSession(authOptions);
     const email = session?.user?.email;
-
-    const user: any = await User.findOne({ email }).lean();
+    const user = await User.find({ email });
     const userInfos = await UserInfos.findOne({ email }).lean();
     const fullData = { ...user, ...userInfos };
-    
+
     if (!fullData) {
       return new NextResponse("Unauthorized", { status: 401 });
     }

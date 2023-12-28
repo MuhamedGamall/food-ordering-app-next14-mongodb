@@ -5,6 +5,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { getServerSession } from "next-auth";
 import { authOptions } from "../../auth/[...nextauth]/route";
 import { Category } from "@/models/Categories";
+import { UserInfos } from "@/models/UserInfos";
 export async function POST(req: NextRequest) {
   mongoose.connect(process.env.MONGO_URL!);
   try {
@@ -12,9 +13,15 @@ export async function POST(req: NextRequest) {
 
     const session = await getServerSession(authOptions);
     const email = session?.user?.email;
-    const user = await User.findOne({ email });
 
-    if (!user && !user?.admin && !title && title?.length === 0) {
+    const user = await User.findOne({ email });
+    const userInfos: any = await UserInfos.findOne({ email });
+
+    if (!title && title?.length === 0) {
+      return new NextResponse("Not Found", { status: 404 });
+    }
+
+    if (!user || !userInfos?.admin) {
       return new NextResponse("Unauthorized", { status: 401 });
     }
 
@@ -33,12 +40,16 @@ export async function PUT(req: NextRequest) {
 
     const session = await getServerSession(authOptions);
     const email = session?.user?.email;
-    const user = await User.findOne({ email });
 
-    if (!user && !user?.admin && !title && title?.length === 0) {
+    const user: any = await User.findOne({ email });
+    const userInfos: any = await UserInfos.findOne({ email });
+
+    if (!title && title?.length === 0) {
+      return new NextResponse("Not Found", { status: 404 });
+    }
+    if (!user || !userInfos?.admin) {
       return new NextResponse("Unauthorized", { status: 401 });
     }
-
     const editCategory = await Category.updateOne({ _id }, { title });
     return NextResponse.json(editCategory);
   } catch (error) {
@@ -57,9 +68,11 @@ export async function DELETE(req: NextRequest) {
 
     const session = await getServerSession(authOptions);
     const email = session?.user?.email;
-    const user = await User.findOne({ email });
 
-    if (!user && !user?.admin) {
+    const user: any = await User.findOne({ email });
+    const userInfos: any = await UserInfos.findOne({ email });
+
+    if (!user || !userInfos?.admin) {
       return new NextResponse("Unauthorized", { status: 401 });
     }
     if (_ids?.length! > 0) {
@@ -85,8 +98,9 @@ export async function GET(req: NextRequest) {
     const email = session?.user?.email;
 
     const user: any = await User.findOne({ email });
+    const userInfos: any = await UserInfos.findOne({ email });
 
-    if (!user && !user?.admin) {
+    if (!user || !userInfos?.admin) {
       return new NextResponse("Unauthorized", { status: 401 });
     }
     const categories = await Category.find()

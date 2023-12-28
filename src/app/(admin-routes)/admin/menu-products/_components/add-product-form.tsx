@@ -161,7 +161,7 @@ export default function AddProductForm({
                               form.setValue("category", category._id);
                               setOpen(false);
                             }}
-                            className="hover:bg-sky-100"
+                            className="hover:bg-sky-100 transition"
                           >
                             <Check
                               className={cn(

@@ -6,6 +6,7 @@ import { getServerSession } from "next-auth";
 
 import { MenuProduct } from "@/models/MenuProducts";
 import { authOptions } from "@/app/api/auth/[...nextauth]/route";
+import { UserInfos } from "@/models/UserInfos";
 
 export async function PATCH(
   req: NextRequest,
@@ -19,8 +20,8 @@ export async function PATCH(
     const session = await getServerSession(authOptions);
     const email = session?.user?.email;
     const user = await User.findOne({ email });
-
-    if (!user && !user?.admin) {
+    const userInfos: any = await UserInfos.findOne({ email });
+    if (!user || !userInfos?.admin) {
       return new NextResponse("Unauthorized", { status: 401 });
     }
 

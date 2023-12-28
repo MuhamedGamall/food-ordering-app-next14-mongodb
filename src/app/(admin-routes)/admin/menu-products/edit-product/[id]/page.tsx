@@ -17,6 +17,7 @@ import { redirect, useRouter } from "next/navigation";
 import { MoveLeft } from "lucide-react";
 import { ExtraPricesValues } from "../../_components/products-form";
 import { Field } from "../../_components/extra-price-field";
+import Link from "next/link";
 
 export default function ProductForm({
   params: { id },
@@ -112,12 +113,12 @@ export default function ProductForm({
       <div className="">
         <div className="relative z-50 mx-auto   max-w-full md:max-w-[80%]">
           {(loading || isSubmitting) && <HandleLoader />}
-          <span
-            onClick={() => router.replace("/admin/menu-products")}
-            className="cursor-pointer flex items-center gap-2 text-slate-800 ext-[19px]"
+          <Link
+            href={"/admin/menu-products"}
+            className="cursor-pointer flex items-center gap-3 text-slate-800 ext-[19px]"
           >
             <MoveLeft /> Back to menu products
-          </span>
+          </Link>
           <div className="space-y-2 ">
             <h1 className="text-[50px]">Edit product</h1>
           </div>

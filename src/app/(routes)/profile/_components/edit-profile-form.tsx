@@ -9,7 +9,7 @@ import ProfileFormInputs from "./profile-form-inputs";
 import HandleLoader from "@/components/loader";
 import { uploadImage } from "@/lib/RTK/slices/upload-image-slice";
 import { useAppDispatch, useAppSelector } from "@/hooks/redux";
-import { editProfile, getProfile } from "@/lib/RTK/slices/profile-slice";
+import { editProfile, getProfile } from "@/lib/RTK/slices/users-slice";
 import { useSession } from "next-auth/react";
 import useProfile from "@/hooks/user-profile";
 
@@ -20,6 +20,7 @@ export default function EditProfileForm() {
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const { data, loading } = useProfile();
+  console.log(data);
 
   const email = data?.email;
   const currentImage = image64 || data?.image || "/avatar/avatar.jpeg";

@@ -21,7 +21,6 @@ export interface ExtraPricesValues {
   extra_increases_price: Field[];
 }
 export default function ProductForm() {
-  const session = useSession();
   const dispatch = useAppDispatch();
   const { loading, data } = useProfile();
 
@@ -51,6 +50,7 @@ export default function ProductForm() {
   const increasesExtraPricesValuesCheck = validateExtraPricesValues(
     extraPricesValues.extra_increases_price
   );
+  
   async function onSubmit(value: any) {
     if (
       Object.values({ value, image64 }).every(Boolean) &&

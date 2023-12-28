@@ -11,6 +11,7 @@ import formatPrice from "@/utils/format/format-price";
 import formatDate from "@/utils/format/format-date";
 
 export function columnsFnc(categories: any) {
+  
   const columns: ColumnDef<any>[] = [
     {
       id: "select",

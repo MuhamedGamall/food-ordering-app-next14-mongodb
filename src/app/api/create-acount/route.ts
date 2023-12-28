@@ -2,6 +2,7 @@ import { User } from "@/models/User";
 import mongoose from "mongoose";
 import { NextRequest, NextResponse } from "next/server";
 import bcrypt from "bcrypt";
+import { UserInfos } from "@/models/UserInfos";
 export async function POST(req: NextRequest) {
   try {
     const body = await req.json();
@@ -21,7 +22,8 @@ export async function POST(req: NextRequest) {
     body.password = bcrypt.hashSync(notHashedPassword, salt);
 
     const createdUser = await User.create(body);
-
+    const { email } = body;
+    await UserInfos.create({ email, admin:false });
 
     return NextResponse.json(createdUser);
   } catch (error) {
