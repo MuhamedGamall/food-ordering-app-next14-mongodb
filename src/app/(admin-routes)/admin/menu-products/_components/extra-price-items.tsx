@@ -95,7 +95,7 @@ export default function ExtraPriceItems({
                     className={cn(
                       i! % 2 === 1 && "bg-slate-200",
                       checkItem(i) && "bg-sky-300 ",
-                      "flex items-center gap-2 p-2 w-full"
+                      "flex items-center gap-2 p-2 w-full hover:bg-sky-100 transition"
                     )}
                   >
                     <div className="flex items-center flex-grow text-[18px] gap-2">

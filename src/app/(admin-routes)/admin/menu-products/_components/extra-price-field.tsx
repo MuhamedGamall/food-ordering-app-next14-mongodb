@@ -40,7 +40,7 @@ export default function ExtraPriceField({
   isSubmitting,
   form,
 }: ExtraPriceFieldProps) {
-  const [values, setValues] = useState({ name: "", extra_price: "" });
+  const [values, setValues] = useState({ name: "", extra_price: "0" });
 
   const [nameError, setNameError] = useState("");
   const [priceError, setPriceError] = useState("");
@@ -72,7 +72,7 @@ export default function ExtraPriceField({
     // post
     if (!isEditMood && isValid) {
       setData((curr: any) => [...curr, valuesTriming]);
-      setValues({ name: "", extra_price: "" });
+      setValues({ name: "", extra_price: "0" });
     }
     // edit
     if (isEditMood && isValid) {
@@ -81,7 +81,7 @@ export default function ExtraPriceField({
         newArr[+editItemIdx] = { ...newArr[+editItemIdx], ...valuesTriming };
         return newArr;
       });
-      setValues({ name: "", extra_price: "" });
+      setValues({ name: "", extra_price: "0" });
       setIsEditMood(false);
     }
   }
