@@ -152,7 +152,7 @@ export default function ExtraPriceField({
           variant={"ghost"}
           disabled={isSubmitting}
           className={cn(
-            " text-white text-2xl text-center rounded-md  mt-1 w-full bg-slate-400 hover:bg-slate-500 "
+            " text-white text-2xl text-center rounded-md  mt-1 w-full bg-slate-700 hover:bg-slate-800 hover:text-white "
           )}
           onClick={onSubmit}
         >

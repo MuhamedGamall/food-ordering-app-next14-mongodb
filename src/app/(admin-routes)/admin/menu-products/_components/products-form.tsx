@@ -87,7 +87,10 @@ export default function ProductForm() {
           </div>
           <div className="w-full">
             <Button
-              onClick={() => setIsAddMood((cur) => !cur)}
+              onClick={() => {
+                setImage64("");
+                setIsAddMood((cur) => !cur);
+              }}
               className="flex items-center gap-2 ml-auto text-[18px]"
             >
               {!isAddMood ? (

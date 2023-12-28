@@ -56,7 +56,7 @@ export default function AddProductForm({
   const dispatch = useAppDispatch();
   const { categories } = useAppSelector((state) => state.catygories);
   const [selectLoading, setSelectLoading] = useState(false);
-
+  const [open, setOpen] = useState(false);
   const [sizes, setSizes] = useState<Field[]>([]);
   const [extraIncreasesPrice, setExtraIncreasesPrice] = useState<Field[]>([]);
 
@@ -122,8 +122,8 @@ export default function AddProductForm({
                 <FormLabel className="text-slate-500 text-[17px] ">
                   Category
                 </FormLabel>
-                <Popover>
-                  <PopoverTrigger asChild>
+                <Popover open={open} onOpenChange={setOpen}>
+                  <PopoverTrigger aria-expanded={open} asChild>
                     <FormControl>
                       <Button
                         variant="outline"
@@ -159,7 +159,9 @@ export default function AddProductForm({
                             key={category._id}
                             onSelect={() => {
                               form.setValue("category", category._id);
+                              setOpen(false);
                             }}
+                            className="hover:bg-sky-100"
                           >
                             <Check
                               className={cn(
