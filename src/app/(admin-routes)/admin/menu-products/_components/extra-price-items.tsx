@@ -89,55 +89,53 @@ export default function ExtraPriceItems({
             <Separator className="h-[1px] w-full bg-slate-200" />
             {data.length > 0 ? (
               data.map((el, i) => (
-                
-                  <div
-                    key={i}
-                    className={cn(
-                      i! % 2 === 1 && "bg-slate-200",
-                      checkItem(i) && "bg-sky-300 ",
-                      "flex items-center gap-2 p-2 w-full hover:bg-sky-100 transition"
-                    )}
-                  >
-                    <div className="flex items-center flex-grow text-[18px] gap-2">
-                      <span className="w-[50%] min-w-[90px] overflow-x-auto whitespace-nowrap py-1">
-                        {el.name}
-                      </span>
-                      <span className=" min-w-[90px] overflow-x-auto whitespace-nowrap py-1">
-                        {formatPrice(el.extra_price)}
-                      </span>
-                    </div>
-                    <div className="flex items-center gap-1">
-                      <Button
-                        type="button"
-                        variant={"ghost"}
-                        disabled={isSubmitting}
-                        onClick={() => {
-                          onEdit(i);
-                        }}
-                        className={cn(
-                          " text-sky-500 hover:text-sky-600 text-center rounded-md flex-shrink  p-1  hover:bg-slate-200 "
-                        )}
-                      >
-                        {checkItem(i) ? (
-                          <Undo2 className="h-5 w-5" />
-                        ) : (
-                          <PenBox className="h-5 w-5" />
-                        )}
-                      </Button>
-                      <Button
-                        type="button"
-                        variant={"ghost"}
-                        disabled={isSubmitting}
-                        onClick={() => onRemove(i)}
-                        className={cn(
-                          " text-red-400 hover:text-red-500 text-center rounded-md flex-shrink  p-1  hover:bg-slate-200 "
-                        )}
-                      >
-                        <Trash2 className="h-5 w-5" />
-                      </Button>
-                    </div>
+                <div
+                  key={i}
+                  className={cn(
+                    i! % 2 === 1 && "bg-slate-200",
+                    checkItem(i) && "bg-sky-100 shadow-md ",
+                    "flex items-center gap-2 mb-1 p-2 w-full hover:bg-sky-100 transition"
+                  )}
+                >
+                  <div className="flex items-center flex-grow text-[18px] gap-2">
+                    <span className="w-[50%] min-w-[90px] overflow-x-auto whitespace-nowrap py-1">
+                      {el.name}
+                    </span>
+                    <span className=" min-w-[90px] overflow-x-auto whitespace-nowrap py-1">
+                      {formatPrice(el.extra_price)}
+                    </span>
                   </div>
-               
+                  <div className="flex items-center gap-1">
+                    <Button
+                      type="button"
+                      variant={"ghost"}
+                      disabled={isSubmitting}
+                      onClick={() => {
+                        onEdit(i);
+                      }}
+                      className={cn(
+                        " text-sky-500 hover:text-sky-600 text-center rounded-md flex-shrink  p-1  hover:bg-slate-200 "
+                      )}
+                    >
+                      {checkItem(i) ? (
+                        <Undo2 className="h-5 w-5" />
+                      ) : (
+                        <PenBox className="h-5 w-5" />
+                      )}
+                    </Button>
+                    <Button
+                      type="button"
+                      variant={"ghost"}
+                      disabled={isSubmitting}
+                      onClick={() => onRemove(i)}
+                      className={cn(
+                        " text-red-400 hover:text-red-500 text-center rounded-md flex-shrink  p-1  hover:bg-slate-200 "
+                      )}
+                    >
+                      <Trash2 className="h-5 w-5" />
+                    </Button>
+                  </div>
+                </div>
               ))
             ) : (
               <span className="text-center p-3">No result.</span>
