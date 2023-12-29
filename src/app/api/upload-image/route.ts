@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { editUserAvatar } from "@/utils/cloudinary";
+import { uploadImageToCloudinary } from "@/utils/cloudinary";
 import { getServerSession } from "next-auth";
 import { authOptions } from "../auth/[...nextauth]/route";
 import { User } from "@/models/User";
@@ -21,7 +21,7 @@ export async function POST(req: NextRequest) {
       return new NextResponse("Unauthorized", { status: 401 });
     }
 
-    const uploadImage: any = await editUserAvatar({
+    const uploadImage: any = await uploadImageToCloudinary({
       file: image64,
       existingPublicId:publicId,
       folderName,

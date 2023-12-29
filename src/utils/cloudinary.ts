@@ -5,17 +5,17 @@ cloudinaryV2.config({
   api_key: process.env.CLOUDINARY_API_KEY,
   api_secret: process.env.CLOUDINARY_API_SECRET,
 });
-interface editUserAvatarProps {
+interface uploadImageToCloudinaryProps {
   file?: any;
   folderName?: string;
   existingPublicId?: string;
   isDeleting?: boolean;
 }
-export const editUserAvatar = async ({
+export const uploadImageToCloudinary = async ({
   file,
   folderName,
   existingPublicId,
-}: editUserAvatarProps): Promise<object> => {
+}: uploadImageToCloudinaryProps): Promise<object> => {
   console.log(folderName);
   
   try {

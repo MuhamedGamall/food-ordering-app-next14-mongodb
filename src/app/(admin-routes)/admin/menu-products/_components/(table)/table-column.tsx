@@ -6,7 +6,6 @@ import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
 
 import Image from "next/image";
-import { getCategories } from "../../../../../../lib/RTK/slices/categories-slice";
 import formatPrice from "@/utils/format/format-price";
 import formatDate from "@/utils/format/format-date";
 
@@ -50,6 +49,7 @@ export function columnsFnc(categories: any) {
               alt="image"
               width={250}
               height={250}
+              loading="lazy"
               className="w-[50px] max-w-full rounded-md aspect-[1] object-cover"
             />
           </div>
