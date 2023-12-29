@@ -24,7 +24,6 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { Input } from "@/components/ui/input";
 import { useState } from "react";
 
 import {
@@ -36,20 +35,13 @@ import {
   TableRow,
 } from "@/components/ui/table";
 
-import toast from "react-hot-toast";
-import { useRouter } from "next/navigation";
 import { useAppDispatch } from "@/hooks/redux";
-import {
-  deleteCategory,
-  editCategory,
-} from "@/lib/RTK/slices/categories-slice";
 
 import HandleLoader from "@/components/loader";
 import SearchInputs from "./search-inputs";
 import DeleteActionsBtns from "./delete-actions";
 import { columnsFnc } from "./table-column";
 import { deleteProduct } from "@/lib/RTK/slices/menu-products-slice";
-import { cn } from "@/lib/utils";
 import Link from "next/link";
 
 export function DataTable({
@@ -97,8 +89,9 @@ export function DataTable({
       table.toggleAllRowsSelected(false);
     }
   };
+
   return (
-    <div className="w-full mt-5">
+    <div className="w-full mt-5 ">
       {isLoading || (tableLoading && <HandleLoader />)}
       <div className="flex items-center justify-between gap-1 py-4">
         <div className="flex items-center gap-1">

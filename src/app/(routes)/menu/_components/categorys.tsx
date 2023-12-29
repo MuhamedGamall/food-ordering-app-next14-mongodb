@@ -1,41 +1,22 @@
-import React from 'react'
-import CategoryItems from './categorry-item';
-const categorys: { title: string; href: string }[] = [
-  {
-    title: "chease",
-    href: "",
-  },
-  {
-    title: "chease",
-    href: "",
-  },
-  {
-    title: "Contact",
-    href: "",
-  },
-  {
-    title: "chease",
-    href: "",
-  },
-  {
-    title: "About",
-    href: "",
-  },
-  {
-    title: "About",
-    href: "",
-  },
-  {
-    title: "About",
-    href: "",
-  },
-  {
-    title: "Contact",
-    href: "",
-  },
-];
+'use client'
+import React, { useEffect, useState } from "react";
+import CategoryItems from "./categorry-item";
+import { useAppDispatch, useAppSelector } from "@/hooks/redux";
+import { getCategories } from "@/lib/RTK/slices/categories-slice";
+
 export default function Categorys() {
-  return (
-   <CategoryItems items={categorys}/>
-  )
+  const { categories } = useAppSelector((state) => state.catygories);
+  const [tableLoading, setTableLoading] = useState(false);
+  const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    async function getData() {
+      setTableLoading(true);
+      await dispatch(getCategories());
+      setTableLoading(false);
+    }
+    getData();
+  }, [dispatch]);
+
+  return <CategoryItems categories={categories} />;
 }

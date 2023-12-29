@@ -10,7 +10,6 @@ import formatPrice from "@/utils/format/format-price";
 import formatDate from "@/utils/format/format-date";
 
 export function columnsFnc(categories: any) {
-  
   const columns: ColumnDef<any>[] = [
     {
       id: "select",
@@ -119,11 +118,15 @@ export function columnsFnc(categories: any) {
         return (
           <div>
             <div className="lowercase max-w-[100px] overflow-x-auto whitespace-nowrap">
-              {
-                categories.find(
-                  (el: any) => el._id === row.getValue("category")
-                )?.title
-              }
+              {categories.find((el: any) => el._id === row.getValue("category"))
+                ?.title || (
+                <div
+                  className="
+                text-red-700"
+                >
+                  No category
+                </div>
+              )}
             </div>
           </div>
         );

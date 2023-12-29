@@ -6,6 +6,7 @@ import { useSession } from "next-auth/react";
 import { useEffect, useState } from "react";
 import { DataTable } from "./(table)/table-products";
 import { getCategories } from "@/lib/RTK/slices/categories-slice";
+import { AlertOctagon } from "lucide-react";
 
 export default function AllProducts() {
   const session = useSession();
@@ -25,9 +26,20 @@ export default function AllProducts() {
     }
     getData();
   }, [dispatch, session.status]);
+  const productsIds = products.map((el) => el.category);
+  const categoriesIds = categories.map((el) => el._id);
+  const checkProductNotHasCategory = productsIds.filter(
+    (el) => !categoriesIds.includes(el)
+  );
 
   return (
     <div>
+      {checkProductNotHasCategory.length > 0 && (
+        <div className="flex gap-2 items-center w-full bg-red-100 rounded-md border py-3 px-2 text-[18px] mt-3">
+          <AlertOctagon color="red" />
+          You shold add category to product for publish product
+        </div>
+      )}
       <DataTable
         data={products}
         categories={categories}
