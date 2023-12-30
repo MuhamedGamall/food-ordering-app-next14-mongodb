@@ -22,11 +22,11 @@ export default function CategoryItems({
             key={item._id}
             className={cn(
               i == 0 &&  pathname.includes('_') && "bg-[#2d5d2a] text-white",
-              pathname.includes(item._id) && "bg-[#2d5d2a] text-white",
+              pathname.includes(item.title) && "bg-[#2d5d2a] text-white",
               " hover:bg-[#2d5d2a] hover:text-white transition py-2 px-4 text-[27px] rounded-full "
             )}
           >
-            <Link href={"/menu/category/" + item._id}>{item?.title}</Link>
+            <Link href={"/menu/category/" + item.title}>{item?.title}</Link>
           </li>
         ))}
       </ul>

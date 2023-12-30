@@ -10,7 +10,7 @@ import Link from "next/link";
 const routes: { title: string; href: string }[] = [
   {
     title: "Menu",
-    href: "/menu",
+    href: "/menu/category/_",
   },
   {
     title: "About",

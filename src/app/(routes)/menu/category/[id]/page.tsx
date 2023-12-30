@@ -14,9 +14,10 @@ export default function Menu({ params: { id } }: { params: { id: string } }) {
     (state) => state.catygories
   );
   const dispatch = useAppDispatch();
-  const menuChoiced = products.filter(
-    (el) => el.category === id || categories[0]._id
-  );
+  const findCategoryId = categories.find((el) => id === el.title)?._id;
+  const menuChoiced = products.filter(el => el.category === (findCategoryId || categories[0]._id));
+
+  console.log(findCategoryId, menuChoiced);
 
   useEffect(() => {
     dispatch(getCategories());
@@ -27,7 +28,7 @@ export default function Menu({ params: { id } }: { params: { id: string } }) {
   return (
     <div className="mx-auto px-4 max-w-[85rem]">
       <Categorys categories={categories} loading={categoryLoading} />
-      <MenuItems products={products} loading={productsLoding} />
+      <MenuItems products={menuChoiced} loading={productsLoding} />
     </div>
   );
 }
