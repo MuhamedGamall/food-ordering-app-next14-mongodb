@@ -9,11 +9,9 @@ export default function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
-  const pathname = usePathname();
-
   return (
     <div className="sm:w-[90%] max-w-[80rem] mx-auto mt-5 p-5">
-      <AdminMenuBar path={pathname} />
+      <AdminMenuBar />
       {children}
     </div>
   );

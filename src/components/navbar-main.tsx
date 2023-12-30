@@ -1,9 +1,10 @@
 import Link from "next/link";
 import { Button } from "./ui/button";
+import { cn } from "@/lib/utils";
 const routes: { title: string; href: string }[] = [
   {
     title: "Menu",
-    href: "/menu",
+    href: "/menu/category/_",
   },
   {
     title: "About",

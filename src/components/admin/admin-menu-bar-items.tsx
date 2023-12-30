@@ -8,14 +8,11 @@ import React from "react";
 
 interface AdminMenuBarRoutesProps {
   routes: { title: string; href: string }[];
-  path: string;
 }
 export default function AdminMenuBarItems({
   routes,
-  path,
 }: AdminMenuBarRoutesProps) {
-  const { data } = useProfile();
-  const isActive = useActiveLink(path);
+  const pathname = usePathname();
 
   return (
     <div className="overflow-x-auto  py-3 mb-5   max-w-[80rem]  ">
@@ -24,7 +21,7 @@ export default function AdminMenuBarItems({
           <Link
             href={"/profile"}
             className={cn(
-              isActive && "profile".includes(path) && "bg-[#2d5d2a] text-white",
+              pathname.includes("profile") && "bg-[#2d5d2a] text-white",
               "hover:bg-[#2d5d2a] hover:text-white transition py-2 px-4 text-[27px] rounded-full "
             )}
           >
@@ -36,9 +33,7 @@ export default function AdminMenuBarItems({
             <Link
               href={item?.href}
               className={cn(
-                isActive &&
-                  item.href.includes(path) &&
-                  "bg-[#2d5d2a] text-white",
+                pathname.includes(item?.href) && "bg-[#2d5d2a] text-white",
                 " hover:bg-[#2d5d2a] hover:text-white transition py-2 px-4 text-[27px] rounded-full "
               )}
             >

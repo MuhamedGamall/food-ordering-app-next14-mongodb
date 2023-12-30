@@ -20,11 +20,11 @@ const AdminMenuBarRoutes: { title: string; href: string }[] = [
     href: "/admin/users",
   },
 ];
-export default function AdminMenuBar({ path }: { path: string }) {
+export default function AdminMenuBar() {
   const { data } = useProfile();
 
   return (
     data &&
-    data?.admin && <AdminMenuBarItems routes={AdminMenuBarRoutes} path={path} />
+    data?.admin && <AdminMenuBarItems routes={AdminMenuBarRoutes}  />
   );
 }
