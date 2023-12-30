@@ -23,7 +23,6 @@ export default function Menu({ params: { id } }: { params: { id: string } }) {
     dispatch(getCategories());
     dispatch(getProducts());
   }, [dispatch]);
-  console.log(menuChoiced);
 
   return (
     <div className="mx-auto px-4 max-w-[85rem]">
