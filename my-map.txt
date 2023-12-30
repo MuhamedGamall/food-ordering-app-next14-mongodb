@@ -1,4 +1,3 @@
-= create form for add new product
-- create component for upload image
-= create teble for show all broducts
-- create edit form for edit my product
+- create product card
+- create page for all categories
+- create add to cart logic
