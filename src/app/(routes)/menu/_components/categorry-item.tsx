@@ -15,7 +15,7 @@ export default function CategoryItems({
 
 
   return (
-    <div className="overflow-x-auto  py-2   max-w-[80rem]  my-5">
+    <div className="overflow-x-auto py-2  max-w-[80rem]  my-5">
       <ul className="flex mx-auto  items-center gap-3 relative max-w-full md:max-w-[90%]">
         {categories.map((item: InitCategoryState, i) => (
           <li

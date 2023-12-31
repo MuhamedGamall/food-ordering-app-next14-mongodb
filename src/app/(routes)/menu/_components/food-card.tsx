@@ -12,10 +12,7 @@ export default function FoodCard({ item }: { item: InitProductState }) {
   };
   return (
     <div className="w-fit min-h-[250px] bg-white border mx-auto  shadow-card-shadow transition rounded-[5px] overflow-hidden ">
-      <Link
-        href={pathname + "/" + item._id}
-        className=""
-      >
+      <Link href={pathname + "/" + item._id} className="">
         <Image
           src={item.image}
           alt="product image"
@@ -25,7 +22,11 @@ export default function FoodCard({ item }: { item: InitProductState }) {
           className="w-full rounded-[5px] transition"
         />
       </Link>
-      <div className=" flex flex-col gap-4 p-5">
+
+      <div className=" flex flex-col  p px-5 py-2">
+        <Button className="bg-[#2d5d2a] hover:bg-green-900 rounded-sm text-white text-[18px] h-[30px] p-5 mb-3 ">
+          ADD TO ORDER
+        </Button>
         <div className="px-2 flex items-center justify-between">
           <div className=" text-[22px] max-w-[80%] break-all">
             {truncateText(item.title, 50)}
@@ -38,18 +39,11 @@ export default function FoodCard({ item }: { item: InitProductState }) {
           </Link>
         </div>
         <div
-          className="text-[18px] text-slate-950 max-w-[80%] break-all
+          className="text-[15px] text-slate-600 max-w-[80%] break-all
         px-2 "
         >
-          {truncateText(
-            item.description +
-              "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccdsssssssssssssssddddddddddddddddddd",
-            100
-          )}
+          {truncateText(item.description+'American Cheese, Grilled Chicken Breast, Onions, Mozzarella, Oregano with BBQ Sauce', 100)}
         </div>
-        <Button className="bg-[#2d5d2a] mt-auto hover:bg-[#222d21] rounded-full text-white text-[15px] h-[30px] p-2 w-fit  mb-2 mx-1">
-          ADD TO ORDER
-        </Button>
       </div>
     </div>
   );
