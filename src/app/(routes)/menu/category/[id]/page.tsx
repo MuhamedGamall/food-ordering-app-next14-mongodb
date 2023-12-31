@@ -18,7 +18,7 @@ export default function Menu({ params: { id } }: { params: { id: string } }) {
   const menuChoiced = products.filter(
     (el) => el?.category === (findCategoryId || categories[0]?._id)
   );
-  const menuTitle = id === "_" ? categories[0]?.title : id;
+  const menuTitle = (id === "_" ? categories[0]?.title : id) || "";
   useEffect(() => {
     dispatch(getCategories());
     dispatch(getProducts());

@@ -33,7 +33,7 @@ export interface InitProductState {
   createdAt: string;
   updatedAt: string;
   __v: number;
-}
+} 
 
 // export interface ProductProps extends MenuProduct {}
 
@@ -58,4 +58,9 @@ export interface AppUploadImageState {
   imageURL: string;
   loading: boolean;
   error: string | null;
+}
+
+export interface ExtraPriceState {
+  name: string;
+  extra_price: string;
 }

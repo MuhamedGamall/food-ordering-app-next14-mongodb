@@ -15,10 +15,10 @@ import AllProducts from "./all-products-table";
 import { useSession } from "next-auth/react";
 import { Button } from "@/components/ui/button";
 import { MinusCircle, PlusCircle } from "lucide-react";
-import { Field } from "./extra-price-field";
+import { ExtraPriceState } from "../../../../../../types";
 export interface ExtraPricesValues {
-  sizes: Field[];
-  extra_increases_price: Field[];
+  sizes: ExtraPriceState[];
+  extra_increases_price: ExtraPriceState[];
 }
 export default function ProductForm() {
   const dispatch = useAppDispatch();
@@ -35,7 +35,7 @@ export default function ProductForm() {
 
   const AddCurrentImage = image64 || "/product-placeholder/th.jpeg";
   const priceRegex = /^\d+(\.\d{1,2})?$/;
-  const validateExtraPricesValues = (array: Field[]) =>
+  const validateExtraPricesValues = (array: ExtraPriceState[]) =>
     array.every(
       (el) =>
         el.name.trim().length > 0 &&

@@ -37,10 +37,10 @@ import { useSession } from "next-auth/react";
 import { useAppDispatch, useAppSelector } from "@/hooks/redux";
 import { Dispatch, SetStateAction, useEffect, useState } from "react";
 import { getCategories } from "@/lib/RTK/slices/categories-slice";
-import { InitCategoryState } from "../../../../../../types";
+import { ExtraPriceState, InitCategoryState } from "../../../../../../types";
 import HandleLoader from "@/components/loader";
 import { Textarea } from "@/components/ui/textarea";
-import ExtraPriceField, { Field } from "./extra-price-field";
+import ExtraPriceField from "./extra-price-field";
 import { ExtraPricesValues } from "./products-form";
 
 interface AddProductFormProps {
@@ -57,8 +57,8 @@ export default function AddProductForm({
   const { categories } = useAppSelector((state) => state.catygories);
   const [selectLoading, setSelectLoading] = useState(false);
   const [open, setOpen] = useState(false);
-  const [sizes, setSizes] = useState<Field[]>([]);
-  const [extraIncreasesPrice, setExtraIncreasesPrice] = useState<Field[]>([]);
+  const [sizes, setSizes] = useState<ExtraPriceState[]>([]);
+  const [extraIncreasesPrice, setExtraIncreasesPrice] = useState<ExtraPriceState[]>([]);
 
   const form = useForm<z.infer<typeof productSchema>>({
     resolver: zodResolver(productSchema),

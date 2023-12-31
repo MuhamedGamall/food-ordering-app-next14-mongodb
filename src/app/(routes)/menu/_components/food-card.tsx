@@ -4,6 +4,7 @@ import Link from "next/link";
 import React from "react";
 import { InitProductState } from "../../../../../types";
 import { usePathname } from "next/navigation";
+import formatPrice from "@/utils/format/format-price";
 
 export default function FoodCard({ item }: { item: InitProductState }) {
   const pathname = usePathname();
@@ -24,9 +25,6 @@ export default function FoodCard({ item }: { item: InitProductState }) {
       </Link>
 
       <div className=" flex flex-col  p px-5 py-2">
-        <Button className="bg-[#2d5d2a] hover:bg-green-900 rounded-sm text-white text-[18px] h-[30px] p-5 mb-3 ">
-          ADD TO ORDER
-        </Button>
         <div className="px-2 flex items-center justify-between">
           <div className=" text-[22px] max-w-[80%] break-all">
             {truncateText(item.title, 50)}
@@ -39,11 +37,24 @@ export default function FoodCard({ item }: { item: InitProductState }) {
           </Link>
         </div>
         <div
-          className="text-[15px] text-slate-600 max-w-[80%] break-all
-        px-2 "
+          className="text-[17px] text-slate-800 max-w-[80%] break-all
+          px-2 "
         >
-          {truncateText(item.description+'American Cheese, Grilled Chicken Breast, Onions, Mozzarella, Oregano with BBQ Sauce', 100)}
+          {formatPrice(item.base_price)}
         </div>
+        <div
+          className="text-[15px] text-slate-600 max-w-[80%] break-all
+          px-2 "
+        >
+          {truncateText(
+            item.description +
+              "American Cheese, Grilled Chicken Breast, Onions, Mozzarella, Oregano with BBQ Sauce",
+            100
+          )}
+        </div>
+        <Button className="bg-[#2d5d2a] mt-[40px] hover:bg-green-900 rounded-md text-white text-[18px] h-[30px] p-5 mb-3 ">
+          ADD TO ORDER
+        </Button>
       </div>
     </div>
   );

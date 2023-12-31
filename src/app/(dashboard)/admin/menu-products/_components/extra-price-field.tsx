@@ -14,17 +14,15 @@ import { Input } from "@/components/ui/input";
 import { cn } from "@/lib/utils";
 import { useState } from "react";
 import ExtraPriceItems from "./extra-price-items";
+import { ExtraPriceState } from "../../../../../../types";
 
-export interface Field {
-  name: string;
-  extra_price: string;
-}
+
 interface ExtraPriceFieldProps {
   fieldName: { name: string; price: string };
   labelName: { label: string; price: string };
   btnName: string;
   accordLabelName: string;
-  data: Field[];
+  data: ExtraPriceState[];
   setData: any;
   isSubmitting: boolean;
   form: any;
