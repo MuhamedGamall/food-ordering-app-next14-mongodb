@@ -5,6 +5,7 @@ import { useEffect } from "react";
 import { useAppDispatch, useAppSelector } from "@/hooks/redux";
 import { getCategories } from "@/lib/RTK/slices/categories-slice";
 import { getProducts } from "@/lib/RTK/slices/menu-products-slice";
+import { getCart } from "@/lib/RTK/slices/products-cart";
 
 export default function Menu({ params: { id } }: { params: { id: string } }) {
   const { products, loading: productsLoding } = useAppSelector(
@@ -13,6 +14,7 @@ export default function Menu({ params: { id } }: { params: { id: string } }) {
   const { categories, loading: categoryLoading } = useAppSelector(
     (state) => state.catygories
   );
+  const { cart } = useAppSelector((state) => state.productsCart);
   const dispatch = useAppDispatch();
   const findCategoryId = categories.find((el) => id === el.title)?._id;
   const menuChoiced = products.filter(
@@ -22,15 +24,17 @@ export default function Menu({ params: { id } }: { params: { id: string } }) {
   useEffect(() => {
     dispatch(getCategories());
     dispatch(getProducts());
+    dispatch(getCart());
   }, [dispatch]);
 
+  const cartArr = cart.map((el: any) => el.product_id);
   return (
     <div className="mx-auto px-4 max-w-[80rem]">
       <Categorys categories={categories} loading={categoryLoading} />
       <div className=" md:max-w-[90%] mx-auto px-2 py-3 text-[45px] ">
         <div className=" max-w-[80rem] ">{`${menuTitle}`.toUpperCase()}</div>
       </div>
-      <MenuItems products={menuChoiced} loading={productsLoding} />
+      <MenuItems products={menuChoiced} loading={productsLoding} cartArr={cartArr} />
     </div>
   );
 }

@@ -15,6 +15,11 @@ import {
   getFavorites,
   postFavorite,
 } from "@/lib/RTK/slices/favorite-slice";
+import {
+  deleteProductFromCart,
+  getCart,
+  postProductToCart,
+} from "@/lib/RTK/slices/products-cart";
 
 export interface ExtraPricesFields {
   size: ExtraPriceState | null;
@@ -32,6 +37,7 @@ export default function ProductPage({
   );
 
   const { products, loading } = useAppSelector((state) => state.menuProducts);
+  const { cart } = useAppSelector((state) => state.productsCart);
   const { favorites } = useAppSelector((state) => state.favoritesData);
 
   const dispatch = useAppDispatch();
@@ -40,11 +46,14 @@ export default function ProductPage({
   useEffect(() => {
     dispatch(getProducts());
     dispatch(getFavorites());
+    dispatch(getCart());
   }, [dispatch]);
 
   const isFav = favorites
     .map((el: any) => el.product_id)
     .includes(product?._id);
+
+  const isAdded = cart.map((el: any) => el.product_id).includes(product?._id);
 
   async function addToFavorite() {
     if (product) {
@@ -57,6 +66,25 @@ export default function ProductPage({
       }
     }
   }
+  async function addToCart() {
+    if (product) {
+      if (isAdded) {
+        dispatch(deleteProductFromCart(product._id));
+      } else {
+        dispatch(
+          postProductToCart({ ...extraPricesFields, product_id: product._id })
+        );
+      }
+    }
+  }
+  const basePrice_ExtraPrces =
+    (extraPricesFields.extra_increases_price.reduce(
+      (a, c) => +a + +c.extra_price,
+      0
+    ) +
+      +(product?.base_price || 0) +
+      +(extraPricesFields.size?.extra_price || 0)) *
+    +extraPricesFields?.quantity;
 
   return (
     <section className="border-b ">
@@ -77,7 +105,7 @@ export default function ProductPage({
           <div className="flex flex-col gap-3  border-b pb-8 ">
             <h2 className="text-4xl">{product?.title}</h2>
             <p className="text-[18px] mb-[5px] text-slate-700">
-              {formatPrice(product?.base_price || "")}
+              {formatPrice(basePrice_ExtraPrces + "" || "0")}
             </p>
             <p className="text-[18px] mb-[5px] max-w-[500px] text-slate-700 mx-auto md:mx-0">
               {product?.description +
@@ -92,10 +120,11 @@ export default function ProductPage({
               />
             </div>
             <Button
+              onClick={addToCart}
               className="text-[18px] rounded-full w-fit mt-2 mx-auto md:mx-0 "
               variant={"green"}
             >
-              ADD TO ORDER
+              {isAdded ? "REMOVE FROM ORDERS" : "ADD TO ORDERS"}
             </Button>
           </div>
           <Button

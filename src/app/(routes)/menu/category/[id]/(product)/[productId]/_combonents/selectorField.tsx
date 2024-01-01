@@ -16,10 +16,10 @@ import {
 } from "../../../../../../../../../types";
 import { ExtraPricesFields } from "../page";
 import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import * as SelectPrimitive from "@radix-ui/react-select";
 import { Check } from "lucide-react";
 import { cn } from "@/lib/utils";
+import formatPrice from "@/utils/format/format-price";
+import { Label } from "@/components/ui/label";
 interface SelectFieldProps {
   extraPricesFields: ExtraPricesFields;
   setExtraPricesFields: Dispatch<SetStateAction<ExtraPricesFields>>;
@@ -32,15 +32,20 @@ export default function SelectorField({
   data,
   loading,
 }: SelectFieldProps) {
-  const [sizeValue, setSizeValue] = useState<ExtraPriceState | null>(null);
-  const [quantityValue, setQuantityValue] = useState("");
+  const sizes: ExtraPriceState[] = data?.sizes || [];
+  const increases: ExtraPriceState[] = data?.extra_increases_price || [];
+  const defaultSize = sizes.find((_, i) => i === 0);
+
+  const [sizeValue, setSizeValue] = useState<ExtraPriceState>({
+    name: defaultSize?.name || "",
+    extra_price: defaultSize?.extra_price || "",
+  });
+  
+  const [quantityValue, setQuantityValue] = useState("1");
   const [increasesValue, setIncreasesValue] = useState<ExtraPriceState[]>([]);
   const [open, setOpen] = useState(false);
-  const sizes = data?.sizes || [];
-  const inceases = data?.extra_increases_price || [];
 
   useEffect(() => {
-    console.log({ increasesValue, quantityValue, sizeValue });
     setExtraPricesFields({
       size: sizeValue,
       extra_increases_price: increasesValue,
@@ -48,21 +53,30 @@ export default function SelectorField({
     });
   }, [increasesValue, quantityValue, setExtraPricesFields, sizeValue]);
 
+  useEffect(() => {
+    setSizeValue({
+      name: defaultSize?.name || "",
+      extra_price: defaultSize?.extra_price || "",
+    });
+  }, [defaultSize]);
+
+  const increasesPlaceholder = increasesValue.map((el) => el?.name).join(", ");
+
   return (
     <div className="w-full flex flex-col gap-3">
       <div className="flex gap-2">
         <div className="flex-[3] ">
           <Select open={open} onOpenChange={setOpen}>
             <SelectTrigger aria-expanded={open}>
-              <SelectValue placeholder="Select a size" />
+              <SelectValue placeholder={sizeValue?.name || "Select a size"} />
             </SelectTrigger>
-            <SelectContent className="max-w-[300px]">
+            <SelectContent>
               <SelectGroup>
                 <SelectLabel>SIZES</SelectLabel>
                 {sizes.map((el: ExtraPriceState, i) => (
                   <div
                     key={el.name}
-                    className="flex items-center  hover:bg-slate-100 overflow-x-auto transition-all  rounded-md cursor-default"
+                    className="flex items-center w-full  hover:bg-slate-100 transition-all  rounded-md cursor-default"
                   >
                     <Check
                       className={cn(
@@ -72,16 +86,16 @@ export default function SelectorField({
                           : "opacity-0"
                       )}
                     />
-                    <option
-                      value={el.name}
+                    <div
                       onClick={() => {
                         setSizeValue(el);
                         setOpen(false);
                       }}
-                      className="  pl-1 pr-3 py-2 flex items-center gap-2 w-fit whitespace-nowrap "
+                      className="pl-1 pr-3 py-2 w-full flex items-center justify-between gap-2 whitespace-nowrap"
                     >
                       {el.name}
-                    </option>
+                      <p>{formatPrice(el.extra_price)}</p>
+                    </div>
                   </div>
                 ))}
               </SelectGroup>
@@ -113,32 +127,35 @@ export default function SelectorField({
       <div>
         <Select>
           <SelectTrigger>
-            <SelectValue placeholder="Select a increases" />
+            <SelectValue
+              placeholder={increasesPlaceholder || "Select a increases"}
+            />
           </SelectTrigger>
           <SelectContent>
             <SelectGroup>
               <SelectLabel>INCREASES</SelectLabel>
-              <div></div>
-              {inceases.map((el: ExtraPriceState, i) => (
+              {increases.map((el: ExtraPriceState, i) => (
                 <div
                   key={el.name}
-                  className="hover:bg-slate-100  transition-all  rounded-md "
+                  className="hover:bg-slate-100 w-full  transition-all  rounded-md "
                 >
-                  <Label className=" px-3 flex items-center gap-2 w-fit whitespace-nowrap">
-                    <Input
-                      type="checkbox"
-                      disabled={loading}
-                      className=""
-                      checked={increasesValue.includes(el)}
-                      onChange={() =>
-                        setIncreasesValue((curr) => {
-                          return curr.includes(el)
-                            ? curr.filter((item) => item !== el)
-                            : [...curr, el];
-                        })
-                      }
-                    />
-                    {el.name}
+                  <Label className=" px-3 flex items-center justify-between gap-2 whitespace-nowrap ">
+                    <div className="flex items-center gap-2 ">
+                      <Input
+                        type="checkbox"
+                        disabled={loading}
+                        checked={increasesValue.includes(el)}
+                        onChange={() =>
+                          setIncreasesValue((curr) => {
+                            return curr.includes(el)
+                              ? curr.filter((item) => item !== el)
+                              : [...curr, el];
+                          })
+                        }
+                      />
+                      {el.name}
+                    </div>
+                    +{formatPrice(el.extra_price)}
                   </Label>
                 </div>
               ))}

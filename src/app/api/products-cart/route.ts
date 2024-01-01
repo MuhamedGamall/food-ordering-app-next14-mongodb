@@ -3,13 +3,12 @@ import mongoose from "mongoose";
 import { NextRequest, NextResponse } from "next/server";
 
 import { getServerSession } from "next-auth";
-import { Favorite } from "@/models/Favorite";
 import { authOptions } from "../auth/[...nextauth]/route";
+import { ProductsCart } from "@/models/ProductsCart";
 export async function POST(req: NextRequest) {
   mongoose.connect(process.env.MONGO_URL!);
   try {
     const product = await req.json();
-    console.log(product);
 
     const session = await getServerSession(authOptions);
     const email = session?.user?.email;
@@ -24,10 +23,10 @@ export async function POST(req: NextRequest) {
       return new NextResponse("Unauthorized", { status: 401 });
     }
 
-    const addToFavorite = await Favorite.create({ ...product });
-    return NextResponse.json(addToFavorite);
+    const addToCart = await ProductsCart.create({ ...product });
+    return NextResponse.json(addToCart);
   } catch (error) {
-    console.log("[FAVORITE]", error);
+    console.log("[PRODUCTS-CART]", error);
     return new NextResponse("Internal Error", { status: 500 });
   }
 }
@@ -51,10 +50,10 @@ export async function DELETE(req: NextRequest) {
       return new NextResponse("Not Found", { status: 404 });
     }
 
-    const removeFavorite = await Favorite.deleteOne({ product_id });
-    return NextResponse.json(removeFavorite);
+    const removeProductFromCart = await ProductsCart.deleteOne({ product_id });
+    return NextResponse.json(removeProductFromCart);
   } catch (error) {
-    console.log("[FAVORITE]", error);
+    console.log("[PRODUCTS-CART]", error);
     return new NextResponse("Internal Error", { status: 500 });
   }
 }
@@ -70,10 +69,10 @@ export async function GET(req: NextRequest) {
       return new NextResponse("Unauthorized", { status: 401 });
     }
 
-    const favorites = await Favorite.find();
-    return NextResponse.json(favorites);
+    const productsCart = await ProductsCart.find();
+    return NextResponse.json(productsCart);
   } catch (error) {
-    console.log("[FAVORITE]", error);
+    console.log("[PRODUCTS-CART]", error);
     return new NextResponse("Internal Error", { status: 500 });
   }
 }
