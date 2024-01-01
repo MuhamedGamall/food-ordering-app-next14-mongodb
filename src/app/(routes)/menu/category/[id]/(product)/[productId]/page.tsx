@@ -7,9 +7,7 @@ import Image from "next/image";
 import formatPrice from "@/utils/format/format-price";
 import { Button } from "@/components/ui/button";
 import SelectorField from "./_combonents/selectorField";
-import {
-  ExtraPriceState,
-} from "../../../../../../../../types";
+import { ExtraPriceState } from "../../../../../../../../types";
 
 export interface ExtraPricesFields {
   size: ExtraPriceState | null;
@@ -38,7 +36,7 @@ export default function ProductPage({
   return (
     <section className="border-b ">
       <div className="grid  grid-cols-1 gap-8 md:grid-cols-2 ">
-        <div className="  md:h-[574px] overflow-hidden">
+        <div className="md:h-[574px] overflow-hidden">
           <Image
             src={product?.image || ""}
             alt="product image"
@@ -50,7 +48,6 @@ export default function ProductPage({
           />
         </div>
         <div className="flex flex-col gap-3  m-[48px]">
-          {/* <div> */}
           <h2 className="text-4xl">{product?.title}</h2>
           <p className="text-[18px] mb-[5px] text-slate-700">
             {formatPrice(product?.base_price || "")}
@@ -63,14 +60,13 @@ export default function ProductPage({
             <SelectorField
               extraPricesFields={extraPricesFields}
               setExtraPricesFields={setExtraPricesFields}
-              data={product}
+              data={product || undefined}
               loading={loading}
             />
           </div>
           <Button className="text-[18px] rounded-full w-fit" variant={"green"}>
             ADD TO ORDER
           </Button>
-          {/* </div> */}
         </div>
       </div>
     </section>

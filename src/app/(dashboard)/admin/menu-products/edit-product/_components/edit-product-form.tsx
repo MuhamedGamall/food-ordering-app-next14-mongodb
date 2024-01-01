@@ -40,14 +40,16 @@ import { getCategories } from "@/lib/RTK/slices/categories-slice";
 import {
   InitProductState,
   InitCategoryState,
+  ExtraPriceState,
 } from "../../../../../../../types";
 import HandleLoader from "@/components/loader";
 import formatPrice from "@/utils/format/format-price";
 import { getProducts } from "@/lib/RTK/slices/menu-products-slice";
 import { useRouter } from "next/navigation";
 import { Textarea } from "@/components/ui/textarea";
-import ExtraPriceField, { Field } from "../../_components/extra-price-field";
+import ExtraPriceField from "../../_components/extra-price-field";
 import { ExtraPricesValues } from "../../_components/products-form";
+import { ExtraPricesFields } from "@/app/(routes)/menu/category/[id]/(product)/[productId]/page";
 
 interface EditProductFormProps {
   onSubmit: (v: any) => Promise<void>;
@@ -65,8 +67,8 @@ export default function EditProductForm({
   const session = useSession();
   const router = useRouter();
   const { categories } = useAppSelector((state) => state.catygories);
-  const [sizes, setSizes] = useState<Field[]>([]);
-  const [extraIncreasesPrice, setExtraIncreasesPrice] = useState<Field[]>([]);
+  const [sizes, setSizes] = useState<ExtraPriceState[]>([]);
+  const [extraIncreasesPrice, setExtraIncreasesPrice] = useState<ExtraPriceState[]>([]);
 
   const [selectLoading, setSelectLoading] = useState(false);
   const dispatch = useAppDispatch();

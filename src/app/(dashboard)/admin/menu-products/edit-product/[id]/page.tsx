@@ -16,8 +16,8 @@ import EditProductForm from "../_components/edit-product-form";
 import { redirect, useRouter } from "next/navigation";
 import { MoveLeft } from "lucide-react";
 import { ExtraPricesValues } from "../../_components/products-form";
-import { Field } from "../../_components/extra-price-field";
 import Link from "next/link";
+import { ExtraPriceState } from "../../../../../../../types";
 
 export default function ProductForm({
   params: { id },
@@ -58,7 +58,7 @@ export default function ProductForm({
   const EditCurrentImage =
     image64 || product?.image || "/product-placeholder/th.jpeg";
   const priceRegex = /^\d+(\.\d{1,2})?$/;
-  const validateExtraPricesValues = (array: Field[]) =>
+  const validateExtraPricesValues = (array: ExtraPriceState[]) =>
     array.every(
       (el) =>
         el.name.trim().length > 0 &&

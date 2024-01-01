@@ -23,8 +23,7 @@ import { cn } from "@/lib/utils";
 interface SelectFieldProps {
   extraPricesFields: ExtraPricesFields;
   setExtraPricesFields: Dispatch<SetStateAction<ExtraPricesFields>>;
-  fieldName: string;
-  data: InitProductState;
+  data: InitProductState | undefined;
   loading: boolean;
 }
 export default function SelectorField({
