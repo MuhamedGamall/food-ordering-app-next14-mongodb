@@ -42,15 +42,18 @@ export default function ProductPage({
     dispatch(getFavorites());
   }, [dispatch]);
 
-  
-  const isFav = favorites.map((el: any) => el._id).includes(product?._id);
+  const isFav = favorites
+    .map((el: any) => el.product_id)
+    .includes(product?._id);
 
   async function addToFavorite() {
     if (product) {
       if (isFav) {
         dispatch(deleteFavorite(product._id));
       } else {
-        dispatch(postFavorite(product._id));
+        dispatch(
+          postFavorite({ ...extraPricesFields, product_id: product._id })
+        );
       }
     }
   }

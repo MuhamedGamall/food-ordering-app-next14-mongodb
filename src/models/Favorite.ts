@@ -7,7 +7,10 @@ const ExtraPriceSchema = new Schema({
 
 const FavoriteSchema = new Schema(
   {
-    _id: { type: mongoose.Types.ObjectId },
+    product_id: { type: mongoose.Types.ObjectId },
+    size: { type: ExtraPriceSchema },
+    extra_increases_price: { type: [ExtraPriceSchema] },
+    quantity: String,
   },
   { timestamps: true }
 );

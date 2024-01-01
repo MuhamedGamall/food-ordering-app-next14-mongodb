@@ -18,11 +18,11 @@ export const getFavorites: any = createAsyncThunk(
 
 export const postFavorite: any = createAsyncThunk(
   "favoritesSlice/postFavorite",
-  async (id: string, thunkApi) => {
+  async (item: any, thunkApi) => {
 
     const { rejectWithValue } = thunkApi;
     try {
-      const data = (await axios.post("/api/favorite?productId=" + id)).data;
+      const data = (await axios.post("/api/favorite" ,item)).data;
       return data;
     } catch (error: any) {
       return rejectWithValue(error.message);
@@ -111,7 +111,7 @@ const favoritesSlice = createSlice({
         (state: any, action: PayloadAction<any>) => {
           state.loading = false;
           state.favorites = state.favorites.filter(
-            (el: any) => el._id !== action.payload
+            (el: any) => el.product_id !== action.payload
           );
         }
       )
