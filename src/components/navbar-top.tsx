@@ -4,7 +4,6 @@ import { Button } from "./ui/button";
 import Logo from "./Logo";
 import { signOut, useSession } from "next-auth/react";
 import useProfile from "@/hooks/user-profile";
-
 export default function NavbarTop() {
   const session = useSession();
   const { data } = useProfile();
@@ -27,7 +26,7 @@ export default function NavbarTop() {
             ) : status === "authenticated" ? (
               <>
                 <div className="flex items-center gap-1 max-w-[100px] overflow-hidden">
-                  Hello,
+                  HI,
                   <Link href={"/profile"} className="underline">
                     {userName}
                   </Link>

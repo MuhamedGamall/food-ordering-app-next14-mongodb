@@ -27,13 +27,13 @@ export interface InitProductState {
   image: string;
   base_price: string;
   description: string;
-  category: string;
+  category: { category_id: string; title: string };
   sizes: [];
   extra_increases_price: [];
   createdAt: string;
   updatedAt: string;
   __v: number;
-} 
+}
 
 // export interface ProductProps extends MenuProduct {}
 

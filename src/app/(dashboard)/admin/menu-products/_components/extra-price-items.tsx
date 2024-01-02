@@ -12,12 +12,12 @@ import { Separator } from "@radix-ui/react-menubar";
 
 import { cn } from "@/lib/utils";
 import formatPrice from "@/utils/format/format-price";
-import { Field } from "./extra-price-field";
+import { ExtraPriceState } from "../../../../../../types";
 
 interface ExtraPriceItemsProps {
   accordLabelName: string;
   labelName: { label: string; price: string };
-  data: Field[];
+  data: ExtraPriceState[];
   isSubmitting: boolean;
   setData: Dispatch<SetStateAction<any>>;
   setIsEditMood: Dispatch<SetStateAction<boolean>>;
@@ -47,7 +47,7 @@ export default function ExtraPriceItems({
       });
       setIsEditMood(false);
     }
-    setData((curr: Field[]) => curr.filter((_, i) => i !== idx));
+    setData((curr: ExtraPriceState[]) => curr.filter((_, i) => i !== idx));
   };
   const onEdit = (idx: number) => {
     if (!isEditMood) {

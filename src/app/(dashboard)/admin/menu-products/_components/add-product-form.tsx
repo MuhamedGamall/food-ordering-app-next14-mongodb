@@ -58,14 +58,16 @@ export default function AddProductForm({
   const [selectLoading, setSelectLoading] = useState(false);
   const [open, setOpen] = useState(false);
   const [sizes, setSizes] = useState<ExtraPriceState[]>([]);
-  const [extraIncreasesPrice, setExtraIncreasesPrice] = useState<ExtraPriceState[]>([]);
+  const [extraIncreasesPrice, setExtraIncreasesPrice] = useState<
+    ExtraPriceState[]
+  >([]);
 
   const form = useForm<z.infer<typeof productSchema>>({
     resolver: zodResolver(productSchema),
     defaultValues: {
       title: "",
       description: "",
-      category: "",
+      category: { title: "", category_id: "" },
       base_price: "",
     },
   });
@@ -84,7 +86,7 @@ export default function AddProductForm({
     setExtraPricesValues({ sizes, extra_increases_price: extraIncreasesPrice });
   }, [extraIncreasesPrice, setExtraPricesValues, sizes]);
 
-  const { isSubmitting } = form.formState;
+  const { isSubmitting, isSubmitted } = form.formState;
 
   return (
     <div className="space-y-4 mt-4 w-full">
@@ -137,7 +139,7 @@ export default function AddProductForm({
                         {field.value
                           ? categories.find(
                               (category: InitCategoryState) =>
-                                category._id === field.value
+                                category._id === field.value.category_id
                             )?.title
                           : "Select category"}
                         <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
@@ -158,7 +160,10 @@ export default function AddProductForm({
                             value={category.title}
                             key={category._id}
                             onSelect={() => {
-                              form.setValue("category", category._id);
+                              form.setValue("category", {
+                                title: category.title,
+                                category_id: category._id,
+                              });
                               setOpen(false);
                             }}
                             className="hover:bg-sky-100 transition"
@@ -166,7 +171,7 @@ export default function AddProductForm({
                             <Check
                               className={cn(
                                 "mr-2 h-4 w-4",
-                                category.title === field.value
+                                category.title === field.value.title
                                   ? "opacity-100"
                                   : "opacity-0"
                               )}
@@ -178,7 +183,9 @@ export default function AddProductForm({
                     </Command>
                   </PopoverContent>
                 </Popover>
-                <FormMessage />
+                {!field.value.title && isSubmitted && (
+                  <span className="text-red-700 p-1">Category is required</span>
+                )}
               </FormItem>
             )}
           />

@@ -1,3 +1,12 @@
-- create product card
-- create page for all categories
+
 - create add to cart logic
+- add image for category
+- create orders page
+- replace admin menu par to dashboard
+- add loading layout to all pages
+
+- add delete confirm for all delete buttons
+- fix updatedAt & createdAt sorting products table 
+- fix redirect check
+- add sticky style to order dialog btn 
+- replace all section tag page to main tag

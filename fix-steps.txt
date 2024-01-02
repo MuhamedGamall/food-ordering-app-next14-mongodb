@@ -1,5 +1,0 @@
-- fix updatedAt & createdAt sorting products table 
-- add image for category
-- replace admin menu par to dashboard
-- add delete confirm for all delete buttons
-- fix redirect check

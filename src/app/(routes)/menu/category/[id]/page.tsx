@@ -14,27 +14,33 @@ export default function Menu({ params: { id } }: { params: { id: string } }) {
   const { categories, loading: categoryLoading } = useAppSelector(
     (state) => state.catygories
   );
-  const { cart } = useAppSelector((state) => state.productsCart);
+
   const dispatch = useAppDispatch();
+
   const findCategoryId = categories.find((el) => id === el.title)?._id;
   const menuChoiced = products.filter(
-    (el) => el?.category === (findCategoryId || categories[0]?._id)
+    (el) => el?.category.category_id === (findCategoryId || categories[0]?._id)
   );
   const menuTitle = (id === "_" ? categories[0]?.title : id) || "";
+  
   useEffect(() => {
     dispatch(getCategories());
     dispatch(getProducts());
     dispatch(getCart());
   }, [dispatch]);
 
-  const cartArr = cart.map((el: any) => el.product_id);
+
   return (
     <div className="mx-auto px-4 max-w-[80rem]">
       <Categorys categories={categories} loading={categoryLoading} />
       <div className=" md:max-w-[90%] mx-auto px-2 py-3 text-[45px] ">
         <div className=" max-w-[80rem] ">{`${menuTitle}`.toUpperCase()}</div>
       </div>
-      <MenuItems products={menuChoiced} loading={productsLoding} cartArr={cartArr} />
+      <MenuItems
+        products={menuChoiced}
+        loading={productsLoding}
+
+      />
     </div>
   );
 }

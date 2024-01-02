@@ -40,9 +40,10 @@ import { useAppDispatch } from "@/hooks/redux";
 import HandleLoader from "@/components/loader";
 import SearchInputs from "./search-inputs";
 import DeleteActionsBtns from "./delete-actions";
-import { columnsFnc } from "./table-column";
+
 import { deleteProduct } from "@/lib/RTK/slices/menu-products-slice";
 import Link from "next/link";
+import { columns } from './table-column';
 
 export function DataTable({
   data,
@@ -59,7 +60,7 @@ export function DataTable({
   const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({});
   const [rowSelection, setRowSelection] = useState({});
   const [isLoading, setIsLoading] = useState(false);
-  const { columns } = columnsFnc(categories);
+
   const table = useReactTable({
     data,
     columns,

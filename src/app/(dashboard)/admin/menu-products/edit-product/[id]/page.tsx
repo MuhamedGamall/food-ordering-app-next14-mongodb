@@ -46,7 +46,7 @@ export default function ProductForm({
     getData();
   }, [dispatch, session.status]);
 
-  const product = products.find((el) => el._id === id);
+  const product = products.filter((el) => el._id === id)[0]
   // if (products.length === 0 || !product) {
   //   return redirect("/admin/menu-products");
   // }

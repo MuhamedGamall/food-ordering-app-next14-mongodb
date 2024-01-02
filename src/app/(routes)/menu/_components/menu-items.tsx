@@ -6,7 +6,6 @@ import ProductDialog from "./product-dialog";
 interface MenuItemsProps {
   products: InitProductState[];
   loading: boolean;
-  cartArr: any;
 }
 export default function MenuItems({ products, loading }: MenuItemsProps) {
   const [isClicked, setIsClicked] = useState({ check: false, id: "" });

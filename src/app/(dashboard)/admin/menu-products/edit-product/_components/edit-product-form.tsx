@@ -43,17 +43,14 @@ import {
   ExtraPriceState,
 } from "../../../../../../../types";
 import HandleLoader from "@/components/loader";
-import formatPrice from "@/utils/format/format-price";
-import { getProducts } from "@/lib/RTK/slices/menu-products-slice";
 import { useRouter } from "next/navigation";
 import { Textarea } from "@/components/ui/textarea";
 import ExtraPriceField from "../../_components/extra-price-field";
 import { ExtraPricesValues } from "../../_components/products-form";
-import { ExtraPricesFields } from "@/app/(routes)/menu/category/[id]/(product)/[productId]/page";
 
 interface EditProductFormProps {
   onSubmit: (v: any) => Promise<void>;
-  product: InitProductState | undefined;
+  product: InitProductState;
   imageURL64: string;
   setExtraPricesValues: Dispatch<SetStateAction<ExtraPricesValues>>;
 }
@@ -68,7 +65,9 @@ export default function EditProductForm({
   const router = useRouter();
   const { categories } = useAppSelector((state) => state.catygories);
   const [sizes, setSizes] = useState<ExtraPriceState[]>([]);
-  const [extraIncreasesPrice, setExtraIncreasesPrice] = useState<ExtraPriceState[]>([]);
+  const [extraIncreasesPrice, setExtraIncreasesPrice] = useState<
+    ExtraPriceState[]
+  >([]);
 
   const [selectLoading, setSelectLoading] = useState(false);
   const dispatch = useAppDispatch();
@@ -77,13 +76,16 @@ export default function EditProductForm({
     defaultValues: {
       title: "",
       description: "",
-      category: "",
+      category: { category_id: "", title: "" },
       base_price: "",
     },
     values: {
       title: product?.title || "",
       description: product?.description || "",
-      category: product?.category || "",
+      category: {
+        category_id: product?.category.category_id,
+        title: product?.category.title,
+      },
       base_price: product?.base_price || "",
     },
   });
@@ -111,7 +113,7 @@ export default function EditProductForm({
   const isValid = !Object.values({ ...form.getValues(), imageURL64 }).some(
     Boolean
   );
-  const { isSubmitting } = form.formState;
+  const { isSubmitting, isSubmitted } = form.formState;
   return (
     <Form {...form}>
       <form
@@ -165,7 +167,7 @@ export default function EditProductForm({
                       {field.value
                         ? categories.find(
                             (category: InitCategoryState) =>
-                              category._id === field.value
+                              category._id === field.value.category_id
                           )?.title
                         : "Select category"}
                       <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
@@ -186,14 +188,17 @@ export default function EditProductForm({
                           value={category.title}
                           key={category._id}
                           onSelect={() => {
-                            form.setValue("category", category._id);
+                            form.setValue("category", {
+                              category_id: category._id,
+                              title: category.title,
+                            });
                           }}
                           className="hover:bg-sky-100 transition"
                         >
                           <Check
                             className={cn(
                               "mr-2 h-4 w-4",
-                              category.title === field.value
+                              category.title === field.value.title
                                 ? "opacity-100"
                                 : "opacity-0"
                             )}
@@ -205,7 +210,9 @@ export default function EditProductForm({
                   </Command>
                 </PopoverContent>
               </Popover>
-              <FormMessage />
+              {!field.value.title && isSubmitted && (
+                <span className="text-red-700 p-1">Category is required</span>
+              )}
             </FormItem>
           )}
         />

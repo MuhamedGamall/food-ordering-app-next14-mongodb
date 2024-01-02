@@ -26,7 +26,7 @@ export default function AllProducts() {
     }
     getData();
   }, [dispatch, session.status]);
-  const productsIds = products.map((el) => el.category);
+  const productsIds = products.map((el) => el.category.category_id);
   const categoriesIds = categories.map((el) => el._id);
   const checkProductNotHasCategory = productsIds.filter(
     (el) => !categoriesIds.includes(el)

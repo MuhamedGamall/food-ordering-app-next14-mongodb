@@ -9,7 +9,6 @@ export async function POST(req: NextRequest) {
   mongoose.connect(process.env.MONGO_URL!);
   try {
     const product = await req.json();
-    console.log(product);
 
     const session = await getServerSession(authOptions);
     const email = session?.user?.email;

@@ -19,11 +19,13 @@ export const productSchema = z.object({
       "Description is too long! It should contain maximum 200 characters."
     ),
 
-  category: z.string().min(1, "Category is required"),
+  category: z.object({
+    title: z.string().min(1, "Category is required"),
+    category_id: z.string(),
+  }),
   base_price: z
     .string()
     .trim()
     .min(1, "Must contain at least  0.09")
     .max(12, "Maximum price allowed is $999999999999"),
-
 });

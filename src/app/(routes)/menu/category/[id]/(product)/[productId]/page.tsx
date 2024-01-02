@@ -38,7 +38,6 @@ export default function ProductPage({
   );
 
   const { products, loading } = useAppSelector((state) => state.menuProducts);
-  // const { cart } = useAppSelector((state) => state.productsCart);
   const { favorites } = useAppSelector((state) => state.favoritesData);
 
   const dispatch = useAppDispatch();
@@ -47,7 +46,6 @@ export default function ProductPage({
   useEffect(() => {
     dispatch(getProducts());
     dispatch(getFavorites());
-    // dispatch(getCart());
   }, [dispatch]);
 
   const isFav = favorites
@@ -72,15 +70,6 @@ export default function ProductPage({
       );
     }
   }
-
-  const basePrice_extraPrces =
-    (extraPricesFields.extra_increases_price.reduce(
-      (a, c) => +a + +c.extra_price,
-      0
-    ) +
-      +(product?.base_price || 0) +
-      +(extraPricesFields.size?.extra_price || 0)) *
-    +extraPricesFields?.quantity;
 
   return (
     <section className="border-b ">
