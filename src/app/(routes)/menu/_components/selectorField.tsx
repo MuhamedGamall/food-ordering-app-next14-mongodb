@@ -10,11 +10,8 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 
-import {
-  ExtraPriceState,
-  InitProductState,
-} from "../../../../../../../../../types";
-import { ExtraPricesFields } from "../page";
+import { ExtraPriceState, InitProductState } from "../../../../../types";
+import { ExtraPricesFields } from "../category/[id]/(product)/[productId]/page";
 import { Input } from "@/components/ui/input";
 import { Check } from "lucide-react";
 import { cn } from "@/lib/utils";
@@ -24,13 +21,11 @@ interface SelectFieldProps {
   extraPricesFields: ExtraPricesFields;
   setExtraPricesFields: Dispatch<SetStateAction<ExtraPricesFields>>;
   data: InitProductState | undefined;
-  loading: boolean;
 }
 export default function SelectorField({
   extraPricesFields,
   setExtraPricesFields,
   data,
-  loading,
 }: SelectFieldProps) {
   const sizes: ExtraPriceState[] = data?.sizes || [];
   const increases: ExtraPriceState[] = data?.extra_increases_price || [];
@@ -40,7 +35,7 @@ export default function SelectorField({
     name: defaultSize?.name || "",
     extra_price: defaultSize?.extra_price || "",
   });
-  
+
   const [quantityValue, setQuantityValue] = useState("1");
   const [increasesValue, setIncreasesValue] = useState<ExtraPriceState[]>([]);
   const [open, setOpen] = useState(false);
@@ -143,7 +138,6 @@ export default function SelectorField({
                     <div className="flex items-center gap-2 ">
                       <Input
                         type="checkbox"
-                        disabled={loading}
                         checked={increasesValue.includes(el)}
                         onChange={() =>
                           setIncreasesValue((curr) => {

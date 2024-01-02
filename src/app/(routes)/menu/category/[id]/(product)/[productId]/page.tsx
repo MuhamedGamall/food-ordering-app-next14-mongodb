@@ -6,7 +6,7 @@ import Image from "next/image";
 
 import formatPrice from "@/utils/format/format-price";
 import { Button } from "@/components/ui/button";
-import SelectorField from "./_combonents/selectorField";
+import SelectorField from "../../../../_components/selectorField";
 import { ExtraPriceState } from "../../../../../../../../types";
 import { Heart } from "lucide-react";
 import HandleLoader from "@/components/loader";
@@ -20,6 +20,7 @@ import {
   getCart,
   postProductToCart,
 } from "@/lib/RTK/slices/products-cart";
+import BasePrice_ExtraPrices from "@/app/(routes)/menu/_components/basePrice-extraPirces";
 
 export interface ExtraPricesFields {
   size: ExtraPriceState | null;
@@ -37,23 +38,21 @@ export default function ProductPage({
   );
 
   const { products, loading } = useAppSelector((state) => state.menuProducts);
-  const { cart } = useAppSelector((state) => state.productsCart);
+  // const { cart } = useAppSelector((state) => state.productsCart);
   const { favorites } = useAppSelector((state) => state.favoritesData);
 
   const dispatch = useAppDispatch();
-  const product = products.find((el) => el._id === productId);
+  const product = products.filter((el) => el._id === productId)[0]
 
   useEffect(() => {
     dispatch(getProducts());
     dispatch(getFavorites());
-    dispatch(getCart());
+    // dispatch(getCart());
   }, [dispatch]);
 
   const isFav = favorites
     .map((el: any) => el.product_id)
     .includes(product?._id);
-
-  const isAdded = cart.map((el: any) => el.product_id).includes(product?._id);
 
   async function addToFavorite() {
     if (product) {
@@ -68,16 +67,13 @@ export default function ProductPage({
   }
   async function addToCart() {
     if (product) {
-      if (isAdded) {
-        dispatch(deleteProductFromCart(product._id));
-      } else {
-        dispatch(
-          postProductToCart({ ...extraPricesFields, product_id: product._id })
-        );
-      }
+      dispatch(
+        postProductToCart({ ...extraPricesFields, product_id: product._id })
+      );
     }
   }
-  const basePrice_ExtraPrces =
+
+  const basePrice_extraPrces =
     (extraPricesFields.extra_increases_price.reduce(
       (a, c) => +a + +c.extra_price,
       0
@@ -105,7 +101,10 @@ export default function ProductPage({
           <div className="flex flex-col gap-3  border-b pb-8 ">
             <h2 className="text-4xl">{product?.title}</h2>
             <p className="text-[18px] mb-[5px] text-slate-700">
-              {formatPrice(basePrice_ExtraPrces + "" || "0")}
+              <BasePrice_ExtraPrices
+                extraPricesFields={extraPricesFields}
+                product={product}
+              />
             </p>
             <p className="text-[18px] mb-[5px] max-w-[500px] text-slate-700 mx-auto md:mx-0">
               {product?.description +
@@ -116,7 +115,6 @@ export default function ProductPage({
                 extraPricesFields={extraPricesFields}
                 setExtraPricesFields={setExtraPricesFields}
                 data={product || undefined}
-                loading={loading}
               />
             </div>
             <Button
@@ -124,7 +122,7 @@ export default function ProductPage({
               className="text-[18px] rounded-full w-fit mt-2 mx-auto md:mx-0 "
               variant={"green"}
             >
-              {isAdded ? "REMOVE FROM ORDERS" : "ADD TO ORDERS"}
+              ADD TO ORDERS
             </Button>
           </div>
           <Button
