@@ -73,7 +73,7 @@ export default function FoodCard({ item, setIsClicked }: FoodCardProps) {
             onClick={() =>  setIsClicked({ check: true, id:item._id })}
             className="bg-[#2d5d2a] mt-[40px] hover:bg-green-900 rounded-md text-white text-[18px] h-[30px] p-5 mb-3 "
           >
-            ADD TO ORDERS
+            ORDER NOW
           </Button>
         </div>
       </div>
