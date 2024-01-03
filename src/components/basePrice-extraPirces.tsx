@@ -12,7 +12,7 @@ export default function BasePrice_ExtraPrices({
   base_price,
 }: BasePrice_ExtraPricesProps) {
   const basePrice_extraPrices =
-    (extraPricesFields.extra_increases_price.reduce(
+    (extraPricesFields?.extra_increases_price?.reduce(
       (a, c) => +a + +c.extra_price,
       0
     ) +

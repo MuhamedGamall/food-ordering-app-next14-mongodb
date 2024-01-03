@@ -54,6 +54,7 @@ export default function CartPage() {
       id && dispatch(deleteProductFromCart(id));
     } else return router.replace("/menu/category/_");
   };
+// console.log(mergedArray);
 
   return (
     <main className=" mx-auto px-4 max-w-[80rem] my-5">

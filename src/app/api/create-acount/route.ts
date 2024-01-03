@@ -14,7 +14,7 @@ export async function POST(req: NextRequest) {
       return new NextResponse("Unauthorized", { status: 401 });
     }
     const user = await User.findOne({ email: body.email });
-    if (user) {
+    if (!user) {
       return new NextResponse("Unauthorized", { status: 401 });
     }
     const notHashedPassword = pass;

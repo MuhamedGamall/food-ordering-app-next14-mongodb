@@ -36,6 +36,7 @@ export async function DELETE(req: NextRequest) {
   try {
     const url = new URL(req.url);
     const product_id = url.searchParams.get("productId");
+    console.log(product_id);
 
     const session = await getServerSession(authOptions);
     const email = session?.user?.email;
@@ -51,9 +52,7 @@ export async function DELETE(req: NextRequest) {
 
       return NextResponse.json(removeAllProductFromCart);
     } else {
-      const removeProductFromCart = await ProductsCart.deleteOne({
-        product_id,
-      });
+      const removeProductFromCart = await ProductsCart.deleteOne({_id:product_id});
 
       return NextResponse.json(removeProductFromCart);
     }
