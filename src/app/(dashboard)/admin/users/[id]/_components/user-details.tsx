@@ -20,7 +20,6 @@ export default function UserDetails({ id }: { id: string }) {
     getData();
   }, [dispatch]);
   const user = users.find((el: any) => el._id === id);
-  console.log(user);
 
   return (
     <>

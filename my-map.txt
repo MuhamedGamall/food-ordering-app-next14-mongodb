@@ -10,3 +10,4 @@
 - fix redirect check
 - add sticky style to order dialog btn 
 - replace all section tag page to main tag
+- replace all extraincreasesprice to extras-price

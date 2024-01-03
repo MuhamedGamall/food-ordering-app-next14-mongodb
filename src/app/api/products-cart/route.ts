@@ -47,11 +47,16 @@ export async function DELETE(req: NextRequest) {
     }
 
     if (!product_id) {
-      return new NextResponse("Not Found", { status: 404 });
-    }
+      const removeAllProductFromCart = await ProductsCart.deleteMany();
 
-    const removeProductFromCart = await ProductsCart.deleteOne({ product_id });
-    return NextResponse.json(removeProductFromCart);
+      return NextResponse.json(removeAllProductFromCart);
+    } else {
+      const removeProductFromCart = await ProductsCart.deleteOne({
+        product_id,
+      });
+
+      return NextResponse.json(removeProductFromCart);
+    }
   } catch (error) {
     console.log("[PRODUCTS-CART]", error);
     return new NextResponse("Internal Error", { status: 500 });

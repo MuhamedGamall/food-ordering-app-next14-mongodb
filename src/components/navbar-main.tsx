@@ -5,7 +5,7 @@ import { FaCartShopping } from "react-icons/fa6";
 import { Menu, ShoppingCart } from "lucide-react";
 import { useAppDispatch, useAppSelector } from "@/hooks/redux";
 import { useEffect } from "react";
-import { getCart } from "@/lib/RTK/slices/products-cart";
+import { getCart } from "@/lib/RTK/slices/cart-slice";
 import {
   Menubar,
   MenubarContent,

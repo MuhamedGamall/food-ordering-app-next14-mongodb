@@ -1,55 +1,94 @@
 "use client";
 import { useAppDispatch, useAppSelector } from "@/hooks/redux";
 import { getProducts } from "@/lib/RTK/slices/menu-products-slice";
-import { getCart } from "@/lib/RTK/slices/products-cart";
-import Image from "next/image";
-import Link from "next/link";
+import {
+  deleteAllProductsFromCart,
+  deleteProductFromCart,
+  getCart,
+} from "@/lib/RTK/slices/cart-slice";
+
 import React, { useEffect } from "react";
+import CartList from "./_components/cart-list";
+import { Button } from "@/components/ui/button";
+import { useRouter } from "next/navigation";
+import { MoveRight } from "lucide-react";
+import CartCheckout from "./_components/cart-checkout";
+import Link from "next/link";
+import toast from "react-hot-toast";
 
 export default function CartPage() {
-  const { cart } = useAppSelector((state) => state.productsCart);
-  const { products } = useAppSelector((state) => state.menuProducts);
   const dispatch = useAppDispatch();
+  const router = useRouter();
+  const { products, loading } = useAppSelector((state) => state.menuProducts);
+  const { cart, loading: load } = useAppSelector((state) => state.productsCart);
   useEffect(() => {
     dispatch(getProducts());
     dispatch(getCart());
   }, [dispatch]);
-  const cartProducts = products.filter((el) =>
-    cart.some((xl: any) => el._id === xl.product_id)
-  );
 
-  console.log(cartProducts);
+  const mergedArray = cart.map((cartItem: any) => ({
+    ...products.find((el) => el._id === cartItem.product_id),
+    ...cartItem,
+  }));
+
+  const removeAllItems = () => {
+    dispatch(deleteAllProductsFromCart());
+    toast.success("All product is removed");
+    return router.replace("/menu/category/_");
+  };
+
+  const checkThesProductIsAvailable = cart
+    .map((cartItem: any) => ({
+      ...products.find((el) => el._id === cartItem.product_id),
+    }))
+    .some((el: any) => Object.values(el).length === 0);
+  if (!loading && !load) {
+    if (checkThesProductIsAvailable) {
+      dispatch(deleteAllProductsFromCart());
+    }
+  }
+
+
+  const removeItem = (id: string) => {
+    if (cart?.length > 0) {
+      id && dispatch(deleteProductFromCart(id));
+    } else return router.replace("/menu/category/_");
+  };
 
   return (
-    <main className="flex gap-8 items-center sm:flex-row flex-col">
-      <h2>YOUR CART</h2>
-      <section className="flex-[3]">
-        <ul className="flex flex-col  gap-2 border-t ">
-          {cartProducts.map((el: any) => (
-            <li key={el._id} className="flex items-center gap-2 border-b">
-              <Image
-                src={el?.image}
-                alt="cart image"
-                width={200}
-                height={200}
-                className="w-[80px] rounded-md"
-              />
-              <div className=" flex flex-col gap-2">
-                <h5>{el?.title}</h5>
-                <ul className=" flex items-center  gap-2">
-                  <li>
-                    <Link href={'/menu/category/'}>
-                    
-                    </Link>
-                  </li>
-                  <li></li>
-                </ul>
-              </div>
-            </li>
-          ))}
-        </ul>
-      </section>
-      <section className="flex-1">subtotal</section>
+    <main className=" mx-auto px-4 max-w-[80rem] my-5">
+      <div className=" md:max-w-[90%] mx-auto">
+        {cart?.length > 0 ? (
+          <>
+            <h2 className="text-[45px] ">YOUR CART</h2>
+            <div className="flex gap-8  sm:flex-row flex-col justify-start ">
+              <CartList onDelete={removeItem} cart={mergedArray} />
+              <CartCheckout cart={mergedArray} />
+            </div>
+            <Button
+              onClick={removeAllItems}
+              variant={"ghost"}
+              className="hover:text-sky-950 text-[#2d5a2d] underline transition my-5"
+            >
+              Remove all items
+            </Button>
+          </>
+        ) : (
+          <div className="flex items-center justify-center sm:justify-between sm:flex-row flex-col ">
+            <h2 className="text-[45px] my-5">YOUR CART</h2>
+            <p className="text-slate-600 text-[20] sm:m-0 my-4">
+              There are no items in your cart
+            </p>
+            <Link
+              href={"/menu/category/_"}
+              className=" text-[25px] px-2 text-white bg-[#DF2241] hover:bg-red-700 rounded-full flex items-center gap-3 "
+            >
+              VIEW THE MENU
+              <MoveRight />
+            </Link>
+          </div>
+        )}
+      </div>
     </main>
   );
 }

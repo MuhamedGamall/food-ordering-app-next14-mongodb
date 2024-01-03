@@ -26,7 +26,6 @@ export async function GET(req: NextRequest) {
       ...user._doc,
       ...(usersInfos.find((info: any) => user.email === info.email)._doc || {}),
     }));
-    console.log(mergedArray);
 
     return NextResponse.json(mergedArray);
   } catch (error) {

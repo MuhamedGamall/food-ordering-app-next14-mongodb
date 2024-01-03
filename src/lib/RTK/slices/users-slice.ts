@@ -8,7 +8,6 @@ export const getUsers: any = createAsyncThunk(
     const { rejectWithValue } = thunkApi;
     try {
       const data = (await axios.get("/api/admin/users")).data;
-      console.log('data',data);
       return data || [];
     } catch (error: any) {
       console.log(error);

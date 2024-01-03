@@ -34,7 +34,6 @@ export async function PATCH(req: NextRequest) {
     );
 
     const fullData = { ...userData, ...userInfos };
-    console.log(otherData);
 
     return NextResponse.json(fullData);
   } catch (error) {

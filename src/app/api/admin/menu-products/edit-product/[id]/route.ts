@@ -15,7 +15,6 @@ export async function PATCH(
   mongoose.connect(process.env.MONGO_URL!);
   try {
     const { _id, ...otherData } = await req.json();
-    console.log(_id, otherData);
 
     const session = await getServerSession(authOptions);
     const email = session?.user?.email;

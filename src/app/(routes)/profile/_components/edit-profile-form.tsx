@@ -20,7 +20,6 @@ export default function EditProfileForm() {
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const { data, loading } = useProfile();
-  console.log(data);
 
   const email = data?.email;
   const currentImage = image64 || data?.image || "/avatar/avatar.jpeg";

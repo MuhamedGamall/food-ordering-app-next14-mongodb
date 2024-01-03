@@ -138,7 +138,6 @@ export const columns: ColumnDef<any>[] = [
       );
     },
     cell: ({ row }) => {
-      console.log(row.getValue("admin") ? "admin" : "not admin");
       return (
         <div>
           <div
@@ -168,8 +167,6 @@ export const columns: ColumnDef<any>[] = [
     },
     cell: ({ row }) => {
       const createdAt: string = row.getValue("createdAt");
-      console.log(createdAt);
-
       return (
         <div className="text-right font-medium lowercase max-w-[100px] overflow-x-auto whitespace-nowrap">
           {formatDate(createdAt)}

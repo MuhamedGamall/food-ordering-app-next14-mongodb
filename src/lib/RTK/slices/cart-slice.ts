@@ -37,8 +37,20 @@ export const deleteProductFromCart: any = createAsyncThunk(
     const { rejectWithValue } = thunkApi;
     try {
       await axios.delete("/api/products-cart?productId=" + id);
-      toast.success("Product removed form cart");
+      toast.success("Product removed");
       return id;
+    } catch (error: any) {
+      return rejectWithValue(error.message);
+    }
+  }
+);
+
+export const deleteAllProductsFromCart: any = createAsyncThunk(
+  "cartSlice/deleteAllProductsFromCart",
+  async (_, thunkApi) => {
+    const { rejectWithValue } = thunkApi;
+    try {
+      await axios.delete("/api/products-cart");
     } catch (error: any) {
       return rejectWithValue(error.message);
     }
@@ -104,12 +116,34 @@ const cartSlice = createSlice({
         (state: any, action: PayloadAction<any>) => {
           state.loading = false;
           state.cart = state.cart.filter(
-            (el: any) => el.product_id !== action.payload
+            (el: any) => el._id !== action.payload
           );
         }
       )
       .addCase(
         deleteProductFromCart.rejected,
+        (state: any, action: PayloadAction<any>) => {
+          state.loading = false;
+          state.error = action.payload;
+        }
+      );
+    builder
+      .addCase(
+        deleteAllProductsFromCart.pending,
+        (state: any, action: PayloadAction<any>) => {
+          state.loading = true;
+          state.error = null;
+        }
+      )
+      .addCase(
+        deleteAllProductsFromCart.fulfilled,
+        (state: any, action: PayloadAction<any>) => {
+          state.loading = false;
+          state.cart = [];
+        }
+      )
+      .addCase(
+        deleteAllProductsFromCart.rejected,
         (state: any, action: PayloadAction<any>) => {
           state.loading = false;
           state.error = action.payload;

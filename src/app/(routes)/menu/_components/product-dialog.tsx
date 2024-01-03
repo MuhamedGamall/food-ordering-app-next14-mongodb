@@ -5,11 +5,11 @@ import React, { Dispatch, SetStateAction, useEffect, useState } from "react";
 import { InitProductState } from "../../../../../types";
 import { usePathname } from "next/navigation";
 import formatPrice from "@/utils/format/format-price";
-import { getCart, postProductToCart } from "@/lib/RTK/slices/products-cart";
+import { getCart, postProductToCart } from "@/lib/RTK/slices/cart-slice";
 import { getProducts } from "@/lib/RTK/slices/menu-products-slice";
 import { useAppDispatch, useAppSelector } from "@/hooks/redux";
 import SelectorField from "./selectorField";
-import BasePrice_ExtraPrices from "./basePrice-extraPirces";
+import BasePrice_ExtraPrices from "../../../../components/basePrice-extraPirces";
 import { ExtraPricesFields } from "../category/[id]/(product)/[productId]/page";
 interface ProductDialogProps {
   item: InitProductState;
@@ -20,20 +20,19 @@ export default function ProductDialog({
   item,
   setIsClicked,
 }: ProductDialogProps) {
-
   const [extraPricesFields, setExtraPricesFields] = useState<ExtraPricesFields>(
     { size: null, extra_increases_price: [], quantity: "" }
   );
   const dispatch = useAppDispatch();
 
-  const addToCart= ()=>{
+  const addToCart = () => {
     if (item) {
-      setIsClicked({ check: false, id: "" })
+      setIsClicked({ check: false, id: "" });
       dispatch(
         postProductToCart({ ...extraPricesFields, product_id: item._id })
       );
     }
-  }
+  };
   return (
     <>
       <div className="flex  flex-col gap-8  text-center overflow-y-auto py-10 px-4">
@@ -54,7 +53,7 @@ export default function ProductDialog({
             <p className="text-[18px] mb-[5px] text-slate-700">
               <BasePrice_ExtraPrices
                 extraPricesFields={extraPricesFields}
-                product={item}
+                base_price={item?.base_price}
               />
             </p>
             <p className="text-[18px] mb-[5px] max-w-[500px] text-slate-700 mx-auto md:mx-0">

@@ -18,10 +18,7 @@ export default function MenuItems({ products, loading }: MenuItemsProps) {
             className="flex items-center justify-center flex-col px-1 bg-white rounded-md"
             style={{ maxHeight: "calc(100vh - 100px)" }}
           >
-            <ProductDialog
-              item={dialogProduct}
-              setIsClicked={setIsClicked}
-            />
+            <ProductDialog item={dialogProduct} setIsClicked={setIsClicked} />
           </div>
         </div>
       )}

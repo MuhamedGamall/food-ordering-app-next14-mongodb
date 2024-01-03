@@ -16,8 +16,6 @@ export const uploadImageToCloudinary = async ({
   folderName,
   existingPublicId,
 }: uploadImageToCloudinaryProps): Promise<object> => {
-  console.log(folderName);
-  
   try {
     const uploadOptions: any = {
       folder: folderName,
