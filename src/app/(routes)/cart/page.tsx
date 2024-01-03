@@ -36,14 +36,15 @@ export default function CartPage() {
     toast.success("All product is removed");
     return router.replace("/menu/category/_");
   };
-  // this condition becouse this product  is deleted by admin or not
-  const checkThisProductIsAvailable = cart
-    .map((cartItem: any) => ({
-      ...products.find((el) => el._id === cartItem.product_id),
-    }))
-    .some((el: any) => Object.values(el).length === 0);
+
+  const isProductAvailable = cart.map((cartItem: any) =>
+    products.find((el) => el._id === cartItem.product_id)
+  );
+
+  const isCartValid = isProductAvailable.every((product: any) => !!product);
+
   if (!loading && !load) {
-    if (checkThisProductIsAvailable) {
+    if (!isCartValid) {
       dispatch(deleteAllProductsFromCart());
     }
   }
