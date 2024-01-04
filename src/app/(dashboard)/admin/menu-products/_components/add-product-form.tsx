@@ -136,12 +136,12 @@ export default function AddProductForm({
                         )}
                         disabled={isSubmitting}
                       >
-                        {field.value
-                          ? categories.find(
-                              (category: InitCategoryState) =>
-                                category._id === field.value.category_id
-                            )?.title
-                          : "Select category"}
+                        {(field.value &&
+                          categories.find(
+                            (category: InitCategoryState) =>
+                              category._id === field.value.category_id
+                          )?.title) ||
+                          "Select category"}
                         <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
                       </Button>
                     </FormControl>
@@ -224,7 +224,7 @@ export default function AddProductForm({
                   <Input
                     disabled={isSubmitting}
                     placeholder="Price"
-                    type="number"
+                    type="text"
                     {...field}
                     className={cn(
                       "text-[18px] md:text-[22px]  bg-slate-100 focus:border-slate-500 border-[2.5px] p-5 "

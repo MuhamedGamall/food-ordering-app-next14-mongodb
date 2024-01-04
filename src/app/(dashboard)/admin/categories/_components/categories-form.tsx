@@ -13,7 +13,7 @@ export default function CatigoiesForm() {
   }
   return (
     <>
-      <div className="mx-auto  max-w-full md:max-w-[80%]  ">
+      <section className="mx-auto  max-w-full md:max-w-[80%]  ">
         <div className="mb-5">
           <div className="space-y-2 ">
             <h1 className="text-[45px]">Add Category</h1>
@@ -21,7 +21,7 @@ export default function CatigoiesForm() {
           <AddCategoryForm onAdd={onAdd} />
           <AllCategorios />
         </div>
-      </div>
+      </section>
     </>
   );
 }

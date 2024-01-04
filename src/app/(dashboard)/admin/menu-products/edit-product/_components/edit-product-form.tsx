@@ -164,12 +164,12 @@ export default function EditProductForm({
                       )}
                       disabled={isSubmitting}
                     >
-                      {field.value
-                        ? categories.find(
+              {(field.value &&
+                          categories.find(
                             (category: InitCategoryState) =>
                               category._id === field.value.category_id
-                          )?.title
-                        : "Select category"}
+                          )?.title) ||
+                          "Select category"}
                       <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
                     </Button>
                   </FormControl>

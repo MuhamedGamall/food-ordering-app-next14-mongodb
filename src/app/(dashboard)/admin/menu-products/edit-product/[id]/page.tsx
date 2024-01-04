@@ -110,8 +110,8 @@ export default function ProductForm({
 
   return (
     <>
-      <div className="">
-        <div className="relative z-50 mx-auto   max-w-full md:max-w-[80%]">
+      <main className="">
+        <section className="relative z-50 mx-auto   max-w-full md:max-w-[80%]">
           {(loading || isSubmitting) && <HandleLoader />}
           <Link
             href={"/admin/menu-products"}
@@ -138,8 +138,8 @@ export default function ProductForm({
               />
             </div>
           </div>
-        </div>
-      </div>
+        </section>
+      </main>
     </>
   );
 }

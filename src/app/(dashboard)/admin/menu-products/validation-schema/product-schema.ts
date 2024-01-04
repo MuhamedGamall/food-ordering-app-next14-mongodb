@@ -26,6 +26,11 @@ export const productSchema = z.object({
   base_price: z
     .string()
     .trim()
-    .min(1, "Must contain at least  0.09")
-    .max(12, "Maximum price allowed is $999999999999"),
+    .refine(
+      (value) =>
+        /^\d+(\.\d{1,2})?$/.test(`${value}`) &&
+        value.length <= 12 &&
+        value.length >= 0,
+      "Price invalid"
+    ),
 });

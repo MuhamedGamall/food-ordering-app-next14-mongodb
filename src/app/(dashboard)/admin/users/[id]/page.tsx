@@ -7,8 +7,8 @@ export default function UserDitailsPage({
   params: { id: string };
 }) {
   return (
-    <section>
+    <main>
       <UserDetails id={id} />
-    </section>
+    </main>
   );
 }

@@ -1,15 +1,15 @@
 
-- create add to cart logic
+- create add to cart logic  = ok
 - add image for category
-- create orders page
+- create orders page for admin and user
 - replace admin menu par to dashboard
 - add loading layout to all pages
 
 - add delete confirm for all delete buttons
 - fix updatedAt & createdAt sorting products table 
 - fix redirect check
-- add sticky style to order dialog btn 
-- replace all section tag page to main tag
+- add sticky style to order dialog btn  = ok
+- replace all section tag page to main tag = ok
 - replace all extraincreasesprice to extras-price
 - fix favorite id api
-- add validation for product fields
+- add validation for product fields  = ok

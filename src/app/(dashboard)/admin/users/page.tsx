@@ -13,9 +13,9 @@ export default function UsersPage() {
     redirect("/");
   }
   return (
-    <section>
+    <main>
       <AllUsers />
-    </section>
+    </main>
   );
 }
 

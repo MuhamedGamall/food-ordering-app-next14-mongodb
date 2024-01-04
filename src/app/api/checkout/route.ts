@@ -15,15 +15,15 @@ export async function POST(req: NextRequest) {
     const email = session?.user?.email;
     const user = await User.findOne({ email });
 
-    // if (Object.values(address).every(Boolean) || cart.length === 0) {
-    //   return new NextResponse("Not Found", { status: 404 });
-    // }
+    if (!Object.values(address).every(Boolean) || cart.length === 0) {
+      return new NextResponse("Not Found", { status: 404 });
+    }
 
     if (!user) {
       return new NextResponse("Unauthorized", { status: 401 });
     }
     const createOrder = await Order.create({
-      userEamil: email,
+      email,
       ...address,
       cart,
       paid: false,
@@ -62,11 +62,17 @@ export async function POST(req: NextRequest) {
         process.env.NEXTAUTH_URL +
         "orders/" +
         createOrder._id.toString() +
-        "?clear-cart=1",
+        "?success=1",
       cancel_url: process.env.NEXTAUTH_URL + "cart?canceled=1",
       metadata: {
         orderId: createOrder._id.toString(),
         userId: user?._id.toString(),
+      },
+      payment_intent_data: {
+        metadata: {
+          orderId: createOrder._id.toString(),
+          userId: user?._id.toString(),
+        },
       },
       shipping_options: [
         {

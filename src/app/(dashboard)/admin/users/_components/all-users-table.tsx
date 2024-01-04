@@ -24,11 +24,11 @@ export default function AllUsers() {
   }, [dispatch, session.status]);
 
   return (
-    <div>
+    <section>
       <DataTable
         data={users}
         tableLoading={tableLoading}
       />
-    </div>
+    </section>
   );
 }

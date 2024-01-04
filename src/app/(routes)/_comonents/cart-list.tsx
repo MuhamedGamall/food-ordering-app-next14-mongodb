@@ -2,21 +2,22 @@ import formatPrice from "@/utils/format/format-price";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
-import { ExtraPriceState } from "../../../../../types";
+import { ExtraPriceState } from "../../../../types";
 import BasePrice_ExtraPrices from "@/components/basePrice-extraPirces";
-import totalCartPrice from "@/utils/total-cart-price";
 
 export default function CartList({
-  cart,
+  data,
   onDelete,
 }: {
-  cart: any;
-  onDelete: (id: string) => void;
+  data: any;
+  onDelete?: (id: string) => void;
 }) {
+  console.log(data);
+  
   return (
     <section className="flex-[4.5] w-full">
       <ul className="flex flex-col  gap-2 border-t ">
-        {cart?.map((el: any) => {
+        {data?.map((el: any) => {
           return (
             <li
               key={el._id}
@@ -59,12 +60,14 @@ export default function CartList({
                       Veiw
                     </Link>
                   </li>
-                  <li
-                    onClick={() => onDelete(el?._id)}
-                    className="hover:text-green-950 underline transition text-[#2d5d2a] text-[14px] cursor-pointer"
-                  >
-                    Remove
-                  </li>
+                  {!!onDelete && (
+                    <li
+                      onClick={() => onDelete(el?._id)}
+                      className="hover:text-green-950 underline transition text-[#2d5d2a] text-[14px] cursor-pointer"
+                    >
+                      Remove
+                    </li>
+                  )}
                 </ul>
                 <div className="flex gap-2 items-center">
                   <p className="text-slate-950">Increases: </p>

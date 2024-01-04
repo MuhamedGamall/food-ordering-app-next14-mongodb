@@ -1,4 +1,3 @@
-
 import * as z from "zod";
 export const profileSchema = z.object({
   name: z
@@ -13,7 +12,17 @@ export const profileSchema = z.object({
     .email("Please enter a valid email address.")
     .trim()
     .optional(),
-  phone: z.string().max(20, "Invalid phone number").optional(),
+  phone: z
+    .string()
+    .trim()
+    .refine(
+      (value) =>
+        /^\d+(\.\d{1,2})?$/.test(`${value}`) &&
+        value.length <= 20 &&
+        value.length >= 10,
+      "Invalid field"
+    )
+    .optional(),
 
   street_address: z.string().trim().max(191, "Address is too long").optional(),
 
@@ -25,7 +34,13 @@ export const profileSchema = z.object({
   postal_code: z
     .string()
     .trim()
-    .max(6, "Postal code must be at most 30 characters long")
+    .refine(
+      (value) =>
+        /^\d+(\.\d{1,2})?$/.test(`${value}`) &&
+        value.length <= 6 &&
+        value.length >= 1,
+      "Invalid field"
+    )
     .optional(),
   country: z
     .string()
@@ -33,4 +48,3 @@ export const profileSchema = z.object({
     .max(30, "Country must be at most 30 characters long")
     .optional(),
 });
-

@@ -17,18 +17,26 @@ export default function CartCheckout({ cart }: any) {
 
   async function proceedToCheckout() {
     const { street_address, phone, city, country, postal_code } = data;
-    if (Object.values({street_address, phone, city, country, postal_code } ).every(Boolean)) {
-    if (cart.length > 0) {
-      const response = await axios.post("/api/checkout", {
-        cart,
-        address: { street_address, phone, city, country, postal_code },
-      });
-      const link = await response.data;
-      router.push(link);
-    } else toast.error("Your cart is empty");
-    } else{
-      toast.error("Your profile data is not compleated !!");}
-
+    if (
+      Object.values({
+        street_address,
+        phone,
+        city,
+        country,
+        postal_code,
+      }).every(Boolean)
+    ) {
+      if (cart.length > 0) {
+        const response = await axios.post("/api/checkout", {
+          cart,
+          address: { street_address, phone, city, country, postal_code },
+        });
+        const link = await response.data;
+        router.push(link);
+      } else toast.error("Your cart is empty");
+    } else {
+      toast.error("Your profile data is not compleated !!");
+    }
   }
 
   return (
@@ -43,7 +51,7 @@ export default function CartCheckout({ cart }: any) {
 
       <Link
         href={"/profile"}
-        className="text-center mb-5 text-[18px] text-[#2A5D2A] underline"
+        className="text-center mb-5 text-[18px] text-[#2d5d2a] underline"
       >
         Edit your address settengs before checkout
       </Link>
@@ -64,7 +72,7 @@ export default function CartCheckout({ cart }: any) {
       <hr />
       <div className="flex items-center justify-between text-[26px] ">
         Total:
-        <span> {formatPrice(totalPrice+5 + "")}</span>
+        <span> {formatPrice(totalPrice + 5 + "")}</span>
       </div>
     </section>
   );

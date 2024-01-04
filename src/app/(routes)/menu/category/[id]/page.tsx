@@ -30,12 +30,12 @@ export default function Menu({ params: { id } }: { params: { id: string } }) {
   }, [dispatch]);
 
   return (
-    <div className="mx-auto px-4 max-w-[80rem]">
+    <main className="mx-auto px-4 max-w-[80rem]">
       <Categorys categories={categories} loading={categoryLoading} />
       <div className=" md:max-w-[90%] mx-auto px-2 py-3 text-[45px] ">
         <div className=" max-w-[80rem] ">{`${menuTitle}`.toUpperCase()}</div>
       </div>
       <MenuItems products={menuChoiced} loading={productsLoding} />
-    </div>
+    </main>
   );
 }

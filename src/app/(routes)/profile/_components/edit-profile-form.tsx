@@ -50,7 +50,7 @@ export default function EditProfileForm() {
 
   return (
     <>
-      <div className="">
+      <section className="">
         <div className=" mx-auto relative  max-w-full md:max-w-[80%]  flex gap-5 flex-col  sm:flex-nowrap flex-wrap">
           {(loading || isSubmitting) && <HandleLoader />}
           <div className="space-y-2 ">
@@ -66,7 +66,7 @@ export default function EditProfileForm() {
             <ProfileFormInputs onSubmit={onSubmit} data={data} />
           </div>
         </div>
-      </div>
+      </section>
     </>
   );
 }

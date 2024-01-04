@@ -79,7 +79,7 @@ export default function ProductForm() {
   }
   return (
     <>
-      <div className="">
+      <section className="">
         <div className=" relative mx-auto  max-w-full md:max-w-[80%] ">
           {(loading || isSubmitting) && <HandleLoader />}
           <div className="space-y-2 ">
@@ -120,7 +120,7 @@ export default function ProductForm() {
             <AllProducts />
           </div>
         </div>
-      </div>
+      </section>
     </>
   );
 }

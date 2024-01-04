@@ -14,8 +14,8 @@ export default function CategoriesPage() {
   }
 
   return (
-    <section>
+    <main>
       <CategoriesForm />
-    </section>
+    </main>
   );
 }

@@ -23,7 +23,7 @@ export default function UserDetails({ id }: { id: string }) {
 
   return (
     <>
-      <div className=" mx-auto relative  max-w-full md:max-w-[80%]  flex gap-5 flex-col  sm:flex-nowrap flex-wrap">
+      <section className=" mx-auto relative  max-w-full md:max-w-[80%]  flex gap-5 flex-col  sm:flex-nowrap flex-wrap">
         {loading && <HandleLoader />}
         <Link
           href={"/admin/users"}
@@ -49,7 +49,7 @@ export default function UserDetails({ id }: { id: string }) {
           </div>
           <UserItems data={user} />
         </div>
-      </div>
+      </section>
     </>
   );
 }

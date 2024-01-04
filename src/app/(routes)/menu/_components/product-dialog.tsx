@@ -57,8 +57,7 @@ export default function ProductDialog({
               />
             </p>
             <p className="text-[18px] mb-[5px] max-w-[500px] text-slate-700 mx-auto md:mx-0">
-              {item?.description +
-                "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Id ducimus suscipit temporeLorem ipsum dolor, sit amet consectetur adipisicing elit. Id ducimus suscipit tempore cumque minus iusto, odit eos sequi qui temporibus iure numquam error quas laboriosam vero, eligendi minima atque commodi."}
+              {item?.description}
             </p>
             <div>
               <SelectorField
@@ -67,17 +66,17 @@ export default function ProductDialog({
                 data={item}
               />
             </div>
-            <div className="flex items-center gap-5">
+            <div className="flex items-center gap-5 sticky bottom-[-40px] bg-white transition py-2">
               <Button
                 onClick={addToCart}
-                className="text-[18px] rounded-full  mt-2 mx-auto md:mx-0 "
+                className="text-[18px] rounded-full p-[25px] mx-auto md:mx-0 "
                 variant={"green"}
               >
                 ADD TO ORDERS
               </Button>
               <Button
                 onClick={() => setIsClicked({ check: false, id: "" })}
-                className="text-[18px] rounded-full hover:text-red-700  mt-2 mx-auto md:mx-0 "
+                className="text-[18px] rounded-full p-[25px] hover:text-red-700  mx-auto md:mx-0 "
                 variant={"ghost"}
               >
                 CANCEL

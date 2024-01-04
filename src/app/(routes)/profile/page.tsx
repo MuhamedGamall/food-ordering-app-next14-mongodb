@@ -14,9 +14,9 @@ export default function EditProfilePage() {
   }
 
   return (
-    <section className="sm:w-[90%] max-w-[80rem] mx-auto mt-5 p-5">
-      <AdminMenuBar path={"profile"} />
+    <main className="sm:w-[90%] max-w-[80rem] mx-auto mt-5 p-5">
+      <AdminMenuBar  />
       <EditProfileForm />
-    </section>
+    </main>
   );
 }

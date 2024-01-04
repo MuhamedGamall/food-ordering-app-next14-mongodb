@@ -8,7 +8,7 @@ import {
 } from "@/lib/RTK/slices/cart-slice";
 
 import React, { useEffect } from "react";
-import CartList from "./_components/cart-list";
+import CartList from "../_comonents/cart-list";
 import { Button } from "@/components/ui/button";
 import { useRouter } from "next/navigation";
 import { MoveRight } from "lucide-react";
@@ -62,13 +62,13 @@ export default function CartPage() {
           <>
             <h2 className="text-[45px] ">YOUR CART</h2>
             <div className="flex gap-8  sm:flex-row flex-col justify-start ">
-              <CartList onDelete={removeItem} cart={mergedArray} />
+              <CartList onDelete={removeItem} data={mergedArray} />
               <CartCheckout cart={mergedArray} />
             </div>
             <Button
               onClick={removeAllItems}
               variant={"ghost"}
-              className="hover:text-sky-950 text-[#2d5a2d] underline transition my-5"
+              className="hover:text-sky-950 text-[#2d5d2a] underline transition my-5"
             >
               Remove all items
             </Button>

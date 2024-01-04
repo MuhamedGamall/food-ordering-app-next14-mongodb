@@ -13,8 +13,8 @@ export default function EditProfilePage() {
     redirect("/");
   }
   return (
-    <section className="">
+    <main className="">
       <ProductForm />
-    </section>
+    </main>
   );
 }
