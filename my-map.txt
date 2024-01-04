@@ -12,3 +12,4 @@
 - replace all section tag page to main tag
 - replace all extraincreasesprice to extras-price
 - fix favorite id api
+- add validation for product fields
