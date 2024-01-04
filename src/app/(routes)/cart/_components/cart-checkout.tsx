@@ -16,30 +16,20 @@ export default function CartCheckout({ cart }: any) {
   const { totalPrice, extraPrice, basePrice, sizePrice } = totalCartPrice(cart);
 
   async function proceedToCheckout() {
-    // if (!Object.values({ ...data }).every((el) => !!el)) {
-      const { streat_address, phone, city, country, postal_code } = data;
-      if (cart.length > 0) {
-        const response = await axios.post("/api/checkout", {
-          cart,
-          address: { streat_address, phone, city, country, postal_code },
-        });
-        const link = await response.data;
-        router.push(link);
-      } else toast.error("Your cart is empty");
-    // } else{ 
-    //   toast.error("Your profile data is not compleated !!");}
-    
-  }
+    const { street_address, phone, city, country, postal_code } = data;
+    if (Object.values({street_address, phone, city, country, postal_code } ).every(Boolean)) {
+    if (cart.length > 0) {
+      const response = await axios.post("/api/checkout", {
+        cart,
+        address: { street_address, phone, city, country, postal_code },
+      });
+      const link = await response.data;
+      router.push(link);
+    } else toast.error("Your cart is empty");
+    } else{
+      toast.error("Your profile data is not compleated !!");}
 
-  const productPrice =
-    (+cart?.[3]?.base_price +
-      +cart?.[3]?.size?.extra_price +
-      cart?.[3]?.extra_increases_price.reduce(
-        (a: any, c: any) => a + +c?.extra_price,
-        0
-      )) *
-    +cart?.[3]?.quantity;
-  console.log(productPrice);
+  }
 
   return (
     <section className="flex-[2.5] w-full rounded-md p-3 border flex flex-col gap-3  h-fit">
@@ -62,6 +52,10 @@ export default function CartCheckout({ cart }: any) {
           Extras:
           <span className=""> {formatPrice(extraPrice + "")}</span>
         </div>
+        <div className="flex items-center text-[20px] justify-between ">
+          Delivery:
+          <span className=""> $5</span>
+        </div>
         <div className="flex items-center text-[20px] justify-between mb-5">
           Base price:
           <span> {formatPrice(basePrice + sizePrice + "")}</span>
@@ -70,7 +64,7 @@ export default function CartCheckout({ cart }: any) {
       <hr />
       <div className="flex items-center justify-between text-[26px] ">
         Total:
-        <span> {formatPrice(totalPrice + "")}</span>
+        <span> {formatPrice(totalPrice+5 + "")}</span>
       </div>
     </section>
   );

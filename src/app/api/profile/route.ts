@@ -32,7 +32,7 @@ export async function PATCH(req: NextRequest) {
       otherData,
       { upsert: true }
     );
-
+    
     const fullData = { ...userData, ...userInfos };
 
     return NextResponse.json(fullData);
@@ -49,11 +49,12 @@ export async function GET(req: NextRequest) {
     const email = session?.user?.email;
     const user = await User.find({ email });
     const userInfos = await UserInfos.findOne({ email }).lean();
-    const fullData = { ...user, ...userInfos };
+    const fullData = {  ...userInfos,...user?.[0]?._doc };
 
     if (!fullData) {
       return new NextResponse("Unauthorized", { status: 401 });
     }
+    console.log(fullData);
 
     return NextResponse.json(fullData);
   } catch (error) {

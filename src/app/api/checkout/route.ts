@@ -15,9 +15,9 @@ export async function POST(req: NextRequest) {
     const email = session?.user?.email;
     const user = await User.findOne({ email });
 
-    if (Object.values({ address }).every(Boolean) || cart.length === 0) {
-      return new NextResponse("Not Found", { status: 404 });
-    }
+    // if (Object.values(address).every(Boolean) || cart.length === 0) {
+    //   return new NextResponse("Not Found", { status: 404 });
+    // }
 
     if (!user) {
       return new NextResponse("Unauthorized", { status: 401 });
@@ -32,49 +32,56 @@ export async function POST(req: NextRequest) {
     const stripeLineItems = [];
     for (const cartProduct of cart) {
       const productName = cartProduct?.title;
+      const productQuantity = +cartProduct?.quantity;
       const productPrice =
-        (+cartProduct?.base_price +
-          +cartProduct?.size?.extra_price +
-          (cartProduct?.extra_increases_price.reduce(
-            (a: any, c: any) => a + +c?.extra_price,
-            0
-          ) || 0)) *
-        +cartProduct?.quantity;
+        +cartProduct?.base_price +
+        +cartProduct?.size?.extra_price +
+        (cartProduct?.extra_increases_price.reduce(
+          (a: any, c: any) => a + +c?.extra_price,
+          0
+        ) || 0);
+
       stripeLineItems.push({
-        quantity: 1,
+        quantity: productQuantity,
+
         price_data: {
           currency: "USD",
           product_data: {
             name: productName,
           },
-          // unit_amount: productPrice * 100,
+          unit_amount: productPrice * 100,
         },
       });
     }
 
-    const stripeSession = await stripe.checkout.session.create({
-      line_items: [],
+    const stripeSession = await stripe.checkout.sessions.create({
+      line_items: stripeLineItems,
       mode: "payment",
       customer_email: email,
-      success_url: process.env.NEXTAUTH_URL + "cart?success=1",
+      success_url:
+        process.env.NEXTAUTH_URL +
+        "orders/" +
+        createOrder._id.toString() +
+        "?clear-cart=1",
       cancel_url: process.env.NEXTAUTH_URL + "cart?canceled=1",
-      metadata: { orderId: createOrder._id },
-      shopping_options: [
+      metadata: {
+        orderId: createOrder._id.toString(),
+        userId: user?._id.toString(),
+      },
+      shipping_options: [
         {
-          dispaly_name: "Delivery fee",
-          type: "fixed_amount",
-          fixed_amount: {
-            currency: "USD",
-            amount: 500,
+          shipping_rate_data: {
+            display_name: "Delivery fee",
+            type: "fixed_amount",
+            fixed_amount: { amount: 500, currency: "USD" },
           },
         },
       ],
     });
-    // await UserInfos.create({ email, admin: false });
 
-    // return NextResponse.json(createdUser);
+    return NextResponse.json(stripeSession.url);
   } catch (error) {
-    console.log("[CREATE-ACOUNT]", error);
+    console.log("[CHECKOUT]", error);
     return new NextResponse("Internal Error", { status: 500 });
   }
 }

@@ -37,24 +37,23 @@ export default function CartPage() {
     return router.replace("/menu/category/_");
   };
 
-  const isProductAvailable = cart.map((cartItem: any) =>
-    products.find((el) => el._id === cartItem.product_id)
-  );
+  // const isProductAvailable = cart.map((cartItem: any) =>
+  //   products.find((el) => el._id === cartItem.product_id)
+  // );
 
-  const isCartValid = isProductAvailable.every((product: any) => !!product);
+  // const isCartValid = isProductAvailable.every((product: any) => !!product);
 
-  if (!loading && !load) {
-    if (!isCartValid) {
-      dispatch(deleteAllProductsFromCart());
-    }
-  }
+  // if (!loading && !load) {
+  //   if (!isCartValid) {
+  //     dispatch(deleteAllProductsFromCart());
+  //   }
+  // }
 
   const removeItem = (id: string) => {
     if (cart?.length > 0) {
       id && dispatch(deleteProductFromCart(id));
     } else return router.replace("/menu/category/_");
   };
-// console.log(mergedArray);
 
   return (
     <main className=" mx-auto px-4 max-w-[80rem] my-5">
