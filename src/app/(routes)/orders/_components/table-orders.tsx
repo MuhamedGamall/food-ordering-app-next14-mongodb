@@ -110,7 +110,6 @@ export function DataTable({
                       )}
                     </TableCell>
                   ))}
-                  <TableRow />
                 </TableRow>
               ))
             ) : (

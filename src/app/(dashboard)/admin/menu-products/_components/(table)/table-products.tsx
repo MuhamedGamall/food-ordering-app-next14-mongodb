@@ -173,7 +173,7 @@ export function DataTable({
                       )}
                     </TableCell>
                   ))}
-                  <TableRow />
+      
                   <TableCell className="text-center">
                     <DropdownMenu>
                       <DropdownMenuTrigger asChild>

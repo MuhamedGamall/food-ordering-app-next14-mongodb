@@ -14,7 +14,6 @@ import {
 
 import { Button } from "@/components/ui/button";
 
-
 import { useState } from "react";
 
 import {
@@ -23,7 +22,7 @@ import {
   TableCell,
   TableHeader,
   TableRow,
-  TableHead
+  TableHead,
 } from "@/components/ui/table";
 
 import HandleLoader from "@/components/loader";
@@ -106,7 +105,6 @@ export function DataTable({
                       )}
                     </TableCell>
                   ))}
-                  <TableRow />
                 </TableRow>
               ))
             ) : (

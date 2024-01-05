@@ -39,15 +39,7 @@ export default function AddCategoryForm({
 }: {
   onAdd: (value: string, form: any) => Promise<void>;
 }) {
-  // const router = useRouter();
-  // const dispatch = useAppDispatch();
-  // async function onSubmit(value: any) {
-  //   if (value?.length !== 0) {
-  //     dispatch(postCategory(value));
-  //     form.setValue("title", "");
-  //     // router.refresh();
-  //   }
-  // }
+
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
