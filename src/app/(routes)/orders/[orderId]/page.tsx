@@ -9,6 +9,7 @@ import { getOrder } from "@/lib/RTK/slices/orders-slice";
 import formatPrice from "@/utils/format/format-price";
 import totalCartPrice from "@/utils/total-cart-price";
 import DeliveryDetails from "../../cart/_components/delivery-details";
+import { CheckCircle2, XCircle } from "lucide-react";
 
 export default function OrderPage({
   params: { orderId },
@@ -38,12 +39,20 @@ export default function OrderPage({
         <div className="flex gap-8  md:flex-row flex-col justify-start ">
           <div className="flex-[2.5]  w-full">
             <CartList data={order?.cart} />
-            <span className="text-right block text-[25px]">
+            <span className="flex justify-end gap-10 text-[25px]">
+              <p className="flex items-center  gap-2 text-[18px]">
+                {order?.paid ? (
+                  <CheckCircle2 color="green" width={18} />
+                ) : (
+                  <XCircle color="red" width={18} />
+                )}
+                {order?.paid ? "payment was made" : "payment is not paid yet"}
+              </p>
               Total: {formatPrice(totalPrice)}
             </span>
           </div>
           <section className="flex  flex-col gap-3 flex-[1] ">
-           <DeliveryDetails order={order}/>
+            <DeliveryDetails order={order} />
           </section>
         </div>
       </div>

@@ -13,30 +13,6 @@ import DelievryDetails from "./delievry-details";
 
 export const columns: ColumnDef<any>[] = [
   {
-    id: "select",
-    header: ({ table }) => (
-      <Checkbox
-        checked={
-          table.getIsAllPageRowsSelected() ||
-          (table.getIsSomePageRowsSelected() && "indeterminate")
-        }
-        onCheckedChange={(value: any) =>
-          table.toggleAllPageRowsSelected(!!value)
-        }
-        aria-label="Select all"
-      />
-    ),
-    cell: ({ row }) => (
-      <Checkbox
-        checked={row.getIsSelected()}
-        onCheckedChange={(value: any) => row.toggleSelected(!!value)}
-        aria-label="Select row"
-      />
-    ),
-    enableSorting: false,
-    enableHiding: false,
-  },
-  {
     accessorKey: "email",
     header: ({ column }) => {
       return (
@@ -105,8 +81,8 @@ export const columns: ColumnDef<any>[] = [
         <div>
           <div
             className={cn(
-              isPaid ? "bg-green-600/70" : "bg-red-600/70",
-              " rounded-md px-2 py-1 max-w-[100px] overflow-x-auto whitespace-nowrap text-slate-800 text-[18px] w-fit"
+              isPaid ? "bg-green-600/70 text-green-100" : "bg-red-600/70 text-red-100",
+              " rounded-md px-2 py-1 max-w-[100px] overflow-x-auto whitespace-nowrap text-[18px] w-fit"
             )}
           >
             {isPaid ? "Paid" : "Not paid"}
@@ -115,38 +91,7 @@ export const columns: ColumnDef<any>[] = [
       );
     },
   },
-  {
-    accessorKey: "received",
-    header: ({ column }) => {
-      return (
-        <Button
-          variant="ghost"
-          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-        >
-          Is received
-          <ArrowUpDown className="ml-2 h-4 w-4" />
-        </Button>
-      );
-    },
-    cell: ({ row }) => {
-      const isReceived = row.getValue("received");
-      // const isPaid = row.getValue("paid");
-      // const isAdmin = row.getValue("admin");
 
-      return (
-        <div>
-          <div
-            className={cn(
-              isReceived ? "bg-green-600/80" : "bg-red-600/80",
-              " rounded-md px-2 py-1 max-w-[100px] overflow-x-auto whitespace-nowrap text-[18px] text-slate-800 w-fit"
-            )}
-          >
-            {isReceived ? "received" : "Not received"}
-          </div>
-        </div>
-      );
-    },
-  },
   {
     accessorKey: "address",
     header: ({ column }) => {

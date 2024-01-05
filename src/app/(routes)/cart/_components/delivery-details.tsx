@@ -3,7 +3,7 @@ import React from 'react'
 export default function DeliveryDetails({order}:any) {
   return (
     <ul className="bg-slate-100 py-4 px-2  rounded-md text-[20px]">
-    <h4 className="mb-3 text-[30px] w-full  bg-white text-slate-900 shadow-sm rounded-md text-center">
+    <h4 className="mb-3 text-[25px] md:text-[30px] w-full  bg-white text-slate-900 shadow-sm rounded-md text-center">
       Delivery details
     </h4>
     <li className="  border-b text-slate-600 border-slate-200  py-2">
