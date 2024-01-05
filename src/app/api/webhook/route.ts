@@ -19,7 +19,7 @@ export async function POST(req: Request) {
     return new NextResponse(`Webhook Error: ${error.message}`, { status: 400 });
   }
 
-  const session = event.data.object as Stripe.Checkout.Session;
+  const session = event?.data?.object as Stripe.Checkout.Session;
   const userId = session?.metadata?.userId;
   const orderId = session?.metadata?.orderId;
   const isPaid = session?.payment_status === "paid";
@@ -30,8 +30,6 @@ export async function POST(req: Request) {
         status: 400,
       });
     }
-    console.log(session?.metadata);
-
     if (isPaid) {
       await Order.updateOne({ _id: orderId }, { paid: true });
     }
