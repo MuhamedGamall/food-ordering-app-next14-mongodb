@@ -90,7 +90,7 @@ export default function AddCategoryForm({
             disabled={isSubmitting || !isValid}
             className={cn("  text-2xl text-center rounded-full  mt-5 w-fit")}
           >
-            Save
+            Add category
           </Button>
         </form>
       </Form>
