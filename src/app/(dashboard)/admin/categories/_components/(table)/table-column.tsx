@@ -5,6 +5,7 @@ import { ArrowUpDown } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
 import { InitCategoryState } from "../../../../../../../types";
+import Image from "next/image";
 
 export const columns: ColumnDef<InitCategoryState>[] = [
   {
@@ -30,6 +31,26 @@ export const columns: ColumnDef<InitCategoryState>[] = [
     ),
     enableSorting: false,
     enableHiding: false,
+  },
+  {
+    accessorKey: "image",
+    header: ({ column }) => {
+      return <div className="text-right">Image</div>;
+    },
+    cell: ({ row }) => {
+      return (
+        <div>
+          <Image
+            src={row.getValue("image")}
+            alt="image"
+            width={250}
+            height={250}
+            loading="lazy"
+            className="w-[50px] max-w-full rounded-md aspect-[1] object-cover"
+          />
+        </div>
+      );
+    },
   },
   {
     accessorKey: "title",

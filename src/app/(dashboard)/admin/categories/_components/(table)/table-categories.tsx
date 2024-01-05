@@ -32,7 +32,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Input } from "@/components/ui/input";
-import { useState } from "react";
+import { useState, Dispatch } from "react";
 
 import {
   Table,
@@ -55,21 +55,19 @@ import { columns } from "./table-column";
 import HandleLoader from "@/components/loader";
 import SearchInputs from "./search-inputs";
 import DeleteActionsBtns from "./delete-actions";
-
-export type Catygory = {
-  title: string;
-  createdAt: string;
-  updatedAt: string;
-  __v: number;
-  _id: string;
-};
+import SetStateAction from "react";
+import { InitCategoryState } from "../../../../../../../types";
 
 export function DataTable({
   data,
   tableLoading,
+  setEditMood,
+  editMood,
 }: {
   data: any;
   tableLoading: boolean;
+  setEditMood: any;
+  editMood: any;
 }) {
   const dispatch = useAppDispatch();
   // const router = useRouter();
@@ -78,7 +76,6 @@ export function DataTable({
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
   const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({});
   const [rowSelection, setRowSelection] = useState({});
-  const [inputValue, setinputValue] = useState("");
   const [isLoading, setIsLoading] = useState(false);
 
   const table = useReactTable({
@@ -102,26 +99,21 @@ export function DataTable({
 
   const selectedRows = table.getFilteredSelectedRowModel().rows;
   const idsSelectedToDelete = selectedRows.map((row) => row.original._id);
-
+  const [editState, setEditState] = useState(false);
   const isEditing = (rowId: string) => editingRowId === rowId;
 
   // handle actions functoins
-  const handleEditClick = (rowId: string) => {
+  const handleEditClick = (rowId: string, data: InitCategoryState) => {
+    if (isEditing(rowId)) {
+      setEditingRowId(null);
+      setEditMood(null);
+    } else {
+      setEditMood(data);
+      setEditingRowId(rowId);
+    }
     isEditing(rowId) ? setEditingRowId(null) : setEditingRowId(rowId);
   };
 
-  const handleSaveClick = async ({
-    _id,
-    currentTitle,
-  }: {
-    _id: string;
-    currentTitle: string;
-  }) => {
-    if (inputValue.length !== 0 || currentTitle.length) {
-      dispatch(editCategory({ _id, title: inputValue || currentTitle }));
-      setEditingRowId(null);
-    } else toast.error("Invaild input value");
-  };
   const handleDeleteClick = async (_id: string) => {
     if (_id) {
       dispatch(deleteCategory([_id]));
@@ -133,7 +125,7 @@ export function DataTable({
 
   return (
     <div className="w-full mt-5">
-      {isLoading || (tableLoading && <HandleLoader />)}
+      {(isLoading || tableLoading) && <HandleLoader />}
       <div className="flex items-center justify-between gap-1 py-4">
         <div className="flex items-center gap-1">
           <SearchInputs dataLength={data?.length} table={table} />
@@ -205,40 +197,14 @@ export function DataTable({
                   key={row.id}
                   data-state={row.getIsSelected() && "selected"}
                 >
-                  {isEditing(row.id) ? (
-                    <TableCell colSpan={columns.length}>
-                      <div className="flex gap-1 ">
-                        <Input
-                          className="grow"
-                          defaultValue={row.original.title}
-                          onChange={(e) => setinputValue(e.target.value)}
-                        />
-                        <Button
-                          type="button"
-                          className="text-[18px] text-slate-600 hover:bg-slate-300/20 bg-slate-400/20"
-                          onClick={() =>
-                            handleSaveClick({
-                              _id: row?.original._id,
-                              currentTitle: row.original.title,
-                            })
-                          }
-                        >
-                          Save
-                        </Button>
-                      </div>
+                  {row.getVisibleCells().map((cell) => (
+                    <TableCell key={cell.id}>
+                      {flexRender(
+                        cell.column.columnDef.cell,
+                        cell.getContext()
+                      )}
                     </TableCell>
-                  ) : (
-                    row
-                      .getVisibleCells()
-                      .map((cell) => (
-                        <TableCell key={cell.id}>
-                          {flexRender(
-                            cell.column.columnDef.cell,
-                            cell.getContext()
-                          )}
-                        </TableCell>
-                      ))
-                  )}
+                  ))}
                   <TableCell className="text-center">
                     <DropdownMenu>
                       <DropdownMenuTrigger asChild>
@@ -252,24 +218,17 @@ export function DataTable({
                         </Button>
                       </DropdownMenuTrigger>
                       <DropdownMenuContent align="end">
-                        <DropdownMenuItem
-                          onClick={() =>
-                            navigator.clipboard.writeText(row.original._id)
-                          }
-                        >
-                          Copy catygory ID
-                        </DropdownMenuItem>
                         <DropdownMenuSeparator />
-                        {!isEditing(row.id) && (
-                          <DropdownMenuItem
-                            onClick={() => handleEditClick(row.id)}
-                          >
-                            <div className="flex items-center gap-1 text-[16px]">
-                              <Edit className="w-4" />
-                              Go to edit mood
-                            </div>
-                          </DropdownMenuItem>
-                        )}
+                        <DropdownMenuItem
+                          onClick={() => handleEditClick(row.id, row?.original)}
+                        >
+                          <div className="flex items-center gap-1 text-[16px]">
+                            <Edit className="w-4" />
+                            {isEditing(row.id)
+                              ? " Leave edit mood"
+                              : "Go to edit mood"}
+                          </div>
+                        </DropdownMenuItem>
                         <DropdownMenuItem>
                           <div
                             className="flex items-center gap-1 text-[16px]"
@@ -326,3 +285,61 @@ export function DataTable({
     </div>
   );
 }
+/*
+
+     {
+                  isEditing(row.id) ? (
+                    <TableCell colSpan={columns.length}>
+                      <div className="flex items-center gap-1 min-w-[400px]">
+                        <Button
+                        // onClick={}
+                        className="text-[18px] flex-[.5]">
+                          Edit image
+                        </Button>
+                        <form
+                          onSubmit={(e) => {
+                            e.preventDefault();
+                            handleSaveClick({
+                              _id: row?.original._id,
+                              currentTitle: row.original.title,
+                            });
+                          }}
+                          className="flex flex-[5] gap-1 items-center"
+                        >
+                          <Input
+                            className="grow"
+                            defaultValue={row.original.title}
+                            onChange={(e) => setinputValue(e.target.value)}
+                            required
+                          />
+                          <Button
+                            type="submit"
+                            className="flex-[.5]  text-[18px] text-slate-600 hover:bg-slate-300/20 bg-slate-400/20"
+                          >
+                            Save
+                          </Button>
+                          <Button
+                            type="button"
+                            onClick={() => handleEditClick(row.id)}
+                            variant={"ghost"}
+                            className="flex-[.5]  text-[18px]"
+                          >
+                            Cancel
+                          </Button>
+                        </form>
+                      </div>
+                    </TableCell>
+                  ) : (
+                    row
+                      .getVisibleCells()
+                      .map((cell) => (
+                        <TableCell key={cell.id}>
+                          {flexRender(
+                            cell.column.columnDef.cell,
+                            cell.getContext()
+                          )}
+                        </TableCell>
+                      ))
+                  )}
+
+*/

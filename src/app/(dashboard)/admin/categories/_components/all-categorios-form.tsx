@@ -8,7 +8,7 @@ import { Loader } from "lucide-react";
 import { useSession } from "next-auth/react";
 import { useEffect, useState } from "react";
 
-export default function AllCategorios() {
+export default function AllCategorios({setEditMood,editMood}:{setEditMood:any,editMood:any}) {
   const session = useSession();
   const { categories,loading } = useAppSelector((state) => state.catygories);
   const dispatch = useAppDispatch();
@@ -24,7 +24,7 @@ export default function AllCategorios() {
 
   return (
     <div>
-      <DataTable data={categories} tableLoading={loading} />
+      <DataTable data={categories} tableLoading={loading}  setEditMood={setEditMood} editMood={editMood}/>
     </div>
   );
 }

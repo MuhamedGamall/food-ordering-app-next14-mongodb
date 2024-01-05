@@ -204,7 +204,7 @@ export default function AddProductForm({
                     placeholder="Description"
                     {...field}
                     className={cn(
-                      "text-[18px] md:text-[22px]  bg-slate-100 focus:border-slate-500 border-[2.5px] p-6 h-[120px] min-h-[120px] max-h-[200px]"
+                      "text-[18px] md:text-[22px]  bg-slate-100 focus:border-slate-500 border-[2.5px] p-6 h-[120px] -h-[120px] max-h-[200px]"
                     )}
                   />
                 </FormControl>

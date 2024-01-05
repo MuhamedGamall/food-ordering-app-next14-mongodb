@@ -1,8 +1,5 @@
 "use client";
 
-import axios from "axios";
-import toast from "react-hot-toast";
-
 import * as z from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
@@ -19,11 +16,9 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 
 import { cn } from "@/lib/utils";
-import { Loader } from "lucide-react";
-import { useRouter } from "next/navigation";
-import { useAppDispatch } from "@/hooks/redux";
-import { postCategory } from "@/lib/RTK/slices/categories-slice";
+
 import HandleLoader from "@/components/loader";
+import { useState } from "react";
 
 const formSchema = z.object({
   title: z
@@ -34,24 +29,30 @@ const formSchema = z.object({
     })
     .max(30, { message: "Categories should be on a lot of 30 characters." }),
 });
-export default function AddCategoryForm({
+export default function Add_EditCategoryForm({
   onAdd,
+  editData,
 }: {
-  onAdd: (value: string, form: any) => Promise<void>;
+  editData: any;
+  onAdd: (value: { title: string }, form: any) => Promise<void>;
 }) {
+  const isEditMood = Boolean(editData);
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
       title: "",
     },
+    values: {
+      title: editData?.title || "",
+    },
   });
-  
+
   async function onSubmit(value: any) {
     onAdd(value, form);
   }
 
-  const { isSubmitting, isValid } = form.formState;
+  const { isSubmitting, isValid } = form.formState
 
   return (
     <>
@@ -67,12 +68,14 @@ export default function AddCategoryForm({
             render={({ field }) => (
               <FormItem>
                 <FormLabel className="text-slate-500 text-[17px] ">
-                  Add catigory
+                  Categories
                 </FormLabel>
                 <FormControl>
                   <Input
                     disabled={isSubmitting}
-                    placeholder="Add categories"
+                    placeholder={
+                      isEditMood ? "Edit category" : "Add categories"
+                    }
                     type="text"
                     {...field}
                     className={cn(
@@ -90,7 +93,7 @@ export default function AddCategoryForm({
             disabled={isSubmitting || !isValid}
             className={cn("  text-2xl text-center rounded-full  mt-5 w-fit")}
           >
-            Add category
+            {isEditMood ? "Update" : "Add categories"}
           </Button>
         </form>
       </Form>

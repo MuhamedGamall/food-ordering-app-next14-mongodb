@@ -9,7 +9,7 @@ import { UserInfos } from "@/models/UserInfos";
 export async function POST(req: NextRequest) {
   mongoose.connect(process.env.MONGO_URL!);
   try {
-    const { title } = await req.json();
+    const { title,image } = await req.json();
 
     const session = await getServerSession(authOptions);
     const email = session?.user?.email;
@@ -17,7 +17,7 @@ export async function POST(req: NextRequest) {
     const user = await User.findOne({ email });
     const userInfos: any = await UserInfos.findOne({ email });
 
-    if (!title && title?.length === 0) {
+    if (!title|| !image) {
       return new NextResponse("Not Found", { status: 404 });
     }
 
@@ -25,7 +25,7 @@ export async function POST(req: NextRequest) {
       return new NextResponse("Unauthorized", { status: 401 });
     }
 
-    const createCategory = await Category.create({ title });
+    const createCategory = await Category.create({ title,image });
     return NextResponse.json(createCategory);
   } catch (error) {
     console.log("[CATEGORIES]", error);
@@ -36,7 +36,7 @@ export async function POST(req: NextRequest) {
 export async function PUT(req: NextRequest) {
   mongoose.connect(process.env.MONGO_URL!);
   try {
-    const { _id, title } = await req.json();
+    const { _id, title,image } = await req.json();
 
     const session = await getServerSession(authOptions);
     const email = session?.user?.email;
@@ -44,13 +44,13 @@ export async function PUT(req: NextRequest) {
     const user: any = await User.findOne({ email });
     const userInfos: any = await UserInfos.findOne({ email });
 
-    if (!title && title?.length === 0) {
+    if (!title && !image) {
       return new NextResponse("Not Found", { status: 404 });
     }
     if (!user || !userInfos?.admin) {
       return new NextResponse("Unauthorized", { status: 401 });
     }
-    const editCategory = await Category.updateOne({ _id }, { title });
+    const editCategory = await Category.updateOne({ _id }, { title ,image});
     return NextResponse.json(editCategory);
   } catch (error) {
     console.log("[CATEGORIES]", error);

@@ -4,6 +4,7 @@ import { Category } from "@/models/Categories";
 export interface InitCategoryState {
   _id: string;
   title: string;
+  image: string;
   createdAt: string;
   updatedAt: string;
   __v: number;

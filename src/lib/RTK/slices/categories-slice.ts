@@ -61,7 +61,7 @@ export const editCategory: any = createAsyncThunk(
   async (item: FormCategoryValues, thunkApi) => {
     const { rejectWithValue } = thunkApi;
     try {
-      await axios.put("/api/admin/categories", item);
+      await axios.put("/api/admin/categories" , item);
       toast.success("Category updated");
       return item;
     } catch (error: any) {
