@@ -1,7 +1,7 @@
 
 - create add to cart logic  = ok
 - add image for category
-- create orders page for admin and user
+-           create orders page for admin and user
 - replace admin menu par to dashboard
 - add loading layout to all pages
 

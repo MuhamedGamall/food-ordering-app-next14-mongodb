@@ -34,8 +34,6 @@ import {
   TableRow,
 } from "@/components/ui/table";
 
-import { useAppDispatch } from "@/hooks/redux";
-
 import HandleLoader from "@/components/loader";
 import SearchInputs from "./search-inputs";
 
