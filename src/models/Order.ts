@@ -11,7 +11,6 @@ const OrderSchema = new Schema(
     country: String,
     cart: Object,
     paid: { type: Boolean, default: false },
-    received: { type: Boolean, default: false },
   },
   { timestamps: true }
 );

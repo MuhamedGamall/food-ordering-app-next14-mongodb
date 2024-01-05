@@ -44,12 +44,10 @@ export function DataTable({
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
   const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({});
   const [rowSelection, setRowSelection] = useState({});
-  const columnsFltr =!isAdmin ? columns?.filter((el:any) => el?.accessorKey !== "received"):columns
-  console.log(columnsFltr);
 
   const table = useReactTable({
     data,
-    columns:columnsFltr,
+    columns,
     onSortingChange: setSorting,
     onColumnFiltersChange: setColumnFilters,
     getCoreRowModel: getCoreRowModel(),
