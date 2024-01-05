@@ -7,21 +7,8 @@ import {
 } from "@/components/ui/menubar";
 import { Menu } from "lucide-react";
 import Link from "next/link";
-const routes: { title: string; href: string }[] = [
-  {
-    title: "Menu",
-    href: "/menu/category/_",
-  },
-  {
-    title: "About",
-    href: "/about",
-  },
-  {
-    title: "Contact",
-    href: "/contact",
-  },
-];
-export function MobileMenu() {
+
+export function MobileMenu({routes}:{routes:{title:string,href:string}[]}) {
   return (
     <Menubar className="md:hidden block border-none bg-white">
       <MenubarMenu>

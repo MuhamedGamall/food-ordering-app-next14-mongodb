@@ -15,7 +15,7 @@ export async function POST(req: NextRequest) {
 
     const user = await User.findOne({ email });
 
-    if (!product.product_id) {
+    if (!product?.product_id) {
       return new NextResponse("Not Found", { status: 404 });
     }
 

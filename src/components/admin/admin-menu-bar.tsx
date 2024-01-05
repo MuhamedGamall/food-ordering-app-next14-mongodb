@@ -13,7 +13,7 @@ const AdminMenuBarRoutes: { title: string; href: string }[] = [
   },
   {
     title: "Orders",
-    href: "/admin/orders",
+    href: "/orders",
   },
   {
     title: "Users",

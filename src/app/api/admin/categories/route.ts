@@ -98,9 +98,8 @@ export async function GET(req: NextRequest) {
     const email = session?.user?.email;
 
     const user: any = await User.findOne({ email });
-    const userInfos: any = await UserInfos.findOne({ email });
 
-    if (!user || !userInfos?.admin) {
+    if (!user ) {
       return new NextResponse("Unauthorized", { status: 401 });
     }
     const categories = await Category.find()

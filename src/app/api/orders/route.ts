@@ -17,7 +17,7 @@ export async function GET(req: NextRequest) {
     const url = new URL(req.url);
     const _id = url.searchParams.get("order_id");
 
-    if (!user || !admin) {
+    if (!user) {
       return new NextResponse("Unauthorized", { status: 401 });
     }
     // order

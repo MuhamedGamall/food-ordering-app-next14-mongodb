@@ -1,6 +1,6 @@
 import * as React from "react";
 import { ColumnDef } from "@tanstack/react-table";
-import { ArrowUpDown } from "lucide-react";
+import { ArrowUpDown, Edit } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
@@ -9,6 +9,7 @@ import Image from "next/image";
 import formatPrice from "@/utils/format/format-price";
 import formatDate from "@/utils/format/format-date";
 import { cn } from "@/lib/utils";
+import Link from "next/link";
 
 export const columns: ColumnDef<any>[] = [
   // {
@@ -44,7 +45,7 @@ export const columns: ColumnDef<any>[] = [
       return (
         <div>
           <Image
-            src={row.getValue("image") || '/avatar/avatar.jpeg'}
+            src={row.getValue("image") || "/avatar/avatar.jpeg"}
             alt="image"
             width={250}
             height={250}
@@ -68,11 +69,10 @@ export const columns: ColumnDef<any>[] = [
       );
     },
     cell: ({ row }) => {
-    
       return (
         <div>
           <div className="lowercase whitespace-nowrap max-w-[150px] overflow-x-auto">
-            {row.getValue("name")|| 'No name'}
+            {row.getValue("name") || "No name"}
           </div>
         </div>
       );
@@ -192,6 +192,34 @@ export const columns: ColumnDef<any>[] = [
       return (
         <div className="text-right font-medium lowercase max-w-[100px] overflow-x-auto whitespace-nowrap">
           {formatDate(updatedAt)}
+        </div>
+      );
+    },
+  },
+  {
+    accessorKey: "actions",
+    header: ({ column }) => {
+      return (
+        <Button
+          variant="ghost"
+          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+        >
+          Actions
+          <ArrowUpDown className="ml-2 h-4 w-4" />
+        </Button>
+      );
+    },
+    cell: ({ row }) => {
+      return (
+        <div className="text-right font-medium lowercase max-w-[100px] overflow-x-auto whitespace-nowrap">
+          <Link
+            href={"/admin/users/" + row.getValue("_id")}
+            className="flex items-center gap-1 text-[16px]"
+          >
+            <Edit className="w-4" />
+            View user
+          </Link>
+          ;
         </div>
       );
     },

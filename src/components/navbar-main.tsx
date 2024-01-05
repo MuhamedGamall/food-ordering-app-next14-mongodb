@@ -13,11 +13,16 @@ import {
   MenubarMenu,
   MenubarTrigger,
 } from "./ui/menubar";
+import { MobileMenu } from "./mobile-menu";
 
 const routes: { title: string; href: string }[] = [
   {
     title: "Menu",
     href: "/menu/category/_",
+  },
+  {
+    title: "Orders",
+    href: "/orders",
   },
   {
     title: "About",
@@ -54,26 +59,8 @@ export default function NavberMain() {
               </li>
             ))}
           </div>
-          <Menubar className="sm:hidden block border-none bg-white">
-            <MenubarMenu>
-              <MenubarTrigger>
-                <Menu />
-              </MenubarTrigger>
-              <MenubarContent className="bg-white rounded-sm">
-                {routes.map((route) => (
-                  <Link
-                    key={route.title}
-                    href={route.href}
-                    className="block hover:text-[#2d5d2a] hover:border-b hover:border-[#2D5D2A] transition hover:bg-slate-300/20"
-                  >
-                    <MenubarItem className="cursor-pointer  hover:translate-x-2 transition ">
-                      {route.title}
-                    </MenubarItem>
-                  </Link>
-                ))}
-              </MenubarContent>
-            </MenubarMenu>
-          </Menubar>
+          <MobileMenu routes={routes}/>
+
           <li>
             <Link className="relative" href={"/cart"}>
               <ShoppingCart strokeWidth="3" />

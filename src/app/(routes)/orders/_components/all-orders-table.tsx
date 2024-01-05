@@ -3,29 +3,28 @@
 import { useAppDispatch, useAppSelector } from "@/hooks/redux";
 import { useSession } from "next-auth/react";
 import { useEffect, useState } from "react";
-import { DataTable } from "./table-users";
+import { DataTable } from "./table-orders";
 import { getUsers } from "@/lib/RTK/slices/users-slice";
+import { getOrders } from "@/lib/RTK/slices/orders-slice";
+import useProfile from "@/hooks/user-profile";
 
-export default function AllUsers() {
+export default function AllOrders() {
   const session = useSession();
-  const { users,loading } = useAppSelector((state) => state.usersData);
+  const { orders,loading } = useAppSelector((state) => state.ordersData);
   const dispatch = useAppDispatch();
-
+const {data}=useProfile()
   useEffect(() => {
     async function getData() {
       if (session.status === "authenticated") {
-        await dispatch(getUsers());
+        dispatch(getOrders());
       }
     }
     getData();
   }, [dispatch, session.status]);
-
+const isAdmin = data?.admin
   return (
     <section>
-      <DataTable
-        data={users}
-        tableLoading={loading}
-      />
+      <DataTable data={orders} tableLoading={loading} isAdmin={isAdmin} />
     </section>
   );
 }

@@ -2,6 +2,7 @@ import { model, models, Schema } from "mongoose";
 
 const OrderSchema = new Schema(
   {
+    admin: { type: Boolean, default: false },
     email: String,
     phone: String,
     street_address: String,

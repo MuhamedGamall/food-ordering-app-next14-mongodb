@@ -10,16 +10,13 @@ import { useEffect, useState } from "react";
 
 export default function AllCategorios() {
   const session = useSession();
-  const { categories } = useAppSelector((state) => state.catygories);
-  const [tableLoading, setTableLoading] = useState(false);
+  const { categories,loading } = useAppSelector((state) => state.catygories);
   const dispatch = useAppDispatch();
 
   useEffect(() => {
     async function getData() {
       if (session.status === "authenticated") {
-        setTableLoading(true);
         await dispatch(getCategories());
-        setTableLoading(false);
       }
     }
     getData();
@@ -27,7 +24,7 @@ export default function AllCategorios() {
 
   return (
     <div>
-      <DataTable data={categories} tableLoading={tableLoading} />
+      <DataTable data={categories} tableLoading={loading} />
     </div>
   );
 }

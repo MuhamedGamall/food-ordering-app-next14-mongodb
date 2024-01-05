@@ -11,9 +11,9 @@ import {
   getSortedRowModel,
   useReactTable,
 } from "@tanstack/react-table";
+import { ChevronDown, Edit, MoreHorizontal } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
-
 
 import { useState } from "react";
 
@@ -21,32 +21,35 @@ import {
   Table,
   TableBody,
   TableCell,
+  TableHead,
   TableHeader,
   TableRow,
-  TableHead
 } from "@/components/ui/table";
 
 import HandleLoader from "@/components/loader";
 
-import Link from "next/link";
 import { columns } from "./table-column";
 import TableTopHeader from "@/components/table-header";
 
 export function DataTable({
   data,
   tableLoading,
+  isAdmin,
 }: {
   data: any;
   tableLoading: boolean;
+  isAdmin: boolean;
 }) {
   const [sorting, setSorting] = useState<SortingState>([]);
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
   const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({});
   const [rowSelection, setRowSelection] = useState({});
+  const columnsFltr =!isAdmin ? columns?.filter((el:any) => el?.accessorKey !== "received"):columns
+  console.log(columnsFltr);
 
   const table = useReactTable({
     data,
-    columns,
+    columns:columnsFltr,
     onSortingChange: setSorting,
     onColumnFiltersChange: setColumnFilters,
     getCoreRowModel: getCoreRowModel(),
@@ -67,7 +70,7 @@ export function DataTable({
     <div className="w-full mt-5">
       {tableLoading && <HandleLoader />}
       <div className="flex items-center justify-between gap-1 py-4">
-        <TableTopHeader data={data} table={table} pageName={"users"} />
+        <TableTopHeader data={data} table={table} pageName={"orders"} />
       </div>
       <div className="rounded-md border">
         <Table>

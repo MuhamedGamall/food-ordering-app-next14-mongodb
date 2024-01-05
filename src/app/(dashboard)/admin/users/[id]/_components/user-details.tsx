@@ -40,7 +40,7 @@ export default function UserDetails({ id }: { id: string }) {
         <div className="flex gap-5 sm:flex-nowrap flex-wrap">
           <div className="w-[250px] ">
             <Image
-              src={user?.image}
+              src={user?.image||'/avatar/avatar.jpeg'}
               alt="image"
               width={250}
               height={250}

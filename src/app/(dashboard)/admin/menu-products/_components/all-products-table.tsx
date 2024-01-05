@@ -10,18 +10,15 @@ import { AlertOctagon } from "lucide-react";
 
 export default function AllProducts() {
   const session = useSession();
-  const { products } = useAppSelector((state) => state.menuProducts);
+  const { products ,loading} = useAppSelector((state) => state.menuProducts);
   const { categories } = useAppSelector((state) => state.catygories);
-  const [tableLoading, setTableLoading] = useState(false);
   const dispatch = useAppDispatch();
 
   useEffect(() => {
     async function getData() {
       if (session.status === "authenticated") {
-        setTableLoading(true);
         await dispatch(getProducts());
         await dispatch(getCategories());
-        setTableLoading(false);
       }
     }
     getData();
@@ -43,7 +40,7 @@ export default function AllProducts() {
       <DataTable
         data={products}
         categories={categories}
-        tableLoading={tableLoading}
+        tableLoading={loading}
       />
     </div>
   );

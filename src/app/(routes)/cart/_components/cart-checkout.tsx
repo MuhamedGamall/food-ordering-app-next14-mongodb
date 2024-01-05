@@ -48,7 +48,6 @@ export default function CartCheckout({ cart }: any) {
       >
         CHECKOUT
       </Button>
-
       <Link
         href={"/profile"}
         className="text-center mb-5 text-[18px] text-[#2d5d2a] underline"
