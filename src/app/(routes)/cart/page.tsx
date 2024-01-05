@@ -15,6 +15,7 @@ import { MoveRight } from "lucide-react";
 import CartCheckout from "./_components/cart-checkout";
 import Link from "next/link";
 import toast from "react-hot-toast";
+import NoData from "../_comonents/no-data";
 
 export default function CartPage() {
   const dispatch = useAppDispatch();
@@ -74,19 +75,7 @@ export default function CartPage() {
             </Button>
           </>
         ) : (
-          <div className="flex items-center justify-center sm:justify-between sm:flex-row flex-col ">
-            <h2 className="text-[45px] my-5">YOUR CART</h2>
-            <p className="text-slate-600 text-[20] sm:m-0 my-4">
-              There are no items in your cart
-            </p>
-            <Link
-              href={"/menu/category/_"}
-              className=" text-[25px] px-2 text-white bg-[#DF2241] hover:bg-red-700 rounded-full flex items-center gap-3 "
-            >
-              VIEW THE MENU
-              <MoveRight />
-            </Link>
-          </div>
+        <NoData pageName="cart"/>
         )}
       </div>
     </main>

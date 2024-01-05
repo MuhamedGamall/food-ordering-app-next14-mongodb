@@ -4,7 +4,7 @@ import { useAppDispatch, useAppSelector } from "@/hooks/redux";
 import { deleteAllProductsFromCart } from "@/lib/RTK/slices/cart-slice";
 import { useEffect } from "react";
 import CartList from "../../_comonents/cart-list";
-import { redirect } from "next/navigation";
+import { redirect, useRouter } from "next/navigation";
 import { getOrder } from "@/lib/RTK/slices/orders-slice";
 import formatPrice from "@/utils/format/format-price";
 import totalCartPrice from "@/utils/total-cart-price";
@@ -16,8 +16,10 @@ export default function OrderPage({
 }: {
   params: { orderId: string };
 }) {
+
   const dispatch = useAppDispatch();
   const { order } = useAppSelector((state) => state.ordersData);
+
   useEffect(() => {
     if (typeof window !== "undefined") {
       if (location.href.includes("success=1")) {
@@ -28,9 +30,7 @@ export default function OrderPage({
   useEffect(() => {
     dispatch(getOrder(orderId));
   }, [dispatch, orderId]);
-  if (!order) {
-    redirect("/menu/category/_");
-  }
+  
   const { totalPrice } = totalCartPrice(order?.cart);
   return (
     <main className=" mx-auto px-4 max-w-[80rem] my-5">

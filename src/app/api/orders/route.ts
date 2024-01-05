@@ -22,7 +22,8 @@ export async function GET(req: NextRequest) {
     }
     // order
     if (_id) {
-      return NextResponse.json(await Order.findById(_id));
+      const order = await Order.findById(_id);
+      return NextResponse.json(order);
     }
 
     // orders for admin
