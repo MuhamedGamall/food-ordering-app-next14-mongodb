@@ -19,7 +19,7 @@ export default function SidebarItem({
     <li
       className={cn(
         checkPath(href) && "bg-sky-300/40 border-r-sky-800 border-r-[3px]  ",
-        "hover:bg-sky-300/40 px-2 py-3 transition hover:text-sky-600"
+        "hover:bg-sky-300/40 px-2 py-3 transition hover:text-sky-600  "
       )}
     >
       <Link href={href} className="flex items-center  gap-2 ">

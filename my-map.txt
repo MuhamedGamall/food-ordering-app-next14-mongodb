@@ -4,7 +4,6 @@
 
 
 
-- replace admin menu par to dashboard
 - create favorite menu
 
 - add loading layout to all pages

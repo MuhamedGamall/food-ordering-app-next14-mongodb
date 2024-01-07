@@ -8,6 +8,7 @@ import { uploadImage } from "@/lib/RTK/slices/upload-image-slice";
 import toast from "react-hot-toast";
 import { InitCategoryState } from "../../../../../types";
 import PageHeader from "@/components/page-header";
+import HandleLoader from "@/components/loader";
 
 export default function CatigoiesForm() {
   const dispatch = useAppDispatch();
@@ -59,11 +60,9 @@ export default function CatigoiesForm() {
     <>
       <section className="mx-auto  max-w-full md:max-w-[80%]  ">
         <div className="mb-5">
-          <div className="space-y-2 ">
-          
           <PageHeader title={isEditMood ? "EDIT CATEGORY" : "ADD CATEGORY"} />
-          </div>
           <div className="flex items-center flex-col-reverse">
+            {isSubmitting && <HandleLoader />}
             <Add_EditCategoryForm onAdd={onSubmit} editData={editMood} />
             <div className="w-[250px]">
               <ImageForm

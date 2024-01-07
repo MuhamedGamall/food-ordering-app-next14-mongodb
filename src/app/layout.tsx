@@ -31,7 +31,7 @@ export default function RootLayout({
         <body className={caveat.className}>
           <AuthSessionProvider>
             <ToastProvider />
-            <Admin_Layout>{children}</Admin_Layout>
+              <Admin_Layout>{children}</Admin_Layout>
           </AuthSessionProvider>
         </body>
       </html>
