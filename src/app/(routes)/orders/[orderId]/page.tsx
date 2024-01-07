@@ -9,6 +9,7 @@ import formatPrice from "@/utils/format/format-price";
 import totalCartPrice from "@/utils/total-cart-price";
 import DeliveryDetails from "../../cart/_components/delivery-details";
 import { CheckCircle2, XCircle } from "lucide-react";
+import PageHeader from "@/components/page-header";
 
 export default function OrderPage({
   params: { orderId },
@@ -34,7 +35,7 @@ export default function OrderPage({
   return (
     <main className=" mx-auto px-4 max-w-[80rem] my-5">
       <div className=" md:max-w-[90%] mx-auto">
-        <h2 className="text-[45px] ">YOUR ORDER</h2>
+      <PageHeader title="ORDER"/>
         <div className="flex gap-8  md:flex-row flex-col justify-start ">
           <div className="flex-[2.5]  w-full">
             <CartList data={order?.cart} />

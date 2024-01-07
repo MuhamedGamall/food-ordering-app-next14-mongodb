@@ -5,7 +5,6 @@ import { useSession } from "next-auth/react";
 import { redirect } from "next/navigation";
 
 import EditProfileForm from "./_components/edit-profile-form";
-import AdminMenuBar from "../../../components/admin/admin-menu-bar";
 
 export default function EditProfilePage() {
   const session = useSession();
@@ -15,7 +14,6 @@ export default function EditProfilePage() {
 
   return (
     <main className="sm:w-[90%] max-w-[80rem] mx-auto mt-5 p-5">
-      <AdminMenuBar  />
       <EditProfileForm />
     </main>
   );

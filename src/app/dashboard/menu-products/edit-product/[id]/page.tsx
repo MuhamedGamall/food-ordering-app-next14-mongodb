@@ -18,6 +18,7 @@ import { MoveLeft } from "lucide-react";
 import { ExtraPricesValues } from "../../_components/products-form";
 import Link from "next/link";
 import { ExtraPriceState } from "../../../../../../types";
+import PageHeader from "@/components/page-header";
 
 export default function ProductForm({
   params: { id },
@@ -119,9 +120,8 @@ export default function ProductForm({
           >
             <MoveLeft /> Back to menu products
           </Link>
-          <div className="space-y-2 ">
-            <h1 className="text-[50px]">Edit product</h1>
-          </div>
+          <PageHeader title={'EDIT PRODUCT'} />
+
           <div>
             <div className="flex gap-5 sm:flex-nowrap flex-wrap">
               <div className="w-[250px]">

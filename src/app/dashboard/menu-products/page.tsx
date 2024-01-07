@@ -13,7 +13,7 @@ export default function EditProfilePage() {
     redirect("/");
   }
   return (
-    <main className="">
+    <main className="sm:w-[90%] max-w-[80rem] mx-auto mt-5 p-5">
       <ProductForm />
     </main>
   );

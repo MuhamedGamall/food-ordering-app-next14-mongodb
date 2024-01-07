@@ -189,7 +189,7 @@ export const columns: ColumnDef<any>[] = [
       return (
         <div className="text-right font-medium lowercase max-w-[100px] overflow-x-auto whitespace-nowrap">
           <Link
-            href={"/admin/users/" + row.getValue("_id")}
+            href={"/dashboard/users/" + row.getValue("_id")}
             className="flex items-center gap-1 text-[16px]"
           >
             <Edit className="w-4" />

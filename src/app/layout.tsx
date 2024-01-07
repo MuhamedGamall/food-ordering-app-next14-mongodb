@@ -5,6 +5,10 @@ import Navbar from "../components/navbar";
 import ToastProvider from "@/components/providers/toaster-provider";
 import AuthSessionProvider from "@/components/providers/session-provider";
 import StoreProvider from "@/components/providers/redux-provider";
+import Sidebar from "./dashboard/_components/sidebar";
+import { cn } from "@/lib/utils";
+import SidebarSheet from "./dashboard/_components/sidebar-sheet";
+import Admin_Layout from "@/components/admin-layout";
 
 const caveat = Caveat({
   subsets: ["latin"],
@@ -20,17 +24,15 @@ export default function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
+  const admin = true;
   return (
     <StoreProvider>
       <html lang="en">
         <body className={caveat.className}>
-          <div>
-            <AuthSessionProvider>
-              <ToastProvider />
-              <Navbar />
-              {children}
-            </AuthSessionProvider>
-          </div>
+          <AuthSessionProvider>
+            <ToastProvider />
+            <Admin_Layout>{children}</Admin_Layout>
+          </AuthSessionProvider>
         </body>
       </html>
     </StoreProvider>

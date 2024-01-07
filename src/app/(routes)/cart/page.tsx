@@ -16,6 +16,7 @@ import CartCheckout from "./_components/cart-checkout";
 import Link from "next/link";
 import toast from "react-hot-toast";
 import NoData from "../_comonents/no-data";
+import PageHeader from "@/components/page-header";
 
 export default function CartPage() {
   const dispatch = useAppDispatch();
@@ -61,7 +62,7 @@ export default function CartPage() {
       <div className=" md:max-w-[90%] mx-auto">
         {cart?.length > 0 ? (
           <>
-            <h2 className="text-[45px] ">YOUR CART</h2>
+          <PageHeader title="YOUR CART"/>
             <div className="flex gap-8  sm:flex-row flex-col justify-start ">
               <CartList onDelete={removeItem} data={mergedArray} />
               <CartCheckout cart={mergedArray} />

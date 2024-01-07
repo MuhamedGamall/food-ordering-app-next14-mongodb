@@ -126,7 +126,7 @@ export default function EditProductForm({
           render={({ field }) => (
             <FormItem>
               <FormLabel className="text-slate-500 text-[17px] ">
-                Prodct title
+                Product title
               </FormLabel>
               <FormControl>
                 <Input

@@ -5,9 +5,9 @@ import React, { Dispatch, SetStateAction, useEffect } from "react";
 import { InitProductState } from "../../../../../types";
 import { usePathname } from "next/navigation";
 import formatPrice from "@/utils/format/format-price";
-import { getCart, postProductToCart } from "@/lib/RTK/slices/cart-slice";
+import { getCart,  } from "@/lib/RTK/slices/cart-slice";
 import { getProducts } from "@/lib/RTK/slices/menu-products-slice";
-import { useAppDispatch, useAppSelector } from "@/hooks/redux";
+import { useAppDispatch,  } from "@/hooks/redux";
 interface FoodCardProps {
   item: InitProductState;
   setIsClicked: Dispatch<SetStateAction<{ check: boolean; id: string }>>;
@@ -18,7 +18,6 @@ export default function FoodCard({ item, setIsClicked }: FoodCardProps) {
     return text.length > limit ? text.substring(0, limit) + "..." : text;
   };
 
-  const { products } = useAppSelector((state) => state.menuProducts);
 
   const dispatch = useAppDispatch();
 

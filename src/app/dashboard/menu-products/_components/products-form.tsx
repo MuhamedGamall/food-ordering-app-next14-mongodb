@@ -16,6 +16,7 @@ import { useSession } from "next-auth/react";
 import { Button } from "@/components/ui/button";
 import { MinusCircle, PlusCircle } from "lucide-react";
 import { ExtraPriceState } from "../../../../../types";
+import PageHeader from "@/components/page-header";
 
 export interface ExtraPricesValues {
   sizes: ExtraPriceState[];
@@ -62,7 +63,7 @@ export default function ProductForm() {
       const data = await dispatch(
         uploadImage({
           image64,
-          publicId: 'product',
+          publicId: "product",
           folderName: "food-ordering-products",
         })
       );
@@ -83,9 +84,7 @@ export default function ProductForm() {
       <section className="">
         <div className=" relative mx-auto  max-w-full md:max-w-[80%] ">
           {(loading || isSubmitting) && <HandleLoader />}
-          <div className="space-y-2 ">
-            <h1 className="text-[50px]">Menu products</h1>
-          </div>
+          <PageHeader title={"MENU PRODUCTS"} />
           <div className="w-full">
             <Button
               onClick={() => {

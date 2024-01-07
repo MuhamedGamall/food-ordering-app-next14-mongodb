@@ -12,6 +12,7 @@ import { useAppDispatch, useAppSelector } from "@/hooks/redux";
 import { editProfile, getProfile } from "@/lib/RTK/slices/users-slice";
 import { useSession } from "next-auth/react";
 import useProfile from "@/hooks/user-profile";
+import PageHeader from "@/components/page-header";
 
 export default function EditProfileForm() {
   const dispatch = useAppDispatch();
@@ -53,9 +54,7 @@ export default function EditProfileForm() {
       <section className="">
         <div className=" mx-auto relative  max-w-full md:max-w-[80%]  flex gap-5 flex-col  sm:flex-nowrap flex-wrap">
           {(loading || isSubmitting) && <HandleLoader />}
-          <div className="space-y-2 ">
-            <h1 className="text-[50px]">Profile</h1>
-          </div>
+          <PageHeader title="PROFILE" />
           <div className="flex gap-5 sm:flex-nowrap flex-wrap">
             <div className="w-[250px]">
               <ImageForm

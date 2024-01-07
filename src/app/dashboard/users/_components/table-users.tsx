@@ -30,6 +30,7 @@ import HandleLoader from "@/components/loader";
 import Link from "next/link";
 import { columns } from "./table-column";
 import TableTopHeader from "@/components/table-header";
+import PageHeader from "@/components/page-header";
 
 export function DataTable({
   data,
@@ -65,6 +66,8 @@ export function DataTable({
   return (
     <div className="w-full mt-5">
       {tableLoading && <HandleLoader />}
+      <PageHeader title={'USERS'} />
+
       <div className="flex items-center justify-between gap-1 py-4">
         <TableTopHeader data={data} table={table} pageName={"users"} />
       </div>

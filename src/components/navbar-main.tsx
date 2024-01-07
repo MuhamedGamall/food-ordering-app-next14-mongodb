@@ -41,7 +41,7 @@ export default function NavberMain() {
     dispatch(getCart());
   }, [dispatch]);
   return (
-    <header className="">
+    <div className="">
       <nav className="px-4">
         <ul className="flex items-center justify-between ">
           <div className="hidden sm:flex gap-x-3 items-center justify-between ">
@@ -60,7 +60,6 @@ export default function NavberMain() {
             ))}
           </div>
           <MobileMenu routes={routes}/>
-
           <li>
             <Link className="relative" href={"/cart"}>
               <ShoppingCart strokeWidth="3" />
@@ -71,6 +70,6 @@ export default function NavberMain() {
           </li>
         </ul>
       </nav>
-    </header>
+    </div>
   );
 }
