@@ -73,9 +73,8 @@ export function DataTable({
           <TableHeader>
             {table.getHeaderGroups().map((headerGroup) => (
               <>
-                <TableHead className="text-center">#</TableHead>
-
                 <TableRow key={headerGroup.id}>
+                  <TableHead className="text-center">#</TableHead>
                   {headerGroup.headers.map((header) => {
                     return (
                       <TableHead key={header.id}>
