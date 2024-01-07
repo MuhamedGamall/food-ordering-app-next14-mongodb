@@ -6,16 +6,17 @@ import ImageForm from "@/components/image-form";
 import { useState } from "react";
 import { uploadImage } from "@/lib/RTK/slices/upload-image-slice";
 import toast from "react-hot-toast";
+import { InitCategoryState } from "../../../../../types";
 
 export default function CatigoiesForm() {
   const dispatch = useAppDispatch();
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [editMood, setEditMood] = useState<any>(null);
+  const [editMood, setEditMood] = useState<InitCategoryState | null>(null);
   const [image64, setImage64] = useState("");
 
   const currentImage =
     image64 || editMood?.image || "/product-placeholder/th.jpeg";
-    
+
   const isEditMood = Boolean(editMood);
   const check = (value: { title: string }) => {
     return isEditMood

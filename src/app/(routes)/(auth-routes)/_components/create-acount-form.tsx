@@ -55,10 +55,7 @@ export default function CreateAcountForm({
     <>
       <div className="sm:w-[80%] max-w-[80rem] mx-auto  mt-5 p-5">
         <div className="relative max-w-full md:max-w-[70%]">
-          {isSubmitting && (
-                   <HandleLoader/>
-
-          )}
+          {isSubmitting && <HandleLoader />}
           <div className="space-y-1 mb-5">
             <h1 className="text-[40px] ">CREATE YOUR ACCOUNT</h1>
             <span className="text-slate-500 text-[19px]">
@@ -66,11 +63,13 @@ export default function CreateAcountForm({
             </span>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 text-slate-500 ">
+          <div className=" text-slate-500 ">
             <Button
               variant="outline"
               disabled={isSubmitting}
-              className={cn("text-[19px] py-6 border-slate-500 border-[2.5px]")}
+              className={cn(
+                "w-full text-[19px] py-6 border-slate-500 border-[2.5px]"
+              )}
               onClick={() =>
                 signIn("google", { redirect: false, callbackUrl: "/" })
               }

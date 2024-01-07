@@ -34,7 +34,7 @@ export default function AllProducts() {
       {checkProductNotHasCategory.length > 0 && (
         <div className="flex gap-2 items-center w-full bg-red-100 rounded-md border py-3 px-2 text-[18px] mt-3">
           <AlertOctagon color="red" />
-          You need to add a category to the product to so published
+          You need to add a category to the product to so published 
         </div>
       )}
       <DataTable

@@ -36,8 +36,6 @@ export async function DELETE(req: NextRequest) {
   try {
     const url = new URL(req.url);
     const product_id = url.searchParams.get("productId");
-    console.log(product_id);
-
     const session = await getServerSession(authOptions);
     const email = session?.user?.email;
 
@@ -52,7 +50,9 @@ export async function DELETE(req: NextRequest) {
 
       return NextResponse.json(removeAllProductFromCart);
     } else {
-      const removeProductFromCart = await ProductsCart.deleteOne({_id:product_id});
+      const removeProductFromCart = await ProductsCart.deleteOne({
+        _id: product_id,
+      });
 
       return NextResponse.json(removeProductFromCart);
     }
@@ -72,9 +72,10 @@ export async function GET(req: NextRequest) {
     if (!user) {
       return new NextResponse("Unauthorized", { status: 401 });
     }
-
-    const productsCart = await ProductsCart.find();
-    return NextResponse.json(productsCart);
+    if (email) {
+      const productsCart = await ProductsCart.find();
+      return NextResponse.json(productsCart);
+    }
   } catch (error) {
     console.log("[PRODUCTS-CART]", error);
     return new NextResponse("Internal Error", { status: 500 });

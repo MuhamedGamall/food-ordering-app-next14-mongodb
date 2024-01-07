@@ -41,7 +41,7 @@ import {
   InitProductState,
   InitCategoryState,
   ExtraPriceState,
-} from "../../../../../../../types";
+} from "../../../../../../types";
 import HandleLoader from "@/components/loader";
 import { useRouter } from "next/navigation";
 import { Textarea } from "@/components/ui/textarea";
@@ -164,12 +164,12 @@ export default function EditProductForm({
                       )}
                       disabled={isSubmitting}
                     >
-              {(field.value &&
-                          categories.find(
-                            (category: InitCategoryState) =>
-                              category._id === field.value.category_id
-                          )?.title) ||
-                          "Select category"}
+                      {(field.value &&
+                        categories.find(
+                          (category: InitCategoryState) =>
+                            category._id === field.value.category_id
+                        )?.title) ||
+                        "Select category"}
                       <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
                     </Button>
                   </FormControl>
@@ -198,7 +198,7 @@ export default function EditProductForm({
                           <Check
                             className={cn(
                               "mr-2 h-4 w-4",
-                              category.title === field.value.title
+                              category._id === field.value.category_id
                                 ? "opacity-100"
                                 : "opacity-0"
                             )}
@@ -299,7 +299,7 @@ export default function EditProductForm({
             variant={"green"}
             disabled={isSubmitting || isValid}
             onClick={() =>
-              setTimeout(() => router.replace("/admin/menu-products"), 1000)
+              setTimeout(() => router.replace("/dashboard/menu-products"), 1000)
             }
             className={cn("  text-2xl text-center rounded-full  mt-5 w-fit")}
           >

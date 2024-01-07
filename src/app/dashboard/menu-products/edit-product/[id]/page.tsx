@@ -17,7 +17,7 @@ import { redirect, useRouter } from "next/navigation";
 import { MoveLeft } from "lucide-react";
 import { ExtraPricesValues } from "../../_components/products-form";
 import Link from "next/link";
-import { ExtraPriceState } from "../../../../../../../types";
+import { ExtraPriceState } from "../../../../../../types";
 
 export default function ProductForm({
   params: { id },
@@ -46,7 +46,7 @@ export default function ProductForm({
     getData();
   }, [dispatch, session.status]);
 
-  const product = products.filter((el) => el._id === id)[0]
+  const product = products.filter((el) => el._id === id)[0];
   // if (products.length === 0 || !product) {
   //   return redirect("/admin/menu-products");
   // }
@@ -114,7 +114,7 @@ export default function ProductForm({
         <section className="relative z-50 mx-auto   max-w-full md:max-w-[80%]">
           {(loading || isSubmitting) && <HandleLoader />}
           <Link
-            href={"/admin/menu-products"}
+            href={"/dashborad/menu-products"}
             className="cursor-pointer flex items-center gap-3 text-slate-800 ext-[19px]"
           >
             <MoveLeft /> Back to menu products
@@ -124,12 +124,14 @@ export default function ProductForm({
           </div>
           <div>
             <div className="flex gap-5 sm:flex-nowrap flex-wrap">
-              <ImageForm
-                image64={image64}
-                setImage64={setImage64}
-                currentImage={EditCurrentImage}
-                isSubmitting={isSubmitting}
-              />
+              <div className="w-[250px]">
+                <ImageForm
+                  image64={image64}
+                  setImage64={setImage64}
+                  currentImage={EditCurrentImage}
+                  isSubmitting={isSubmitting}
+                />
+              </div>
               <EditProductForm
                 onSubmit={onSubmit}
                 product={product || undefined}

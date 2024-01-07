@@ -9,6 +9,7 @@ import { deleteFavorite, postFavorite } from "@/lib/RTK/slices/favorite-slice";
 import { postProductToCart } from "@/lib/RTK/slices/cart-slice";
 import Image from "next/image";
 import { ExtraPricesFields } from "../page";
+import useProfile from "@/hooks/user-profile";
 interface ProductItemProps {
   product: InitProductState;
   isFav: boolean;
@@ -18,6 +19,8 @@ export default function ProductItem({ product, isFav }: ProductItemProps) {
   const [extraPricesFields, setExtraPricesFields] = useState<ExtraPricesFields>(
     { size: null, extra_increases_price: [], quantity: "" }
   );
+  const { data } = useProfile();
+
   async function addToFavorite() {
     if (product) {
       if (isFav) {
@@ -32,7 +35,11 @@ export default function ProductItem({ product, isFav }: ProductItemProps) {
   async function addToCart() {
     if (product) {
       dispatch(
-        postProductToCart({ ...extraPricesFields, product_id: product._id })
+        postProductToCart({
+          ...extraPricesFields,
+          product_id: product._id,
+          email: data?.email,
+        })
       );
     }
   }

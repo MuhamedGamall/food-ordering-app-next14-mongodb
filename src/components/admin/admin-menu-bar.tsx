@@ -5,11 +5,11 @@ import AdminMenuBarItems from "./admin-menu-bar-items";
 const AdminMenuBarRoutes: { title: string; href: string }[] = [
   {
     title: "Categories",
-    href: "/admin/categories",
+    href: "/dashboard/categories",
   },
   {
     title: "Menu products",
-    href: "/admin/menu-products",
+    href: "/dashboard/menu-products",
   },
   {
     title: "Orders",
@@ -17,7 +17,7 @@ const AdminMenuBarRoutes: { title: string; href: string }[] = [
   },
   {
     title: "Users",
-    href: "/admin/users",
+    href: "/dashboard/users",
   },
 ];
 export default function AdminMenuBar() {

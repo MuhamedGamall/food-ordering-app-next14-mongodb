@@ -65,7 +65,7 @@ export default function ImageForm({
         <div className="flex items-center gap-2  sm:flex-nowrap flex-wrap-reverse ">
           <Label
             htmlFor="upload"
-            className="cursor-pointer   hover:bg-slate-200 bg-slate-100 flex justify-center items-center w-full  p-2  transition text-center rounded-md"
+            className="cursor-pointer max-w-[250px]   hover:bg-slate-200 bg-slate-100 flex justify-center items-center w-full  p-2  transition text-center rounded-md"
           >
             Edit photo
           </Label>

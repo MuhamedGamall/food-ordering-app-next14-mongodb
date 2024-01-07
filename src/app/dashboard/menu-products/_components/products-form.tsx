@@ -15,7 +15,8 @@ import AllProducts from "./all-products-table";
 import { useSession } from "next-auth/react";
 import { Button } from "@/components/ui/button";
 import { MinusCircle, PlusCircle } from "lucide-react";
-import { ExtraPriceState } from "../../../../../../types";
+import { ExtraPriceState } from "../../../../../types";
+
 export interface ExtraPricesValues {
   sizes: ExtraPriceState[];
   extra_increases_price: ExtraPriceState[];
@@ -50,7 +51,7 @@ export default function ProductForm() {
   const increasesExtraPricesValuesCheck = validateExtraPricesValues(
     extraPricesValues.extra_increases_price
   );
-  
+
   async function onSubmit(value: any) {
     if (
       Object.values({ value, image64 }).every(Boolean) &&
@@ -61,7 +62,7 @@ export default function ProductForm() {
       const data = await dispatch(
         uploadImage({
           image64,
-          publicId: email,
+          publicId: 'product',
           folderName: "food-ordering-products",
         })
       );
@@ -106,14 +107,13 @@ export default function ProductForm() {
             {isAddMood && (
               <div className="flex justify-center gap-5 sm:flex-nowrap flex-wrap">
                 <div className="w-[250px]">
-
-                <ImageForm
-                  image64={image64}
-                  setImage64={setImage64}
-                  currentImage={AddCurrentImage}
-                  isSubmitting={isSubmitting}
+                  <ImageForm
+                    image64={image64}
+                    setImage64={setImage64}
+                    currentImage={AddCurrentImage}
+                    isSubmitting={isSubmitting}
                   />
-                  </div>
+                </div>
                 <AddProductForm
                   onSubmit={onSubmit}
                   setExtraPricesValues={setExtraPricesValues}

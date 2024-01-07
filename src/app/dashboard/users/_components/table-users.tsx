@@ -73,6 +73,8 @@ export function DataTable({
           <TableHeader>
             {table.getHeaderGroups().map((headerGroup) => (
               <>
+                <TableHead className="text-center">#</TableHead>
+
                 <TableRow key={headerGroup.id}>
                   {headerGroup.headers.map((header) => {
                     return (
@@ -92,11 +94,14 @@ export function DataTable({
           </TableHeader>
           <TableBody>
             {table.getRowModel().rows?.length ? (
-              table.getRowModel().rows.map((row) => (
+              table.getRowModel().rows.map((row, i) => (
                 <TableRow
                   key={row.id}
                   data-state={row.getIsSelected() && "selected"}
                 >
+                  <TableCell className="flex items-center text-[12px]">
+                    # <span className="text-[18px]">{i + 1}</span>
+                  </TableCell>
                   {row.getVisibleCells().map((cell) => (
                     <TableCell key={cell.id}>
                       {flexRender(

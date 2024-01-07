@@ -57,12 +57,14 @@ export default function EditProfileForm() {
             <h1 className="text-[50px]">Profile</h1>
           </div>
           <div className="flex gap-5 sm:flex-nowrap flex-wrap">
-            <ImageForm
-              image64={image64}
-              setImage64={setImage64}
-              currentImage={currentImage}
-              isSubmitting={isSubmitting}
-            />
+            <div className="w-[250px]">
+              <ImageForm
+                image64={image64}
+                setImage64={setImage64}
+                currentImage={currentImage}
+                isSubmitting={isSubmitting}
+              />
+            </div>
             <ProfileFormInputs onSubmit={onSubmit} data={data} />
           </div>
         </div>

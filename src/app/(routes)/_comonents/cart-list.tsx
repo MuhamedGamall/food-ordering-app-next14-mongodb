@@ -12,8 +12,6 @@ export default function CartList({
   data: any;
   onDelete?: (id: string) => void;
 }) {
-  console.log(data);
-  
   return (
     <section className="flex-[4.5] w-full">
       <ul className="flex flex-col  gap-2 border-t ">

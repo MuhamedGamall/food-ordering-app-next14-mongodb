@@ -4,8 +4,8 @@ import { ArrowUpDown } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
-import { InitCategoryState } from "../../../../../../../types";
 import Image from "next/image";
+import { InitCategoryState } from "../../../../../../types";
 
 export const columns: ColumnDef<InitCategoryState>[] = [
   {

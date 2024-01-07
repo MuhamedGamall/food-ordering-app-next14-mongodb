@@ -37,7 +37,7 @@ import { useSession } from "next-auth/react";
 import { useAppDispatch, useAppSelector } from "@/hooks/redux";
 import { Dispatch, SetStateAction, useEffect, useState } from "react";
 import { getCategories } from "@/lib/RTK/slices/categories-slice";
-import { ExtraPriceState, InitCategoryState } from "../../../../../../types";
+import { ExtraPriceState, InitCategoryState } from "../../../../../types";
 import HandleLoader from "@/components/loader";
 import { Textarea } from "@/components/ui/textarea";
 import ExtraPriceField from "./extra-price-field";
@@ -171,7 +171,7 @@ export default function AddProductForm({
                             <Check
                               className={cn(
                                 "mr-2 h-4 w-4",
-                                category.title === field.value.title
+                                category._id === field.value.category_id
                                   ? "opacity-100"
                                   : "opacity-0"
                               )}

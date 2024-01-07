@@ -9,7 +9,7 @@ import { UserInfos } from "@/models/UserInfos";
 export async function POST(req: NextRequest) {
   mongoose.connect(process.env.MONGO_URL!);
   try {
-    const { title,image } = await req.json();
+    const { title, image } = await req.json();
 
     const session = await getServerSession(authOptions);
     const email = session?.user?.email;
@@ -17,7 +17,7 @@ export async function POST(req: NextRequest) {
     const user = await User.findOne({ email });
     const userInfos: any = await UserInfos.findOne({ email });
 
-    if (!title|| !image) {
+    if (!title || !image) {
       return new NextResponse("Not Found", { status: 404 });
     }
 
@@ -25,7 +25,7 @@ export async function POST(req: NextRequest) {
       return new NextResponse("Unauthorized", { status: 401 });
     }
 
-    const createCategory = await Category.create({ title,image });
+    const createCategory = await Category.create({ title, image });
     return NextResponse.json(createCategory);
   } catch (error) {
     console.log("[CATEGORIES]", error);
@@ -36,7 +36,7 @@ export async function POST(req: NextRequest) {
 export async function PUT(req: NextRequest) {
   mongoose.connect(process.env.MONGO_URL!);
   try {
-    const { _id, title,image } = await req.json();
+    const { _id, title, image } = await req.json();
 
     const session = await getServerSession(authOptions);
     const email = session?.user?.email;
@@ -50,7 +50,7 @@ export async function PUT(req: NextRequest) {
     if (!user || !userInfos?.admin) {
       return new NextResponse("Unauthorized", { status: 401 });
     }
-    const editCategory = await Category.updateOne({ _id }, { title ,image});
+    const editCategory = await Category.updateOne({ _id }, { title, image });
     return NextResponse.json(editCategory);
   } catch (error) {
     console.log("[CATEGORIES]", error);
@@ -94,14 +94,6 @@ export async function DELETE(req: NextRequest) {
 export async function GET(req: NextRequest) {
   mongoose.connect(process.env.MONGO_URL!);
   try {
-    const session = await getServerSession(authOptions);
-    const email = session?.user?.email;
-
-    const user: any = await User.findOne({ email });
-
-    if (!user ) {
-      return new NextResponse("Unauthorized", { status: 401 });
-    }
     const categories = await Category.find()
       .sort([["createdAt", -1]])
       .exec();

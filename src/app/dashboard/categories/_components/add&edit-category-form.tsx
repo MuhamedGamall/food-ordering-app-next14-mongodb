@@ -18,7 +18,8 @@ import { Input } from "@/components/ui/input";
 import { cn } from "@/lib/utils";
 
 import HandleLoader from "@/components/loader";
-import { useState } from "react";
+
+import { InitCategoryState } from "../../../../../types";
 
 const formSchema = z.object({
   title: z
@@ -33,7 +34,7 @@ export default function Add_EditCategoryForm({
   onAdd,
   editData,
 }: {
-  editData: any;
+  editData: InitCategoryState | null;
   onAdd: (value: { title: string }, form: any) => Promise<void>;
 }) {
   const isEditMood = Boolean(editData);
@@ -52,7 +53,7 @@ export default function Add_EditCategoryForm({
     onAdd(value, form);
   }
 
-  const { isSubmitting, isValid } = form.formState
+  const { isSubmitting, isValid } = form.formState;
 
   return (
     <>

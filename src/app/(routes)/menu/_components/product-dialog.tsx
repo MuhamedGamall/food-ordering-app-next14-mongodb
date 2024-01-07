@@ -11,6 +11,7 @@ import { useAppDispatch, useAppSelector } from "@/hooks/redux";
 import SelectorField from "./selectorField";
 import BasePrice_ExtraPrices from "../../../../components/basePrice-extraPirces";
 import { ExtraPricesFields } from "../category/[id]/(product)/[productId]/page";
+import useProfile from "@/hooks/user-profile";
 interface ProductDialogProps {
   item: InitProductState;
   setIsClicked: Dispatch<SetStateAction<{ check: boolean; id: string }>>;
@@ -20,6 +21,7 @@ export default function ProductDialog({
   item,
   setIsClicked,
 }: ProductDialogProps) {
+  const { data } = useProfile();
   const [extraPricesFields, setExtraPricesFields] = useState<ExtraPricesFields>(
     { size: null, extra_increases_price: [], quantity: "" }
   );
@@ -29,10 +31,15 @@ export default function ProductDialog({
     if (item) {
       setIsClicked({ check: false, id: "" });
       dispatch(
-        postProductToCart({ ...extraPricesFields, product_id: item._id })
+        postProductToCart({
+          ...extraPricesFields,
+          product_id: item._id,
+          email: data?.email,
+        })
       );
     }
   };
+  
   return (
     <>
       <div className="flex  flex-col gap-8  text-center overflow-y-auto py-10 px-4">

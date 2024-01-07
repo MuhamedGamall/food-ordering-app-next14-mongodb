@@ -34,14 +34,7 @@ export async function POST(req: NextRequest) {
 export async function GET(req: NextRequest) {
   mongoose.connect(process.env.MONGO_URL!);
   try {
-    const session = await getServerSession(authOptions);
-    const email = session?.user?.email;
 
-    const user = await User.findOne({ email });
-
-    if (!user ) {
-      return new NextResponse("Unauthorized", { status: 401 });
-    }
     const menuProducts = await MenuProduct.find();
 
     return NextResponse.json(menuProducts);

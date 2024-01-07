@@ -51,7 +51,7 @@ export async function GET(req: NextRequest) {
     const userInfos = await UserInfos.findOne({ email }).lean();
     const fullData = {  ...userInfos,...user?.[0]?._doc };
 
-    if (!fullData) {
+    if (!user) {
       return new NextResponse("Unauthorized", { status: 401 });
     }
     console.log(fullData);

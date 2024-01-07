@@ -12,7 +12,14 @@ import {
   getSortedRowModel,
   useReactTable,
 } from "@tanstack/react-table";
-import { ChevronDown, Edit, MoreHorizontal, Trash2, XIcon } from "lucide-react";
+import {
+  ChevronDown,
+  Edit,
+  Loader,
+  MoreHorizontal,
+  Trash2,
+  XIcon,
+} from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 
@@ -24,7 +31,8 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { useState } from "react";
+import { Input } from "@/components/ui/input";
+import { useState, Dispatch } from "react";
 
 import {
   Table,
@@ -35,26 +43,31 @@ import {
   TableRow,
 } from "@/components/ui/table";
 
+import toast from "react-hot-toast";
+import { useRouter } from "next/navigation";
 import { useAppDispatch } from "@/hooks/redux";
+import { deleteCategory } from "@/lib/RTK/slices/categories-slice";
 
+import { columns } from "./table-column";
 import HandleLoader from "@/components/loader";
 import SearchInputs from "./search-inputs";
 import DeleteActionsBtns from "./delete-actions";
-
-import { deleteProduct } from "@/lib/RTK/slices/menu-products-slice";
-import Link from "next/link";
-import { columns } from './table-column';
+import { InitCategoryState } from "../../../../../../types";
 
 export function DataTable({
   data,
   tableLoading,
-  categories,
+  setEditMood,
+  editMood,
 }: {
   data: any;
   tableLoading: boolean;
-  categories: any;
+  setEditMood: any;
+  editMood: any;
 }) {
   const dispatch = useAppDispatch();
+  // const router = useRouter();
+  const [editingRowId, setEditingRowId] = useState<string | null>(null);
   const [sorting, setSorting] = useState<SortingState>([]);
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
   const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({});
@@ -82,18 +95,33 @@ export function DataTable({
 
   const selectedRows = table.getFilteredSelectedRowModel().rows;
   const idsSelectedToDelete = selectedRows.map((row) => row.original._id);
+  const [editState, setEditState] = useState(false);
+  const isEditing = (rowId: string) => editingRowId === rowId;
+
+  // handle actions functoins
+  const handleEditClick = (rowId: string, data: InitCategoryState) => {
+    if (isEditing(rowId)) {
+      setEditingRowId(null);
+      setEditMood(null);
+    } else {
+      setEditMood(data);
+      setEditingRowId(rowId);
+    }
+    isEditing(rowId) ? setEditingRowId(null) : setEditingRowId(rowId);
+  };
 
   const handleDeleteClick = async (_id: string) => {
     if (_id) {
-      dispatch(deleteProduct([_id]));
+      dispatch(deleteCategory([_id]));
+      setEditingRowId(null);
       table.resetRowSelection(false);
       table.toggleAllRowsSelected(false);
     }
   };
 
   return (
-    <div className="w-full mt-5 ">
-      {isLoading || (tableLoading && <HandleLoader />)}
+    <div className="w-full mt-5">
+      {(isLoading || tableLoading) && <HandleLoader />}
       <div className="flex items-center justify-between gap-1 py-4">
         <div className="flex items-center gap-1">
           <SearchInputs dataLength={data?.length} table={table} />
@@ -141,6 +169,8 @@ export function DataTable({
             {table.getHeaderGroups().map((headerGroup) => (
               <>
                 <TableRow key={headerGroup.id}>
+                  <TableHead className="text-center">#</TableHead>
+
                   {headerGroup.headers.map((header) => {
                     return (
                       <TableHead key={header.id}>
@@ -160,11 +190,14 @@ export function DataTable({
           </TableHeader>
           <TableBody>
             {table.getRowModel().rows?.length ? (
-              table.getRowModel().rows.map((row) => (
+              table.getRowModel().rows.map((row, i) => (
                 <TableRow
                   key={row.id}
                   data-state={row.getIsSelected() && "selected"}
                 >
+                  <TableCell className="flex items-center text-[12px]">
+                    # <span className="text-[18px]">{i + 1}</span>
+                  </TableCell>
                   {row.getVisibleCells().map((cell) => (
                     <TableCell key={cell.id}>
                       {flexRender(
@@ -173,7 +206,6 @@ export function DataTable({
                       )}
                     </TableCell>
                   ))}
-      
                   <TableCell className="text-center">
                     <DropdownMenu>
                       <DropdownMenuTrigger asChild>
@@ -187,25 +219,16 @@ export function DataTable({
                         </Button>
                       </DropdownMenuTrigger>
                       <DropdownMenuContent align="end">
-                        <DropdownMenuItem
-                          onClick={() =>
-                            navigator.clipboard.writeText(row.original._id)
-                          }
-                        >
-                          Copy product ID
-                        </DropdownMenuItem>
                         <DropdownMenuSeparator />
-                        <DropdownMenuItem>
-                          <Link
-                            href={
-                              "/admin/menu-products/edit-product/" +
-                              row.original._id
-                            }
-                            className="flex items-center gap-1 text-[16px]"
-                          >
+                        <DropdownMenuItem
+                          onClick={() => handleEditClick(row.id, row?.original)}
+                        >
+                          <div className="flex items-center gap-1 text-[16px]">
                             <Edit className="w-4" />
-                            View & Edit product
-                          </Link>
+                            {isEditing(row.id)
+                              ? " Leave edit mood"
+                              : "Go to edit mood"}
+                          </div>
                         </DropdownMenuItem>
                         <DropdownMenuItem>
                           <div

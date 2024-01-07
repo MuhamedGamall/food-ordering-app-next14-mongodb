@@ -4,7 +4,6 @@ import { useAppDispatch, useAppSelector } from "@/hooks/redux";
 import { deleteAllProductsFromCart } from "@/lib/RTK/slices/cart-slice";
 import { useEffect } from "react";
 import CartList from "../../_comonents/cart-list";
-import { redirect, useRouter } from "next/navigation";
 import { getOrder } from "@/lib/RTK/slices/orders-slice";
 import formatPrice from "@/utils/format/format-price";
 import totalCartPrice from "@/utils/total-cart-price";
