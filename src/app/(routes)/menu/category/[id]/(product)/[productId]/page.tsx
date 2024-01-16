@@ -1,26 +1,17 @@
 "use client";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useAppDispatch, useAppSelector } from "@/hooks/redux";
 import { getProducts } from "@/lib/RTK/slices/menu-products-slice";
-import Image from "next/image";
 
-import formatPrice from "@/utils/format/format-price";
-import { Button } from "@/components/ui/button";
-import SelectorField from "../../../../_components/selectorField";
 import { ExtraPriceState } from "../../../../../../../../types";
-import { Heart } from "lucide-react";
+
 import HandleLoader from "@/components/loader";
 import {
-  deleteFavorite,
+
   getFavorites,
-  postFavorite,
+
 } from "@/lib/RTK/slices/favorite-slice";
-import {
-  deleteProductFromCart,
-  getCart,
-  postProductToCart,
-} from "@/lib/RTK/slices/cart-slice";
-import BasePrice_ExtraPrices from "@/components/basePrice-extraPirces";
+
 import ProductItem from "./_combonents/product-item";
 
 export interface ExtraPricesFields {

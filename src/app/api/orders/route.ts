@@ -34,7 +34,8 @@ export async function GET(req: NextRequest) {
 
     // orders for all users admin or normal user
     if (email) {
-      return NextResponse.json(await Order.find({ email }));
+      const orders = await Order.find({ email });
+      return NextResponse.json(orders);
     }
   } catch (error) {
     console.log("[ORDERS]", error);

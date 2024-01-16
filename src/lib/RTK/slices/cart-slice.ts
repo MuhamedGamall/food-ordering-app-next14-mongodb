@@ -36,7 +36,7 @@ export const deleteProductFromCart: any = createAsyncThunk(
   async (id: string, thunkApi) => {
     const { rejectWithValue } = thunkApi;
     try {
-      await axios.delete("/api/products-cart?productId=" + id);
+      await axios.delete("/api/products-cart?id=" + id);
       toast.success("Product removed");
       console.log(id,'6595e11634facf55bc45ae49');
       

@@ -18,7 +18,7 @@ export default function BasePrice_ExtraPrices({
     ) +
       +(base_price || 0) +
       +(extraPricesFields.size?.extra_price || 0)) *
-    +extraPricesFields?.quantity;
+    (+extraPricesFields?.quantity || 0);
 
-  return <div>{formatPrice(basePrice_extraPrices + "" || "0")}</div>;
+  return <span>{formatPrice(basePrice_extraPrices + "" || "0")}</span>;
 }

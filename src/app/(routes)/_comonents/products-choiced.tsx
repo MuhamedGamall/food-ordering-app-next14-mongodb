@@ -5,7 +5,7 @@ import React from "react";
 import { ExtraPriceState } from "../../../../types";
 import BasePrice_ExtraPrices from "@/components/basePrice-extraPirces";
 
-export default function CartList({
+export default function ProductsChoiced({
   data,
   onDelete,
 }: {
@@ -43,7 +43,7 @@ export default function CartList({
                   </p>
                 </div>
                 <p className="text-slate-500">Quantity: {el?.quantity}</p>
-                <p className="text-slate-500">Size: {el?.size.name}</p>
+                <p className="text-slate-500">Size: {el?.size?.name}</p>
                 <ul className=" flex items-center  gap-2">
                   <li>
                     <Link
@@ -70,7 +70,7 @@ export default function CartList({
                 <div className="flex gap-2 items-center">
                   <p className="text-slate-950">Increases: </p>
                   <ul className="flex items-center gap-x-3 overflow-x-auto max-w-[500px]">
-                    {el?.extra_increases_price.length ? (
+                    {el?.extra_increases_price?.length ? (
                       el?.extra_increases_price?.map((xl: ExtraPriceState) => (
                         <li
                           key={xl?.name}

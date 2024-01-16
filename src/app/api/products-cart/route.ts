@@ -15,7 +15,7 @@ export async function POST(req: NextRequest) {
 
     const user = await User.findOne({ email });
 
-    if (!product?.product_id) {
+    if (!product) {
       return new NextResponse("Not Found", { status: 404 });
     }
 
@@ -35,7 +35,7 @@ export async function DELETE(req: NextRequest) {
   mongoose.connect(process.env.MONGO_URL!);
   try {
     const url = new URL(req.url);
-    const product_id = url.searchParams.get("productId");
+    const _id = url.searchParams.get("id");
     const session = await getServerSession(authOptions);
     const email = session?.user?.email;
 
@@ -45,13 +45,14 @@ export async function DELETE(req: NextRequest) {
       return new NextResponse("Unauthorized", { status: 401 });
     }
 
-    if (!product_id) {
-      const removeAllProductFromCart = await ProductsCart.deleteMany();
+    if (!_id) {
+      const removeAllProductFromCart = await ProductsCart.deleteMany({ email });
 
       return NextResponse.json(removeAllProductFromCart);
     } else {
       const removeProductFromCart = await ProductsCart.deleteOne({
-        _id: product_id,
+        _id,
+        email,
       });
 
       return NextResponse.json(removeProductFromCart);
@@ -73,7 +74,7 @@ export async function GET(req: NextRequest) {
       return new NextResponse("Unauthorized", { status: 401 });
     }
     if (email) {
-      const productsCart = await ProductsCart.find();
+      const productsCart = await ProductsCart.find({ email });
       return NextResponse.json(productsCart);
     }
   } catch (error) {

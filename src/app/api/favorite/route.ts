@@ -15,7 +15,7 @@ export async function POST(req: NextRequest) {
 
     const user = await User.findOne({ email });
 
-    if (!product.product_id) {
+    if (!product) {
       return new NextResponse("Not Found", { status: 404 });
     }
 
@@ -35,7 +35,7 @@ export async function DELETE(req: NextRequest) {
   mongoose.connect(process.env.MONGO_URL!);
   try {
     const url = new URL(req.url);
-    const product_id = url.searchParams.get("productId");
+    const _id = url.searchParams.get("_id");
 
     const session = await getServerSession(authOptions);
     const email = session?.user?.email;
@@ -46,12 +46,13 @@ export async function DELETE(req: NextRequest) {
       return new NextResponse("Unauthorized", { status: 401 });
     }
 
-    if (!product_id) {
-      return new NextResponse("Not Found", { status: 404 });
+    if (!_id) {
+      const removeAllFavorites = await Favorite.deleteMany({ email });
+      return NextResponse.json(removeAllFavorites);
+    } else {
+      const removeFavorite = await Favorite.deleteOne({ _id, email });
+      return NextResponse.json(removeFavorite);
     }
-
-    const removeFavorite = await Favorite.deleteOne({ product_id });
-    return NextResponse.json(removeFavorite);
   } catch (error) {
     console.log("[FAVORITE]", error);
     return new NextResponse("Internal Error", { status: 500 });
@@ -69,7 +70,7 @@ export async function GET(req: NextRequest) {
       return new NextResponse("Unauthorized", { status: 401 });
     }
 
-    const favorites = await Favorite.find();
+    const favorites = await Favorite.find({ email });
     return NextResponse.json(favorites);
   } catch (error) {
     console.log("[FAVORITE]", error);

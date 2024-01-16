@@ -10,8 +10,8 @@ export default function totalCartPrice(cart: any) {
       )
     )
     .flat()
-    ?.reduce((a: any, c: any) => a + +c?.extra_price, 0);
-  const quantity = cart?.reduce((a: any, c: any) => a + +c?.quantity, 0);
+    ?.reduce((a: any, c: any) => a + +c?.extra_price, 0)
+  const quantity = cart?.reduce((a: any, c: any) => a + +c?.quantity, 0)
   const sizePrice = cart?.reduce(
     (a: any, c: any) => a + +c?.size?.extra_price * +c?.quantity,
     0

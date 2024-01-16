@@ -26,20 +26,27 @@ export default function ProductDialog({
     { size: null, extra_increases_price: [], quantity: "" }
   );
   const dispatch = useAppDispatch();
-
+  const extractDataFromProduct = {
+    image: item?.image,
+    category: item?.category,
+    title: item?.title,
+    description: item?.description,
+    product_id: item?._id,
+    base_price: item?.base_price,
+  };
   const addToCart = () => {
     if (item) {
       setIsClicked({ check: false, id: "" });
       dispatch(
         postProductToCart({
           ...extraPricesFields,
-          product_id: item._id,
+          ...extractDataFromProduct,
           email: data?.email,
         })
       );
     }
   };
-  
+
   return (
     <>
       <div className="flex  flex-col gap-8  text-center overflow-y-auto py-10 px-4">

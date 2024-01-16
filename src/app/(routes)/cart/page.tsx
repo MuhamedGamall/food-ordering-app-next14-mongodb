@@ -8,7 +8,7 @@ import {
 } from "@/lib/RTK/slices/cart-slice";
 
 import React, { useEffect } from "react";
-import CartList from "../_comonents/cart-list";
+import ProductsChoiced from "../_comonents/products-choiced";
 import { Button } from "@/components/ui/button";
 import { useRouter } from "next/navigation";
 import { MoveRight } from "lucide-react";
@@ -21,21 +21,15 @@ import PageHeader from "@/components/page-header";
 export default function CartPage() {
   const dispatch = useAppDispatch();
   const router = useRouter();
-  const { products, loading } = useAppSelector((state) => state.menuProducts);
   const { cart, loading: load } = useAppSelector((state) => state.productsCart);
   useEffect(() => {
     dispatch(getProducts());
     dispatch(getCart());
   }, [dispatch]);
 
-  const mergedArray = cart.map((cartItem: any) => ({
-    ...products.find((el) => el._id === cartItem.product_id),
-    ...cartItem,
-  }));
-
   const removeAllItems = () => {
     dispatch(deleteAllProductsFromCart());
-    toast.success("All product is removed");
+    toast.success("All products is removed");
     return router.replace("/menu/category/_");
   };
 
@@ -52,7 +46,7 @@ export default function CartPage() {
   // }
 
   const removeItem = (id: string) => {
-    if (cart?.length > 0) {
+    if (cart?.length) {
       id && dispatch(deleteProductFromCart(id));
     } else return router.replace("/menu/category/_");
   };
@@ -62,10 +56,10 @@ export default function CartPage() {
       <div className=" md:max-w-[90%] mx-auto">
         {cart?.length > 0 ? (
           <>
-          <PageHeader title="YOUR CART"/>
+            <PageHeader title="YOUR CART" />
             <div className="flex gap-8  sm:flex-row flex-col justify-start ">
-              <CartList onDelete={removeItem} data={mergedArray} />
-              <CartCheckout cart={mergedArray} />
+              <ProductsChoiced onDelete={removeItem} data={cart} />
+              <CartCheckout cart={cart} />
             </div>
             <Button
               onClick={removeAllItems}
@@ -76,7 +70,7 @@ export default function CartPage() {
             </Button>
           </>
         ) : (
-        <NoData pageName="cart"/>
+          <NoData pageName="cart" />
         )}
       </div>
     </main>

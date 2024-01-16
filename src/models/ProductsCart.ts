@@ -7,11 +7,16 @@ const ExtraPriceSchema = new Schema({
 
 const ProductsCartSchema = new Schema(
   {
-    email:String,
+    email: String,
     product_id: { type: mongoose.Types.ObjectId },
+    image: { type: String },
+    title: { type: String },
+    description: { type: String },
+    category: { category_id: mongoose.Types.ObjectId, title: String },
+    base_price: { type: String },
     size: { type: ExtraPriceSchema },
     extra_increases_price: { type: [ExtraPriceSchema] },
-    quantity: String,
+    quantity: { type: String, default: '0' },
   },
   { timestamps: true }
 );

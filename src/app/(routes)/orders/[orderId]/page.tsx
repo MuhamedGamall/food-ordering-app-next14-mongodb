@@ -3,7 +3,7 @@
 import { useAppDispatch, useAppSelector } from "@/hooks/redux";
 import { deleteAllProductsFromCart } from "@/lib/RTK/slices/cart-slice";
 import { useEffect } from "react";
-import CartList from "../../_comonents/cart-list";
+import ProductsChoiced from "../../_comonents/products-choiced";
 import { getOrder } from "@/lib/RTK/slices/orders-slice";
 import formatPrice from "@/utils/format/format-price";
 import totalCartPrice from "@/utils/total-cart-price";
@@ -16,7 +16,6 @@ export default function OrderPage({
 }: {
   params: { orderId: string };
 }) {
-
   const dispatch = useAppDispatch();
   const { order } = useAppSelector((state) => state.ordersData);
 
@@ -30,15 +29,16 @@ export default function OrderPage({
   useEffect(() => {
     dispatch(getOrder(orderId));
   }, [dispatch, orderId]);
+
   
   const { totalPrice } = totalCartPrice(order?.cart);
   return (
     <main className=" mx-auto px-4 max-w-[80rem] my-5">
       <div className=" md:max-w-[90%] mx-auto">
-      <PageHeader title="ORDER"/>
+        <PageHeader title="ORDER" />
         <div className="flex gap-8  md:flex-row flex-col justify-start ">
           <div className="flex-[2.5]  w-full">
-            <CartList data={order?.cart} />
+            <ProductsChoiced data={order?.cart} />
             <span className="flex justify-end gap-10 text-[25px]">
               <p className="flex items-center  gap-2 text-[18px]">
                 {order?.paid ? (

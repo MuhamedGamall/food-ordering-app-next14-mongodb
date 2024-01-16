@@ -10,7 +10,7 @@ export default function SidebarSheet() {
         DASHBOARD
         <LayoutDashboard />
       </SheetTrigger>
-      <SheetContent side={"left"} className="p-0 w-[300px] ">
+      <SheetContent side={"left"} className="p-0 w-[300px]">
         <Sidebar />
       </SheetContent>
     </Sheet>

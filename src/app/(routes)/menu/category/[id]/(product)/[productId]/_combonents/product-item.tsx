@@ -20,14 +20,25 @@ export default function ProductItem({ product, isFav }: ProductItemProps) {
     { size: null, extra_increases_price: [], quantity: "" }
   );
   const { data } = useProfile();
-
+  const extractDataFromProduct = {
+    image: product?.image,
+    category: product?.category,
+    title: product?.title,
+    description: product?.description,
+    product_id: product?._id,
+    base_price: product?.base_price,
+  };
   async function addToFavorite() {
     if (product) {
       if (isFav) {
         dispatch(deleteFavorite(product._id));
       } else {
         dispatch(
-          postFavorite({ ...extraPricesFields, product_id: product._id })
+          postFavorite({
+            ...extraPricesFields,
+            ...extractDataFromProduct,
+            email: data?.email,
+          })
         );
       }
     }
@@ -36,8 +47,8 @@ export default function ProductItem({ product, isFav }: ProductItemProps) {
     if (product) {
       dispatch(
         postProductToCart({
+          ...extractDataFromProduct,
           ...extraPricesFields,
-          product_id: product._id,
           email: data?.email,
         })
       );

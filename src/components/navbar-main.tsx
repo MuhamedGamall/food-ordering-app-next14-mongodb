@@ -59,7 +59,7 @@ export default function NavberMain() {
               </li>
             ))}
           </div>
-          <MobileMenu routes={routes}/>
+          <MobileMenu routes={routes} />
           <li>
             <Link className="relative" href={"/cart"}>
               <ShoppingCart strokeWidth="3" />

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   DropdownMenu,
   DropdownMenuItem,
@@ -11,10 +11,12 @@ import { Button } from "./ui/button";
 import { ChevronDown, LogOut, Menu, MoreVertical } from "lucide-react";
 import Link from "next/link";
 import { signOut } from "next-auth/react";
+import FavoriteSheet from "./favorites-sheet";
 
 export default function ProfileMenu({ name }: { name: string }) {
+  const [open, setOpen] = useState(false);
   return (
-    <DropdownMenu>
+    <DropdownMenu open={open} onOpenChange={setOpen}>
       <DropdownMenuTrigger asChild>
         <div className="mr-5">
           <Button type="button" variant="ghost" className=" px-1">
@@ -30,24 +32,20 @@ export default function ProfileMenu({ name }: { name: string }) {
       <DropdownMenuContent align="end">
         <DropdownMenuItem
           asChild
-          className="flex items-center gap-1 text-[15px] leading-[1]  mb-1  cursor-pointer"
+          className="text-[15px] leading-[1]  cursor-pointer"
         >
-          <Link href={"/profile"}>Profile</Link>
+          <Link href={"/profile"}> Profile</Link>
         </DropdownMenuItem>
-        <DropdownMenuItem
-          asChild
-          className="flex items-center gap-1 text-[15px] leading-[1] cursor-pointer"
-        >
-          <span>Favorites</span>
+        <DropdownMenuItem asChild>
+          <FavoriteSheet />
         </DropdownMenuItem>
         <DropdownMenuSeparator />
-
         <DropdownMenuItem
           asChild
           onClick={() => signOut()}
-          className="flex items-center gap-1 text-[15px] leading-[1] text-red-700   cursor-pointer"
+          className=" text-[15px] leading-[1] text-red-700   cursor-pointer"
         >
-          <span>
+          <span className="flex items-center gap-1">
             Sign out
             <LogOut height={"15"} width={"15"} />
           </span>

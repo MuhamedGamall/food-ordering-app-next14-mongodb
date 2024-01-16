@@ -19,10 +19,9 @@ export const getFavorites: any = createAsyncThunk(
 export const postFavorite: any = createAsyncThunk(
   "favoritesSlice/postFavorite",
   async (item: any, thunkApi) => {
-
     const { rejectWithValue } = thunkApi;
     try {
-      const data = (await axios.post("/api/favorite" ,item)).data;
+      const data = (await axios.post("/api/favorite", item)).data;
       return data;
     } catch (error: any) {
       return rejectWithValue(error.message);
@@ -37,6 +36,17 @@ export const deleteFavorite: any = createAsyncThunk(
     try {
       await axios.delete("/api/favorite?productId=" + id);
       return id;
+    } catch (error: any) {
+      return rejectWithValue(error.message);
+    }
+  }
+);
+export const deleteAllProductsFromFavorites: any = createAsyncThunk(
+  "favoritesSlice/deleteAllProductsFromFavorites",
+  async (_, thunkApi) => {
+    const { rejectWithValue } = thunkApi;
+    try {
+      await axios.delete("/api/favorite");
     } catch (error: any) {
       return rejectWithValue(error.message);
     }
@@ -111,12 +121,34 @@ const favoritesSlice = createSlice({
         (state: any, action: PayloadAction<any>) => {
           state.loading = false;
           state.favorites = state.favorites.filter(
-            (el: any) => el.product_id !== action.payload
+            (el: any) => el._id !== action.payload
           );
         }
       )
       .addCase(
         deleteFavorite.rejected,
+        (state: any, action: PayloadAction<any>) => {
+          state.loading = false;
+          state.error = action.payload;
+        }
+      );
+    builder
+      .addCase(
+        deleteAllProductsFromFavorites.pending,
+        (state: any, action: PayloadAction<any>) => {
+          state.loading = true;
+          state.error = null;
+        }
+      )
+      .addCase(
+        deleteAllProductsFromFavorites.fulfilled,
+        (state: any, action: PayloadAction<any>) => {
+          state.loading = false;
+          state.favorites = [];
+        }
+      )
+      .addCase(
+        deleteAllProductsFromFavorites.rejected,
         (state: any, action: PayloadAction<any>) => {
           state.loading = false;
           state.error = action.payload;
