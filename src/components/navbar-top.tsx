@@ -5,6 +5,7 @@ import Logo from "./Logo";
 import { signOut, useSession } from "next-auth/react";
 import useProfile from "@/hooks/user-profile";
 import { cn } from "@/lib/utils";
+import ProfileMenu from "./profile-menu";
 export default function NavbarTop() {
   const session = useSession();
   const { data } = useProfile();
@@ -27,7 +28,7 @@ export default function NavbarTop() {
               <span className="text-lg mr-20">Loading...</span>
             ) : status === "authenticated" ? (
               <>
-                <div className="flex items-center gap-1 max-w-[100px] overflow-hidden">
+                {/* <div className="flex items-center gap-1 max-w-[100px] overflow-hidden">
                   HI,
                   <Link href={"/profile"} className="underline">
                     {userName}
@@ -40,7 +41,8 @@ export default function NavbarTop() {
                   onClick={() => signOut()}
                 >
                   Sign out
-                </Button>
+                </Button> */}
+                <ProfileMenu name={userName} />
               </>
             ) : (
               <>

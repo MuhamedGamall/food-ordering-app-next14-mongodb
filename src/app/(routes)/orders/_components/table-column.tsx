@@ -136,12 +136,16 @@ export const columns: ColumnDef<any>[] = [
     cell: ({ row }) => {
       return (
         <div>
+          <Button className="bg-slate-100 hover:bg-slate-200" size={'sm'} variant={'ghost'}>
+
           <Link
             href={"/orders/" + row.getValue("_id")}
             className="lowercase max-w-[100px] overflow-x-auto whitespace-nowrap"
-          >
+            >
+
             More details
           </Link>
+            </Button>
         </div>
       );
     },
