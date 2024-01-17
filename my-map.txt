@@ -4,13 +4,10 @@
 
 
 
-- create favorite menu
 - add loading layout to all pages
 - add delete confirm for all delete buttons
-- add image to category
 
 - add metadata
-- fix favorite id api
 - change font
 /
 /
