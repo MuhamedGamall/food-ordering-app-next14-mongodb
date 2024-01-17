@@ -52,7 +52,7 @@ export default function CartPage() {
   };
 
   return (
-    <main className=" mx-auto px-4 max-w-[80rem] my-5">
+    <div className=" mx-auto px-4 max-w-[80rem] my-5">
       <div className=" md:max-w-[90%] mx-auto">
         {cart?.length > 0 ? (
           <>
@@ -73,6 +73,6 @@ export default function CartPage() {
           <NoData pageName="cart" />
         )}
       </div>
-    </main>
+    </div>
   );
 }

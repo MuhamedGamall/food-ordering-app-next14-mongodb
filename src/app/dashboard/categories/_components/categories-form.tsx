@@ -57,13 +57,12 @@ export default function CatigoiesForm() {
     } else toast.error("Please full fill the form");
   }
   return (
-    <>
-      <section className="mx-auto  max-w-full md:max-w-[80%]  ">
+    <div className="sm:w-[90%] max-w-[80rem] mx-auto mt-5 p-5">
+      <div className="mx-auto">
         <div className="mb-5">
           <PageHeader title={isEditMood ? "EDIT CATEGORY" : "ADD CATEGORY"} />
-          <div className="flex items-center flex-col-reverse">
+          <div className="flex items-end gap-5">
             {isSubmitting && <HandleLoader />}
-            <Add_EditCategoryForm onAdd={onSubmit} editData={editMood} />
             <div className="w-[250px]">
               <ImageForm
                 image64={image64}
@@ -72,10 +71,11 @@ export default function CatigoiesForm() {
                 isSubmitting={isSubmitting}
               />
             </div>
+            <Add_EditCategoryForm onAdd={onSubmit} editData={editMood} />
           </div>
         </div>
         <AllCategorios setEditMood={setEditMood} editMood={editMood} />
-      </section>
-    </>
+      </div>
+    </div>
   );
 }

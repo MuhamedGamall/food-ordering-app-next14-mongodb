@@ -111,37 +111,35 @@ export default function ProductForm({
 
   return (
     <>
-      <main className="">
-        <section className="relative z-50 mx-auto   max-w-full md:max-w-[80%]">
-          {(loading || isSubmitting) && <HandleLoader />}
-          <Link
-            href={"/dashborad/menu-products"}
-            className="cursor-pointer flex items-center gap-3 text-slate-800 ext-[19px]"
-          >
-            <MoveLeft /> Back to menu products
-          </Link>
-          <PageHeader title={'EDIT PRODUCT'} />
+      <section className="relative z-50 mx-auto   max-w-full md:max-w-[80%]">
+        {(loading || isSubmitting) && <HandleLoader />}
+        <Link
+          href={"/dashborad/menu-products"}
+          className="cursor-pointer flex items-center gap-3 text-slate-800 ext-[19px]"
+        >
+          <MoveLeft /> Back to menu products
+        </Link>
+        <PageHeader title={"EDIT PRODUCT"} />
 
-          <div>
-            <div className="flex gap-5 sm:flex-nowrap flex-wrap">
-              <div className="w-[250px]">
-                <ImageForm
-                  image64={image64}
-                  setImage64={setImage64}
-                  currentImage={EditCurrentImage}
-                  isSubmitting={isSubmitting}
-                />
-              </div>
-              <EditProductForm
-                onSubmit={onSubmit}
-                product={product || undefined}
-                imageURL64={image64}
-                setExtraPricesValues={setExtraPricesValues}
+        <div>
+          <div className="flex gap-5 sm:flex-nowrap flex-wrap">
+            <div className="w-[250px]">
+              <ImageForm
+                image64={image64}
+                setImage64={setImage64}
+                currentImage={EditCurrentImage}
+                isSubmitting={isSubmitting}
               />
             </div>
+            <EditProductForm
+              onSubmit={onSubmit}
+              product={product || undefined}
+              imageURL64={image64}
+              setExtraPricesValues={setExtraPricesValues}
+            />
           </div>
-        </section>
-      </main>
+        </div>
+      </section>
     </>
   );
 }

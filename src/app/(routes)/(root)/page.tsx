@@ -2,9 +2,9 @@ import HeroSection from "./_components/hero-section";
 
 export default function Home() {
   return (
-    <main className="">
+    <div className="">
       <HeroSection />
       home
-    </main>
+    </div>
   );
 }

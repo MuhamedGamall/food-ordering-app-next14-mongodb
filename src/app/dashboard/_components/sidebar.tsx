@@ -40,7 +40,7 @@ export default function Sidebar() {
   const checkPath = (path: string) => pathname.includes(path);
   return (
     <>
-      <div className="z-[200] flex bg-white md:border-r shadow-sm py-4 h-screen  w-[300px]  flex-col  gap-4 fixed top-0">
+      <div className="z-[200] flex bg-white lg:border-r-[2px] shadow-sm py-4 h-screen  w-[300px]  flex-col  gap-4 sticky top-0">
         <div className="mx-auto">
           <Logo color="red" />
         </div>

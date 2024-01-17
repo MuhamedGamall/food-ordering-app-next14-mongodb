@@ -16,13 +16,15 @@ export default function Admin_Layout({
     <div>
       {data?.admin ? (
         <>
-          <div className="md:block hidden">
-            <Sidebar />
-          </div>
-          <SidebarSheet />
-          <div className={"md:pl-[300px] pl-0"}>
-            <Navbar />
-            {children}
+          <div className="lg:flex block">
+            <div className="lg:block hidden">
+              <Sidebar />
+            </div>
+            <SidebarSheet />
+            <div className="pl-0  lg:w-[calc(100%_-_300px)]" >
+              <Navbar />
+              {children}
+            </div>
           </div>
         </>
       ) : (

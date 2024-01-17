@@ -41,10 +41,10 @@ export default function ProductPage({
     .includes(product?._id);
 
   return (
-    <main className="border-b ">
+    <section className="border-b ">
       {loading && <HandleLoader />}
 
       <ProductItem product={product} isFav={isFav} />
-    </main>
+    </section>
   );
 }

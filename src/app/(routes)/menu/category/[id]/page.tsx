@@ -31,7 +31,7 @@ export default function Menu({ params: { id } }: { params: { id: string } }) {
   }, [dispatch]);
 
   return (
-    <main className="mx-auto px-4 max-w-[80rem]">
+    <section className="mx-auto px-4 max-w-[80rem]">
       <Categorys categories={categories} loading={categoryLoading} />
       <div className=" md:max-w-[90%] mx-auto ">
         <div className=" max-w-[80rem] ">
@@ -39,6 +39,6 @@ export default function Menu({ params: { id } }: { params: { id: string } }) {
         </div>
       </div>
       <MenuItems products={menuChoiced} loading={productsLoding} />
-    </main>
+    </section>
   );
 }

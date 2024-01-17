@@ -8,7 +8,7 @@ import { getUsers } from "@/lib/RTK/slices/users-slice";
 
 export default function AllUsers() {
   const session = useSession();
-  const { users,loading } = useAppSelector((state) => state.usersData);
+  const { users, loading } = useAppSelector((state) => state.usersData);
   const dispatch = useAppDispatch();
 
   useEffect(() => {
@@ -20,12 +20,5 @@ export default function AllUsers() {
     getData();
   }, [dispatch, session.status]);
 
-  return (
-    <section>
-      <DataTable
-        data={users}
-        tableLoading={loading}
-      />
-    </section>
-  );
+  return <DataTable data={users} tableLoading={loading} />;
 }

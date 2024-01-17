@@ -24,13 +24,13 @@ export default function AllOrders() {
   }, [dispatch, session.status]);
   const isAdmin = data?.admin;
   return (
-    <section>
+    <>
       {orders?.length &&
         (data?.admin ? (
           <DataTable data={orders} tableLoading={loading} isAdmin={isAdmin} />
         ) : (
           <NoData pageName="orders" />
         ))}
-    </section>
+    </>
   );
 }

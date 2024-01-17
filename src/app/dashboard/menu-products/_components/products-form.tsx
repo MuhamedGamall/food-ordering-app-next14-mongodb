@@ -81,48 +81,46 @@ export default function ProductForm() {
   }
   return (
     <>
-      <section className="">
-        <div className=" relative mx-auto  max-w-full md:max-w-[80%] ">
-          {(loading || isSubmitting) && <HandleLoader />}
-          <PageHeader title={"MENU PRODUCTS"} />
-          <div className="w-full">
-            <Button
-              onClick={() => {
-                setImage64("");
-                setIsAddMood((cur) => !cur);
-              }}
-              className="flex items-center gap-2 ml-auto text-[18px]"
-            >
-              {!isAddMood ? (
-                <>
-                  <PlusCircle /> Open add product mood
-                </>
-              ) : (
-                <>
-                  <MinusCircle /> Close add product mood
-                </>
-              )}
-            </Button>
-            {isAddMood && (
-              <div className="flex justify-center gap-5 sm:flex-nowrap flex-wrap">
-                <div className="w-[250px]">
-                  <ImageForm
-                    image64={image64}
-                    setImage64={setImage64}
-                    currentImage={AddCurrentImage}
-                    isSubmitting={isSubmitting}
-                  />
-                </div>
-                <AddProductForm
-                  onSubmit={onSubmit}
-                  setExtraPricesValues={setExtraPricesValues}
+      <div className=" relative mx-auto ">
+        {(loading || isSubmitting) && <HandleLoader />}
+        <PageHeader title={"MENU PRODUCTS"} />
+        <div className="w-full">
+          <Button
+            onClick={() => {
+              setImage64("");
+              setIsAddMood((cur) => !cur);
+            }}
+            className="flex items-center gap-2 ml-auto text-[18px]"
+          >
+            {!isAddMood ? (
+              <>
+                <PlusCircle /> Open add product mood
+              </>
+            ) : (
+              <>
+                <MinusCircle /> Close add product mood
+              </>
+            )}
+          </Button>
+          {isAddMood && (
+            <div className="flex justify-center gap-5 sm:flex-nowrap flex-wrap">
+              <div className="w-[250px]">
+                <ImageForm
+                  image64={image64}
+                  setImage64={setImage64}
+                  currentImage={AddCurrentImage}
+                  isSubmitting={isSubmitting}
                 />
               </div>
-            )}
-            <AllProducts />
-          </div>
+              <AddProductForm
+                onSubmit={onSubmit}
+                setExtraPricesValues={setExtraPricesValues}
+              />
+            </div>
+          )}
+          <AllProducts />
         </div>
-      </section>
+      </div>
     </>
   );
 }

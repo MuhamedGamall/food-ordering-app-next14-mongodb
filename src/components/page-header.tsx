@@ -1,9 +1,16 @@
 import React from "react";
 
-function PageHeader({title}:{title:string}) {
+function PageHeader({
+  title,
+  children,
+}: {
+  title: string;
+  children?: React.ReactNode;
+}) {
   return (
-    <h1 className="sm:text-[45px] text-[35px] text-center w-full sm:text-left">
+    <h1 className="sm:text-[45px] text-[35px] w-full text-left my-5">
       {title}
+      {children}
     </h1>
   );
 }

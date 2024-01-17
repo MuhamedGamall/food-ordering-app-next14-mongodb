@@ -24,19 +24,18 @@ export default function UserDetails({ id }: { id: string }) {
 
   return (
     <>
-      <section className=" mx-auto relative  max-w-full md:max-w-[80%]  flex gap-5 flex-col  sm:flex-nowrap flex-wrap">
+      <div className=" flex gap-5 flex-col  sm:flex-nowrap flex-wrap">
         {loading && <HandleLoader />}
         <Link
           href={"/admin/users"}
-          className="cursor-pointer flex items-center gap-3 text-slate-800 ext-[19px]"
+          className="cursor-pointer flex items-center gap-3 text-slate-800 text-[19px]"
         >
           <MoveLeft /> Back to users table
         </Link>
-        <div className="space-y-2 ">
-          <div className="flex items-center gap-3">
-            <PageHeader title={"PROFILE |"} />
+        <div className="flex items-center gap-3">
+          <PageHeader title={"PROFILE |"}>
             <span className="text-[25px]"> {user?.name || user?.email}</span>
-          </div>
+          </PageHeader>
         </div>
         <div className="flex gap-5 sm:flex-nowrap flex-wrap">
           <div className="w-[250px] ">
@@ -50,7 +49,7 @@ export default function UserDetails({ id }: { id: string }) {
           </div>
           <UserItems data={user} />
         </div>
-      </section>
+      </div>
     </>
   );
 }

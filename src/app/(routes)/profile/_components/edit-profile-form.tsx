@@ -51,23 +51,21 @@ export default function EditProfileForm() {
 
   return (
     <>
-      <section className="">
-        <div className=" mx-auto relative  max-w-full md:max-w-[80%]  flex gap-5 flex-col  sm:flex-nowrap flex-wrap">
-          {(loading || isSubmitting) && <HandleLoader />}
-          <PageHeader title="PROFILE" />
-          <div className="flex gap-5 sm:flex-nowrap flex-wrap">
-            <div className="w-[250px]">
-              <ImageForm
-                image64={image64}
-                setImage64={setImage64}
-                currentImage={currentImage}
-                isSubmitting={isSubmitting}
-              />
-            </div>
-            <ProfileFormInputs onSubmit={onSubmit} data={data} />
+      <div className=" flex gap-5 flex-col  sm:flex-nowrap flex-wrap">
+        {(loading || isSubmitting) && <HandleLoader />}
+        <PageHeader title="PROFILE" />
+        <div className="flex gap-5 sm:flex-nowrap flex-wrap">
+          <div className="w-[250px]">
+            <ImageForm
+              image64={image64}
+              setImage64={setImage64}
+              currentImage={currentImage}
+              isSubmitting={isSubmitting}
+            />
           </div>
+          <ProfileFormInputs onSubmit={onSubmit} data={data} />
         </div>
-      </section>
+      </div>
     </>
   );
 }

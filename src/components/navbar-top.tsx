@@ -18,9 +18,10 @@ export default function NavbarTop() {
   return (
     <div className="py-2">
       <nav className="flex items-center justify-between w-full">
-        <Link href={"/"} className={cn(data?.admin && "sm:hidden block")}>
+        <Link href={"/"} className={cn(data?.admin && "lg:hidden block")}>
           <Logo color="red" />
         </Link>
+        {/* fake element for flex */}
         <div></div>
         <div className=" flex items-center gap-3">
           <>
@@ -28,20 +29,6 @@ export default function NavbarTop() {
               <span className="text-lg mr-20">Loading...</span>
             ) : status === "authenticated" ? (
               <>
-                {/* <div className="flex items-center gap-1 max-w-[100px] overflow-hidden">
-                  HI,
-                  <Link href={"/profile"} className="underline">
-                    {userName}
-                  </Link>
-                </div>
-                <Button
-                  variant={"green"}
-                  className="rounded-full text-[16px] md:text-[20px]"
-                  size={"lg"}
-                  onClick={() => signOut()}
-                >
-                  Sign out
-                </Button> */}
                 <ProfileMenu name={userName} />
               </>
             ) : (

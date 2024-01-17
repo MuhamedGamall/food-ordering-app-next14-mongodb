@@ -4,7 +4,7 @@ import React from "react";
 
 export default function NoData({ pageName }: { pageName: string }) {
   return (
-    <div className="flex items-center justify-center sm:justify-between sm:flex-row flex-col ">
+    <section className="flex items-center justify-center sm:justify-between sm:flex-row flex-col ">
       <h2 className="text-[45px] my-5">{pageName.toUpperCase()}</h2>
       <p className="text-slate-600 text-[20] sm:m-0 my-4">
         There are no items in {pageName}
@@ -16,6 +16,6 @@ export default function NoData({ pageName }: { pageName: string }) {
         VIEW THE MENU
         <MoveRight />
       </Link>
-    </div>
+    </section>
   );
 }
