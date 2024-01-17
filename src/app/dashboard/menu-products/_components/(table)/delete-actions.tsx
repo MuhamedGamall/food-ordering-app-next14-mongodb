@@ -1,10 +1,7 @@
 import { Button } from "@/components/ui/button";
 import React from "react";
-import { MoreHorizontal, MoreVertical, Trash2 } from "lucide-react";
-import {
-  deleteAllCategories,
-  deleteCategory,
-} from "@/lib/RTK/slices/categories-slice";
+import { MoreVertical, Trash2 } from "lucide-react";
+
 import toast from "react-hot-toast";
 import {
   DropdownMenu,
@@ -18,6 +15,7 @@ import {
   deleteAllProducts,
   deleteProduct,
 } from "@/lib/RTK/slices/menu-products-slice";
+import { DeleteConfirm } from "@/components/delete-confirm";
 
 interface DeleteActionsBtnsProps {
   dispatch: any;
@@ -58,24 +56,32 @@ export default function DeleteActionsBtns({
   return (
     <>
       <div className="hidden gap-2 items-center sm:flex">
-        <Button
-          className="flex items-center gap-1 text-[15px] h-[48px] leading-[1]"
-          onClick={deleteSelected}
-          type="button"
-          disabled={!(idsSelectedToDelete.length > 0) || isLoading}
+        <DeleteConfirm
+          title="Are you sure to delete the selected data?"
+          onDelete={deleteSelected}
         >
-          <Trash2 className="w-4" />
-          <span>{"Delete | " + idsSelectedToDelete.length}</span>
-        </Button>
-        <Button
-          className="flex items-center gap-1 text-[15px] h-[48px]   leading-[1]"
-          onClick={deleteAllData}
-          type="button"
-          disabled={isLoading || !data.length}
+          <Button
+            className="flex items-center gap-1 text-[15px] h-[48px] leading-[1]"
+            type="button"
+            disabled={!(idsSelectedToDelete.length > 0) || isLoading}
+          >
+            <Trash2 className="w-4" />
+            <span>{"Delete | " + idsSelectedToDelete.length}</span>
+          </Button>
+        </DeleteConfirm>
+        <DeleteConfirm
+          title="Are you sure to delete all products"
+          onDelete={deleteAllData}
         >
-          <Trash2 className="w-4" />
-          <span>Delete all</span>
-        </Button>
+          <Button
+            className="flex items-center gap-1 text-[15px] h-[48px]   leading-[1]"
+            type="button"
+            disabled={isLoading || !data.length}
+          >
+            <Trash2 className="w-4" />
+            <span>Delete all</span>
+          </Button>
+        </DeleteConfirm>
       </div>
       <div className="bg-slate-100 rounded-md px-2 py-1 sm:hidden">
         <DropdownMenu>
@@ -92,12 +98,18 @@ export default function DeleteActionsBtns({
             <DropdownMenuLabel>Actions</DropdownMenuLabel>
             <DropdownMenuSeparator />
             <DropdownMenuItem
-              className="flex items-center gap-1 text-[15px] leading-[1]  bg-slate-200 mb-1  cursor-pointer"
+              className="text-[15px] leading-[1]  bg-slate-200 mb-1  cursor-pointer"
               disabled={!(idsSelectedToDelete.length > 0) || isLoading}
-              onClick={deleteSelected}
             >
-              <Trash2 className="w-4" />
-              <span>{"Delete | " + idsSelectedToDelete.length}</span>
+              <DeleteConfirm
+                title="Are you sure to delete the selected data?"
+                onDelete={deleteSelected}
+              >
+                <div className="flex items-center gap-1 ">
+                  <Trash2 className="w-4" />
+                  <span>{"Delete | " + idsSelectedToDelete.length}</span>
+                </div>
+              </DeleteConfirm>
             </DropdownMenuItem>
             <DropdownMenuItem
               className="flex items-center gap-1 text-[15px] leading-[1]  bg-slate-200 cursor-pointer"

@@ -1,18 +1,16 @@
 import React from "react";
 import {
   DropdownMenu,
-  DropdownMenuCheckboxItem,
   DropdownMenuContent,
   DropdownMenuItem,
-  DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Button } from "@/components/ui/button";
 import { Edit, MoreHorizontal, Trash2 } from "lucide-react";
-import { InitProductState } from "../../../../../../types";
 import Link from "next/link";
+import { DeleteConfirm } from "@/components/delete-confirm";
 interface ItemActionsProps {
-  handleDeleteClick: (id: string) => void;
+  handleDeleteClick: (id: string) => any;
   row: any;
 }
 export default function ItemActions({
@@ -38,13 +36,15 @@ export default function ItemActions({
           </Link>
         </DropdownMenuItem>
         <DropdownMenuItem>
-          <div
-            className="flex items-center gap-1 text-[16px]"
-            onClick={() => handleDeleteClick(row.original._id)}
+          <DeleteConfirm
+            title="Are you sure to delete all products"
+            onDelete={() => handleDeleteClick(row.original._id)}
           >
-            <Trash2 className="w-4" />
-            Delete
-          </div>
+            <div className="flex items-center gap-1 text-[16px]">
+              <Trash2 className="w-4" />
+              Delete
+            </div>
+          </DeleteConfirm>
         </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>

@@ -10,6 +10,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { Edit, MoreHorizontal, Trash2 } from "lucide-react";
 import { InitProductState } from "../../../../../../types";
+import { DeleteConfirm } from "@/components/delete-confirm";
 interface ItemActionsProps {
   handleEditClick: (id: string, item: InitProductState) => void;
   isEditing: (id: string) => boolean;
@@ -36,17 +37,19 @@ export default function ItemActions({
         >
           <div className="flex items-center gap-1 text-[16px]">
             <Edit className="w-4" />
-            {isEditing(row?.id) ? " Leave edit mood" : "Go to edit mood"}
+            {isEditing(row?.id) ? "Leave edit mood" : "Go to edit mood"}
           </div>
         </DropdownMenuItem>
         <DropdownMenuItem>
-          <div
-            className="flex items-center gap-1 text-[16px]"
-            onClick={() => handleDeleteClick(row.original._id)}
+          <DeleteConfirm
+            title="Are you sure to delete all products"
+            onDelete={() => handleDeleteClick(row.original._id)}
           >
-            <Trash2 className="w-4" />
-            Delete
-          </div>
+            <div className="flex items-center gap-1 text-[16px]">
+              <Trash2 className="w-4" />
+              Delete
+            </div>
+          </DeleteConfirm>
         </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>

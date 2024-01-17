@@ -15,6 +15,7 @@ import CartCheckout from "./_components/cart-checkout";
 import toast from "react-hot-toast";
 import NoData from "../_comonents/no-data";
 import PageHeader from "@/components/page-header";
+import { DeleteConfirm } from "../../../components/delete-confirm";
 
 export default function CartPage() {
   const dispatch = useAppDispatch();
@@ -55,21 +56,27 @@ export default function CartPage() {
           <>
             <PageHeader title="YOUR CART" />
             <div className="flex gap-8  sm:flex-row flex-col justify-start ">
-              <ProductsChoiced
-                onDelete={removeItem}
-                loading={loading}
-                data={cart}
-              />
+              <div className="flex-[4.5] w-full flex sm:block sm:flex-row flex-col-reverse">
+                <ProductsChoiced
+                  onDelete={removeItem}
+                  loading={loading}
+                  data={cart}
+                />
+                <DeleteConfirm
+                  title="Are you sure to delete all products"
+                  onDelete={removeAllItems}
+                >
+                  <Button
+                    variant={"ghost"}
+                    className="hover:text-sky-950 text-[#2d5d2a] underline transition sm:my-5 mb-2 ml-auto"
+                    disabled={loading}
+                  >
+                    Remove all items
+                  </Button>
+                </DeleteConfirm>
+              </div>
               <CartCheckout cart={cart} />
             </div>
-            <Button
-              onClick={removeAllItems}
-              variant={"ghost"}
-              className="hover:text-sky-950 text-[#2d5d2a] underline transition my-5"
-              disabled={loading}
-            >
-              Remove all items
-            </Button>
           </>
         ) : (
           <NoData pageName="cart" />

@@ -4,8 +4,6 @@
 
 
 
-- add loading layout to all pages
-- add delete confirm for all delete buttons
 
 - add metadata
 - change font

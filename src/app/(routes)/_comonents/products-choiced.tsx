@@ -16,7 +16,7 @@ export default function ProductsChoiced({
   onDelete?: (id: string) => void;
 }) {
   return (
-    <section className="flex-[4.5] w-full relative">
+    <section className=" relative">
       {loading && <HandleLoader />}
       <ul className="flex flex-col  gap-2 border-t ">
         {data?.map((el: any) => {

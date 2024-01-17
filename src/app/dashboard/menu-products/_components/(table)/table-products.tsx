@@ -94,8 +94,8 @@ export function DataTable({
   };
 
   return (
-    <div className="w-full mt-5 ">
-      {isLoading || (tableLoading && <HandleLoader />)}
+    <div className="w-full mt-5 relative">
+      {(isLoading || tableLoading) && <HandleLoader />}
       <div className="flex items-center justify-between gap-1 py-4">
         <div className="flex items-center gap-1">
           <SearchInputs dataLength={data?.length} table={table} />
