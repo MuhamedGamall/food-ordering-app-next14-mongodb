@@ -54,11 +54,9 @@ export default function Add_EditCategoryForm({
   }
 
   const { isSubmitting, isValid } = form.formState;
-console.log(isSubmitting);
 
   return (
     <>
-      {/* {isSubmitting && <HandleLoader />} */}
       <Form {...form}>
         <form
           onSubmit={form.handleSubmit(onSubmit)}

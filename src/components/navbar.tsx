@@ -3,7 +3,7 @@ import NavberMain from "@/components/navbar-main";
 
 export default function Navbar() {
   return (
-    <header className="w-full  shadow-header-shadow sticky top-0 bg-white z-[50]">
+    <header className="w-full  shadow-header-shadow sticky top-0 bg-white z-[2000]">
       <div className="mx-auto max-w-[100rem]  px-4  py-1 shadow-sm">
         <NavbarTop />
       </div>

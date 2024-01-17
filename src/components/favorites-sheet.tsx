@@ -13,15 +13,13 @@ import { Button } from "./ui/button";
 import { MoveRight } from "lucide-react";
 import Link from "next/link";
 import { cn } from "@/lib/utils";
+import HandleLoader from "./loader";
 
 export default function FavoriteSheet() {
-  const { favorites } = useAppSelector((state) => state.favoritesData);
-  const { products } = useAppSelector((state) => state.menuProducts);
+  const { favorites, loading } = useAppSelector((state) => state.favoritesData);
   const dispatch = useAppDispatch();
   const [open, setOpen] = useState(false);
   useEffect(() => {
-    dispatch(getProducts());
-
     dispatch(getFavorites());
   }, [dispatch]);
   const removeAllItems = () => {
@@ -46,8 +44,11 @@ export default function FavoriteSheet() {
       >
         {favorites?.length ? (
           <>
-          <h2 className="text-[30px] mb-4">FAVORITES</h2>
-            <ProductsChoiced data={favorites} onDelete={removeItem} />
+            <h2 className="text-[30px] mb-4">FAVORITES</h2>
+            <ProductsChoiced
+              data={favorites}
+              onDelete={removeItem}
+            />
             <Button
               disabled={!favorites?.length}
               onClick={removeAllItems}

@@ -1,4 +1,4 @@
-'use client'
+"use client";
 import { useAppDispatch } from "@/hooks/redux";
 import Add_EditCategoryForm from "./add&edit-category-form";
 import AllCategorios from "./all-categorios-form";
@@ -59,12 +59,12 @@ export default function CatigoiesForm() {
     } else toast.error("Please full fill the form");
   }
   return (
-    <div className="sm:w-[90%] max-w-[80rem] mx-auto mt-5 p-5">
+    <div className="sm:w-[90%] max-w-[80rem] mx-auto mt-5 p-5 relative">
+      {isSubmitting && <HandleLoader />}
       <div className="mx-auto">
         <div className="mb-5">
           <PageHeader title={isEditMood ? "EDIT CATEGORY" : "ADD CATEGORY"} />
           <div className="flex items-end gap-5">
-            {isSubmitting && <HandleLoader />}
             <div className="w-[250px]">
               <ImageForm
                 image64={image64}

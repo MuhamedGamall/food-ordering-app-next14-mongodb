@@ -11,7 +11,6 @@ import {
   getSortedRowModel,
   useReactTable,
 } from "@tanstack/react-table";
-import { ChevronDown, Edit, MoreHorizontal } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 
@@ -69,9 +68,9 @@ export function DataTable({
   });
 
   return (
-    <div className="w-full mt-5">
-      <PageHeader title="ORDERS" />
+    <div className="w-full mt-5 relative">
       {tableLoading && <HandleLoader />}
+      <PageHeader title="ORDERS" />
       <div className="flex items-center justify-between gap-1 py-4">
         <TableTopHeader data={data} table={table} pageName={"orders"} />
       </div>

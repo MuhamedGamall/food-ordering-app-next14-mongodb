@@ -24,10 +24,10 @@ export default function UserDetails({ id }: { id: string }) {
 
   return (
     <>
-      <div className=" flex gap-5 flex-col  sm:flex-nowrap flex-wrap">
+      <div className=" flex gap-5 flex-col  sm:flex-nowrap flex-wrap relative">
         {loading && <HandleLoader />}
         <Link
-          href={"/admin/users"}
+          href={"/dashboard/users"}
           className="cursor-pointer flex items-center gap-3 text-slate-800 text-[19px]"
         >
           <MoveLeft /> Back to users table

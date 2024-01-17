@@ -7,6 +7,7 @@ import { getCategories } from "@/lib/RTK/slices/categories-slice";
 import { getProducts } from "@/lib/RTK/slices/menu-products-slice";
 import { getCart } from "@/lib/RTK/slices/cart-slice";
 import PageHeader from "@/components/page-header";
+import HandleLoader from "@/components/loader";
 
 export default function Menu({ params: { id } }: { params: { id: string } }) {
   const { products, loading: productsLoding } = useAppSelector(
@@ -32,6 +33,7 @@ export default function Menu({ params: { id } }: { params: { id: string } }) {
 
   return (
     <section className="mx-auto px-4 max-w-[80rem]">
+      {(productsLoding || categoryLoading) && <HandleLoader />}
       <Categorys categories={categories} loading={categoryLoading} />
       <div className=" md:max-w-[90%] mx-auto ">
         <div className=" max-w-[80rem] ">

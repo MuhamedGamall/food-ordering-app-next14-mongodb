@@ -6,11 +6,7 @@ import { getProducts } from "@/lib/RTK/slices/menu-products-slice";
 import { ExtraPriceState } from "../../../../../../../../types";
 
 import HandleLoader from "@/components/loader";
-import {
-
-  getFavorites,
-
-} from "@/lib/RTK/slices/favorite-slice";
+import { getFavorites } from "@/lib/RTK/slices/favorite-slice";
 
 import ProductItem from "./_combonents/product-item";
 
@@ -41,9 +37,8 @@ export default function ProductPage({
     .includes(product?._id);
 
   return (
-    <section className="border-b ">
+    <section className="border-b relative ">
       {loading && <HandleLoader />}
-
       <ProductItem product={product} isFav={isFav} />
     </section>
   );

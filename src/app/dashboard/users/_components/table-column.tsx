@@ -192,10 +192,9 @@ export const columns: ColumnDef<any>[] = [
             href={"/dashboard/users/" + row.getValue("_id")}
             className="flex items-center gap-1 text-[16px]"
           >
-            <Edit className="w-4" />
             View user
           </Link>
-          ;
+          
         </div>
       );
     },

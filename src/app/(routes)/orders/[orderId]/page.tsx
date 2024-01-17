@@ -11,6 +11,7 @@ import DeliveryDetails from "../../cart/_components/delivery-details";
 import { CheckCircle2, MoveLeft, XCircle } from "lucide-react";
 import PageHeader from "@/components/page-header";
 import Link from "next/link";
+import HandleLoader from "@/components/loader";
 
 export default function OrderPage({
   params: { orderId },
@@ -18,7 +19,7 @@ export default function OrderPage({
   params: { orderId: string };
 }) {
   const dispatch = useAppDispatch();
-  const { order } = useAppSelector((state) => state.ordersData);
+  const { order, loading } = useAppSelector((state) => state.ordersData);
 
   useEffect(() => {
     if (typeof window !== "undefined") {
@@ -33,7 +34,8 @@ export default function OrderPage({
 
   const { totalPrice } = totalCartPrice(order?.cart);
   return (
-    <section className=" mx-auto px-4 max-w-[80rem] my-5">
+    <section className=" mx-auto px-4 max-w-[80rem] my-5 relative">
+      {loading && <HandleLoader />}
       <div className=" md:max-w-[90%] mx-auto">
         <Link
           href={"/orders"}

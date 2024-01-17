@@ -11,9 +11,7 @@ import React, { useEffect } from "react";
 import ProductsChoiced from "../_comonents/products-choiced";
 import { Button } from "@/components/ui/button";
 import { useRouter } from "next/navigation";
-import { MoveRight } from "lucide-react";
 import CartCheckout from "./_components/cart-checkout";
-import Link from "next/link";
 import toast from "react-hot-toast";
 import NoData from "../_comonents/no-data";
 import PageHeader from "@/components/page-header";
@@ -21,9 +19,8 @@ import PageHeader from "@/components/page-header";
 export default function CartPage() {
   const dispatch = useAppDispatch();
   const router = useRouter();
-  const { cart, loading: load } = useAppSelector((state) => state.productsCart);
+  const { cart, loading } = useAppSelector((state) => state.productsCart);
   useEffect(() => {
-    dispatch(getProducts());
     dispatch(getCart());
   }, [dispatch]);
 
@@ -52,19 +49,24 @@ export default function CartPage() {
   };
 
   return (
-    <div className=" mx-auto px-4 max-w-[80rem] my-5">
+    <div className=" mx-auto px-4 my-5 relative">
       <div className=" md:max-w-[90%] mx-auto">
         {cart?.length > 0 ? (
           <>
             <PageHeader title="YOUR CART" />
             <div className="flex gap-8  sm:flex-row flex-col justify-start ">
-              <ProductsChoiced onDelete={removeItem} data={cart} />
+              <ProductsChoiced
+                onDelete={removeItem}
+                loading={loading}
+                data={cart}
+              />
               <CartCheckout cart={cart} />
             </div>
             <Button
               onClick={removeAllItems}
               variant={"ghost"}
               className="hover:text-sky-950 text-[#2d5d2a] underline transition my-5"
+              disabled={loading}
             >
               Remove all items
             </Button>

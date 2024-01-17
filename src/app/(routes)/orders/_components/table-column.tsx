@@ -81,7 +81,9 @@ export const columns: ColumnDef<any>[] = [
         <div>
           <div
             className={cn(
-              isPaid ? "bg-green-600/70 text-green-100" : "bg-red-600/70 text-red-100",
+              isPaid
+                ? "bg-green-600/70 text-green-100"
+                : "bg-red-600/70 text-red-100",
               " rounded-md px-2 py-1 max-w-[100px] overflow-x-auto whitespace-nowrap text-[18px] w-fit"
             )}
           >
@@ -136,16 +138,18 @@ export const columns: ColumnDef<any>[] = [
     cell: ({ row }) => {
       return (
         <div>
-          <Button className="bg-slate-100 hover:bg-slate-200" size={'sm'} variant={'ghost'}>
-
-          <Link
-            href={"/orders/" + row.getValue("_id")}
-            className="lowercase max-w-[100px] overflow-x-auto whitespace-nowrap"
+          <Button
+            className="bg-slate-100 hover:bg-slate-200"
+            size={"sm"}
+            variant={"ghost"}
+          >
+            <Link
+              href={"/orders/" + row.getValue("_id")}
+              className="lowercase max-w-[100px] overflow-x-auto whitespace-nowrap"
             >
-
-            More details
-          </Link>
-            </Button>
+              More details
+            </Link>
+          </Button>
         </div>
       );
     },

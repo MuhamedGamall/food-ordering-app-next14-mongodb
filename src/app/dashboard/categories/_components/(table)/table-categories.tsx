@@ -95,7 +95,6 @@ export function DataTable({
 
   const selectedRows = table.getFilteredSelectedRowModel().rows;
   const idsSelectedToDelete = selectedRows.map((row) => row.original._id);
-  const [editState, setEditState] = useState(false);
   const isEditing = (rowId: string) => editingRowId === rowId;
 
   // handle actions functoins
@@ -120,7 +119,7 @@ export function DataTable({
   };
 
   return (
-    <div className="w-full mt-5">
+    <div className="w-full mt-5 ">
       {(isLoading || tableLoading) && <HandleLoader />}
       <div className="flex items-center justify-between gap-1 py-4">
         <div className="flex items-center gap-1">

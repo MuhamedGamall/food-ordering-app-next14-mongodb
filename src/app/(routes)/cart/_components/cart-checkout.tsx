@@ -8,9 +8,10 @@ import axios from "axios";
 import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
 import totalCartPrice from "@/utils/total-cart-price";
+import HandleLoader from "@/components/loader";
 
 export default function CartCheckout({ cart }: any) {
-  const { data } = useProfile();
+  const { data, loading } = useProfile();
   const router = useRouter();
 
   const { totalPrice, extraPrice, basePrice, sizePrice } = totalCartPrice(cart);
@@ -40,38 +41,41 @@ export default function CartCheckout({ cart }: any) {
   }
 
   return (
-    <section className="flex-[2.5] w-full rounded-md p-3 border flex flex-col gap-3  h-fit">
-      <Button
-        onClick={proceedToCheckout}
-        variant={"primary"}
-        className=" text-[25px] w-[80%] mx-auto  text-white bg-[#e60000] hover:bg-red-700 rounded-full flex items-center gap-3 "
-      >
-        CHECKOUT
-      </Button>
-      <Link
-        href={"/profile"}
-        className="text-center mb-5 text-[18px] text-[#2d5d2a] underline"
-      >
-        Edit your address settengs before checkout
-      </Link>
-      <div className="px-3">
-        <div className="flex items-center text-[20px] justify-between ">
-          Extras:
-          <span className=""> {formatPrice(extraPrice + "")}</span>
+    <section className="flex-[2.5] w-full rounded-md p-3 border flex flex-col gap-3 sticky top-[170px] h-fit">
+      <div className="relative">
+        {loading && <HandleLoader />}
+        <Button
+          onClick={proceedToCheckout}
+          variant={"primary"}
+          className=" text-[25px] w-[80%] mx-auto  text-white bg-[#e60000] hover:bg-red-700 rounded-full flex items-center gap-3 "
+        >
+          CHECKOUT
+        </Button>
+        <Link
+          href={"/profile"}
+          className="text-center mb-5 text-[18px] text-[#2d5d2a] underline"
+        >
+          Edit your address settengs before checkout
+        </Link>
+        <div className="px-3">
+          <div className="flex items-center text-[20px] justify-between ">
+            Extras:
+            <span className=""> {formatPrice(extraPrice + "")}</span>
+          </div>
+          <div className="flex items-center text-[20px] justify-between ">
+            Delivery:
+            <span className=""> $5</span>
+          </div>
+          <div className="flex items-center text-[20px] justify-between mb-5">
+            Base price:
+            <span> {formatPrice(basePrice + sizePrice + "")}</span>
+          </div>
         </div>
-        <div className="flex items-center text-[20px] justify-between ">
-          Delivery:
-          <span className=""> $5</span>
+        <hr />
+        <div className="flex items-center justify-between text-[26px] ">
+          Total:
+          <span> {formatPrice(totalPrice + 5 + "")}</span>
         </div>
-        <div className="flex items-center text-[20px] justify-between mb-5">
-          Base price:
-          <span> {formatPrice(basePrice + sizePrice + "")}</span>
-        </div>
-      </div>
-      <hr />
-      <div className="flex items-center justify-between text-[26px] ">
-        Total:
-        <span> {formatPrice(totalPrice + 5 + "")}</span>
       </div>
     </section>
   );

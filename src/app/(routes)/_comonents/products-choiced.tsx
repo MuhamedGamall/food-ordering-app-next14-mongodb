@@ -4,16 +4,20 @@ import Link from "next/link";
 import React from "react";
 import { ExtraPriceState } from "../../../../types";
 import BasePrice_ExtraPrices from "@/components/basePrice-extraPirces";
+import HandleLoader from "@/components/loader";
 
 export default function ProductsChoiced({
   data,
   onDelete,
+  loading,
 }: {
   data: any;
+  loading?: boolean;
   onDelete?: (id: string) => void;
 }) {
   return (
-    <section className="flex-[4.5] w-full">
+    <section className="flex-[4.5] w-full relative">
+      {loading && <HandleLoader />}
       <ul className="flex flex-col  gap-2 border-t ">
         {data?.map((el: any) => {
           return (
@@ -44,8 +48,8 @@ export default function ProductsChoiced({
                 </div>
                 <p className="text-slate-500">Quantity: {el?.quantity}</p>
                 <p className="text-slate-500">Size: {el?.size?.name}</p>
-                <ul className=" flex items-center  gap-2">
-                  <li>
+                <div className=" flex items-center  gap-2">
+                  <span>
                     <Link
                       href={
                         "/menu/category/" +
@@ -57,33 +61,33 @@ export default function ProductsChoiced({
                     >
                       Veiw
                     </Link>
-                  </li>
+                  </span>
                   {!!onDelete && (
-                    <li
+                    <span
                       onClick={() => onDelete(el?._id)}
                       className="hover:text-green-950 underline transition text-[#2d5d2a] text-[14px] cursor-pointer"
                     >
                       Remove
-                    </li>
+                    </span>
                   )}
-                </ul>
+                </div>
                 <div className="flex gap-2 items-center">
                   <p className="text-slate-950">Increases: </p>
-                  <ul className="flex items-center gap-x-3 overflow-x-auto max-w-[500px]">
+                  <div className="flex items-center gap-x-3 overflow-x-auto max-w-[500px]">
                     {el?.extra_increases_price?.length ? (
                       el?.extra_increases_price?.map((xl: ExtraPriceState) => (
-                        <li
+                        <span
                           key={xl?.name}
                           className=" flex items-center gap-1 mb-1 px-2 bg-sky-300/20 border border-sky-500 text-sky-950 rounded-full whitespace-nowrap "
                         >
                           <span>{xl?.name} -</span>
                           {formatPrice(xl?.extra_price)}
-                        </li>
+                        </span>
                       ))
                     ) : (
                       <span className="text-slate-500">No increases</span>
                     )}
-                  </ul>
+                  </div>
                 </div>
               </div>
             </li>
