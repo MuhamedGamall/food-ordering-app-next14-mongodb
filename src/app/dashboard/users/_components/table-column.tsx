@@ -80,15 +80,7 @@ export const columns: ColumnDef<any>[] = [
   {
     accessorKey: "_id",
     header: ({ column }) => {
-      return (
-        <Button
-          variant="ghost"
-          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-        >
-          ID
-          <ArrowUpDown className="ml-2 h-4 w-4 " />
-        </Button>
-      );
+      return <div>ID</div>;
     },
     cell: ({ row }) => {
       return (
@@ -175,27 +167,22 @@ export const columns: ColumnDef<any>[] = [
   {
     accessorKey: "actions",
     header: ({ column }) => {
-      return (
-        <Button
-          variant="ghost"
-          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-        >
-          Actions
-          <ArrowUpDown className="ml-2 h-4 w-4" />
-        </Button>
-      );
+      return <div>Actions</div>;
     },
     cell: ({ row }) => {
       return (
-        <div className="text-right font-medium lowercase max-w-[100px] overflow-x-auto whitespace-nowrap">
+        <Button
+          className="bg-slate-100 hover:bg-slate-200"
+          size={"sm"}
+          variant={"ghost"}
+        >
           <Link
             href={"/dashboard/users/" + row.getValue("_id")}
             className="flex items-center gap-1 text-[16px]"
           >
             View user
           </Link>
-          
-        </div>
+        </Button>
       );
     },
   },

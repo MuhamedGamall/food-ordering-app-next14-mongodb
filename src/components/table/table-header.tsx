@@ -5,9 +5,9 @@ import {
   DropdownMenuContent,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { Button } from "./ui/button";
+import { Button } from "../ui/button";
 import { ChevronDown } from "lucide-react";
-import SearchInputsOrders from "@/app/(routes)/orders/_components/search-inputs";
+import SearchInputsOrders from "@/app/(routes)/orders/_components/(table)/search-inputs";
 import SearchInputsUsers from "@/app/dashboard/users/_components/search-inputs";
 export default function TableTopHeader({ data, table, pageName }: any) {
   return (

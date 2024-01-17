@@ -53,6 +53,7 @@ import HandleLoader from "@/components/loader";
 import SearchInputs from "./search-inputs";
 import DeleteActionsBtns from "./delete-actions";
 import { InitCategoryState } from "../../../../../../types";
+import ItemActions from "./item-actions";
 
 export function DataTable({
   data,
@@ -62,11 +63,10 @@ export function DataTable({
 }: {
   data: any;
   tableLoading: boolean;
-  setEditMood: any;
-  editMood: any;
+  setEditMood?: any;
+  editMood?: any;
 }) {
   const dispatch = useAppDispatch();
-  // const router = useRouter();
   const [editingRowId, setEditingRowId] = useState<string | null>(null);
   const [sorting, setSorting] = useState<SortingState>([]);
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
@@ -97,7 +97,6 @@ export function DataTable({
   const idsSelectedToDelete = selectedRows.map((row) => row.original._id);
   const isEditing = (rowId: string) => editingRowId === rowId;
 
-  // handle actions functoins
   const handleEditClick = (rowId: string, data: InitCategoryState) => {
     if (isEditing(rowId)) {
       setEditingRowId(null);
@@ -169,10 +168,9 @@ export function DataTable({
               <>
                 <TableRow key={headerGroup.id}>
                   <TableHead className="text-center">#</TableHead>
-
                   {headerGroup.headers.map((header) => {
                     return (
-                      <TableHead key={header.id}>
+                      <TableHead key={header.id} className="text-center">
                         {header.isPlaceholder
                           ? null
                           : flexRender(
@@ -198,7 +196,7 @@ export function DataTable({
                     # <span className="text-[18px]">{i + 1}</span>
                   </TableCell>
                   {row.getVisibleCells().map((cell) => (
-                    <TableCell key={cell.id}>
+                    <TableCell key={cell.id} className="text-center">
                       {flexRender(
                         cell.column.columnDef.cell,
                         cell.getContext()
@@ -206,40 +204,12 @@ export function DataTable({
                     </TableCell>
                   ))}
                   <TableCell className="text-center">
-                    <DropdownMenu>
-                      <DropdownMenuTrigger asChild>
-                        <Button
-                          type="button"
-                          variant="ghost"
-                          className="h-8 w-8 p-0"
-                        >
-                          <span className="sr-only">Open menu</span>
-                          <MoreHorizontal className="h-4 w-4" />
-                        </Button>
-                      </DropdownMenuTrigger>
-                      <DropdownMenuContent align="end">
-                        <DropdownMenuSeparator />
-                        <DropdownMenuItem
-                          onClick={() => handleEditClick(row.id, row?.original)}
-                        >
-                          <div className="flex items-center gap-1 text-[16px]">
-                            <Edit className="w-4" />
-                            {isEditing(row.id)
-                              ? " Leave edit mood"
-                              : "Go to edit mood"}
-                          </div>
-                        </DropdownMenuItem>
-                        <DropdownMenuItem>
-                          <div
-                            className="flex items-center gap-1 text-[16px]"
-                            onClick={() => handleDeleteClick(row.original._id)}
-                          >
-                            <Trash2 className="w-4" />
-                            Delete
-                          </div>
-                        </DropdownMenuItem>
-                      </DropdownMenuContent>
-                    </DropdownMenu>
+                    <ItemActions
+                      handleDeleteClick={handleDeleteClick}
+                      handleEditClick={handleEditClick}
+                      isEditing={isEditing}
+                      row={row}
+                    />
                   </TableCell>
                 </TableRow>
               ))

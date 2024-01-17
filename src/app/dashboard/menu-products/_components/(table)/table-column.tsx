@@ -40,7 +40,7 @@ export const columnsFnc = (categories: InitCategoryState[]) => {
     {
       accessorKey: "image",
       header: ({ column }) => {
-        return <div className="text-right">Image</div>;
+        return <div className="">Image</div>;
       },
       cell: ({ row }) => {
         return (
@@ -64,6 +64,7 @@ export const columnsFnc = (categories: InitCategoryState[]) => {
           <Button
             variant="ghost"
             onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+            
           >
             Title
             <ArrowUpDown className="ml-2 h-4 w-4 " />
@@ -157,10 +158,10 @@ export const columnsFnc = (categories: InitCategoryState[]) => {
     },
     {
       accessorKey: "_id",
-      header: () => <div className="text-right">ID</div>,
+      header: () => <div>ID</div>,
       cell: ({ row }) => {
         const id: string = row.getValue("_id");
-        return <div className="text-right font-medium">{id}</div>;
+        return <div className="font-medium">{id}</div>;
       },
     },
     {

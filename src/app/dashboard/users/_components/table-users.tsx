@@ -29,7 +29,7 @@ import HandleLoader from "@/components/loader";
 
 import Link from "next/link";
 import { columns } from "./table-column";
-import TableTopHeader from "@/components/table-header";
+import TableTopHeader from "@/components/table/table-header";
 import PageHeader from "@/components/page-header";
 
 export function DataTable({
@@ -66,7 +66,7 @@ export function DataTable({
   return (
     <div className="w-full mt-5 relative">
       {tableLoading && <HandleLoader />}
-      <PageHeader title={'USERS'} />
+      <PageHeader title={"USERS"} />
 
       <div className="flex items-center justify-between gap-1 py-4">
         <TableTopHeader data={data} table={table} pageName={"users"} />
@@ -80,7 +80,7 @@ export function DataTable({
                   <TableHead className="text-center">#</TableHead>
                   {headerGroup.headers.map((header) => {
                     return (
-                      <TableHead key={header.id}>
+                      <TableHead key={header.id} className="text-center">
                         {header.isPlaceholder
                           ? null
                           : flexRender(
@@ -105,7 +105,7 @@ export function DataTable({
                     # <span className="text-[18px]">{i + 1}</span>
                   </TableCell>
                   {row.getVisibleCells().map((cell) => (
-                    <TableCell key={cell.id}>
+                    <TableCell key={cell.id} className="text-center">
                       {flexRender(
                         cell.column.columnDef.cell,
                         cell.getContext()

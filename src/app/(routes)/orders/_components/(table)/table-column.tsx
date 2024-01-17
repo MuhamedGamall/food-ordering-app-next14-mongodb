@@ -9,7 +9,7 @@ import formatDate from "@/utils/format/format-date";
 import { cn } from "@/lib/utils";
 
 import Link from "next/link";
-import DelievryDetails from "./delievry-details";
+import DelievryDetails from "../../[orderId]/_components/delievry-details";
 
 export const columns: ColumnDef<any>[] = [
   {
@@ -101,7 +101,7 @@ export const columns: ColumnDef<any>[] = [
     },
     cell: ({ row }) => {
       return (
-        <div className="max-w-[100px] overflow-x-auto whitespace-nowrap">
+        <div className=" whitespace-nowrap ">
           <DelievryDetails row={row} />
         </div>
       );
@@ -110,15 +110,7 @@ export const columns: ColumnDef<any>[] = [
   {
     accessorKey: "_id",
     header: ({ column }) => {
-      return (
-        <Button
-          variant="ghost"
-          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-        >
-          ID
-          <ArrowUpDown className="ml-2 h-4 w-4 " />
-        </Button>
-      );
+      return <div>ID</div>;
     },
     cell: ({ row }) => {
       return (

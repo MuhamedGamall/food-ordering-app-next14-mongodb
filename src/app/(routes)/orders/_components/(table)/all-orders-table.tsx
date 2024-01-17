@@ -7,7 +7,7 @@ import { DataTable } from "./table-orders";
 import { getUsers } from "@/lib/RTK/slices/users-slice";
 import { getOrders } from "@/lib/RTK/slices/orders-slice";
 import useProfile from "@/hooks/user-profile";
-import NoData from "../../_comonents/no-data";
+import NoData from "../../../_comonents/no-data";
 
 export default function AllOrders() {
   const session = useSession();

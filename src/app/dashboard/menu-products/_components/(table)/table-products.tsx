@@ -44,6 +44,7 @@ import DeleteActionsBtns from "./delete-actions";
 import { deleteProduct } from "@/lib/RTK/slices/menu-products-slice";
 import Link from "next/link";
 import { columnsFnc } from "./table-column";
+import ItemActions from "./item-actions";
 
 export function DataTable({
   data,
@@ -145,7 +146,7 @@ export function DataTable({
                   <TableHead className="text-center">#</TableHead>
                   {headerGroup.headers.map((header) => {
                     return (
-                      <TableHead key={header.id}>
+                      <TableHead key={header.id} className="text-center">
                         {header.isPlaceholder
                           ? null
                           : flexRender(
@@ -171,58 +172,18 @@ export function DataTable({
                     # <span className="text-[18px]">{i + 1}</span>
                   </TableCell>
                   {row.getVisibleCells().map((cell) => (
-                    <TableCell key={cell.id}>
+                    <TableCell key={cell.id} className="text-center">
                       {flexRender(
                         cell.column.columnDef.cell,
                         cell.getContext()
                       )}
                     </TableCell>
                   ))}
-
                   <TableCell className="text-center">
-                    <DropdownMenu>
-                      <DropdownMenuTrigger asChild>
-                        <Button
-                          type="button"
-                          variant="ghost"
-                          className="h-8 w-8 p-0"
-                        >
-                          <span className="sr-only">Open menu</span>
-                          <MoreHorizontal className="h-4 w-4" />
-                        </Button>
-                      </DropdownMenuTrigger>
-                      <DropdownMenuContent align="end">
-                        <DropdownMenuItem
-                          onClick={() =>
-                            navigator.clipboard.writeText(row.original._id)
-                          }
-                        >
-                          Copy product ID
-                        </DropdownMenuItem>
-                        <DropdownMenuSeparator />
-                        <DropdownMenuItem>
-                          <Link
-                            href={
-                              "/dashboard/menu-products/edit-product/" +
-                              row.original._id
-                            }
-                            className="flex items-center gap-1 text-[16px]"
-                          >
-                            <Edit className="w-4" />
-                            View & Edit product
-                          </Link>
-                        </DropdownMenuItem>
-                        <DropdownMenuItem>
-                          <div
-                            className="flex items-center gap-1 text-[16px]"
-                            onClick={() => handleDeleteClick(row.original._id)}
-                          >
-                            <Trash2 className="w-4" />
-                            Delete
-                          </div>
-                        </DropdownMenuItem>
-                      </DropdownMenuContent>
-                    </DropdownMenu>
+                    <ItemActions
+                      handleDeleteClick={handleDeleteClick}
+                      row={row}
+                    />
                   </TableCell>
                 </TableRow>
               ))

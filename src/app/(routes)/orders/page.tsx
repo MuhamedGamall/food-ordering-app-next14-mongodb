@@ -1,6 +1,6 @@
 // 'use client'
 
-import AllOrders from "./_components/all-orders-table";
+import AllOrders from "./_components/(table)/all-orders-table";
 import useProfile from "@/hooks/user-profile";
 
 export default function OrdersPage() {

@@ -75,10 +75,10 @@ export const columns: ColumnDef<InitCategoryState>[] = [
   },
   {
     accessorKey: "_id",
-    header: () => <div className="text-right">ID</div>,
+    header: () => <div >ID</div>,
     cell: ({ row }) => {
       const id: string = row.getValue("_id");
-      return <div className="text-right font-medium">{id}</div>;
+      return <div className=" font-medium">{id}</div>;
     },
   },
 ];
