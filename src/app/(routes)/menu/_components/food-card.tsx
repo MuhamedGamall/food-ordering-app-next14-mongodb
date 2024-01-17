@@ -38,7 +38,7 @@ export default function FoodCard({ item, setIsClicked }: FoodCardProps) {
         />
       </Link>
       <div className=" flex flex-col  p-2">
-        <div className="flex  justify-between">
+        <div className="flex gap-2  justify-between">
           <div className=" text-[18px] max-w-[80%] break-all leading-[1] mb-1 min-h-[40px]">
             {truncateText(item.title + "tttttttttttttttt", 30)}
           </div>
@@ -51,13 +51,13 @@ export default function FoodCard({ item, setIsClicked }: FoodCardProps) {
         </div>
         <div
           className="text-[17px] text-slate-800 max-w-[80%] break-all
-         "
+        "
         >
           {formatPrice(item.base_price)}
         </div>
         <div
           className="text-[15px] text-slate-600 max-w-[80%] break-all leading-[1] 
-           h-[50px]"
+          h-[50px]"
         >
           {truncateText(
             item.description +

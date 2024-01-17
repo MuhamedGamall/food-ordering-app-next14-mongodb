@@ -4,13 +4,19 @@ import { DataTable } from "./(table)/table-categories";
 
 import { useAppDispatch, useAppSelector } from "@/hooks/redux";
 import { getCategories } from "@/lib/RTK/slices/categories-slice";
-import { Loader } from "lucide-react";
-import { useSession } from "next-auth/react";
-import { useEffect, useState } from "react";
 
-export default function AllCategorios({setEditMood,editMood}:{setEditMood:any,editMood:any}) {
+import { useSession } from "next-auth/react";
+import { useEffect } from "react";
+
+export default function AllCategorios({
+  setEditMood,
+  editMood,
+}: {
+  setEditMood: any;
+  editMood: any;
+}) {
   const session = useSession();
-  const { categories,loading } = useAppSelector((state) => state.catygories);
+  const { categories, loading } = useAppSelector((state) => state.catygories);
   const dispatch = useAppDispatch();
 
   useEffect(() => {
@@ -24,7 +30,12 @@ export default function AllCategorios({setEditMood,editMood}:{setEditMood:any,ed
 
   return (
     <div>
-      <DataTable data={categories} tableLoading={loading}  setEditMood={setEditMood} editMood={editMood}/>
+      <DataTable
+        data={categories}
+        tableLoading={loading}
+        setEditMood={setEditMood}
+        editMood={editMood}
+      />
     </div>
   );
 }

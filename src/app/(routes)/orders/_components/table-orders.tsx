@@ -70,7 +70,7 @@ export function DataTable({
 
   return (
     <div className="w-full mt-5">
-      <PageHeader title="ORDERS"/>
+      <PageHeader title="ORDERS" />
       {tableLoading && <HandleLoader />}
       <div className="flex items-center justify-between gap-1 py-4">
         <TableTopHeader data={data} table={table} pageName={"orders"} />

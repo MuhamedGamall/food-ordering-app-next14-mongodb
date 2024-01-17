@@ -1,3 +1,4 @@
+'use client'
 import { useAppDispatch } from "@/hooks/redux";
 import Add_EditCategoryForm from "./add&edit-category-form";
 import AllCategorios from "./all-categorios-form";
@@ -25,6 +26,7 @@ export default function CatigoiesForm() {
       ? Object.values({ value, image64 }).some(Boolean)
       : Object.values({ value, image64 }).every(Boolean);
   };
+
   async function onSubmit(value: { title: string }, form: any) {
     if (check(value)) {
       setIsSubmitting(true);
