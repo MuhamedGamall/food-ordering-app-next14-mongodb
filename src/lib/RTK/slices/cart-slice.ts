@@ -23,7 +23,6 @@ export const postProductToCart: any = createAsyncThunk(
     try {
       const data = (await axios.post("/api/products-cart", item)).data;
       toast.success("Product added to cart");
-
       return data;
     } catch (error: any) {
       return rejectWithValue(error.message);
@@ -37,9 +36,6 @@ export const deleteProductFromCart: any = createAsyncThunk(
     const { rejectWithValue } = thunkApi;
     try {
       await axios.delete("/api/products-cart?id=" + id);
-      toast.success("Product removed");
-      console.log(id,'6595e11634facf55bc45ae49');
-      
       return id;
     } catch (error: any) {
       return rejectWithValue(error.message);

@@ -7,6 +7,7 @@ import { useEffect, useState } from "react";
 import { DataTable } from "./(table)/table-products";
 import { getCategories } from "@/lib/RTK/slices/categories-slice";
 import { AlertOctagon } from "lucide-react";
+import Banner from "@/components/banner";
 
 export default function AllProducts() {
   const session = useSession();
@@ -32,10 +33,7 @@ export default function AllProducts() {
   return (
     <div>
       {checkProductNotHasCategory.length > 0 && (
-        <div className="flex gap-2 items-center w-full bg-red-100 rounded-md border py-3 px-2 text-[18px] mt-3">
-          <AlertOctagon color="red" />
-          You need to add a category to the product to so published 
-        </div>
+        <Banner label="You need to add a category to the product to so published" icon={AlertOctagon} color="red" bgColor="red"/>
       )}
       <DataTable
         data={products}

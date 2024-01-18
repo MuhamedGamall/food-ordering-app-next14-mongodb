@@ -1,16 +1,13 @@
 "use client";
 
 import ImageForm from "../../../../components/image-form";
-import toast from "react-hot-toast";
-import { useEffect, useState } from "react";
+import {  useState } from "react";
 
-import { useRouter } from "next/navigation";
 import ProfileFormInputs from "./profile-form-inputs";
 import HandleLoader from "@/components/loader";
 import { uploadImage } from "@/lib/RTK/slices/upload-image-slice";
-import { useAppDispatch, useAppSelector } from "@/hooks/redux";
-import { editProfile, getProfile } from "@/lib/RTK/slices/users-slice";
-import { useSession } from "next-auth/react";
+import { useAppDispatch,  } from "@/hooks/redux";
+import { editProfile,  } from "@/lib/RTK/slices/users-slice";
 import useProfile from "@/hooks/user-profile";
 import PageHeader from "@/components/page-header";
 

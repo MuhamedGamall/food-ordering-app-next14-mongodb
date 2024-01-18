@@ -24,7 +24,6 @@ export interface ExtraPricesValues {
 }
 export default function ProductForm() {
   const dispatch = useAppDispatch();
-  const { loading, data } = useProfile();
 
   const [extraPricesValues, setExtraPricesValues] = useState<ExtraPricesValues>(
     { sizes: [], extra_increases_price: [] }
@@ -33,7 +32,6 @@ export default function ProductForm() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isAddMood, setIsAddMood] = useState(false);
 
-  const email = data?.email;
 
   const AddCurrentImage = image64 || "/product-placeholder/th.jpeg";
   const priceRegex = /^\d+(\.\d{1,2})?$/;
@@ -82,7 +80,7 @@ export default function ProductForm() {
   return (
     <>
       <div className=" relative mx-auto ">
-        {(loading || isSubmitting) && <HandleLoader />}
+        {(isSubmitting) && <HandleLoader />}
         <PageHeader title={"MENU PRODUCTS"} />
         <div className="w-full">
           <Button

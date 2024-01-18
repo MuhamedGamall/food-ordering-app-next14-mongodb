@@ -10,8 +10,7 @@
 /
 /
 /
-- crate middleware
-- fix redirect check
+
 
 
 - create about & content and home styles

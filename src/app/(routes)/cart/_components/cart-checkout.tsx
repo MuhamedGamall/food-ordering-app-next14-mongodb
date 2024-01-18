@@ -41,7 +41,7 @@ export default function CartCheckout({ cart }: any) {
   }
 
   return (
-    <section className="flex-[2.5] w-full rounded-md p-3 border flex flex-col gap-3 sticky top-[170px] h-fit">
+    <div className="flex-[2.5] w-full rounded-md p-3 border flex flex-col gap-3 sticky top-[170px] h-fit">
       <div className="relative">
         {loading && <HandleLoader />}
         <Button
@@ -77,6 +77,6 @@ export default function CartCheckout({ cart }: any) {
           <span> {formatPrice(totalPrice + 5 + "")}</span>
         </div>
       </div>
-    </section>
+    </div>
   );
 }
