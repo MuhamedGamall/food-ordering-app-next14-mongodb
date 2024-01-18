@@ -8,11 +8,14 @@ import clientPromise from "@/lib/mongoConnect";
 import { MongoDBAdapter } from "@auth/mongodb-adapter";
 import { UserInfos } from "@/models/UserInfos";
 export const authOptions: NextAuthOptions = {
+  secret: process.env.NEXTAUTH_SECRET,
+  adapter: MongoDBAdapter(clientPromise),
   session: {
     strategy: "jwt",
   },
-  secret: process.env.NEXTAUTH_SECRET,
-  adapter: MongoDBAdapter(clientPromise),
+  pages: {
+    signIn: "/log-in",
+  },
   providers: [
     GoogleProvider({
       clientId: process.env.GOOGLE_CLIENT_ID,
@@ -42,6 +45,15 @@ export const authOptions: NextAuthOptions = {
       },
     }),
   ],
+
+  callbacks: {
+    async jwt({ token }) {
+      mongoose.connect(process.env.MONGO_URL as string);
+      const user = await UserInfos.findOne({ email: token?.email });
+      token.role = user?.admin ? "admin" : "member";
+      return token;
+    },
+  },
 };
 const handler = NextAuth(authOptions);
 export { handler as GET, handler as POST };

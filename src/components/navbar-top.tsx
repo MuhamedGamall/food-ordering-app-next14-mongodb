@@ -13,7 +13,7 @@ export default function NavbarTop() {
   const loading = status === "loading";
 
   const email = data?.email;
-  const userName = data?.name?.split(" ")?.[0] || email?.split("@");
+  const userName = (data?.name)?.split(" ")?.[0] || email?.split("@")?.[0]
 
   return (
     <div className="py-2">

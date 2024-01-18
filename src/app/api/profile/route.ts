@@ -32,7 +32,7 @@ export async function PATCH(req: NextRequest) {
       otherData,
       { upsert: true }
     );
-    
+
     const fullData = { ...userData, ...userInfos };
 
     return NextResponse.json(fullData);
@@ -47,15 +47,13 @@ export async function GET(req: NextRequest) {
   try {
     const session = await getServerSession(authOptions);
     const email = session?.user?.email;
-    const user = await User.find({ email });
-    const userInfos = await UserInfos.findOne({ email }).lean();
-    const fullData = {  ...userInfos,...user?.[0]?._doc };
+    const user = await User.findOne({ email }).lean()
+    const userInfos = await UserInfos.findOne({ email }).lean()
+    const fullData = { ...userInfos, ...user};
 
     if (!user) {
       return new NextResponse("Unauthorized", { status: 401 });
     }
-    console.log(fullData);
-
     return NextResponse.json(fullData);
   } catch (error) {
     console.log("[EDIT-PROFILE]", error);
