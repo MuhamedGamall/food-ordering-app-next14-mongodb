@@ -41,35 +41,33 @@ export default function NavberMain() {
     dispatch(getCart());
   }, [dispatch]);
   return (
-    <div className="">
-      <nav className="px-4">
-        <ul className="flex items-center justify-between ">
-          <div className="hidden sm:flex gap-x-3 items-center justify-between ">
-            {routes.map((route) => (
-              <li key={route.title}>
-                <Link href={route.href}>
-                  <Button
-                    variant={"ghost"}
-                    className="text-[25px] rounded-full"
-                    size={"lg"}
-                  >
-                    {route.title}
-                  </Button>
-                </Link>
-              </li>
-            ))}
-          </div>
-          <MobileMenu routes={routes} />
-          <li>
-            <Link className="relative" href={"/cart"}>
-              <ShoppingCart strokeWidth="3" />
-              <span className="absolute bg-red-600 leading-[0] rounded-[8px] top-[-13px] right-[-13px] w-fit h-fit py-3 px-2 text-white">
-                {cart?.length}
-              </span>
-            </Link>
-          </li>
-        </ul>
-      </nav>
-    </div>
+    <nav className="px-4">
+      <ul className="flex items-center justify-between ">
+        <div className="hidden sm:flex gap-x-3 items-center justify-between ">
+          {routes.map((route) => (
+            <li key={route.title}>
+              <Link href={route.href}>
+                <Button
+                  variant={"ghost"}
+                  className="text-[25px] rounded-full"
+                  size={"lg"}
+                >
+                  {route.title}
+                </Button>
+              </Link>
+            </li>
+          ))}
+        </div>
+        <MobileMenu routes={routes} />
+        <li>
+          <Link className="relative" href={"/cart"}>
+            <ShoppingCart strokeWidth="3" />
+            <span className="absolute bg-red-600 leading-[0] rounded-[8px] top-[-13px] right-[-13px] w-fit h-fit py-3 px-2 text-white">
+              {cart?.length}
+            </span>
+          </Link>
+        </li>
+      </ul>
+    </nav>
   );
 }

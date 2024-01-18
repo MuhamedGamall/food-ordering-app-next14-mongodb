@@ -10,7 +10,7 @@ import Link from "next/link";
 
 export function MobileMenu({routes}:{routes:{title:string,href:string}[]}) {
   return (
-    <Menubar className="md:hidden block border-none bg-white">
+    <Menubar className="sm:hidden block border-none bg-white">
       <MenubarMenu>
         <MenubarTrigger>
           <Menu />
