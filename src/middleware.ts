@@ -6,7 +6,10 @@ export default withAuth(
     const isAdmin = request?.nextauth?.token?.role === "admin";
     const pathname = request?.nextUrl?.pathname;
     const isLogin = request?.nextauth?.token;
-    if (!isAdmin && pathname.includes("dashboard")) {
+    if (
+      (!isAdmin && pathname.includes("dashboard")) ||
+      (!isAdmin && pathname.includes("api"))
+    ) {
       return NextResponse.redirect(new URL("/", request.url));
     }
     if (!isLogin) {
@@ -23,6 +26,13 @@ export default withAuth(
     },
   }
 );
+
 export const config = {
-  matcher: ["/profile", "/orders/:path*", "/cart/:path*", "/dashboard/:path*"],
+  matcher: [
+    "/profile",
+    "/api/:path*",
+    "/orders/:path*",
+    "/cart/:path*",
+    "/dashboard/:path*",
+  ],
 };

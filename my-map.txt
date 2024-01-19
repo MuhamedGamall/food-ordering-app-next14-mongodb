@@ -7,10 +7,6 @@
 
 - add metadata
 - change font
-/
-/
-/
-
 
 
 - create about & content and home styles
