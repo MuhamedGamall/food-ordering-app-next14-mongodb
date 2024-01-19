@@ -21,7 +21,7 @@ export default function SearchInputs({
 }) {
   const [searchBy, setSearchBy] = useState("title");
   return (
-    <div className=" px-2 py-1 bg-slate-100 rounded-md flex items-center">
+    <div className="sm:w-fit w-full px-2 py-1 bg-slate-100 rounded-md flex items-center">
       <Input
         placeholder={`Search by ${searchBy}...`}
         value={(table.getColumn(searchBy)?.getFilterValue() as string) ?? ""}
@@ -63,7 +63,6 @@ export default function SearchInputs({
                 table.getColumn(searchBy)?.setFilterValue("");
               }}
               disabled={!dataLength}
-
             >
               _id
             </DropdownMenuItem>

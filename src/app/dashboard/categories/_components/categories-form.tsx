@@ -64,7 +64,7 @@ export default function CatigoiesForm() {
       <div className="mx-auto">
         <div className="mb-5">
           <PageHeader title={isEditMood ? "EDIT CATEGORY" : "ADD CATEGORY"} />
-          <div className="flex items-end gap-5">
+          <div className="flex sm:items-end items-center gap-5 sm:flex-row flex-col">
             <div className="w-[250px]">
               <ImageForm
                 image64={image64}

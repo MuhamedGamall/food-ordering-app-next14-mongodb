@@ -9,11 +9,8 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
-import { ReactNode, useState } from "react";
-import { Button } from "./ui/button";
-// interface DeleteConfirmProps{
-//   onDelete:()=>
-// }
+import React, { useState } from "react";
+
 export function DeleteConfirm({
   children,
   description,
@@ -25,10 +22,12 @@ export function DeleteConfirm({
   title: string;
   onDelete: (id?: any) => void;
 }) {
-  const [isAlertDialogOpen, setAlertDialogOpen] = useState(false);
+
   return (
-    <AlertDialog>
-      <AlertDialogTrigger asChild>{children}</AlertDialogTrigger>
+    <AlertDialog >
+      <AlertDialogTrigger asChild >
+        <div>{children}</div>
+      </AlertDialogTrigger>
       <AlertDialogContent>
         <AlertDialogHeader>
           <AlertDialogTitle>{title}</AlertDialogTitle>
