@@ -10,33 +10,35 @@ import toast from "react-hot-toast";
 import totalCartPrice from "@/utils/total-cart-price";
 import HandleLoader from "@/components/loader";
 
-export default function CartCheckout({ cart }: any) {
+export default function CartCheckout({ cart, filterCart }: any) {
   const { data, loading } = useProfile();
   const router = useRouter();
 
   const { totalPrice, extraPrice, basePrice, sizePrice } = totalCartPrice(cart);
 
   async function proceedToCheckout() {
-    const { street_address, phone, city, country, postal_code } = data;
-    if (
-      Object.values({
-        street_address,
-        phone,
-        city,
-        country,
-        postal_code,
-      }).every(Boolean)
-    ) {
-      if (cart.length > 0) {
-        const response = await axios.post("/api/checkout", {
-          cart,
-          address: { street_address, phone, city, country, postal_code },
-        });
-        const link = await response.data;
-        router.push(link);
-      } else toast.error("Your cart is empty");
-    } else {
-      toast.error("Your profile data is not compleated !!");
+    if (filterCart.length) {
+      const { street_address, phone, city, country, postal_code } = data;
+      if (
+        Object.values({
+          street_address,
+          phone,
+          city,
+          country,
+          postal_code,
+        }).every(Boolean)
+      ) {
+        if (cart.length > 0) {
+          const response = await axios.post("/api/checkout", {
+            cart,
+            address: { street_address, phone, city, country, postal_code },
+          });
+          const link = await response.data;
+          router.push(link);
+        } else toast.error("Your cart is empty");
+      } else {
+        toast.error("Your profile data is not compleated !!");
+      }
     }
   }
 
@@ -45,6 +47,7 @@ export default function CartCheckout({ cart }: any) {
       <div className="relative">
         {loading && <HandleLoader />}
         <Button
+          disabled={filterCart.length > 0}
           onClick={proceedToCheckout}
           variant={"primary"}
           className=" text-[25px] w-[80%] mx-auto  text-white bg-[#e60000] hover:bg-red-700 rounded-full flex items-center gap-3 "

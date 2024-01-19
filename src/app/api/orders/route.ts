@@ -28,7 +28,7 @@ export async function GET(req: NextRequest) {
 
     // orders for admin
     if (admin) {
-      const orders = await Order.find();
+      const orders = await Order.find({paid:true});
       return NextResponse.json(orders);
     }
 

@@ -18,6 +18,8 @@ import PageHeader from "@/components/page-header";
 import { DeleteConfirm } from "../../../components/delete-confirm";
 import Banner from "@/components/banner";
 import { MessageSquare, XCircle } from "lucide-react";
+import { cn } from "@/lib/utils";
+import NotificationBanner from "../_comonents/notification-banner";
 
 export default function CartPage() {
   const dispatch = useAppDispatch();
@@ -36,46 +38,34 @@ export default function CartPage() {
     return router.replace("/menu/category/_");
   };
 
-  // const filterCart = cart.filter(
-  //   (el: any) => !products.some((xl) => el?.product_id === xl?._id)
-  // );
-
-
-  // if (filterCart.length > 0) {
-  //   filterCart.forEach((el: any) =>
-  //     dispatch(deleteProductFromCart(el?.product_id))
-  //   );
-  // }
   const removeItem = (id: string) => {
     if (cart?.length) {
       id && dispatch(deleteProductFromCart(id));
     } else return router.replace("/menu/category/_");
   };
+  const filterCart = cart.filter(
+    (el: any) => !products.some((xl) => el?.product_id === xl?._id)
+  );
 
+  function onSave() {
+    setClose(true);
+    if (filterCart.length > 0) {
+      filterCart.forEach(
+        async (el: any) => await dispatch(deleteProductFromCart(el?._id))
+      );
+    }
+  }
   return (
     <section className=" mx-auto px-4 my-5 relative">
       <div className=" md:max-w-[90%] mx-auto">
-        {cart?.length == 0 ? (
+        {cart?.length > 0 ? (
           <>
             <PageHeader title="YOUR CART" />
-            {/* {!close && (
-              <div className="my-5 relative">
-                {filterCart.length > 0 && (
-                  <Banner
-                    label=" We regret to inform you that some products have been removed due to unavailability. We apologize for any inconvenience and encourage you to stay tuned for upcoming offers. "
-                    icon={MessageSquare}
-                    color="black"
-                    bgColor="slate"
-                    iconSize={"w-10 h-10"}
-                  />
-                )}
-                <XCircle
-                  className="w-6 h-6 absolute top-3 right-3 cursor-pointer"
-                  color="gray"
-                  onClick={() => setClose(true)}
-                />
-              </div>
-            )} */}
+            <NotificationBanner
+              close={close}
+              dataLength={filterCart?.length}
+              onSave={onSave}
+            />
             <div className="flex gap-8  sm:flex-row flex-col justify-start ">
               <div className="flex-[4.5] w-full flex sm:block sm:flex-row flex-col-reverse">
                 <ProductsChoiced
@@ -96,7 +86,7 @@ export default function CartPage() {
                   </Button>
                 </DeleteConfirm>
               </div>
-              <CartCheckout cart={cart} />
+              <CartCheckout cart={cart} filterCart={filterCart} />
             </div>
           </>
         ) : (

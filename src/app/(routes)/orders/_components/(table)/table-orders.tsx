@@ -83,7 +83,7 @@ export function DataTable({
                   <TableHead className="text-center">#</TableHead>
                   {headerGroup.headers.map((header) => {
                     return (
-                      <TableHead key={header.id}  className="text-center">
+                      <TableHead key={header.id} className="text-center">
                         {header.isPlaceholder
                           ? null
                           : flexRender(
@@ -108,7 +108,7 @@ export function DataTable({
                     # <span className="text-[18px]">{i + 1}</span>
                   </TableCell>
                   {row.getVisibleCells().map((cell) => (
-                    <TableCell key={cell.id}  className="text-center">
+                    <TableCell key={cell.id} className="text-center">
                       {flexRender(
                         cell.column.columnDef.cell,
                         cell.getContext()

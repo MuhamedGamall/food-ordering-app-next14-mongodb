@@ -13,13 +13,17 @@ import { Button } from "./ui/button";
 import { MoveRight } from "lucide-react";
 import Link from "next/link";
 import { cn } from "@/lib/utils";
-import HandleLoader from "./loader";
+import NotificationBanner from "@/app/(routes)/_comonents/notification-banner";
 
 export default function FavoriteSheet() {
   const { favorites, loading } = useAppSelector((state) => state.favoritesData);
+  const { products } = useAppSelector((state) => state.menuProducts);
   const dispatch = useAppDispatch();
   const [open, setOpen] = useState(false);
+  const [close, setClose] = useState(false);
+
   useEffect(() => {
+    dispatch(getProducts());
     dispatch(getFavorites());
   }, [dispatch]);
   const removeAllItems = () => {
@@ -33,6 +37,19 @@ export default function FavoriteSheet() {
       id && dispatch(deleteFavorite(id));
     }
   };
+  const filterFav = favorites.filter(
+    (el: any) => !products.some((xl) => el?.product_id === xl?._id)
+  );
+
+  function onSave() {
+    setClose(true);
+    if (filterFav.length > 0) {
+      filterFav.forEach(
+        async (el: any) => await dispatch(deleteFavorite(el?._id))
+      );
+    }
+  }
+
   return (
     <Sheet open={open} onOpenChange={setOpen}>
       <SheetTrigger className="text-[15px]  cursor-pointer w-full  rounded-sm px-2 py-1.5  text-left   hover:bg-accent hover:text-accent-foreground leading-[1]">
@@ -45,10 +62,12 @@ export default function FavoriteSheet() {
         {favorites?.length ? (
           <>
             <h2 className="text-[30px] mb-4">FAVORITES</h2>
-            <ProductsChoiced
-              data={favorites}
-              onDelete={removeItem}
+            <NotificationBanner
+              close={close}
+              onSave={onSave}
+              dataLength={filterFav?.length}
             />
+            <ProductsChoiced data={favorites} onDelete={removeItem} />
             <Button
               disabled={!favorites?.length}
               onClick={removeAllItems}
