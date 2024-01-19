@@ -8,8 +8,6 @@ export const uploadImage: any = createAsyncThunk(
     const { rejectWithValue } = thunkApi;
     try {
       const { image64, publicId, folderName } = data;
-      console.log(data);
-      
       const { data: imageURL } = image64
         ? await axios.post("/api/upload-image", {
             image: {

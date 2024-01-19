@@ -65,7 +65,6 @@ export const editProduct: any = createAsyncThunk(
   "menuProductsSlice/editProduct",
   async (item: any, thunkApi) => {
     const { rejectWithValue } = thunkApi;
-    console.log(item);
     try {
       await axios.patch(
         "/api/admin/menu-products/edit-product/" + item._id,

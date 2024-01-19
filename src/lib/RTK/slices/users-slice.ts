@@ -11,7 +11,7 @@ export const getUsers: any = createAsyncThunk(
       return data || [];
     } catch (error: any) {
       console.log(error);
-      
+
       return rejectWithValue(error.message);
     }
   }
@@ -19,11 +19,9 @@ export const getUsers: any = createAsyncThunk(
 export const getProfile: any = createAsyncThunk(
   "usersSlice/getProfile",
   async (_, thunkApi) => {
-
     const { rejectWithValue } = thunkApi;
     try {
       const data = (await axios.get("/api/profile")).data;
-
       return data || [];
     } catch (error: any) {
       return rejectWithValue(error.message);
