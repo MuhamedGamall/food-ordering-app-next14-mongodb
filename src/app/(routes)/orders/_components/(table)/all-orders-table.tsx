@@ -25,12 +25,13 @@ export default function AllOrders() {
   const isAdmin = data?.admin;
   return (
     <>
-      {orders?.length &&
-        (data?.admin ? (
+      {orders?.length > 0 ? (
+        data?.admin && (
           <DataTable data={orders} tableLoading={loading} isAdmin={isAdmin} />
-        ) : (
-          <NoData pageName="orders" />
-        ))}
+        )
+      ) : (
+        <NoData pageName="orders" />
+      )}
     </>
   );
 }

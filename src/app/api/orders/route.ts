@@ -10,8 +10,9 @@ export async function GET(req: NextRequest) {
   mongoose.connect(process.env.MONGO_URL!);
   try {
     const session = await getServerSession(authOptions);
-    const email = session?.user?.email;
-    const user: any = await User.findOne({ email });
+    const user = session?.user;
+    const email = user?.email;
+
     const userInfos: any = await UserInfos.findOne({ email });
     const admin = userInfos?.admin;
     const url = new URL(req.url);
@@ -28,7 +29,7 @@ export async function GET(req: NextRequest) {
 
     // orders for admin
     if (admin) {
-      const orders = await Order.find({paid:true});
+      const orders = await Order.find({ paid: true });
       return NextResponse.json(orders);
     }
 

@@ -14,8 +14,9 @@ export async function POST(req: NextRequest) {
     const product = await req.json();
 
     const session = await getServerSession(authOptions);
-    const email = session?.user?.email;
-    const user = await User.findOne({ email });
+    const user = session?.user;
+    const email = user?.email;
+
     const userInfos: any = await UserInfos.findOne({ email });
     if (!user || !userInfos.admin) {
       return new NextResponse("Unauthorized", { status: 401 });
@@ -34,7 +35,6 @@ export async function POST(req: NextRequest) {
 export async function GET(req: NextRequest) {
   mongoose.connect(process.env.MONGO_URL!);
   try {
-
     const menuProducts = await MenuProduct.find();
 
     return NextResponse.json(menuProducts);
@@ -53,8 +53,9 @@ export async function DELETE(req: NextRequest) {
     const _ids = url.searchParams.get("_ids")?.split(",");
 
     const session = await getServerSession(authOptions);
-    const email = session?.user?.email;
-    const user = await User.findOne({ email });
+    const user = session?.user;
+    const email = user?.email;
+
     const userInfos: any = await UserInfos.findOne({ email });
 
     if (!user || !userInfos?.admin) {

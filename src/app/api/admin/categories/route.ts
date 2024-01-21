@@ -12,9 +12,9 @@ export async function POST(req: NextRequest) {
     const { title, image } = await req.json();
 
     const session = await getServerSession(authOptions);
-    const email = session?.user?.email;
+    const user = session?.user
+    const email = user?.email;
 
-    const user = await User.findOne({ email });
     const userInfos: any = await UserInfos.findOne({ email });
 
     if (!title || !image) {
@@ -39,9 +39,9 @@ export async function PUT(req: NextRequest) {
     const { _id, title, image } = await req.json();
 
     const session = await getServerSession(authOptions);
-    const email = session?.user?.email;
+    const user = session?.user
+    const email = user?.email;
 
-    const user: any = await User.findOne({ email });
     const userInfos: any = await UserInfos.findOne({ email });
 
     if (!title && !image) {
@@ -61,15 +61,17 @@ export async function PUT(req: NextRequest) {
 export async function DELETE(req: NextRequest) {
   mongoose.connect(process.env.MONGO_URL!);
   try {
+    const session = await getServerSession(authOptions);
+    const user = session?.user
+    const email = user?.email;
+
     const category = await Category.find();
 
     const url = new URL(req.url);
     const _ids = url.searchParams.get("_ids")?.split(",");
 
-    const session = await getServerSession(authOptions);
-    const email = session?.user?.email;
 
-    const user: any = await User.findOne({ email });
+
     const userInfos: any = await UserInfos.findOne({ email });
 
     if (!user || !userInfos?.admin) {

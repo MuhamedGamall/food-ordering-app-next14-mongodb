@@ -5,8 +5,8 @@ import bcrypt from "bcrypt";
 import { UserInfos } from "@/models/UserInfos";
 export async function POST(req: NextRequest) {
   try {
-    const body = await req.json();
     mongoose.connect(process.env.MONGO_URL!);
+    const body = await req.json();
     const pass = body.password;
 
     if (!pass?.length || pass.length < 5) {

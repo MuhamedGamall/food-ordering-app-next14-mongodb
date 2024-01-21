@@ -14,8 +14,7 @@ export async function POST(req: NextRequest) {
       return new NextResponse("Image not found", { status: 404 });
     }
     const session = await getServerSession(authOptions);
-    const email = session?.user?.email;
-    const user = await User.findOne({ email });
+    const user = session?.user;
 
     if (!user) {
       return new NextResponse("Unauthorized", { status: 401 });

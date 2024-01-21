@@ -10,21 +10,21 @@ export async function GET(req: NextRequest) {
 
   try {
     const session = await getServerSession(authOptions);
-    const email = session?.user?.email;
+    const user = session?.user;
+    const email = user?.email;
 
-    const user: any = await User.findOne({ email });
     const userInfos: any = await UserInfos.findOne({ email });
 
     if (!user || !userInfos.admin) {
       return new NextResponse("Unauthorized", { status: 401 });
     }
-    const users: any = await User.find();
-    const usersInfos: any = await UserInfos.find();
+    const users: any = await User.find().lean();
+    const usersInfos: any = await UserInfos.find().lean();
 
     // Merge user data
     const mergedArray = users.map((user: any) => ({
-      ...user._doc,
-      ...(usersInfos.find((info: any) => user.email === info.email)._doc || {}),
+      ...user,
+      ...usersInfos.find((info: any) => user.email === info.email),
     }));
 
     return NextResponse.json(mergedArray);

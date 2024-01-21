@@ -54,6 +54,7 @@ import SearchInputs from "./search-inputs";
 import DeleteActionsBtns from "./delete-actions";
 import { InitCategoryState } from "../../../../../../types";
 import ItemActions from "./item-actions";
+import TableTopHeader from "@/components/table/table-header";
 
 export function DataTable({
   data,
@@ -95,7 +96,8 @@ export function DataTable({
 
   const selectedRows = table.getFilteredSelectedRowModel().rows;
   const idsSelectedToDelete = selectedRows.map((row) => row.original._id);
-  const isEditing = (rowId: string) =>  Boolean(editMood) && editingRowId === rowId;
+  const isEditing = (rowId: string) =>
+    Boolean(editMood) && editingRowId === rowId;
 
   const handleEditClick = (rowId: string, data: InitCategoryState) => {
     if (isEditing(rowId)) {
@@ -118,7 +120,7 @@ export function DataTable({
   };
 
   return (
-    <div className="w-full mt-5 relative rounded-sm border p-2">
+    <div className="w-full mt-5 relative rounded-md border p-2">
       {(isLoading || tableLoading) && <HandleLoader />}
       <div className="flex items-center justify-between sm:flex-row flex-col-reverse gap-1 ">
         <SearchInputs dataLength={data?.length} table={table} />
@@ -131,6 +133,7 @@ export function DataTable({
             data={data}
             isLoading={isLoading}
           />
+
           <div className="bg-slate-100 rounded-md p-1">
             <DropdownMenu>
               <DropdownMenuTrigger asChild>

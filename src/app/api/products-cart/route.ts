@@ -12,9 +12,8 @@ export async function POST(req: NextRequest) {
     const product = await req.json();
 
     const session = await getServerSession(authOptions);
-    const email = session?.user?.email;
-
-    const user = await User.findOne({ email });
+    const user = session?.user;
+    const email = user?.email;
 
     if (!product) {
       return new NextResponse("Not Found", { status: 404 });
@@ -37,10 +36,10 @@ export async function DELETE(req: NextRequest) {
   try {
     const url = new URL(req.url);
     const _id = url.searchParams.get("id");
-    const session = await getServerSession(authOptions);
-    const email = session?.user?.email;
 
-    const user = await User.findOne({ email });
+    const session = await getServerSession(authOptions);
+    const user = session?.user;
+    const email = user?.email;
 
     if (!user) {
       return new NextResponse("Unauthorized", { status: 401 });
@@ -68,9 +67,9 @@ export async function GET(req: NextRequest) {
   mongoose.connect(process.env.MONGO_URL!);
   try {
     const session = await getServerSession(authOptions);
-    const email = session?.user?.email;
+    const user = session?.user;
+    const email = user?.email;
 
-    const user: any = await User.findOne({ email });
     if (!user) {
       return new NextResponse("Unauthorized", { status: 401 });
     }

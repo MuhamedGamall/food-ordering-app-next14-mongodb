@@ -94,7 +94,7 @@ export function DataTable({
   };
 
   return (
-    <div className="w-full mt-5 relative  rounded-sm border p-2">
+    <div className="w-full mt-5 relative  rounded-md border p-2">
       {(isLoading || tableLoading) && <HandleLoader />}
       <div className="flex items-center justify-between sm:flex-row flex-col-reverse gap-1 ">
         <SearchInputs dataLength={data?.length} table={table} />
