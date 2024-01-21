@@ -45,7 +45,7 @@ export default function CartPage() {
   };
   const filterCart = cart.filter(
     (el: any) => !products.some((xl) => el?.product_id === xl?._id)
-  );
+  )||[]
 
   function onSave() {
     setClose(true);

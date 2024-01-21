@@ -5,7 +5,6 @@
 
 
 
-- add metadata
 - change font
 
 

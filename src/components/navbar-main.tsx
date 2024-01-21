@@ -1,19 +1,13 @@
 "use client";
 import Link from "next/link";
 import { Button } from "./ui/button";
-import { FaCartShopping } from "react-icons/fa6";
-import { Menu, ShoppingCart } from "lucide-react";
+import { ShoppingCart } from "lucide-react";
 import { useAppDispatch, useAppSelector } from "@/hooks/redux";
 import { useEffect } from "react";
 import { getCart } from "@/lib/RTK/slices/cart-slice";
-import {
-  Menubar,
-  MenubarContent,
-  MenubarItem,
-  MenubarMenu,
-  MenubarTrigger,
-} from "./ui/menubar";
+
 import { MobileMenu } from "./mobile-menu";
+import { useSession } from "next-auth/react";
 
 const routes: { title: string; href: string }[] = [
   {
@@ -36,7 +30,9 @@ const routes: { title: string; href: string }[] = [
 
 export default function NavberMain() {
   const { cart } = useAppSelector((state) => state.productsCart);
+  const session = useSession();
   const dispatch = useAppDispatch();
+  const isLogin = session.status === "authenticated";
   useEffect(() => {
     dispatch(getCart());
   }, [dispatch]);
@@ -59,14 +55,16 @@ export default function NavberMain() {
           ))}
         </div>
         <MobileMenu routes={routes} />
-        <li>
-          <Link className="relative" href={"/cart"}>
-            <ShoppingCart strokeWidth="3" />
-            <span className="absolute bg-red-600 leading-[0] rounded-[8px] top-[-13px] right-[-13px] w-fit h-fit py-3 px-2 text-white">
-              {cart?.length}
-            </span>
-          </Link>
-        </li>
+        {isLogin && (
+          <li className="">
+            <Link className="relative" href={"/cart"}>
+              <ShoppingCart strokeWidth="3" />
+              <span className="absolute bg-red-600 leading-[0] rounded-[8px] top-[-13px] right-[-13px] w-fit h-fit py-3 px-2 text-white">
+                {cart?.length}
+              </span>
+            </Link>
+          </li>
+        )}
       </ul>
     </nav>
   );

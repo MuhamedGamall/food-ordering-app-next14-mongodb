@@ -7,7 +7,7 @@ import BasePrice_ExtraPrices from "@/components/basePrice-extraPirces";
 import HandleLoader from "@/components/loader";
 
 export default function ProductsChoiced({
-  data,
+  data=[],
   onDelete,
   loading,
 }: {
