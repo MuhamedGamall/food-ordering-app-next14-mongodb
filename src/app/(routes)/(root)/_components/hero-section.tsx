@@ -22,19 +22,19 @@ export default function HeroSection() {
       <div className="relative h-[500px]">
         <div className="mx-auto max-w-[90rem] absolute flex justify-between  w-[85%]   left-[50%] translate-x-[-50%] bottom-5 h-full">
           <div className="text-white flex flex-1 items-start justify-end flex-col  w-full h-full pb-[30px]">
-            <span className="skew-y-[-7deg] text-[2.5rem] px-3 bg-black  font-[900]  tracking-tighter ">
+            <span className="skew-y-[-7deg] text-[30px] px-3 bg-black  font-[900]  tracking-tighter ">
               $13{" "}
-              <span className="underline text-[1.5rem] relative left-[2px] top-[-9px] pr-[10px]  tracking-normal">
+              <span className="underline text-[17px] relative left-[2px] top-[-9px] pr-[10px]  tracking-normal">
                 99
               </span>
             </span>
-            <span className="text-[2rem] w-[10rem]   mt-5 font-[900] bg-[#ff0000] px-2 ">
+            <span className="text-[25px] w-[190px]   mt-5 font-[900] bg-[#ff0000] px-2 ">
               Limited Time
             </span>
-            <h4 className=" text-[3rem] md:text-[4rem] font-bold mt-3 md:mt-9 md:leading-[.6]">
+            <h4 className=" text-[40px] md:text-[50px] font-bold mt-3 md:mt-9 leading-[1]">
               Shaq-a-Roni Pizza
             </h4>
-            <p className="text-[1.5rem] md:text-[2.7rem] font-[200]">
+            <p className="text-[30px] md:text-[30px] text-slate-100 font-[100]">
               More cheese, more pepperoni, more to share
             </p>
             <div className="flex items-center  gap-3 justify-between mt-3 md:mt-7">

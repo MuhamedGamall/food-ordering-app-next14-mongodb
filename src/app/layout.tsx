@@ -1,17 +1,17 @@
-import type { Metadata, ResolvedMetadata } from "next";
-import { Caveat } from "next/font/google";
+import type { ResolvedMetadata } from "next";
+import { Poppins, Roboto } from "next/font/google";
 import "./globals.css";
 import ToastProvider from "@/components/providers/toaster-provider";
 import AuthSessionProvider from "@/components/providers/session-provider";
 import StoreProvider from "@/components/providers/redux-provider";
 import Admin_Layout from "@/components/admin-layout";
 
-const caveat = Caveat({
+const poppins = Roboto({
   subsets: ["latin"],
-  weight: "700",
+  weight: "400",
 });
 
-export async function generateMetadata(params: any, parent: ResolvedMetadata) {
+export async function generateMetadata() {
   return {
     title: {
       default: "Food ordering",
@@ -30,7 +30,7 @@ export default function RootLayout({
     <StoreProvider>
       <AuthSessionProvider>
         <html lang="en">
-          <body className={caveat.className}>
+          <body className={poppins.className}>
             <ToastProvider />
             <Admin_Layout>{children}</Admin_Layout>
           </body>

@@ -75,8 +75,8 @@ export default function ProductItem({ product, isFav }: ProductItemProps) {
         </div>
         <div className="m-[48px]">
           <div className="flex flex-col gap-3  border-b pb-8 ">
-            <h2 className="text-4xl">{product?.title}</h2>
-            <p className="text-[18px] mb-[5px] text-slate-700">
+            <h2 className="text-4xl font-bold">{product?.title}</h2>
+            <p className="text-[18px] mb-[3px] text-slate-900" >
               <BasePrice_ExtraPrices
                 extraPricesFields={extraPricesFields}
                 base_price={product?.base_price}

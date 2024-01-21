@@ -32,9 +32,9 @@ export default function ProductsChoiced({
                 height={200}
                 className="w-[80px]  rounded-md"
               />
-              <div className=" flex flex-col gap-2 w-full">
+              <div className=" flex flex-col gap-1 w-full">
                 <div className="flex justify-between">
-                  <h5>{el?.title}</h5>
+                  <h5 className="font-[600]">{el?.title}</h5>
                   <p className="text-[18px] ">
                     <BasePrice_ExtraPrices
                       base_price={el?.base_price}

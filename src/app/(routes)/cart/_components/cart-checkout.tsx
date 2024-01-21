@@ -56,28 +56,28 @@ export default function CartCheckout({ cart, filterCart }: any) {
         </Button>
         <Link
           href={"/profile"}
-          className="text-center mb-5 text-[18px] text-[#2d5d2a] underline"
+          className="text-center my-5 block text-[18px] text-[#2d5d2a] underline"
         >
           Edit your address settengs before checkout
         </Link>
         <div className="px-3">
-          <div className="flex items-center text-[20px] justify-between ">
+          <div className="flex items-center text-[18px] justify-between ">
             Extras:
-            <span className=""> {formatPrice(extraPrice + "")}</span>
+            <span className="font-semibold"> {formatPrice(extraPrice + "")}</span>
           </div>
           <div className="flex items-center text-[20px] justify-between ">
             Delivery:
-            <span className=""> $5</span>
+            <span className="font-semibold"> $5</span>
           </div>
           <div className="flex items-center text-[20px] justify-between mb-5">
             Base price:
-            <span> {formatPrice(basePrice + sizePrice + "")}</span>
+            <span className="font-semibold"> {formatPrice(basePrice + sizePrice + "")}</span>
           </div>
         </div>
         <hr />
         <div className="flex items-center justify-between text-[26px] ">
           Total:
-          <span> {formatPrice(totalPrice + 5 + "")}</span>
+          <span className="font-semibold"> {formatPrice(totalPrice + 5 + "")}</span>
         </div>
       </div>
     </div>

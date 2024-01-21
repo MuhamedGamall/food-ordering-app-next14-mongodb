@@ -20,6 +20,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { signIn } from "next-auth/react";
 import HandleLoader from "@/components/loader";
+import PageHeader from "@/components/page-header";
 
 interface CreateAcountFormProps {
   onSubmit: ({ values }: any) => Promise<void>;
@@ -56,12 +57,7 @@ export default function CreateAcountForm({
       <div className="sm:w-[80%] max-w-[80rem] mx-auto  mt-5 p-5">
         <div className="relative max-w-full md:max-w-[70%]">
           {isSubmitting && <HandleLoader />}
-          <div className="space-y-1 mb-5">
-            <h1 className="text-[40px] ">CREATE YOUR ACCOUNT</h1>
-            <span className="text-slate-500 text-[19px]">
-              Enter your email below to create your account
-            </span>
-          </div>
+            <PageHeader title="CREATE ACOUNT" />
 
           <div className=" text-slate-500 ">
             <Button

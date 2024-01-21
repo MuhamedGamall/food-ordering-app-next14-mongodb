@@ -30,7 +30,7 @@ export const columns: ColumnDef<any>[] = [
         <div>
           <div
             className={cn(
-              " rounded-md px-2 py-1 max-w-[100px] overflow-x-auto whitespace-nowrap "
+              " rounded-md px-2 py-1 max-w-[180px] overflow-x-auto whitespace-nowrap "
             )}
           >
             {row.getValue("email")}
@@ -55,7 +55,7 @@ export const columns: ColumnDef<any>[] = [
     cell: ({ row }) => {
       const createdAt: string = row.getValue("createdAt");
       return (
-        <div className="text-right font-medium lowercase max-w-[100px] overflow-x-auto whitespace-nowrap">
+        <div className="text-right font-medium lowercase max-w-[150px] overflow-x-auto whitespace-nowrap">
           {formatDate(createdAt)}
         </div>
       );
@@ -82,9 +82,9 @@ export const columns: ColumnDef<any>[] = [
           <div
             className={cn(
               isPaid
-                ? "bg-green-600/70 text-green-100"
-                : "bg-red-600/70 text-red-100",
-              " rounded-md px-2 py-1 max-w-[100px] overflow-x-auto whitespace-nowrap text-[18px] w-fit"
+                ? "text-green-700"
+                :  "text-red-700",
+              " rounded-md px-2 py-1 max-w-[150px] overflow-x-auto whitespace-nowrap text-[18px] w-fit"
             )}
           >
             {isPaid ? "Paid" : "Not paid"}
@@ -115,7 +115,7 @@ export const columns: ColumnDef<any>[] = [
     cell: ({ row }) => {
       return (
         <div>
-          <div className="lowercase max-w-[100px] overflow-x-auto whitespace-nowrap">
+          <div className="lowercase max-w-[150px] overflow-x-auto whitespace-nowrap">
             {row.getValue("_id")}
           </div>
         </div>
@@ -137,7 +137,7 @@ export const columns: ColumnDef<any>[] = [
           >
             <Link
               href={"/orders/" + row.getValue("_id")}
-              className="lowercase max-w-[100px] overflow-x-auto whitespace-nowrap"
+              className="lowercase max-w-[150px] overflow-x-auto whitespace-nowrap"
             >
               More details
             </Link>

@@ -3,11 +3,12 @@ import Image from "next/image";
 import Link from "next/link";
 import React, { Dispatch, SetStateAction, useEffect } from "react";
 import { InitProductState } from "../../../../../types";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import formatPrice from "@/utils/format/format-price";
 import { getCart } from "@/lib/RTK/slices/cart-slice";
 import { getProducts } from "@/lib/RTK/slices/menu-products-slice";
 import { useAppDispatch } from "@/hooks/redux";
+import { useSession } from "next-auth/react";
 interface FoodCardProps {
   item: InitProductState;
   setIsClicked: Dispatch<SetStateAction<{ check: boolean; id: string }>>;
@@ -17,9 +18,10 @@ export default function FoodCard({ item, setIsClicked }: FoodCardProps) {
   const truncateText = (text: string, limit: number) => {
     return text.length > limit ? text.substring(0, limit) + "..." : text;
   };
-
+  const router = useRouter();
   const dispatch = useAppDispatch();
-
+  const session = useSession();
+  const isLogin = session.status === "authenticated";
   useEffect(() => {
     dispatch(getProducts());
     dispatch(getCart());
@@ -39,7 +41,7 @@ export default function FoodCard({ item, setIsClicked }: FoodCardProps) {
       </Link>
       <div className=" flex flex-col  p-2">
         <div className="flex gap-2  justify-between">
-          <div className=" text-[18px] max-w-[80%] break-all leading-[1] mb-1 min-h-[40px]">
+          <div className=" text-[18px] max-w-[80%] break-all leading-[1] mb-1 min-h-[40px] font-[700]">
             {truncateText(item.title + "tttttttttttttttt", 30)}
           </div>
           <Link
@@ -50,7 +52,7 @@ export default function FoodCard({ item, setIsClicked }: FoodCardProps) {
           </Link>
         </div>
         <div
-          className="text-[17px] text-slate-800 max-w-[80%] break-all
+          className="text-[15px] text-slate-800 max-w-[80%] break-all mb-2 
         "
         >
           {formatPrice(item.base_price)}
@@ -66,7 +68,13 @@ export default function FoodCard({ item, setIsClicked }: FoodCardProps) {
           )}
         </div>
         <Button
-          onClick={() => setIsClicked({ check: true, id: item._id })}
+          onClick={() => {
+            if (isLogin) {
+              setIsClicked({ check: true, id: item._id });
+            } else {
+              router.push("/log-in");
+            }
+          }}
           className="bg-[#2d5d2a] mt-2 hover:bg-green-900 rounded-md text-white text-[18px] h-[30px] p-5"
         >
           ORDER NOW

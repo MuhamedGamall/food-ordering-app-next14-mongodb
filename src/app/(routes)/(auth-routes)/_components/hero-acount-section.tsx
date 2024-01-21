@@ -12,10 +12,10 @@ export default function HeroAcountSection() {
           </div>
         </div>
         <div className="flex gap-3 flex-col flex-1 items-center justify-center text-white">
-          <span className="text-[35px] md:text-[46px]">
+          <span className="text-[35px] md:text-[40px] font-bold">
             WANT FREE FOOD, FASTER AND EASIER?
           </span>
-          <span className="text-[15px] md:text-[20px]">
+          <span className="text-[15px] md:text-[18px] text-slate-100">
             The road to free pizza starts here. Let’s get you signed up quick.
             Then you’ll start earning points for Papa Dough.
           </span>

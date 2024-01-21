@@ -45,8 +45,8 @@ export default function NavberMain() {
               <Link href={route.href}>
                 <Button
                   variant={"ghost"}
-                  className="text-[25px] rounded-full"
-                  size={"lg"}
+                  className="text-[20px] rounded-full font-bold uppercase"
+                  size={"sm"}
                 >
                   {route.title}
                 </Button>

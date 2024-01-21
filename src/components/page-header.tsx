@@ -8,7 +8,7 @@ function PageHeader({
   children?: React.ReactNode;
 }) {
   return (
-    <h1 className="sm:text-[45px] text-[35px] w-full text-left my-5">
+    <h1 className="sm:text-[45px] text-[35px] w-full font-bold text-left my-5">
       {title}
       {children}
     </h1>

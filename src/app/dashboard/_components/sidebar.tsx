@@ -6,6 +6,7 @@ import { Layers3, LayoutList, LucideIcon, UserCog, Users } from "lucide-react";
 import { TbShoppingCartCog } from "react-icons/tb";
 import { usePathname } from "next/navigation";
 import SidebarSheet from "./sidebar-sheet";
+import Link from "next/link";
 
 const dashboardRoutes: { title: string; href: string; icon: LucideIcon }[] = [
   {
@@ -41,9 +42,9 @@ export default function Sidebar() {
   return (
     <>
       <div className="z-[200] flex bg-white lg:border-r-[2px] shadow-sm py-4 h-screen  w-[300px]  flex-col  gap-4 sticky top-0">
-        <div className="mx-auto">
+        <Link href={'/'} className="mx-auto ">
           <Logo color="red" />
-        </div>
+        </Link>
         <ul className="flex flex-col justify-center gap-3">
           {dashboardRoutes.map((route, i) => (
             <SidebarItem {...route} key={i} checkPath={checkPath} />

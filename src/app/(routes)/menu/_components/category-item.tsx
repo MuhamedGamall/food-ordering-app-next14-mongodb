@@ -2,8 +2,7 @@ import Link from "next/link";
 import React from "react";
 import { InitCategoryState } from "../../../../../types";
 import { cn } from "@/lib/utils";
-import { useParams, usePathname, useSearchParams } from "next/navigation";
-import Image from "next/image";
+import { useParams} from "next/navigation";
 
 export default function CategoryItems({
   categories,
@@ -22,7 +21,7 @@ export default function CategoryItems({
               className={cn(
                 i == 0 && id === "_" && "bg-[#2d5d2a] text-white",
                 id === item.title && "bg-[#2d5d2a] text-white",
-                " hover:bg-[#2d5d2a] hover:text-white transition py-2 px-4 text-[27px] rounded-full "
+                " hover:bg-[#2d5d2a] hover:text-white transition py-2 px-4 text-[22px] rounded-full uppercase font-bold"
               )}
             >
               <Link href={"/menu/category/" + item.title}>{item?.title}</Link>

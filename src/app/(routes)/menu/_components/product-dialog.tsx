@@ -46,7 +46,9 @@ export default function ProductDialog({
       );
     }
   };
-
+  if (!data) {
+    return <></>;
+  }
   return (
     <>
       <div className="flex  flex-col gap-8  text-center overflow-y-auto py-10 px-4">
@@ -82,6 +84,7 @@ export default function ProductDialog({
             </div>
             <div className="flex items-center gap-5 sticky bottom-[-40px] bg-white transition py-2">
               <Button
+                disabled={!data}
                 onClick={addToCart}
                 className="text-[18px] rounded-full p-[25px] mx-auto md:mx-0 "
                 variant={"green"}
