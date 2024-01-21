@@ -11,12 +11,17 @@ import Image from "next/image";
 import { ExtraPricesFields } from "../page";
 import useProfile from "@/hooks/user-profile";
 import Link from "next/link";
+import { useSession } from "next-auth/react";
+import { useRouter } from "next/navigation";
 interface ProductItemProps {
   product: InitProductState;
   isFav: boolean;
 }
 export default function ProductItem({ product, isFav }: ProductItemProps) {
   const dispatch = useAppDispatch();
+  const session = useSession();
+  const router = useRouter();
+  const isLogin = session.status === "authenticated";
   const [extraPricesFields, setExtraPricesFields] = useState<ExtraPricesFields>(
     { size: null, extra_increases_price: [], quantity: "" }
   );
@@ -30,34 +35,39 @@ export default function ProductItem({ product, isFav }: ProductItemProps) {
     base_price: product?.base_price,
   };
   async function addToFavorite() {
-    if (product) {
-      if (isFav) {
-        dispatch(deleteFavorite(product._id));
-      } else {
+    if (isLogin) {
+      if (product) {
+        isFav
+          ? dispatch(deleteFavorite(product._id))
+          : dispatch(
+              postFavorite({
+                ...extraPricesFields,
+                ...extractDataFromProduct,
+                email: data?.email,
+              })
+            );
+      }
+    } else router.push("/log-in");
+  }
+  async function addToCart() {
+    if (isLogin) {
+      if (product) {
         dispatch(
-          postFavorite({
-            ...extraPricesFields,
+          postProductToCart({
             ...extractDataFromProduct,
+            ...extraPricesFields,
             email: data?.email,
           })
         );
       }
-    }
-  }
-  async function addToCart() {
-    if (product) {
-      dispatch(
-        postProductToCart({
-          ...extractDataFromProduct,
-          ...extraPricesFields,
-          email: data?.email,
-        })
-      );
-    }
+    } else router.push("/log-in");
   }
   return (
-    <section >
-      <Link href={"./"} className="flex gap-2 items-center text-[19px] ml-5 mt-5 mb-2">
+    <section>
+      <Link
+        href={"./"}
+        className="flex gap-2 items-center text-[19px] ml-5 mt-5 mb-2"
+      >
         <MoveLeftIcon />
         Back to the menu
       </Link>
@@ -76,7 +86,7 @@ export default function ProductItem({ product, isFav }: ProductItemProps) {
         <div className="m-[48px]">
           <div className="flex flex-col gap-3  border-b pb-8 ">
             <h2 className="text-4xl font-bold">{product?.title}</h2>
-            <p className="text-[18px] mb-[3px] text-slate-900" >
+            <p className="text-[18px] mb-[3px] text-slate-900">
               <BasePrice_ExtraPrices
                 extraPricesFields={extraPricesFields}
                 base_price={product?.base_price}
