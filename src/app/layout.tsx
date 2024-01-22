@@ -5,6 +5,7 @@ import ToastProvider from "@/components/providers/toaster-provider";
 import AuthSessionProvider from "@/components/providers/session-provider";
 import StoreProvider from "@/components/providers/redux-provider";
 import Admin_Layout from "@/components/admin-layout";
+import Footer from "@/components/footer";
 
 const poppins = Roboto({
   subsets: ["latin"],
@@ -32,7 +33,11 @@ export default function RootLayout({
         <html lang="en">
           <body className={poppins.className}>
             <ToastProvider />
-            <Admin_Layout>{children}</Admin_Layout>
+            <Admin_Layout>
+              {children}
+              <Footer />
+              
+            </Admin_Layout>
           </body>
         </html>
       </AuthSessionProvider>

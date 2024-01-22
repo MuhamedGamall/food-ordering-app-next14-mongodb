@@ -1,13 +1,13 @@
 "use client";
 
 import ImageForm from "../../../../components/image-form";
-import {  useState } from "react";
+import { useState } from "react";
 
 import ProfileFormInputs from "./profile-form-inputs";
 import HandleLoader from "@/components/loader";
 import { uploadImage } from "@/lib/RTK/slices/upload-image-slice";
-import { useAppDispatch,  } from "@/hooks/redux";
-import { editProfile,  } from "@/lib/RTK/slices/users-slice";
+import { useAppDispatch } from "@/hooks/redux";
+import { editProfile } from "@/lib/RTK/slices/users-slice";
 import useProfile from "@/hooks/user-profile";
 import PageHeader from "@/components/page-header";
 
@@ -50,7 +50,7 @@ export default function EditProfileForm() {
     <>
       <div className=" flex gap-5 flex-col  sm:flex-nowrap flex-wrap relative">
         {(loading || isSubmitting) && <HandleLoader />}
-        <PageHeader title="PROFILE" className="my-5"/>
+        <PageHeader title="PROFILE" className="my-5" />
         <div className="flex gap-5 sm:flex-nowrap flex-wrap">
           <div className="w-[250px]">
             <ImageForm
