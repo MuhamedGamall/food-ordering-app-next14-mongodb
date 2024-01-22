@@ -50,17 +50,15 @@ export default function ImageForm({
   }
 
   return (
-    <div className="relative w-full flex flex-col gap-2">
-      <div className="flex flex-col items-center justify-center gap-2  w-fit ">
-        <Image
-          src={currentImage}
-          alt="image"
-          width={250}
-          height={250}
-          loading="lazy"
-          className="w-full rounded-md aspect-[1] object-cover"
-        />
-      </div>
+    <div className="relative w-full flex flex-col  gap-2">
+      <Image
+        src={currentImage}
+        alt="image"
+        width={250}
+        height={250}
+        loading="lazy"
+        className="w-full rounded-md aspect-[1] object-cover"
+      />
       <form onChange={(e) => onChange(e)}>
         <div className="flex items-center gap-2  sm:flex-nowrap flex-wrap-reverse ">
           <Label
