@@ -33,7 +33,7 @@ export default function UserDetails({ id }: { id: string }) {
           <MoveLeft /> Back to users table
         </Link>
         <div className="flex items-center gap-3">
-          <PageHeader title={"PROFILE |"}>
+          <PageHeader title={"PROFILE |"} className="my-5">
             <span className="text-[25px]"> {user?.name || user?.email}</span>
           </PageHeader>
         </div>

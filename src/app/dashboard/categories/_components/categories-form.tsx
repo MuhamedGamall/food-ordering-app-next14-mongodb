@@ -63,7 +63,7 @@ export default function CatigoiesForm() {
       {isSubmitting && <HandleLoader />}
       <div className="mx-auto">
         <div className="mb-5">
-          <PageHeader title={isEditMood ? "EDIT CATEGORY" : "ADD CATEGORY"} />
+          <PageHeader title={isEditMood ? "EDIT CATEGORY" : "ADD CATEGORY"} className="my-5"/>
           <div className="flex sm:items-end items-center gap-5 sm:flex-row flex-col">
             <div className="w-[250px]">
               <ImageForm

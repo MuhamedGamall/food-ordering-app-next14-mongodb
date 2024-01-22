@@ -119,7 +119,7 @@ export default function ProductForm({
         >
           <MoveLeft /> Back to menu products
         </Link>
-        <PageHeader title={"EDIT PRODUCT"} />
+        <PageHeader title={"EDIT PRODUCT"} className="my-5"/>
 
         <div>
           <div className="flex gap-5 sm:flex-nowrap flex-wrap">

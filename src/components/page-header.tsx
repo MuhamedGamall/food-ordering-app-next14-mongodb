@@ -1,17 +1,20 @@
+import { cn } from "@/lib/utils";
 import React from "react";
 
 function PageHeader({
   title,
   children,
+  className
 }: {
   title: string;
   children?: React.ReactNode;
+  className?:string
 }) {
   return (
-    <h1 className="sm:text-[45px] text-[35px] w-full font-bold text-left my-5">
+    <header className={cn("sm:text-[45px] text-[35px] w-full font-bold text-left",className)}>
       {title}
       {children}
-    </h1>
+    </header>
   );
 }
 

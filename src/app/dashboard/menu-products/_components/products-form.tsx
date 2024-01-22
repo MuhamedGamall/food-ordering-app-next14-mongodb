@@ -81,7 +81,7 @@ export default function ProductForm() {
     <>
       <div className=" relative mx-auto ">
         {(isSubmitting) && <HandleLoader />}
-        <PageHeader title={"MENU PRODUCTS"} />
+        <PageHeader title={"MENU PRODUCTS"} className="my-5"/>
         <div className="w-full">
           <Button
             onClick={() => {

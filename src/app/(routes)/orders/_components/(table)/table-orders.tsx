@@ -70,7 +70,7 @@ export function DataTable({
   return (
     <div className="w-full mt-5 relative ">
       {tableLoading && <HandleLoader />}
-      <PageHeader title="ORDERS" />
+      <PageHeader title="ORDERS" className="my-5"/>
       <div className="rounded-md border p-2">
         <div className="flex items-center justify-between gap-1 ">
           <TableTopHeader data={data} table={table} pageName={"orders"} />

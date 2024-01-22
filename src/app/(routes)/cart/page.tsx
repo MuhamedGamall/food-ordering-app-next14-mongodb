@@ -60,7 +60,7 @@ export default function CartPage() {
       <div className=" md:max-w-[90%] mx-auto">
         {cart?.length > 0 ? (
           <>
-            <PageHeader title="YOUR CART" />
+            <PageHeader title="YOUR CART" className="my-5"/>
             <NotificationBanner
               close={close}
               dataLength={filterCart?.length}

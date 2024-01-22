@@ -50,7 +50,7 @@ export default function EditProfileForm() {
     <>
       <div className=" flex gap-5 flex-col  sm:flex-nowrap flex-wrap relative">
         {(loading || isSubmitting) && <HandleLoader />}
-        <PageHeader title="PROFILE" />
+        <PageHeader title="PROFILE" className="my-5"/>
         <div className="flex gap-5 sm:flex-nowrap flex-wrap">
           <div className="w-[250px]">
             <ImageForm

@@ -43,7 +43,7 @@ export default function OrderPage({
         >
           <MoveLeft /> Back to oredrs table
         </Link>
-        <PageHeader title="ORDER" />
+        <PageHeader title="ORDER" className="my-5"/>
         <div className="flex gap-8  md:flex-row flex-col justify-start ">
           <div className="flex-[2.5]  w-full">
             <ProductsChoiced data={order?.cart} />

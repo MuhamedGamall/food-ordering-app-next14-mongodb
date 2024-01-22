@@ -54,7 +54,7 @@ export default function LogInForm({ onSubmit }: LogInFormProps) {
       <div className="sm:w-[80%] max-w-[80rem] mx-auto  mt-5 p-5">
         <div className="relative max-w-full md:max-w-[70%]">
           {isSubmitting && <HandleLoader />}
-          <PageHeader title="LOG IN" />
+          <PageHeader title="LOG IN" className="my-5"/>
           <div className="flex text-slate-500 ">
             <Button
               variant="outline"
