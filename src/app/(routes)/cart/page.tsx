@@ -56,8 +56,8 @@ export default function CartPage() {
     }
   }
   return (
-    <section className=" mx-auto px-4 my-5 relative">
-      <div className=" md:max-w-[90%] mx-auto">
+    <section className="mx-auto px-4 my-5 relative">
+      <div className="md:max-w-[90%] mx-auto">
         {cart?.length > 0 ? (
           <>
             <PageHeader title="YOUR CART" className="my-5"/>
@@ -66,7 +66,7 @@ export default function CartPage() {
               dataLength={filterCart?.length}
               onSave={onSave}
             />
-            <div className="flex gap-8  sm:flex-row flex-col justify-start ">
+            <div className="flex gap-8  md:flex-row flex-col justify-start ">
               <div className="flex-[4.5] w-full flex sm:block sm:flex-row flex-col-reverse">
                 <ProductsChoiced
                   onDelete={removeItem}

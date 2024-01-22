@@ -7,7 +7,7 @@ import BasePrice_ExtraPrices from "@/components/basePrice-extraPirces";
 import HandleLoader from "@/components/loader";
 
 export default function ProductsChoiced({
-  data=[],
+  data = [],
   onDelete,
   loading,
 }: {
@@ -73,21 +73,62 @@ export default function ProductsChoiced({
                 </div>
                 <div className="flex gap-2 items-center">
                   <p className="text-slate-950">Increases: </p>
-                  <div className="flex items-center gap-x-3 overflow-x-auto max-w-[500px]">
-                    {el?.extra_increases_price?.length ? (
-                      el?.extra_increases_price?.map((xl: ExtraPriceState) => (
-                        <span
-                          key={xl?.name}
-                          className=" flex items-center gap-1 mb-1 px-2 bg-sky-300/20 border border-sky-500 text-sky-950 rounded-full whitespace-nowrap "
-                        >
-                          <span>{xl?.name} -</span>
-                          {formatPrice(xl?.extra_price)}
-                        </span>
-                      ))
-                    ) : (
-                      <span className="text-slate-500">No increases</span>
-                    )}
-                  </div>
+                  <ul className="flex items-center gap-x-3 overflow-x-auto   max-w-[120px]">
+                    {/* {el?.extra_increases_price?.length ? ( */}
+                    {/* el?.extra_increases_price?.map((xl: ExtraPriceState) => ( */}
+                    <li
+                      // key={xl?.name}
+                      className=" flex items-center gap-1 mb-1 px-2 bg-sky-300/20 border border-sky-500 text-sky-950 rounded-full whitespace-nowrap "
+                    >
+                      {/* <span>{xl?.name} - </span> */}
+                      {/* {formatPrice(xl?.extra_price)} */}
+                      <span>loloewr rerrererere</span>
+                    </li>
+                    <li
+                      // key={xl?.name}
+                      className=" flex items-center gap-1 mb-1 px-2 bg-sky-300/20 border border-sky-500 text-sky-950 rounded-full whitespace-nowrap "
+                    >
+                      {/* <span>{xl?.name} - </span> */}
+                      {/* {formatPrice(xl?.extra_price)} */}
+                      <span>loloewr rerrererere</span>
+                    </li>
+                    <li
+                      // key={xl?.name}
+                      className=" flex items-center gap-1 mb-1 px-2 bg-sky-300/20 border border-sky-500 text-sky-950 rounded-full whitespace-nowrap "
+                    >
+                      {/* <span>{xl?.name} - </span> */}
+                      {/* {formatPrice(xl?.extra_price)} */}
+                      <span>loloewr rerrererere</span>
+                    </li>
+                    <li
+                      // key={xl?.name}
+                      className=" flex items-center gap-1 mb-1 px-2 bg-sky-300/20 border border-sky-500 text-sky-950 rounded-full whitespace-nowrap "
+                    >
+                      {/* <span>{xl?.name} - </span> */}
+                      {/* {formatPrice(xl?.extra_price)} */}
+                      <span>loloewr rerrererere</span>
+                    </li>
+                    <li
+                      // key={xl?.name}
+                      className=" flex items-center gap-1 mb-1 px-2 bg-sky-300/20 border border-sky-500 text-sky-950 rounded-full whitespace-nowrap "
+                    >
+                      {/* <span>{xl?.name} - </span> */}
+                      {/* {formatPrice(xl?.extra_price)} */}
+                      <span>loloewr rerrererere</span>
+                    </li>
+                    <li
+                      // key={xl?.name}
+                      className=" flex items-center gap-1 mb-1 px-2 bg-sky-300/20 border border-sky-500 text-sky-950 rounded-full whitespace-nowrap "
+                    >
+                      {/* <span>{xl?.name} - </span> */}
+                      {/* {formatPrice(xl?.extra_price)} */}
+                      <span>loloewr rerrererere</span>
+                    </li>
+                    {/* )) */}
+                    {/* // ) : ( */}
+                    {/* //   <span className="text-slate-500">No increases</span> */}
+                    {/* // )} */}
+                  </ul>
                 </div>
               </div>
             </li>
