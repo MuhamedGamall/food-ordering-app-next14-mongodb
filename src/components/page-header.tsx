@@ -4,14 +4,19 @@ import React from "react";
 function PageHeader({
   title,
   children,
-  className
+  className,
 }: {
   title: string;
   children?: React.ReactNode;
-  className?:string
+  className?: string;
 }) {
   return (
-    <header className={cn("sm:text-[45px] text-[35px] w-full font-bold text-left",className)}>
+    <header
+      className={cn(
+        "sm:text-[45px] text-[35px] w-full font-bold text-left",
+        className
+      )}
+    >
       {title}
       {children}
     </header>

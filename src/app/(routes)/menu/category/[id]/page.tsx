@@ -37,7 +37,7 @@ export default function Menu({ params: { id } }: { params: { id: string } }) {
       <Categorys categories={categories} loading={categoryLoading} />
       <div className=" md:max-w-[90%] mx-auto ">
         <div className=" max-w-[80rem] ">
-          <PageHeader title={menuTitle.toUpperCase()} className="my-5"/>
+          <PageHeader title={menuTitle?.replaceAll("%20", " ").toUpperCase()} className="my-5"/>
         </div>
       </div>
       <MenuItems products={menuChoiced} loading={productsLoding} />

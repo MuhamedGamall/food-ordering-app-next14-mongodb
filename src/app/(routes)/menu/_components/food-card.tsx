@@ -10,11 +10,11 @@ import { getProducts } from "@/lib/RTK/slices/menu-products-slice";
 import { useAppDispatch } from "@/hooks/redux";
 import { useSession } from "next-auth/react";
 interface FoodCardProps {
-  item: InitProductState;
+  item: any;
   setIsClicked: Dispatch<SetStateAction<{ check: boolean; id: string }>>;
 }
 export default function FoodCard({ item, setIsClicked }: FoodCardProps) {
-  const pathname = usePathname();
+
   const truncateText = (text: string, limit: number) => {
     return text.length > limit ? text.substring(0, limit) + "..." : text;
   };
@@ -28,8 +28,8 @@ export default function FoodCard({ item, setIsClicked }: FoodCardProps) {
   }, [dispatch]);
 
   return (
-    <div className="w-fit min-h-[300px] bg-white border mx-auto  shadow-card-shadow transition rounded-[3px] overflow-hidden ">
-      <Link href={pathname + "/" + item._id} className="">
+    <div className="w-fit  min-h-[300px] bg-white border mx-auto  shadow-card-shadow transition rounded-[3px] overflow-hidden ">
+      <Link href={`/menu/category/${item?.category.title}/` + item._id}>
         <Image
           src={item.image}
           alt="product image"
@@ -45,7 +45,7 @@ export default function FoodCard({ item, setIsClicked }: FoodCardProps) {
             {truncateText(item.title + "tttttttttttttttt", 30)}
           </div>
           <Link
-            href={pathname + "/" + item._id}
+            href={`/menu/category/${item?.category.title}/` + item._id}
             className="hover:text-sky-950 underline transition text-sky-700 text-[14px]  w-fit"
           >
             Ditails
@@ -55,7 +55,7 @@ export default function FoodCard({ item, setIsClicked }: FoodCardProps) {
           className="text-[15px] text-slate-800 max-w-[80%] break-all mb-2 
         "
         >
-          {formatPrice(item.base_price)}
+          {formatPrice(+item.base_price + +item?.sizes?.[0]?.extra_price + "")}
         </div>
         <div
           className="text-[15px] text-slate-600 max-w-[80%] break-all leading-[1] 

@@ -57,7 +57,7 @@ export default function FavoriteSheet() {
       </SheetTrigger>
       <SheetContent
         side={"right"}
-        className={cn("min-w-[450px] overflow-y-auto pt-12 pb-3 px-3 ")}
+        className={cn("sm:min-w-[450px]  min-w-[95%] overflow-y-auto pt-12 pb-3 px-3 ")}
       >
         {favorites?.length ? (
           <>

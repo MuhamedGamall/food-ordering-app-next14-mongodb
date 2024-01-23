@@ -1,7 +1,7 @@
 import FoodCard from "./food-card";
 import { InitProductState } from "../../../../../types";
 import { useState } from "react";
-import ProductDialog from "./product-dialog";
+import ProductDialog from "../../_comonents/product-dialog";
 
 interface MenuItemsProps {
   products: InitProductState[];
@@ -23,7 +23,7 @@ export default function MenuItems({ products, loading }: MenuItemsProps) {
         </div>
       )}
       <div className=" max-w-[80rem] ">
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4  md:max-w-[90%] mx-auto  gap-5">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 md:max-w-[90%] mx-auto  gap-5">
           {products.map((el) => (
             <FoodCard key={el._id} item={el} setIsClicked={setIsClicked} />
           ))}
