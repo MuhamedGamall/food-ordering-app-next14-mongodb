@@ -19,32 +19,32 @@ export default function ContactSection() {
   const sendEmail = async (e: any) => {
     e.preventDefault();
     if (isLogin) {
-      await emailjs
-        .sendForm(
-          "service_food_ordering",
-          "template_bdi5ehr",
-          form.current,
-          "JHaJCPs52KJhZBZsZ"
-        )
-        .then(
-          (result: any) => {
-            console.log(result.status);
-          },
-          (error: any) => {
-            console.log(error.text);
-          }
-        );
+      if (value.trim().length > 0)
+        await emailjs
+          .sendForm(
+            "service_food_ordering",
+            "template_bdi5ehr",
+            form.current,
+            "JHaJCPs52KJhZBZsZ"
+          )
+          .then(
+            (result: any) => {
+              console.log(result.status);
+            },
+            (error: any) => {
+              console.log(error.text);
+            }
+          );
     } else router.push("/log-in");
-    console.log(form.current);
     setValue("");
   };
 
   return (
     <section>
-      <div className="w-fit mx-auto mb-5 ">
+      <div className="w-fit mx-auto my-8 ">
         <PageHeader
           title="CONTACT US"
-          className="sm:text-[25px] text-[30px] mb-1 "
+          className="text-[19px] sm:text-[25px] mb-1 "
         />
         <span className="w-[70%] bg-black h-[2px] mx-auto block"></span>
       </div>
@@ -55,7 +55,6 @@ export default function ContactSection() {
           className="rounded-md border p-4 shadow-md mb-5"
         >
           <span className=" block text-center  my-4">SEND YOUR MESSAGE</span>
-
           <div className="flex flex-col justify-center items-center p-2 mb-5">
             <input name="from_name" className="hidden" value={email} />
             <div className="flex flex-col gap-2 items-start w-[80%]">
@@ -70,7 +69,7 @@ export default function ContactSection() {
               />
             </div>
             <Button
-              disabled={value.trim().length === 0}
+              // disabled={value.trim().length === 0}
               type="submit"
               className="shadow-sm bg-cyan-800  transition hover:bg-gray-900 px-4 py-2 mt-3 cursor-pointer text-white font-bold"
             >

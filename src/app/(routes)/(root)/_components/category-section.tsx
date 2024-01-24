@@ -17,10 +17,10 @@ export default function CategorySection() {
 
   return (
     <section>
-      <div className="w-fit mx-auto mb-5 ">
+      <div className="w-fit mx-auto my-8 ">
         <PageHeader
           title="EXPLORE OUR MENU"
-          className="sm:text-[25px] text-[30px] mb-1 "
+          className="text-[19px] sm:text-[25px] mb-1 "
         />
         <span className="w-[70%] bg-black h-[2px] mx-auto block"></span>
       </div>
