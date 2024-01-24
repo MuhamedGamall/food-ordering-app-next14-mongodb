@@ -1,4 +1,4 @@
-import PageHeader from "@/components/page-header";
+import SectionHeader from "@/components/section-header";
 import Image from "next/image";
 import React from "react";
 import AboutSection from "../_comonents/about-section";
@@ -6,7 +6,7 @@ import AboutSection from "../_comonents/about-section";
 export default function About() {
   return (
     <section className="w-[90%] max-w-[80rem] mx-auto mt-5 p-5">
-      <PageHeader title="ABOUT FOOD ORDERING" className="my-5" />
+      <SectionHeader title="ABOUT FOOD ORDERING" className="my-5" />
       <div className="sm:h-[300px]  w-full my-2">
         <Image
           src={"/about-hero-works.webp"}
@@ -16,13 +16,16 @@ export default function About() {
           className=" object-cover sm:object-center  h-full w-full rounded-sm my-4"
         />
       </div>
-      <PageHeader title="ABOUT US" className="my-5 sm:text-[30px] text-[30px]">
+      <SectionHeader
+        title="ABOUT US"
+        className="my-5 sm:text-[30px] text-[30px]"
+      >
         <h3 className="font-semibold  text-[21px]">
           BUILDING A FOUNDATION OF QUALITY
         </h3>
-      </PageHeader>
+      </SectionHeader>
       <AboutSection />
-      <PageHeader
+      <SectionHeader
         title="OUR VALUES, THE WAY WE CARRY OUT OUR PURPOSE:"
         className="mt-5 mb-2 sm:text-[23px] text-[23px] "
       />

@@ -1,7 +1,7 @@
 import { cn } from "@/lib/utils";
 import React from "react";
 
-function PageHeader({
+function SectionHeader({
   title,
   children,
   className,
@@ -23,4 +23,4 @@ function PageHeader({
   );
 }
 
-export default PageHeader;
+export default SectionHeader;

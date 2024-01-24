@@ -21,7 +21,7 @@ export async function GET(req: NextRequest) {
     const users: any = await User.find().lean();
     const usersInfos: any = await UserInfos.find().lean();
 
-    // Merge user data
+    // Merge main user and user info data
     const mergedArray = users.map((user: any) => ({
       ...user,
       ...usersInfos.find((info: any) => user.email === info.email),

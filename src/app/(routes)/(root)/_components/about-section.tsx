@@ -1,6 +1,6 @@
 import React from "react";
 import AboutSection from "../../_comonents/about-section";
-import PageHeader from "@/components/page-header";
+import SectionHeader from "@/components/section-header";
 import Link from "next/link";
 import { ArrowRight, ArrowRightCircle, MoveRight } from "lucide-react";
 
@@ -8,7 +8,7 @@ export default function About() {
   return (
     <section>
       <div className="w-fit mx-auto my-8 ">
-        <PageHeader
+        <SectionHeader
           title="ABOUT US"
           className="text-[19px] sm:text-[25px] mb-1"
         />

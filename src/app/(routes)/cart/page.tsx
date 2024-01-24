@@ -14,7 +14,7 @@ import { useRouter } from "next/navigation";
 import CartCheckout from "./_components/cart-checkout";
 import toast from "react-hot-toast";
 import NoData from "../_comonents/no-data";
-import PageHeader from "@/components/page-header";
+import SectionHeader from "@/components/section-header";
 import { DeleteConfirm } from "../../../components/delete-confirm";
 import Banner from "@/components/banner";
 import { MessageSquare, XCircle } from "lucide-react";
@@ -43,9 +43,11 @@ export default function CartPage() {
       id && dispatch(deleteProductFromCart(id));
     } else return router.replace("/menu/category/_");
   };
-  const filterCart = cart.filter(
-    (el: any) => !products.some((xl) => el?.product_id === xl?._id)
-  )||[]
+  // function to filter any products deleted by management from the cart
+  const filterCart =
+    cart.filter(
+      (el: any) => !products.some((xl) => el?.product_id === xl?._id)
+    ) || [];
 
   function onSave() {
     setClose(true);
@@ -60,7 +62,7 @@ export default function CartPage() {
       <div className="md:max-w-[90%] mx-auto">
         {cart?.length > 0 ? (
           <>
-            <PageHeader title="YOUR CART" className="my-5"/>
+            <SectionHeader title="YOUR CART" className="my-5" />
             <NotificationBanner
               close={close}
               dataLength={filterCart?.length}

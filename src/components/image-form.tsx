@@ -28,6 +28,7 @@ export default function ImageForm({
 
     if (imageFile) {
       try {
+        // image compression 
         const compressedFile = await imageCompression(imageFile, options);
         // reader image
         const reader = new FileReader();

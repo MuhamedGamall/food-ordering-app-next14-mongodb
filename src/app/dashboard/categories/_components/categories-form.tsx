@@ -8,7 +8,7 @@ import { useState } from "react";
 import { uploadImage } from "@/lib/RTK/slices/upload-image-slice";
 import toast from "react-hot-toast";
 import { InitCategoryState } from "../../../../../types";
-import PageHeader from "@/components/page-header";
+import SectionHeader from "@/components/section-header";
 import HandleLoader from "@/components/loader";
 
 export default function CatigoiesForm() {
@@ -63,7 +63,10 @@ export default function CatigoiesForm() {
       {isSubmitting && <HandleLoader />}
       <div className="mx-auto">
         <div className="mb-5">
-          <PageHeader title={isEditMood ? "EDIT CATEGORY" : "ADD CATEGORY"} className="my-5"/>
+          <SectionHeader
+            title={isEditMood ? "EDIT CATEGORY" : "ADD CATEGORY"}
+            className="my-5"
+          />
           <div className="flex sm:items-end items-center gap-5 sm:flex-row flex-col">
             <div className="w-[250px]">
               <ImageForm

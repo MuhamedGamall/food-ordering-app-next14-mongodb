@@ -20,7 +20,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { signIn } from "next-auth/react";
 import HandleLoader from "@/components/loader";
-import PageHeader from "@/components/page-header";
+import SectionHeader from "@/components/section-header";
 
 interface CreateAcountFormProps {
   onSubmit: ({ values }: any) => Promise<void>;
@@ -57,7 +57,7 @@ export default function CreateAcountForm({
       <div className="sm:w-[80%] max-w-[80rem] mx-auto  mt-5 p-5">
         <div className="relative max-w-full md:max-w-[70%]">
           {isSubmitting && <HandleLoader />}
-          <PageHeader title="CREATE ACOUNT" className="my-5" />
+          <SectionHeader title="CREATE ACOUNT" className="my-5" />
 
           <div className=" text-slate-500 ">
             <Button

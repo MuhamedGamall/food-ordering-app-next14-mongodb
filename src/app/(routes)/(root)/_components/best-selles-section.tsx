@@ -5,7 +5,7 @@ import { getProducts } from "@/lib/RTK/slices/menu-products-slice";
 import { useEffect, useState } from "react";
 import FoodCard from "../../menu/_components/food-card";
 import ProductDialog from "../../_comonents/product-dialog";
-import PageHeader from "@/components/page-header";
+import SectionHeader from "@/components/section-header";
 
 export default function BestSelles() {
   const { products } = useAppSelector((state) => state.menuProducts);
@@ -23,7 +23,7 @@ export default function BestSelles() {
   return (
     <section className="">
       <div className="w-fit mx-auto my-5 ">
-        <PageHeader
+        <SectionHeader
           title="BEST OUR SELLES"
           className="text-[19px] sm:text-[25px] mb-1"
         />

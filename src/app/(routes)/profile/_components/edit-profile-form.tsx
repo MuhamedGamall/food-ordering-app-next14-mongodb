@@ -9,7 +9,7 @@ import { uploadImage } from "@/lib/RTK/slices/upload-image-slice";
 import { useAppDispatch } from "@/hooks/redux";
 import { editProfile } from "@/lib/RTK/slices/users-slice";
 import useProfile from "@/hooks/user-profile";
-import PageHeader from "@/components/page-header";
+import SectionHeader from "@/components/section-header";
 
 export default function EditProfileForm() {
   const dispatch = useAppDispatch();
@@ -50,7 +50,7 @@ export default function EditProfileForm() {
     <>
       <div className=" flex gap-5 flex-col  sm:flex-nowrap flex-wrap relative">
         {(loading || isSubmitting) && <HandleLoader />}
-        <PageHeader title="PROFILE" className="my-5" />
+        <SectionHeader title="PROFILE" className="my-5" />
         <div className="flex gap-5 sm:flex-nowrap flex-wrap">
           <div className="w-[250px]">
             <ImageForm

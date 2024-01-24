@@ -9,7 +9,7 @@ import formatPrice from "@/utils/format/format-price";
 import totalCartPrice from "@/utils/total-cart-price";
 import DeliveryDetails from "../../cart/_components/delivery-details";
 import { CheckCircle2, MoveLeft, XCircle } from "lucide-react";
-import PageHeader from "@/components/page-header";
+import SectionHeader from "@/components/section-header";
 import Link from "next/link";
 import HandleLoader from "@/components/loader";
 
@@ -43,7 +43,7 @@ export default function OrderPage({
         >
           <MoveLeft /> Back to oredrs table
         </Link>
-        <PageHeader title="ORDER" className="my-5"/>
+        <SectionHeader title="ORDER" className="my-5" />
         <div className="flex gap-8  md:flex-row flex-col justify-start ">
           <div className="flex-[2.5]  w-full">
             <ProductsChoiced data={order?.cart} />

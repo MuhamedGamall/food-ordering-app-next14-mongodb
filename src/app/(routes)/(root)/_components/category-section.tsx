@@ -1,6 +1,6 @@
 "use client";
 
-import PageHeader from "@/components/page-header";
+import SectionHeader from "@/components/section-header";
 import { useAppDispatch, useAppSelector } from "@/hooks/redux";
 import { getCategories } from "@/lib/RTK/slices/categories-slice";
 import Image from "next/image";
@@ -18,7 +18,7 @@ export default function CategorySection() {
   return (
     <section>
       <div className="w-fit mx-auto my-8 ">
-        <PageHeader
+        <SectionHeader
           title="EXPLORE OUR MENU"
           className="text-[19px] sm:text-[25px] mb-1 "
         />

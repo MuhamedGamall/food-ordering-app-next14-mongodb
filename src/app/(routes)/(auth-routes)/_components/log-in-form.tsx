@@ -21,7 +21,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { signIn, useSession } from "next-auth/react";
 import HandleLoader from "@/components/loader";
-import PageHeader from "@/components/page-header";
+import SectionHeader from "@/components/section-header";
 
 interface LogInFormProps {
   onSubmit: ({ values }: any) => Promise<void>;
@@ -54,7 +54,7 @@ export default function LogInForm({ onSubmit }: LogInFormProps) {
       <div className="sm:w-[80%] max-w-[80rem] mx-auto  mt-5 p-5">
         <div className="relative max-w-full md:max-w-[70%]">
           {isSubmitting && <HandleLoader />}
-          <PageHeader title="LOG IN" className="my-5"/>
+          <SectionHeader title="LOG IN" className="my-5" />
           <div className="flex text-slate-500 ">
             <Button
               variant="outline"

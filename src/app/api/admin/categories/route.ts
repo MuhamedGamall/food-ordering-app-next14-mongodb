@@ -12,7 +12,7 @@ export async function POST(req: NextRequest) {
     const { title, image } = await req.json();
 
     const session = await getServerSession(authOptions);
-    const user = session?.user
+    const user = session?.user;
     const email = user?.email;
 
     const userInfos: any = await UserInfos.findOne({ email });
@@ -39,7 +39,7 @@ export async function PUT(req: NextRequest) {
     const { _id, title, image } = await req.json();
 
     const session = await getServerSession(authOptions);
-    const user = session?.user
+    const user = session?.user;
     const email = user?.email;
 
     const userInfos: any = await UserInfos.findOne({ email });
@@ -62,7 +62,7 @@ export async function DELETE(req: NextRequest) {
   mongoose.connect(process.env.MONGO_URL!);
   try {
     const session = await getServerSession(authOptions);
-    const user = session?.user
+    const user = session?.user;
     const email = user?.email;
 
     const category = await Category.find();
@@ -70,19 +70,19 @@ export async function DELETE(req: NextRequest) {
     const url = new URL(req.url);
     const _ids = url.searchParams.get("_ids")?.split(",");
 
-
-
     const userInfos: any = await UserInfos.findOne({ email });
 
     if (!user || !userInfos?.admin) {
       return new NextResponse("Unauthorized", { status: 401 });
     }
+    // delete category selected
     if (_ids?.length! > 0) {
       const deleteMenyCategories = await Category.deleteMany({
         _id: { $in: _ids },
       });
       return NextResponse.json(deleteMenyCategories);
     }
+    // delete all categories
     if (category.length > 0) {
       const deleteAllCategories = await Category.deleteMany({});
       return NextResponse.json(deleteAllCategories);

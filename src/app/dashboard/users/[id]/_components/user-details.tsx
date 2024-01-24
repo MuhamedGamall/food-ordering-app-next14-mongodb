@@ -9,7 +9,7 @@ import { useEffect } from "react";
 import { cn } from "@/lib/utils";
 import Link from "next/link";
 import { MoveLeft } from "lucide-react";
-import PageHeader from "@/components/page-header";
+import SectionHeader from "@/components/section-header";
 
 export default function UserDetails({ id }: { id: string }) {
   const { users, loading } = useAppSelector((state) => state.usersData);
@@ -33,9 +33,9 @@ export default function UserDetails({ id }: { id: string }) {
           <MoveLeft /> Back to users table
         </Link>
         <div className="flex items-center gap-3">
-          <PageHeader title={"PROFILE |"} className="my-5">
+          <SectionHeader title={"PROFILE |"} className="my-5">
             <span className="text-[25px]"> {user?.name || user?.email}</span>
-          </PageHeader>
+          </SectionHeader>
         </div>
         <div className="flex gap-5 sm:flex-nowrap flex-wrap">
           <div className="w-[250px] ">

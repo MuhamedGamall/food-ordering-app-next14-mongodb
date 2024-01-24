@@ -31,25 +31,3 @@ export const uploadImageToCloudinary = async ({
     throw error;
   }
 };
-
-// interface DeleteUserAvatarProps {
-//   existingPublicId: string;
-//   folderName: string;
-// }
-
-// export const DeleteUserAvatar = async ({
-//   existingPublicId,
-//   folderName,
-// }: DeleteUserAvatarProps): Promise<void> => {
-//   try {
-//     const uploadOptions: any = {
-//       folder: folderName,
-//       inavlidate: true,
-//     };
-
-//     await cloudinaryV2.uploader.destroy(existingPublicId, uploadOptions);
-//   } catch (error) {
-//     console.error("Error Cloudinary: delete ", error);
-//     throw error;
-//   }
-// };

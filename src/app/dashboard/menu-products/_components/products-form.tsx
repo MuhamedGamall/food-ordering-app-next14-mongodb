@@ -16,7 +16,7 @@ import { useSession } from "next-auth/react";
 import { Button } from "@/components/ui/button";
 import { MinusCircle, PlusCircle } from "lucide-react";
 import { ExtraPriceState } from "../../../../../types";
-import PageHeader from "@/components/page-header";
+import SectionHeader from "@/components/section-header";
 
 export interface ExtraPricesValues {
   sizes: ExtraPriceState[];
@@ -31,7 +31,6 @@ export default function ProductForm() {
   const [image64, setImage64] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isAddMood, setIsAddMood] = useState(false);
-
 
   const AddCurrentImage = image64 || "/product-placeholder/th.jpeg";
   const priceRegex = /^\d+(\.\d{1,2})?$/;
@@ -80,8 +79,8 @@ export default function ProductForm() {
   return (
     <>
       <div className=" relative mx-auto ">
-        {(isSubmitting) && <HandleLoader />}
-        <PageHeader title={"MENU PRODUCTS"} className="my-5"/>
+        {isSubmitting && <HandleLoader />}
+        <SectionHeader title={"MENU PRODUCTS"} className="my-5" />
         <div className="w-full">
           <Button
             onClick={() => {

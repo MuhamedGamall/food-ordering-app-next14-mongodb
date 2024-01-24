@@ -1,6 +1,6 @@
 "use client";
 
-import PageHeader from "@/components/page-header";
+import SectionHeader from "@/components/section-header";
 import { Button } from "@/components/ui/button";
 import emailjs from "@emailjs/browser";
 import { Phone } from "lucide-react";
@@ -42,7 +42,7 @@ export default function ContactSection() {
   return (
     <section>
       <div className="w-fit mx-auto my-8 ">
-        <PageHeader
+        <SectionHeader
           title="CONTACT US"
           className="text-[19px] sm:text-[25px] mb-1 "
         />

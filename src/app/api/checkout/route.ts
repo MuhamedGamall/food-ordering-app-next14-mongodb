@@ -28,7 +28,7 @@ export async function POST(req: NextRequest) {
       cart,
       paid: false,
     });
-
+    // calculator price for one product in all products
     const stripeLineItems = [];
     for (const cartProduct of cart) {
       const productName = cartProduct?.title;

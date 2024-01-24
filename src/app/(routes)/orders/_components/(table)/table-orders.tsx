@@ -29,7 +29,7 @@ import HandleLoader from "@/components/loader";
 
 import { columns } from "./table-column";
 import TableTopHeader from "@/components/table/table-header";
-import PageHeader from "@/components/page-header";
+import SectionHeader from "@/components/section-header";
 
 export function DataTable({
   data,
@@ -44,6 +44,7 @@ export function DataTable({
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
   const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({});
   const [rowSelection, setRowSelection] = useState({});
+  // reomve paid column  becouse this admin
   const columnsFltr = isAdmin
     ? columns?.filter((el: any) => el?.accessorKey !== "paid")
     : columns;
@@ -70,12 +71,12 @@ export function DataTable({
   return (
     <div className="w-full mt-5 relative ">
       {tableLoading && <HandleLoader />}
-      <PageHeader title="ORDERS" className="my-5"/>
+      <SectionHeader title="ORDERS" className="my-5" />
       <div className="rounded-md border p-2">
         <div className="flex items-center justify-between gap-1 ">
           <TableTopHeader data={data} table={table} pageName={"orders"} />
         </div>
-        <hr className="h-[1px] bg-slate-100 my-3"/>
+        <hr className="h-[1px] bg-slate-100 my-3" />
         <div className="rounded-md border">
           <Table>
             <TableHeader>

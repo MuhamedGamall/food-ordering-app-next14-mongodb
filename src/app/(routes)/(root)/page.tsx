@@ -1,5 +1,4 @@
-import PageHeader from "@/components/page-header";
-import AboutSection from "../_comonents/about-section";
+
 import BestSelles from "./_components/best-selles-section";
 import HeroSection from "./_components/hero-section";
 import CategorySection from "./_components/category-section";

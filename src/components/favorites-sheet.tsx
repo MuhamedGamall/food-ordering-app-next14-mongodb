@@ -37,6 +37,8 @@ export default function FavoriteSheet() {
       id && dispatch(deleteFavorite(id));
     }
   };
+  // function to filter any products deleted by management from the fav cart
+
   const filterFav = favorites.filter(
     (el: any) => !products.some((xl) => el?.product_id === xl?._id)
   );
