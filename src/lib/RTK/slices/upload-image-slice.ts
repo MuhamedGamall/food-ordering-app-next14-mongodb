@@ -12,7 +12,7 @@ export const uploadImage: any = createAsyncThunk(
         ? await axios.post("/api/upload-image", {
             image: {
               image64,
-              publicId,
+              ...(publicId && { publicId }),
               folderName,
             },
           })
@@ -20,7 +20,7 @@ export const uploadImage: any = createAsyncThunk(
       const values = {
         ...(imageURL && { image: imageURL }),
       };
-      return values?.image
+      return values?.image;
     } catch (error: any) {
       return rejectWithValue(error?.message);
     }
@@ -51,7 +51,6 @@ const uploadImageSlice = createSlice({
         (state: AppUploadImageState, action: PayloadAction<any>) => {
           state.loading = false;
           state.imageURL = action.payload;
-
         }
       )
       .addCase(

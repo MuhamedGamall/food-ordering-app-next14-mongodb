@@ -47,7 +47,7 @@ export interface AppProductState {
 // upload image schema
 export interface UplaodImageProps {
   image64: string;
-  publicId: string;
+  publicId?: string;
   folderName: string;
 }
 

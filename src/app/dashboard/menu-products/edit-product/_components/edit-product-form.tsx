@@ -63,7 +63,7 @@ export default function EditProductForm({
 }: EditProductFormProps) {
   const session = useSession();
   const router = useRouter();
-  const { categories } = useAppSelector((state) => state.catygories);
+  const { categories } = useAppSelector((state) => state.categories);
   const [sizes, setSizes] = useState<ExtraPriceState[]>([]);
   const [extraIncreasesPrice, setExtraIncreasesPrice] = useState<
     ExtraPriceState[]
@@ -92,11 +92,9 @@ export default function EditProductForm({
 
   useEffect(() => {
     async function getData() {
-      if (session.status === "authenticated") {
-        setSelectLoading(true);
-        await dispatch(getCategories());
-        setSelectLoading(false);
-      }
+      setSelectLoading(true);
+      await dispatch(getCategories());
+      setSelectLoading(false);
     }
     getData();
   }, [dispatch, session.status]);

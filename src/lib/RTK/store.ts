@@ -10,7 +10,7 @@ import ordersSlice from "./slices/orders-slice";
 const store = configureStore({
   reducer: {
     imageURL: uploadImageSlice,
-    catygories: categoriesSlice,
+    categories: categoriesSlice,
     menuProducts: menuProductsSlice,
     usersData: usersSlice,
     favoritesData: favoriteSlice,

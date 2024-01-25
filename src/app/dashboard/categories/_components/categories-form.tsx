@@ -4,7 +4,7 @@ import Add_EditCategoryForm from "./add&edit-category-form";
 import AllCategorios from "./all-categorios-form";
 import { editCategory, postCategory } from "@/lib/RTK/slices/categories-slice";
 import ImageForm from "@/components/image-form";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { uploadImage } from "@/lib/RTK/slices/upload-image-slice";
 import toast from "react-hot-toast";
 import { InitCategoryState } from "../../../../../types";
@@ -21,11 +21,16 @@ export default function CatigoiesForm() {
     image64 || editMood?.image || "/product-placeholder/th.jpeg";
 
   const isEditMood = Boolean(editMood);
+
   const check = (value: { title: string }) => {
     return isEditMood
       ? Object.values({ value, image64 }).some(Boolean)
       : Object.values({ value, image64 }).every(Boolean);
   };
+
+  const publicId = editMood?.image
+    ?.match(/food-ordering-categories\/([^/]+)\./)?.[1]
+    ?.replace(/-/g, " ");
 
   async function onSubmit(value: { title: string }, form: any) {
     if (check(value)) {
@@ -36,7 +41,7 @@ export default function CatigoiesForm() {
         (await dispatch(
           uploadImage({
             image64: image64,
-            publicId: "category",
+            ...(isEditMood && { publicId }),
             folderName: "food-ordering-categories",
           })
         ));

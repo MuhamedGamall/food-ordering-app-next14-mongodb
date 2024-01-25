@@ -14,7 +14,7 @@ export default function Menu({ params: { id } }: { params: { id: string } }) {
     (state) => state.menuProducts
   );
   const { categories, loading: categoryLoading } = useAppSelector(
-    (state) => state.catygories
+    (state) => state.categories
   );
 
   const dispatch = useAppDispatch();

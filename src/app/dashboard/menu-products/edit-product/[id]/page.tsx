@@ -1,6 +1,5 @@
 "use client";
 
-import axios from "axios";
 import toast from "react-hot-toast";
 import { useEffect, useState } from "react";
 
@@ -28,7 +27,6 @@ export default function ProductForm({
   const session = useSession();
 
   const dispatch = useAppDispatch();
-  const { data } = useProfile();
   const { products, loading } = useAppSelector((state) => state.menuProducts);
 
   const [image64, setImage64] = useState("");
@@ -36,7 +34,6 @@ export default function ProductForm({
   const [extraPricesValues, setExtraPricesValues] = useState<ExtraPricesValues>(
     { sizes: [], extra_increases_price: [] }
   );
-  const email = data?.email;
 
   useEffect(() => {
     async function getData() {
@@ -45,14 +42,18 @@ export default function ProductForm({
     getData();
   }, [dispatch, session.status]);
 
-  const product = products.filter((el) => el._id === id)[0];
+  const product: any = products.filter((el) => el._id === id)[0];
 
-  if (product?._id !== id) {
-    redirect("/dashboard/menu-products");
-  }
+  // if (product?._id !== id) {
+  //   redirect("/dashboard/menu-products");
+  // }
 
   const EditCurrentImage =
     image64 || product?.image || "/product-placeholder/th.jpeg";
+
+  const publicId = product?.image
+    .match(/food-ordering-products\/([^/]+)\./)[1]
+    .replace(/-/g, " ");
 
   async function onSubmit(value: any) {
     if (Object.values({ value, image64 }).some(Boolean)) {
@@ -65,7 +66,7 @@ export default function ProductForm({
         (await dispatch(
           uploadImage({
             image64: image64,
-            publicId: email,
+            publicId,
             folderName: "food-ordering-products",
           })
         ));

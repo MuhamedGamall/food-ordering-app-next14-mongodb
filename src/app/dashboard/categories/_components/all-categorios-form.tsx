@@ -16,14 +16,12 @@ export default function AllCategorios({
   editMood: any;
 }) {
   const session = useSession();
-  const { categories, loading } = useAppSelector((state) => state.catygories);
+  const { categories, loading } = useAppSelector((state) => state.categories);
   const dispatch = useAppDispatch();
 
   useEffect(() => {
     async function getData() {
-      if (session.status === "authenticated") {
-        await dispatch(getCategories());
-      }
+      await dispatch(getCategories());
     }
     getData();
   }, [dispatch, session.status]);

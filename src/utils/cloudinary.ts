@@ -21,7 +21,7 @@ export const uploadImageToCloudinary = async ({
       folder: folderName,
       public_id: existingPublicId,
       overwrite: true,
-      inavlidate: true,
+      // inavlidate: true,
     };
 
     const result = await cloudinaryV2.uploader.upload(file, uploadOptions);

@@ -14,11 +14,7 @@ import {
 } from "@tanstack/react-table";
 import {
   ChevronDown,
-  Edit,
-  Loader,
-  MoreHorizontal,
-  Trash2,
-  XIcon,
+
 } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
@@ -27,12 +23,10 @@ import {
   DropdownMenu,
   DropdownMenuCheckboxItem,
   DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuSeparator,
+
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { Input } from "@/components/ui/input";
-import { useState, Dispatch } from "react";
+import { useState,  } from "react";
 
 import {
   Table,
@@ -43,8 +37,6 @@ import {
   TableRow,
 } from "@/components/ui/table";
 
-import toast from "react-hot-toast";
-import { useRouter } from "next/navigation";
 import { useAppDispatch } from "@/hooks/redux";
 import { deleteCategory } from "@/lib/RTK/slices/categories-slice";
 
@@ -54,7 +46,6 @@ import SearchInputs from "./search-inputs";
 import DeleteActionsBtns from "./delete-actions";
 import { InitCategoryState } from "../../../../../../types";
 import ItemActions from "./item-actions";
-import TableTopHeader from "@/components/table/table-header";
 
 export function DataTable({
   data,

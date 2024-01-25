@@ -14,7 +14,6 @@ interface FoodCardProps {
   setIsClicked: Dispatch<SetStateAction<{ check: boolean; id: string }>>;
 }
 export default function FoodCard({ item, setIsClicked }: FoodCardProps) {
-
   const truncateText = (text: string, limit: number) => {
     return text.length > limit ? text.substring(0, limit) + "..." : text;
   };
@@ -28,7 +27,7 @@ export default function FoodCard({ item, setIsClicked }: FoodCardProps) {
   }, [dispatch]);
 
   return (
-    <div className="w-fit  min-h-[300px] bg-white border mx-auto  shadow-card-shadow transition rounded-[3px] overflow-hidden ">
+    <div className="w-fit  min-h-[300px] bg-white border mx-auto   transition rounded-[3px] overflow-hidden ">
       <Link href={`/menu/category/${item?.category.title}/` + item._id}>
         <Image
           src={item.image}
@@ -36,13 +35,13 @@ export default function FoodCard({ item, setIsClicked }: FoodCardProps) {
           objectFit="cover"
           width={300}
           height={250}
-          className="w-full rounded-[5px] transition min-w-[100px]"
+          className="w-full rounded-[5px] transition min-w-[100px] aspect-square object-cover"
         />
       </Link>
       <div className=" flex flex-col  p-2">
         <div className="flex gap-2  justify-between">
           <div className=" text-[18px] max-w-[80%] break-all leading-[1] mb-1 min-h-[40px] font-[700]">
-            {truncateText(item.title + "tttttttttttttttt", 30)}
+            {truncateText(item.title, 30)}
           </div>
           <Link
             href={`/menu/category/${item?.category.title}/` + item._id}
@@ -55,17 +54,15 @@ export default function FoodCard({ item, setIsClicked }: FoodCardProps) {
           className="text-[15px] text-slate-800 max-w-[80%] break-all mb-2 
         "
         >
-          {formatPrice(+item.base_price + +item?.sizes?.[0]?.extra_price + "")}
+          {formatPrice(
+            +item.base_price + (+item?.sizes?.[0]?.extra_price + "" || "0")
+          )}
         </div>
         <div
           className="text-[15px] text-slate-600 max-w-[80%] break-all leading-[1] 
           h-[50px]"
         >
-          {truncateText(
-            item.description +
-              "American Cheese, Griiiiiiiiilled Chicken Breaiiiiiiiiist, Onions, Mozzarella, Oregano with BBQ Sauce",
-            50
-          )}
+          {truncateText(item.description, 50)}
         </div>
         <Button
           onClick={() => {

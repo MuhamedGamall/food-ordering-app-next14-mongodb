@@ -32,16 +32,12 @@ export default function ProductForm() {
 
   const AddCurrentImage = image64 || "/product-placeholder/th.jpeg";
 
-
   async function onSubmit(value: any) {
-    if (
-      Object.values({ value, image64 }).every(Boolean)
-    ) {
+    if (Object.values({ value, image64 }).every(Boolean)) {
       setIsSubmitting(true);
       const data = await dispatch(
         uploadImage({
           image64,
-          publicId: "product",
           folderName: "food-ordering-products",
         })
       );

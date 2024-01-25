@@ -8,12 +8,16 @@ import Link from "next/link";
 import { useEffect } from "react";
 
 export default function CategorySection() {
-  const { categories } = useAppSelector((state) => state.catygories);
+  const { categories } = useAppSelector((state) => state.categories);
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    dispatch(getCategories());
+    async function getData() {
+      await dispatch(getCategories());
+    }
+    getData();
   }, [dispatch]);
+  console.log(categories);
 
   return (
     <section>
@@ -32,7 +36,7 @@ export default function CategorySection() {
               className="flex items-center justify-center flex-col gap-2 "
             >
               <Image
-                src={el?.image}
+                src={el.image || ""}
                 alt="category image"
                 width={100}
                 height={100}

@@ -54,7 +54,7 @@ export default function AddProductForm({
 }: AddProductFormProps) {
   const session = useSession();
   const dispatch = useAppDispatch();
-  const { categories } = useAppSelector((state) => state.catygories);
+  const { categories } = useAppSelector((state) => state.categories);
   const [selectLoading, setSelectLoading] = useState(false);
   const [open, setOpen] = useState(false);
   const [sizes, setSizes] = useState<ExtraPriceState[]>([]);
