@@ -113,14 +113,14 @@ export function DataTable({
     <div className="w-full mt-5 relative  rounded-md border p-2">
       {(isLoading || tableLoading) && <HandleLoader />}
       <div className="flex items-center justify-between md:flex-row flex-col-reverse gap-1 ">
-        <div className="flex items-center justify-between gap-1">
+        <div className="flex items-center md:justify-start justify-between w-full gap-1">
           <SearchInputs dataLength={data?.length} table={table} />
           <DropdownMenu>
-            <DropdownMenuTrigger asChild >
+            <DropdownMenuTrigger asChild className="mx-2">
               <Button
                 type="button"
                 variant="outline"
-                className="ml-1 px-1"
+                className=" px-1"
                 size={"sm"}
               >
                 Categories
