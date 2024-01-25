@@ -97,9 +97,6 @@ export async function GET(req: NextRequest) {
   mongoose.connect(process.env.MONGO_URL!);
   try {
     const categories = await Category.find()
-      .sort([["createdAt", -1]])
-      .exec();
-
     return NextResponse.json(categories);
   } catch (error) {
     console.log("[CATEGORIES]", error);

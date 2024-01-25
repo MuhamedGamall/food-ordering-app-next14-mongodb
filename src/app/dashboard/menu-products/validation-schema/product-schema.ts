@@ -7,8 +7,8 @@ export const productSchema = z.object({
       message: "Product title must contain at least 5 characters.",
     })
     .max(
-      100,
-      `Product title is too long! It should contain maximum 100 characters`
+      150,
+      `Product title is too long! It should contain maximum 150 characters`
     ),
   description: z
     .string()
