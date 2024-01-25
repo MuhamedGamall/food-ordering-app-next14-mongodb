@@ -15,8 +15,8 @@ export const productSchema = z.object({
     .trim()
     .min(20, "Description must contain at least 20 characters.")
     .max(
-      200,
-      "Description is too long! It should contain maximum 200 characters."
+      300,
+      "Description is too long! It should contain maximum 300 characters."
     ),
 
   category: z.object({

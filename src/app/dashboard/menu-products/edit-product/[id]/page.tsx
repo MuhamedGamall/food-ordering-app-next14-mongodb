@@ -96,7 +96,7 @@ export default function ProductForm({
         </Link>
         <SectionHeader title={"EDIT PRODUCT"} className="my-5" />
 
-        <div className="flex gap-5 md:justify-start justify-center sm:flex-nowrap flex-wrap">
+        <div className="flex gap-5 my-5 md:justify-start justify-center sm:flex-nowrap flex-wrap">
           <div className="w-[250px] ">
             <ImageForm
               image64={image64}

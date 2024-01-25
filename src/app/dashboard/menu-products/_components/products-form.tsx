@@ -81,8 +81,8 @@ export default function ProductForm() {
             )}
           </Button>
           {isAddMood && (
-            <div className="flex justify-center gap-5 sm:flex-nowrap flex-wrap">
-              <div className="w-[250px]">
+            <div className="flex justify-center gap-5 sm:flex-nowrap flex-wrap my-5">
+              <div className="w-[250px] ">
                 <ImageForm
                   image64={image64}
                   setImage64={setImage64}
