@@ -17,7 +17,7 @@ export default function Banner({
   return (
     <div
       className={`flex gap-2 
-    items-center w-full bg-${bgColor}-100 rounded-md border py-3 px-2 text-[18px] mt-3`}
+    items-center w-full bg-${bgColor}-100  rounded-md border py-3 px-2 text-[18px] mt-3`}
     >
       <Icon color={color} className={iconSize} />
 

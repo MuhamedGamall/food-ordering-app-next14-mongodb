@@ -1,16 +1,9 @@
 import { Button } from "@/components/ui/button";
-import React from "react";
-import { MoreVertical, Trash2 } from "lucide-react";
+
+import {Trash2 } from "lucide-react";
 
 import toast from "react-hot-toast";
-import {
-  DropdownMenu,
-  DropdownMenuItem,
-  DropdownMenuSeparator,
-  DropdownMenuContent,
-  DropdownMenuTrigger,
-  DropdownMenuLabel,
-} from "@/components/ui/dropdown-menu";
+
 import {
   deleteAllProducts,
   deleteProduct,

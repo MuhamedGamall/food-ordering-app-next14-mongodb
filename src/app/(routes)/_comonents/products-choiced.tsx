@@ -47,7 +47,10 @@ export default function ProductsChoiced({
                   </p>
                 </div>
                 <p className="text-slate-500">Quantity: {el?.quantity}</p>
-                <p className="text-slate-500">Size: {el?.size?.name}</p>
+
+                {el?.size.length > 0 && (
+                  <p className="text-slate-500">Size: {el?.size?.name}</p>
+                )}
                 <div className=" flex items-center  gap-2">
                   <span>
                     <Link
@@ -72,22 +75,24 @@ export default function ProductsChoiced({
                   )}
                 </div>
                 <div className="flex gap-2 items-center">
-                  <p className="text-slate-950">Increases: </p>
-                  <ul className="flex items-center gap-x-3 overflow-x-auto   max-w-[120px]">
-                    {el?.extra_increases_price?.length ? (
-                      el?.extra_increases_price?.map((xl: ExtraPriceState) => (
-                        <li
-                          key={xl?.name}
-                          className=" flex items-center gap-1 mb-1 px-2 bg-sky-300/20 border border-sky-500 text-sky-950 rounded-full whitespace-nowrap "
-                        >
-                          <span>{xl?.name} - </span>
-                          {formatPrice(xl?.extra_price)}
-                        </li>
-                      ))
-                    ) : (
-                      <span className="text-slate-500">No increases</span>
-                    )}
-                  </ul>
+                  {el?.extra_increases_price?.length > 0 && (
+                    <>
+                      <p className="text-slate-950">Increases: </p>
+                      <ul className="flex items-center gap-x-3 overflow-x-auto   max-w-[120px]">
+                        {el?.extra_increases_price?.map(
+                          (xl: ExtraPriceState) => (
+                            <li
+                              key={xl?.name}
+                              className=" flex items-center gap-1 mb-1 px-2 bg-sky-300/20 border border-sky-500 text-sky-950 rounded-full whitespace-nowrap "
+                            >
+                              <span>{xl?.name} - </span>
+                              {formatPrice(xl?.extra_price)}
+                            </li>
+                          )
+                        )}
+                      </ul>
+                    </>
+                  )}
                 </div>
               </div>
             </li>

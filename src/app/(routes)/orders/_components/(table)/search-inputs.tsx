@@ -1,7 +1,7 @@
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 
-import { MoreVertical, Search, Trash2 } from "lucide-react";
+import { MoreVertical, Search } from "lucide-react";
 
 import {
   DropdownMenu,

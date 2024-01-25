@@ -1,18 +1,12 @@
 import { Button } from "@/components/ui/button";
 import React from "react";
-import { MoreVertical, Trash2 } from "lucide-react";
+import {Trash2 } from "lucide-react";
 import {
   deleteAllCategories,
   deleteCategory,
 } from "@/lib/RTK/slices/categories-slice";
 import toast from "react-hot-toast";
-import {
-  DropdownMenu,
-  DropdownMenuItem,
-  DropdownMenuContent,
-  DropdownMenuTrigger,
-  DropdownMenuLabel,
-} from "@/components/ui/dropdown-menu";
+
 import { DeleteConfirm } from "@/components/delete-confirm";
 
 interface DeleteActionsBtnsProps {
@@ -68,7 +62,7 @@ export default function DeleteActionsBtns({
           </Button>
         </DeleteConfirm>
         <DeleteConfirm
-          title="Are you sure to delete all products"
+          title="Are you sure to delete all categories"
           onDelete={deleteAllData}
         >
           <Button

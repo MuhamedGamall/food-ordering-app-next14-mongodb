@@ -3,8 +3,6 @@
 import toast from "react-hot-toast";
 import { useState } from "react";
 
-import useProfile from "@/hooks/user-profile";
-
 import HandleLoader from "@/components/loader";
 import AddProductForm from "./add-product-form";
 import { useAppDispatch } from "@/hooks/redux";
@@ -12,7 +10,7 @@ import { postProduct } from "@/lib/RTK/slices/menu-products-slice";
 import { uploadImage } from "@/lib/RTK/slices/upload-image-slice";
 import ImageForm from "@/components/image-form";
 import AllProducts from "./all-products-table";
-import { useSession } from "next-auth/react";
+
 import { Button } from "@/components/ui/button";
 import { MinusCircle, PlusCircle } from "lucide-react";
 import { ExtraPriceState } from "../../../../../types";
@@ -33,28 +31,11 @@ export default function ProductForm() {
   const [isAddMood, setIsAddMood] = useState(false);
 
   const AddCurrentImage = image64 || "/product-placeholder/th.jpeg";
-  const priceRegex = /^\d+(\.\d{1,2})?$/;
-  const validateExtraPricesValues = (array: ExtraPriceState[]) =>
-    array.every(
-      (el) =>
-        el.name.trim().length > 0 &&
-        el.name.trim().length <= 30 &&
-        el.extra_price.trim() >= "0" &&
-        priceRegex.test(el.extra_price)
-    );
 
-  const sizesExtraPricesValuesCheck =
-    extraPricesValues.sizes.length &&
-    validateExtraPricesValues(extraPricesValues.sizes);
-  const increasesExtraPricesValuesCheck = validateExtraPricesValues(
-    extraPricesValues.extra_increases_price
-  );
 
   async function onSubmit(value: any) {
     if (
-      Object.values({ value, image64 }).every(Boolean) &&
-      sizesExtraPricesValuesCheck &&
-      increasesExtraPricesValuesCheck
+      Object.values({ value, image64 }).every(Boolean)
     ) {
       setIsSubmitting(true);
       const data = await dispatch(
@@ -78,7 +59,7 @@ export default function ProductForm() {
   }
   return (
     <>
-      <div className=" relative mx-auto ">
+      <div className=" relative mx-auto px-10">
         {isSubmitting && <HandleLoader />}
         <SectionHeader title={"MENU PRODUCTS"} className="my-5" />
         <div className="w-full">

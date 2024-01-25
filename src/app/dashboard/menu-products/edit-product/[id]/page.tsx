@@ -13,11 +13,11 @@ import { uploadImage } from "@/lib/RTK/slices/upload-image-slice";
 import ImageForm from "@/components/image-form";
 import { useSession } from "next-auth/react";
 import EditProductForm from "../_components/edit-product-form";
-import { redirect, useRouter } from "next/navigation";
+import { redirect } from "next/navigation";
 import { MoveLeft } from "lucide-react";
 import { ExtraPricesValues } from "../../_components/products-form";
 import Link from "next/link";
-import { ExtraPriceState } from "../../../../../../types";
+
 import SectionHeader from "@/components/section-header";
 
 export default function ProductForm({
@@ -26,7 +26,7 @@ export default function ProductForm({
   params: { id: string };
 }) {
   const session = useSession();
-  const router = useRouter();
+
   const dispatch = useAppDispatch();
   const { data } = useProfile();
   const { products, loading } = useAppSelector((state) => state.menuProducts);
@@ -40,47 +40,22 @@ export default function ProductForm({
 
   useEffect(() => {
     async function getData() {
-      if (session.status === "authenticated") {
-        await dispatch(getProducts());
-      }
+      await dispatch(getProducts());
     }
     getData();
   }, [dispatch, session.status]);
 
   const product = products.filter((el) => el._id === id)[0];
-  // if (products.length === 0 || !product) {
-  //   return redirect("/admin/menu-products");
-  // }
 
-  // if (session.status === "unauthenticated" || !data?.admin) {
-  //   redirect("/");
-  // }
+  if (product?._id !== id) {
+    redirect("/dashboard/menu-products");
+  }
 
   const EditCurrentImage =
     image64 || product?.image || "/product-placeholder/th.jpeg";
-  const priceRegex = /^\d+(\.\d{1,2})?$/;
-  const validateExtraPricesValues = (array: ExtraPriceState[]) =>
-    array.every(
-      (el) =>
-        el.name.trim().length > 0 &&
-        el.name.trim().length <= 30 &&
-        el.extra_price.trim() >= "0" &&
-        priceRegex.test(el.extra_price)
-    );
-
-  const sizesExtraPricesValuesCheck =
-    extraPricesValues.sizes.length &&
-    validateExtraPricesValues(extraPricesValues.sizes);
-  const increasesExtraPricesValuesCheck = validateExtraPricesValues(
-    extraPricesValues.extra_increases_price
-  );
 
   async function onSubmit(value: any) {
-    if (
-      Object.values({ value, image64 }).some(Boolean) &&
-      sizesExtraPricesValuesCheck &&
-      increasesExtraPricesValuesCheck
-    ) {
+    if (Object.values({ value, image64 }).some(Boolean)) {
       setIsSubmitting(true);
       const filteredData = Object.fromEntries(
         Object.entries(value).filter(([key, value]) => value !== "")
@@ -97,7 +72,7 @@ export default function ProductForm({
 
       const imageURL = (await data?.payload) || product?.image;
       const values = {
-        ...extraPricesValues,
+        ...(extraPricesValues.sizes.length > 0 && extraPricesValues),
         ...filteredData,
         ...(imageURL && { image: imageURL }),
         _id: id,
@@ -111,33 +86,31 @@ export default function ProductForm({
 
   return (
     <>
-      <section className="relative z-50 mx-auto   max-w-full md:max-w-[80%]">
+      <section className="relative  mx-auto  sm:w-[90%] max-w-[80rem] mt-5 p-5">
         {(loading || isSubmitting) && <HandleLoader />}
         <Link
-          href={"/dashborad/menu-products"}
+          href={"/dashboard/menu-products"}
           className="cursor-pointer flex items-center gap-3 text-slate-800 ext-[19px]"
         >
           <MoveLeft /> Back to menu products
         </Link>
         <SectionHeader title={"EDIT PRODUCT"} className="my-5" />
 
-        <div>
-          <div className="flex gap-5 sm:flex-nowrap flex-wrap">
-            <div className="w-[250px]">
-              <ImageForm
-                image64={image64}
-                setImage64={setImage64}
-                currentImage={EditCurrentImage}
-                isSubmitting={isSubmitting}
-              />
-            </div>
-            <EditProductForm
-              onSubmit={onSubmit}
-              product={product || undefined}
-              imageURL64={image64}
-              setExtraPricesValues={setExtraPricesValues}
+        <div className="flex gap-5 md:justify-start justify-center sm:flex-nowrap flex-wrap">
+          <div className="w-[250px] ">
+            <ImageForm
+              image64={image64}
+              setImage64={setImage64}
+              currentImage={EditCurrentImage}
+              isSubmitting={isSubmitting}
             />
           </div>
+          <EditProductForm
+            onSubmit={onSubmit}
+            product={product || undefined}
+            imageURL64={image64}
+            setExtraPricesValues={setExtraPricesValues}
+          />
         </div>
       </section>
     </>
