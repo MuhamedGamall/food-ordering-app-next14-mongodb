@@ -136,9 +136,9 @@ export function DataTable({
 
           <div className="bg-slate-100 rounded-md p-1">
             <DropdownMenu>
-              <DropdownMenuTrigger asChild>
-                <Button type="button" variant="outline" className="ml-auto">
-                  Columns{" "}
+              <DropdownMenuTrigger asChild className="px-1">
+                <Button type="button" size={'sm'} variant="outline" className="ml-auto">
+                  Columns
                   <ChevronDown className="ml-2 h-4 w-4  hidden sm:block" />
                 </Button>
               </DropdownMenuTrigger>

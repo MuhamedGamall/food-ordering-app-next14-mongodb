@@ -8,7 +8,6 @@ import { Checkbox } from "@/components/ui/checkbox";
 import Image from "next/image";
 import formatPrice from "@/utils/format/format-price";
 import formatDate from "@/utils/format/format-date";
-import axios from "axios";
 import { InitCategoryState } from "../../../../../../types";
 import { cn } from "@/lib/utils";
 export const columnsFnc = (categories: InitCategoryState[]) => {
@@ -112,7 +111,7 @@ export const columnsFnc = (categories: InitCategoryState[]) => {
             variant="ghost"
             onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
           >
-            Catygory
+            Category
             <ArrowUpDown className="ml-2 h-4 w-4 " />
           </Button>
         );

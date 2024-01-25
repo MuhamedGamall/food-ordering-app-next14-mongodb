@@ -1,6 +1,5 @@
 "use client";
 
-import * as React from "react";
 import {
   ColumnFiltersState,
   SortingState,
@@ -12,7 +11,7 @@ import {
   getSortedRowModel,
   useReactTable,
 } from "@tanstack/react-table";
-import { ChevronDown, Edit, MoreHorizontal, Trash2, XIcon } from "lucide-react";
+import { Check, ChevronDown } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 
@@ -21,10 +20,9 @@ import {
   DropdownMenuCheckboxItem,
   DropdownMenuContent,
   DropdownMenuItem,
-  DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import {
   Table,
@@ -42,9 +40,10 @@ import SearchInputs from "./search-inputs";
 import DeleteActionsBtns from "./delete-actions";
 
 import { deleteProduct } from "@/lib/RTK/slices/menu-products-slice";
-import Link from "next/link";
 import { columnsFnc } from "./table-column";
 import ItemActions from "./item-actions";
+import { InitCategoryState, InitProductState } from "../../../../../../types";
+import { cn } from "@/lib/utils";
 
 export function DataTable({
   data,
@@ -56,15 +55,32 @@ export function DataTable({
   categories: any;
 }) {
   const dispatch = useAppDispatch();
+  const [selectCategory, setSelectCategory] = useState<any>({
+    title: "all",
+    _id: "",
+  });
   const [sorting, setSorting] = useState<SortingState>([]);
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
   const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({});
   const [rowSelection, setRowSelection] = useState({});
   const [isLoading, setIsLoading] = useState(false);
+  const [newData, setNewData] = useState([]);
   const { columns } = columnsFnc(categories);
+// filter by category 
+ useEffect(() => {
+    const filterByCategory =
+      selectCategory?.title !== "all"
+        ? data?.filter(
+            (el: InitProductState) =>
+              el?.category?.category_id === selectCategory?._id
+          )
+        : data;
+
+    setNewData(filterByCategory);
+  }, [data, selectCategory]);
 
   const table = useReactTable({
-    data,
+    data: newData,
     columns,
     onSortingChange: setSorting,
     onColumnFiltersChange: setColumnFilters,
@@ -97,7 +113,52 @@ export function DataTable({
     <div className="w-full mt-5 relative  rounded-md border p-2">
       {(isLoading || tableLoading) && <HandleLoader />}
       <div className="flex items-center justify-between md:flex-row flex-col-reverse gap-1 ">
-        <SearchInputs dataLength={data?.length} table={table} />
+        <div className="flex items-center justify-between gap-1">
+          <SearchInputs dataLength={data?.length} table={table} />
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild >
+              <Button
+                type="button"
+                variant="outline"
+                className="ml-1 px-1"
+                size={"sm"}
+              >
+                Categories
+                <ChevronDown className="ml-2 h-4 w-4  hidden sm:block" />
+              </Button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent align="end">
+              <DropdownMenuItem
+                className="capitalize"
+                onClick={() => setSelectCategory({ title: "all", _id: "" })}
+              >
+                <span className="mr-2 h-4 w-4">
+                  {selectCategory?.title === "all" && (
+                    <Check className={cn("h-4 w-4 opacity-100")} />
+                  )}
+                </span>
+                All categories
+              </DropdownMenuItem>
+              {categories?.map((el: InitCategoryState) => (
+                <DropdownMenuItem
+                  className="capitalize"
+                  key={el?._id}
+                  onClick={() => setSelectCategory(el)}
+                >
+                  <Check
+                    className={cn(
+                      "mr-2 h-4 w-4",
+                      el?._id === selectCategory?._id
+                        ? "opacity-100"
+                        : "opacity-0"
+                    )}
+                  />
+                  {el?.title}
+                </DropdownMenuItem>
+              ))}
+            </DropdownMenuContent>
+          </DropdownMenu>
+        </div>
         <div className="flex items-center gap-1 justify-between w-full">
           <DeleteActionsBtns
             dispatch={dispatch}
@@ -107,11 +168,16 @@ export function DataTable({
             data={data}
             isLoading={isLoading}
           />
-          <div className="bg-slate-100 rounded-md p-1">
+          <div className="bg-slate-100 rounded-md p-1 flex items-center">
             <DropdownMenu>
-              <DropdownMenuTrigger asChild>
-                <Button type="button" variant="outline" className="ml-auto">
-                  Columns{" "}
+              <DropdownMenuTrigger asChild className="px-1 ">
+                <Button
+                  size={"sm"}
+                  type="button"
+                  variant="outline"
+                  className="ml-auto"
+                >
+                  Columns
                   <ChevronDown className="ml-2 h-4 w-4  hidden sm:block" />
                 </Button>
               </DropdownMenuTrigger>
@@ -135,7 +201,6 @@ export function DataTable({
                   })}
               </DropdownMenuContent>
             </DropdownMenu>
-          
           </div>
         </div>
       </div>

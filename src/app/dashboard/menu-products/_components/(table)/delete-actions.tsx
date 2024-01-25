@@ -54,7 +54,8 @@ export default function DeleteActionsBtns({
           onDelete={deleteSelected}
         >
           <Button
-            className="flex items-center gap-1 text-[15px] h-[48px]  leading-[1]"
+          size={'sm'}
+            className="flex items-center gap-1 text-[15px] px-1 leading-[1]"
             type="button"
             disabled={!(idsSelectedToDelete.length > 0) || isLoading}
           >
@@ -67,10 +68,12 @@ export default function DeleteActionsBtns({
           onDelete={deleteAllData}
         >
           <Button
-            className="flex items-center gap-1 text-[15px] h-[48px]   leading-[1]"
+            className="flex items-center gap-1 text-[15px]  px-1 leading-[1]"
             type="button"
             disabled={isLoading || !data.length}
+            size={'sm'}
           >
+
             <Trash2 className="w-4 hidden sm:block" />
             <span>Delete all</span>
           </Button>
