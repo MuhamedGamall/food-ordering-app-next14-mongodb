@@ -1,11 +1,11 @@
-import { User } from "@/models/User";
+
 import mongoose from "mongoose";
 import { NextRequest, NextResponse } from "next/server";
 
 import { getServerSession } from "next-auth";
-import { authOptions } from "../auth/[...nextauth]/route";
+import { authOptions } from "@/lib/auth-option";
 import { ProductsCart } from "@/models/ProductsCart";
-import { MenuProduct } from "@/models/MenuProducts";
+
 export async function POST(req: NextRequest) {
   mongoose.connect(process.env.MONGO_URL!);
   try {

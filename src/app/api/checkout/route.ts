@@ -2,7 +2,7 @@ import { User } from "@/models/User";
 import mongoose from "mongoose";
 import { NextRequest, NextResponse } from "next/server";
 import { getServerSession } from "next-auth";
-import { authOptions } from "../auth/[...nextauth]/route";
+import { authOptions } from "@/lib/auth-option";
 import { Order } from "@/models/Order";
 import totalCartPrice from "@/utils/total-cart-price";
 const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);

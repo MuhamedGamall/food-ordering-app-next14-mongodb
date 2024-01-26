@@ -14,4 +14,4 @@ const UserInfosSchema = new Schema(
 );
 
 export const UserInfos =
-  models?.UserInfos || model("UserInfos", UserInfosSchema);
+  models?.UserInfos || model<any>("UserInfos", UserInfosSchema);

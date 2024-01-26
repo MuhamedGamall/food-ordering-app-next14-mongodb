@@ -1,9 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { uploadImageToCloudinary } from "@/utils/cloudinary";
 import { getServerSession } from "next-auth";
-import { authOptions } from "../auth/[...nextauth]/route";
-import { User } from "@/models/User";
-
+import { authOptions } from "@/lib/auth-option";
 export async function POST(req: NextRequest) {
   try {
     const {

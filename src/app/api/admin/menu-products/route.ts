@@ -3,7 +3,7 @@ import mongoose from "mongoose";
 import { NextRequest, NextResponse } from "next/server";
 
 import { getServerSession } from "next-auth";
-import { authOptions } from "../../auth/[...nextauth]/route";
+import { authOptions } from "@/lib/auth-option";
 
 import { MenuProduct } from "@/models/MenuProducts";
 import { UserInfos } from "@/models/UserInfos";

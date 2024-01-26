@@ -21,4 +21,4 @@ const FavoriteSchema = new Schema(
   { timestamps: true }
 );
 
-export const Favorite = models?.Favorite || model("Favorite", FavoriteSchema);
+export const Favorite = models?.Favorite || model<any>("Favorite", FavoriteSchema);

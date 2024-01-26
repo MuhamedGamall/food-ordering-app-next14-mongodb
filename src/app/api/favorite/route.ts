@@ -4,7 +4,7 @@ import { NextRequest, NextResponse } from "next/server";
 
 import { getServerSession } from "next-auth";
 import { Favorite } from "@/models/Favorite";
-import { authOptions } from "../auth/[...nextauth]/route";
+import { authOptions } from "@/lib/auth-option";
 export async function POST(req: NextRequest) {
   mongoose.connect(process.env.MONGO_URL!);
   try {

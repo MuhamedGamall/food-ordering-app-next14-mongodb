@@ -22,4 +22,4 @@ const ProductsCartSchema = new Schema(
 );
 
 export const ProductsCart =
-  models?.ProductsCart || model("ProductsCart", ProductsCartSchema);
+  models?.ProductsCart || model<any>("ProductsCart", ProductsCartSchema);

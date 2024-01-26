@@ -3,7 +3,7 @@ import mongoose from "mongoose";
 import { NextRequest, NextResponse } from "next/server";
 
 import { getServerSession } from "next-auth";
-import { authOptions } from "../../auth/[...nextauth]/route";
+import { authOptions } from "@/lib/auth-option";
 import { Category } from "@/models/Categories";
 import { UserInfos } from "@/models/UserInfos";
 export async function POST(req: NextRequest) {

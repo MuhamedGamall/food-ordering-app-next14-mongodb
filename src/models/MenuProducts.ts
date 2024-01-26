@@ -19,4 +19,4 @@ const MenuProductSchema = new Schema(
 );
 
 export const MenuProduct =
-  models?.MenuProduct || model("MenuProduct", MenuProductSchema);
+  models?.MenuProduct || model<any>("MenuProduct", MenuProductSchema);

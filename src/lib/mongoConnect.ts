@@ -12,8 +12,8 @@ let client
 let clientPromise: Promise<MongoClient>
 
 if (process.env.NODE_ENV === "development") {
-
-  if (!global._mongoClientPromise) {
+  
+  if (!global._mongoClientPromise ) {
     client = new MongoClient(url, options)
     global._mongoClientPromise = client.connect()
     

@@ -5,7 +5,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { getServerSession } from "next-auth";
 
 import { MenuProduct } from "@/models/MenuProducts";
-import { authOptions } from "@/app/api/auth/[...nextauth]/route";
+import { authOptions } from "@/lib/auth-option";
 import { UserInfos } from "@/models/UserInfos";
 
 export async function PATCH(

@@ -1,9 +1,9 @@
-import { authOptions } from "@/app/api/auth/[...nextauth]/route";
+import { authOptions } from "@/lib/auth-option";
 import { Order } from "@/models/Order";
 import mongoose from "mongoose";
 import { getServerSession } from "next-auth";
 import { NextRequest, NextResponse } from "next/server";
-import { User } from "@/models/User";
+
 import { UserInfos } from "@/models/UserInfos";
 
 export async function GET(req: NextRequest) {
