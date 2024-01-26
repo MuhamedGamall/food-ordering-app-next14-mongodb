@@ -65,13 +65,13 @@ export default function SelectorField({
             <SelectTrigger aria-expanded={open}>
               <SelectValue placeholder={sizeValue?.name || "Select a size"} />
             </SelectTrigger>
-            <SelectContent>
+            <SelectContent className="z-[500] relative">
               <SelectGroup>
                 <SelectLabel>SIZES</SelectLabel>
                 {sizes.map((el: ExtraPriceState, i) => (
                   <div
                     key={el.name}
-                    className="flex relative z-[100000000000000000000000000000] items-center w-full  hover:bg-slate-100 transition-all  rounded-md cursor-default"
+                    className="flex   items-center w-full  hover:bg-slate-100 transition-all  rounded-md cursor-default"
                   >
                     <Check
                       className={cn(
@@ -102,7 +102,7 @@ export default function SelectorField({
             <SelectTrigger>
               <SelectValue placeholder="quantity" />
             </SelectTrigger>
-            <SelectContent>
+            <SelectContent className="z-[500] relative">
               <SelectGroup>
                 <SelectLabel>QUANTITY</SelectLabel>
                 {Array.from({ length: 25 }).map((_, i) => (
@@ -126,7 +126,7 @@ export default function SelectorField({
               placeholder={increasesPlaceholder || "Select a increases"}
             />
           </SelectTrigger>
-          <SelectContent>
+          <SelectContent className="z-[500] relative">
             <SelectGroup>
               <SelectLabel>INCREASES</SelectLabel>
               {increases.map((el: ExtraPriceState, i) => (
