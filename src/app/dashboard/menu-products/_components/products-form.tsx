@@ -55,7 +55,7 @@ export default function ProductForm() {
   }
   return (
     <>
-      <div className=" relative mx-auto px-10">
+      <div className=" relative mx-auto">
         {isSubmitting && <HandleLoader />}
         <SectionHeader title={"MENU PRODUCTS"} className="my-5" />
         <div className="w-full">
