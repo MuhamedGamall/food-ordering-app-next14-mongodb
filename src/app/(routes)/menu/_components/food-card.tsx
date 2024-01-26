@@ -35,7 +35,7 @@ export default function FoodCard({ item, setIsClicked }: FoodCardProps) {
           objectFit="cover"
           width={300}
           height={250}
-          className="w-full rounded-[5px] transition min-w-[100px] aspect-[1.4/1] object-cover"
+          className="w-full object-top rounded-t-[5px] transition min-w-[100px] aspect-[1.4/1] object-cover"
         />
       </Link>
       <div className=" flex flex-col  p-2">
