@@ -71,7 +71,7 @@ export default function SelectorField({
                 {sizes.map((el: ExtraPriceState, i) => (
                   <div
                     key={el.name}
-                    className="flex relative z-[10000] items-center w-full  hover:bg-slate-100 transition-all  rounded-md cursor-default"
+                    className="flex relative z-[100000000000000000000000000000] items-center w-full  hover:bg-slate-100 transition-all  rounded-md cursor-default"
                   >
                     <Check
                       className={cn(
