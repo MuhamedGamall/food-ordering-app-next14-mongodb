@@ -56,7 +56,7 @@ export default function OrderPage({
                 )}
                 {order?.paid ? "payment was made" : "payment is not paid yet"}
               </p>
-              Total: {formatPrice(totalPrice)}
+              Total: {formatPrice(+totalPrice + 5 + "")}
             </span>
           </div>
           <section className="flex  flex-col gap-3 flex-[1] ">

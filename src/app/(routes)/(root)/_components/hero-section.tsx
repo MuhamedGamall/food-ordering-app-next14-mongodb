@@ -23,7 +23,7 @@ export default function HeroSection() {
         <div className="mx-auto max-w-[90rem] absolute flex justify-between  w-[85%]   left-[50%] translate-x-[-50%] bottom-5 h-full">
           <div className="text-white flex flex-1 items-start justify-end flex-col  w-full h-full pb-[30px]">
             <span className="skew-y-[-7deg] text-[30px] px-3 bg-black  font-[900]  tracking-tighter ">
-              $13{" "}
+              $15{" "}
               <span className="underline text-[17px] relative left-[2px] top-[-9px] pr-[10px]  tracking-normal">
                 99
               </span>
@@ -37,20 +37,20 @@ export default function HeroSection() {
             <p className="text-[30px] md:text-[30px] text-slate-100 font-[100]">
               More cheese, more pepperoni, more to share
             </p>
-            <div className="flex items-center  gap-3 justify-between mt-3 md:mt-7">
+          
               <Button
-                className="bg-white text-[1rem] hover:bg-slate-200 text-black font-[900]  p-[10px_16px]"
+                className="bg-white text-[1rem] hover:bg-slate-200 text-black font-bold md:mt-7  px-5"
                 size={"md"}
               >
-                ORDER NOW
+                <Link
+                  className="flex items-center gap-x-2 "
+                  href={"menu/category/pizza/65b27a78b776bf5cb84cd02b"}
+                >
+                  ORDER NOW
+                  <ArrowRightCircle />
+                </Link>
               </Button>
-              <Link
-                href={""}
-                className="text-slate-100 flex items-center gap-x-2 "
-              >
-                Learn more <ArrowRightCircle />
-              </Link>
-            </div>
+           
           </div>
           <div className="flex md:mb-6 md:items-end mt-10 items-start justify-end ">
             <div onClick={togglePlay} className="cursor-pointer">
