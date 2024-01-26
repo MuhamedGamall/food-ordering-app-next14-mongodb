@@ -17,7 +17,7 @@ export default function CartCheckout({ cart, filterCart }: any) {
   const { totalPrice, extraPrice, basePrice, sizePrice } = totalCartPrice(cart);
 
   async function proceedToCheckout() {
-    if (filterCart.length) {
+    if (filterCart.length === 0) {
       const { street_address, phone, city, country, postal_code } = data;
       if (
         Object.values({
@@ -63,7 +63,10 @@ export default function CartCheckout({ cart, filterCart }: any) {
         <div className="px-3">
           <div className="flex items-center text-[18px] justify-between ">
             Extras:
-            <span className="font-semibold"> {formatPrice(extraPrice + "")}</span>
+            <span className="font-semibold">
+              {" "}
+              {formatPrice(extraPrice + "")}
+            </span>
           </div>
           <div className="flex items-center text-[20px] justify-between ">
             Delivery:
@@ -71,13 +74,19 @@ export default function CartCheckout({ cart, filterCart }: any) {
           </div>
           <div className="flex items-center text-[20px] justify-between mb-5">
             Base price:
-            <span className="font-semibold"> {formatPrice(basePrice + sizePrice + "")}</span>
+            <span className="font-semibold">
+              {" "}
+              {formatPrice(basePrice + sizePrice + "")}
+            </span>
           </div>
         </div>
         <hr />
         <div className="flex items-center justify-between text-[26px] ">
           Total:
-          <span className="font-semibold"> {formatPrice(totalPrice + 5 + "")}</span>
+          <span className="font-semibold">
+            {" "}
+            {formatPrice(totalPrice + 5 + "")}
+          </span>
         </div>
       </div>
     </div>

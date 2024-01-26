@@ -12,12 +12,8 @@ export default function CategorySection() {
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    async function getData() {
-      await dispatch(getCategories());
-    }
-    getData();
+    dispatch(getCategories());
   }, [dispatch]);
-  console.log(categories);
 
   return (
     <section>

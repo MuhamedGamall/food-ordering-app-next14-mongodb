@@ -20,11 +20,11 @@ const routes: { title: string; href: string }[] = [
   },
   {
     title: "About",
-    href: "/about",
+    href: "/#about",
   },
   {
     title: "Contact",
-    href: "/contact",
+    href: "/#contact",
   },
 ];
 

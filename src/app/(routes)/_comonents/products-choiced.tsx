@@ -48,7 +48,7 @@ export default function ProductsChoiced({
                 </div>
                 <p className="text-slate-500">Quantity: {el?.quantity}</p>
 
-                {el?.size.length > 0 && (
+                {el?.size && (
                   <p className="text-slate-500">Size: {el?.size?.name}</p>
                 )}
                 <div className=" flex items-center  gap-2">

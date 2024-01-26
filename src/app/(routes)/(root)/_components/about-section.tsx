@@ -6,7 +6,7 @@ import { ArrowRight, ArrowRightCircle, MoveRight } from "lucide-react";
 
 export default function About() {
   return (
-    <section>
+    <section id="about">
       <div className="w-fit mx-auto my-8 ">
         <SectionHeader
           title="ABOUT US"

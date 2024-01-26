@@ -62,7 +62,9 @@
     @apply bg-background text-foreground;
   }
 }
-
+html {
+  scroll-behavior: smooth;
+}
 input,
 textarea {
   box-shadow: none !important;

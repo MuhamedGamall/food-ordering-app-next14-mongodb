@@ -2,10 +2,11 @@
 import Link from "next/link";
 import { Button } from "./ui/button";
 import Logo from "./Logo";
-import { signOut, useSession } from "next-auth/react";
+import { useSession } from "next-auth/react";
 import useProfile from "@/hooks/user-profile";
 import { cn } from "@/lib/utils";
 import ProfileMenu from "./profile-menu";
+
 export default function NavbarTop() {
   const session = useSession();
   const { data } = useProfile();
@@ -13,7 +14,7 @@ export default function NavbarTop() {
   const loading = status === "loading";
 
   const email = data?.email;
-  const userName = (data?.name)?.split(" ")?.[0] || email?.split("@")?.[0]
+  const userName = data?.name?.split(" ")?.[0] || email?.split("@")?.[0];
 
   return (
     <div className="py-2">

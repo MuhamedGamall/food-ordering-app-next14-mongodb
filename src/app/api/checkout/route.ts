@@ -4,7 +4,6 @@ import { NextRequest, NextResponse } from "next/server";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth-option";
 import { Order } from "@/models/Order";
-import totalCartPrice from "@/utils/total-cart-price";
 const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
 export async function POST(req: NextRequest) {
   try {
@@ -36,11 +35,10 @@ export async function POST(req: NextRequest) {
       const productPrice =
         (+cartProduct?.base_price || 0) +
         (+cartProduct?.size?.extra_price || 0) +
-        (cartProduct?.extra_increases_price.reduce(
-          (a: any, c: any) => a + (+c?.extra_price || 0),
+        cartProduct?.extra_increases_price?.reduce(
+          (a: any, c: any) => +a + (+c?.extra_price || 0),
           0
-        ) || 0);
-
+        );
       stripeLineItems.push({
         quantity: productQuantity,
 
@@ -49,7 +47,7 @@ export async function POST(req: NextRequest) {
           product_data: {
             name: productName,
           },
-          unit_amount: productPrice * 100,
+          unit_amount: Math.floor(productPrice * 100),
         },
       });
     }

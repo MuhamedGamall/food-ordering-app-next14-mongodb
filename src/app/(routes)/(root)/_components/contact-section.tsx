@@ -40,7 +40,7 @@ export default function ContactSection() {
   };
 
   return (
-    <section>
+    <section  id="contact">
       <div className="w-fit mx-auto my-8 ">
         <SectionHeader
           title="CONTACT US"
