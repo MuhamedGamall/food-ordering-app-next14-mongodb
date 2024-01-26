@@ -62,9 +62,9 @@ export default function EditProductForm({
   setExtraPricesValues,
 }: EditProductFormProps) {
   const session = useSession();
-  const router = useRouter();
   const { categories } = useAppSelector((state) => state.categories);
   const [sizes, setSizes] = useState<ExtraPriceState[]>([]);
+  
   const [extraIncreasesPrice, setExtraIncreasesPrice] = useState<
     ExtraPriceState[]
   >([]);
@@ -91,12 +91,9 @@ export default function EditProductForm({
   });
 
   useEffect(() => {
-    async function getData() {
-      setSelectLoading(true);
-      await dispatch(getCategories());
-      setSelectLoading(false);
-    }
-    getData();
+    setSelectLoading(true);
+    dispatch(getCategories());
+    setSelectLoading(false);
   }, [dispatch, session.status]);
 
   useEffect(() => {
@@ -296,9 +293,9 @@ export default function EditProductForm({
             type="submit"
             variant={"green"}
             disabled={isSubmitting || isValid}
-            onClick={() =>
-              setTimeout(() => router.replace("/dashboard/menu-products"), 1000)
-            }
+            // onClick={() =>
+            //   setTimeout(() => router.replace("/dashboard/menu-products"), 1000)
+            // }
             className={cn("  text-2xl text-center rounded-full  mt-5 w-fit")}
           >
             Update

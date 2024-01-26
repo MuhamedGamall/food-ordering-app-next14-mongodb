@@ -1,4 +1,3 @@
-
 import BestSelles from "./_components/best-selles-section";
 import HeroSection from "./_components/hero-section";
 import CategorySection from "./_components/category-section";

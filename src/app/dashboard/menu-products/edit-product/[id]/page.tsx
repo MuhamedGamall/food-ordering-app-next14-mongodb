@@ -3,8 +3,6 @@
 import toast from "react-hot-toast";
 import { useEffect, useState } from "react";
 
-import useProfile from "@/hooks/user-profile";
-
 import HandleLoader from "@/components/loader";
 import { useAppDispatch, useAppSelector } from "@/hooks/redux";
 import { editProduct, getProducts } from "@/lib/RTK/slices/menu-products-slice";
@@ -12,7 +10,7 @@ import { uploadImage } from "@/lib/RTK/slices/upload-image-slice";
 import ImageForm from "@/components/image-form";
 import { useSession } from "next-auth/react";
 import EditProductForm from "../_components/edit-product-form";
-import { redirect } from "next/navigation";
+import { redirect, useRouter } from "next/navigation";
 import { MoveLeft } from "lucide-react";
 import { ExtraPricesValues } from "../../_components/products-form";
 import Link from "next/link";
@@ -34,33 +32,34 @@ export default function ProductForm({
   const [extraPricesValues, setExtraPricesValues] = useState<ExtraPricesValues>(
     { sizes: [], extra_increases_price: [] }
   );
+  const router = useRouter();
 
   useEffect(() => {
-    async function getData() {
-      await dispatch(getProducts());
-    }
-    getData();
+    dispatch(getProducts());
   }, [dispatch, session.status]);
 
   const product: any = products.filter((el) => el._id === id)[0];
-
-  // if (product?._id !== id) {
-  //   redirect("/dashboard/menu-products");
-  // }
+  if (!loading) {
+    if (product?._id !== id) {
+      redirect("/dashboard/menu-products");
+    }
+  }
 
   const EditCurrentImage =
     image64 || product?.image || "/product-placeholder/th.jpeg";
 
   const publicId = product?.image
-    .match(/food-ordering-products\/([^/]+)\./)[1]
-    .replace(/-/g, " ");
+    ?.match(/food-ordering-products\/([^/]+)\./)?.[1]
+    ?.replace(/-/g, " ");
 
   async function onSubmit(value: any) {
     if (Object.values({ value, image64 }).some(Boolean)) {
       setIsSubmitting(true);
+
       const filteredData = Object.fromEntries(
         Object.entries(value).filter(([key, value]) => value !== "")
       );
+
       const data =
         image64 &&
         (await dispatch(
@@ -72,14 +71,20 @@ export default function ProductForm({
         ));
 
       const imageURL = (await data?.payload) || product?.image;
+      const check =
+        extraPricesValues.sizes.length > 0 ||
+        extraPricesValues.extra_increases_price.length > 0;
+
       const values = {
-        ...(extraPricesValues.sizes.length > 0 && extraPricesValues),
+        ...(check && extraPricesValues),
         ...filteredData,
         ...(imageURL && { image: imageURL }),
         _id: id,
       };
+
       await dispatch(editProduct(values));
       setIsSubmitting(false);
+      setTimeout(() => router.replace("/dashboard/menu-products"), 1000);
     } else {
       toast.error("Please fill all fields");
     }

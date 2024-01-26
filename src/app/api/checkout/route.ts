@@ -34,10 +34,10 @@ export async function POST(req: NextRequest) {
       const productName = cartProduct?.title;
       const productQuantity = +cartProduct?.quantity;
       const productPrice =
-        +cartProduct?.base_price +
-        +cartProduct?.size?.extra_price +
+        (+cartProduct?.base_price || 0) +
+        (+cartProduct?.size?.extra_price || 0) +
         (cartProduct?.extra_increases_price.reduce(
-          (a: any, c: any) => a + +c?.extra_price,
+          (a: any, c: any) => a + (+c?.extra_price || 0),
           0
         ) || 0);
 
