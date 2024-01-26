@@ -33,7 +33,7 @@ export default function Menu({ params: { id } }: { params: { id: string } }) {
   }, [dispatch]);
 
   return (
-    <section className="mx-auto px-4 max-w-[80rem]">
+    <section className="mx-auto px-4 max-w-[80rem] relative">
       {(productsLoding || categoryLoading) && <HandleLoader />}
       <Categorys categories={categories} loading={categoryLoading} />
       <div className=" md:max-w-[90%] mx-auto ">
