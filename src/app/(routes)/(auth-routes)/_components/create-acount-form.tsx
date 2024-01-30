@@ -144,8 +144,8 @@ export default function CreateAcountForm({
                 <span className="text-[20px] text-red-400">
                   {isError && "This account already exists."}
                 </span>
-                <span className="text-[16px] ">
-                  You have already account
+                <span className="text-[16px] flex items-center gap-1">
+                  You have already account?
                   <Link href={"log-in"} className="underline text-[#2D5D2A]">
                     Log In
                   </Link>

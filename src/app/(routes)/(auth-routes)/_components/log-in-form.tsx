@@ -147,7 +147,7 @@ export default function LogInForm({ onSubmit }: LogInFormProps) {
                     </div>
                   )}
                 </span>
-                <span className="text-[16px] ">
+                <span className="text-[16px] flex items-center gap-1">
                   Don`&#39;t have an account?
                   <Link
                     href={"create-acount"}

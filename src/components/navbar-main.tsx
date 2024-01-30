@@ -8,6 +8,8 @@ import { getCart } from "@/lib/RTK/slices/cart-slice";
 
 import { MobileMenu } from "./mobile-menu";
 import { useSession } from "next-auth/react";
+import { usePathname } from "next/navigation";
+import { cn } from "@/lib/utils";
 
 const routes: { title: string; href: string }[] = [
   {
@@ -32,10 +34,13 @@ export default function NavberMain() {
   const { cart } = useAppSelector((state) => state.productsCart);
   const session = useSession();
   const dispatch = useAppDispatch();
+  const pathname = usePathname();
   const isLogin = session.status === "authenticated";
   useEffect(() => {
     dispatch(getCart());
   }, [dispatch]);
+  console.log(pathname.includes("menu"));
+
   return (
     <nav className="px-4">
       <ul className="flex items-center justify-between ">
@@ -45,7 +50,7 @@ export default function NavberMain() {
               <Link href={route.href}>
                 <Button
                   variant={"ghost"}
-                  className="text-[20px] rounded-full font-bold uppercase"
+                  className={cn("text-[20px] rounded-full font-bold uppercase")}
                   size={"sm"}
                 >
                   {route.title}

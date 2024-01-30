@@ -11,7 +11,7 @@ export default function Home() {
       <div className="w-[90%] max-w-[80rem] mx-auto mt-5 p-5">
         <BestSelles />
       </div>
-      <div className="w-[90%] max-w-[80rem] mx-auto mt-5 p-5">
+      <div className="w-[90%] max-w-[51rem] mx-auto mt-5 p-5">
         <CategorySection />
       </div>
       <div className="w-[80%] max-w-[50rem] mx-auto text-center">
