@@ -47,7 +47,7 @@ export default function ProfileFormInputs({
       street_address: data?.street_address,
       city: data?.city,
       postal_code: data?.postal_code,
-      country: data?.postal_code,
+      country: data?.country,
     },
   });
 
