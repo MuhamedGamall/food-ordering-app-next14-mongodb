@@ -29,16 +29,18 @@ export default function SelectorField({
 }: SelectFieldProps) {
   const sizes: ExtraPriceState[] = data?.sizes || [];
   const increases: ExtraPriceState[] = data?.extra_increases_price || [];
-  const defaultSize = sizes.find((_, i) => i === 0);
+  const defaultSize = sizes ? sizes?.find((_, i) => i === 0) : null;
 
-  const [sizeValue, setSizeValue] = useState<ExtraPriceState>({
-    name: defaultSize?.name || "",
-    extra_price: defaultSize?.extra_price || "",
-  });
+  const [sizeValue, setSizeValue] = useState<ExtraPriceState | null>(
+    defaultSize || null
+  );
 
   const [quantityValue, setQuantityValue] = useState("1");
   const [increasesValue, setIncreasesValue] = useState<ExtraPriceState[]>([]);
   const [open, setOpen] = useState(false);
+  useEffect(() => {
+    setSizeValue(defaultSize || null);
+  }, [defaultSize]);
 
   useEffect(() => {
     setExtraPricesFields({
@@ -47,13 +49,6 @@ export default function SelectorField({
       quantity: quantityValue,
     });
   }, [increasesValue, quantityValue, setExtraPricesFields, sizeValue]);
-
-  useEffect(() => {
-    setSizeValue({
-      name: defaultSize?.name || "",
-      extra_price: defaultSize?.extra_price || "",
-    });
-  }, [defaultSize]);
 
   const increasesPlaceholder = increasesValue.map((el) => el?.name).join(", ");
 

@@ -16,9 +16,6 @@ import toast from "react-hot-toast";
 import NoData from "../_comonents/no-data";
 import SectionHeader from "@/components/section-header";
 import { DeleteConfirm } from "../../../components/delete-confirm";
-import Banner from "@/components/banner";
-import { MessageSquare, XCircle } from "lucide-react";
-import { cn } from "@/lib/utils";
 import NotificationBanner from "../_comonents/notification-banner";
 
 export default function CartPage() {

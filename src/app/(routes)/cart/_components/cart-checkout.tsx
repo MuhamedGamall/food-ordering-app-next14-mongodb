@@ -43,7 +43,7 @@ export default function CartCheckout({ cart, filterCart }: any) {
   }
 
   return (
-    <div className="flex-[2.5] w-full rounded-md p-3 border flex flex-col gap-3 sticky top-[170px] h-fit">
+    <div className="flex-[2.5] w-full rounded-md p-3 border flex flex-col gap-3 sticky top-[20px] h-fit">
       <div className="relative">
         {loading && <HandleLoader />}
         <Button
