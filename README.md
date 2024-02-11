@@ -22,10 +22,6 @@ This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-opti
 
 ## Learn More
 
-Here's a sample README file for your GitHub repository for a food ordering project:
-
----
-
 # Food Ordering Project
 
 This is a web application for food ordering, designed to provide users with an easy and efficient way to order food online. The project is built using Next.js, Tailwind CSS, Typescript, NextAuth, Redux, Shadcn, MongoDB, React Hook Form, and Zod.
