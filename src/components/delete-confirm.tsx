@@ -32,8 +32,8 @@ export function DeleteConfirm({
         <AlertDialogHeader>
           <AlertDialogTitle>{title}</AlertDialogTitle>
           <AlertDialogDescription>
-            {"Are you sure delete this item. This action cannot be undone." ||
-              description}
+          {description ||
+              "Are you sure delete. This action cannot be undone."}
           </AlertDialogDescription>
         </AlertDialogHeader>
         <AlertDialogFooter>

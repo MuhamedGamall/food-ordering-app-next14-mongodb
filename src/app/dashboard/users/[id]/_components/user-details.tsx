@@ -43,7 +43,7 @@ export default function UserDetails({ id }: { id: string }) {
               src={user?.image || "/avatar/avatar.jpeg"}
               alt="image"
               width={250}
-              height={250}
+              height={250}    loading="lazy"
               className="w-[250px]  max-w-full rounded-md aspect-[1] object-cover"
             />
           </div>

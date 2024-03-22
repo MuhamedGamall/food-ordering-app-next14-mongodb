@@ -53,7 +53,7 @@ export default function ProductForm({
     ?.replace(/-/g, " ");
 
   async function onSubmit(value: any) {
-    if (Object.values({ value, image64 }).some(Boolean)) {
+    if (Object.values({ ...value, image64 }).some(Boolean)) {
       setIsSubmitting(true);
 
       const filteredData = Object.fromEntries(

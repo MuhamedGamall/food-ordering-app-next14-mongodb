@@ -183,9 +183,7 @@ export default function AddProductForm({
                     </Command>
                   </PopoverContent>
                 </Popover>
-                {!field.value.title && isSubmitted && (
-                  <span className="text-red-700 p-1">Category is required</span>
-                )}
+                {<span className="text-red-700 p-1">Category is required</span>}
               </FormItem>
             )}
           />

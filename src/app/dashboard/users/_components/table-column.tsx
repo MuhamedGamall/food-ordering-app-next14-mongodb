@@ -24,7 +24,7 @@ export const columns: ColumnDef<any>[] = [
             src={row.getValue("image") || "/avatar/avatar.jpeg"}
             alt="image"
             width={250}
-            height={250}
+            height={250}    loading="lazy"
             className="w-[50px] max-w-full rounded-md aspect-[1] object-cover"
           />
         </div>

@@ -61,10 +61,7 @@ export default function FormInputs({ onSubmit, isError }: FormInputsProps) {
     <>
       <div className="sm:w-[80%] max-w-[80rem] mx-auto  mt-5 p-5">
         <div className="relative max-w-full md:max-w-[70%]">
-          {isSubmitting && (
-                   <HandleLoader/>
-
-          )}
+          {isSubmitting && <HandleLoader />}
           <div className="space-y-1 mb-3">
             <h1 className="text-[40px] mb-5">
               {signUpOrLogin ? "CREATE YOUR ACCOUNT" : "LOG IN"}

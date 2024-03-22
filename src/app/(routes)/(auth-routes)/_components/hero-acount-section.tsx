@@ -26,6 +26,7 @@ export default function HeroAcountSection() {
         alt={"img"}
         width={1000}
         height={1000}
+        loading="lazy"
         className="aspect-[5/2] object-cover object-center brightness-[.9] relative z-[-500] h-full w-full"
       />
     </section>

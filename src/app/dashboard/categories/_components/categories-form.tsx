@@ -24,8 +24,8 @@ export default function CatigoiesForm() {
 
   const check = (value: { title: string }) => {
     return isEditMood
-      ? Object.values({ value, image64 }).some(Boolean)
-      : Object.values({ value, image64 }).every(Boolean);
+      ? Object.values({ ...value, image64 }).some(Boolean)
+      : Object.values({ ...value, image64 }).every(Boolean);
   };
 
   const publicId = editMood?.image

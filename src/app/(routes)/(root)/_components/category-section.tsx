@@ -36,6 +36,7 @@ export default function CategorySection() {
                 alt="category image"
                 width={100}
                 height={100}
+                loading="lazy"
                 className="rounded-full shadow-sm  w-[80px] h-[80px] object-cover"
               />
               <span className=" text-[13px]  uppercase font-semibold">

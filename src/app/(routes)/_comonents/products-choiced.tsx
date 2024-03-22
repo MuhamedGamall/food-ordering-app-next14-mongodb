@@ -29,7 +29,7 @@ export default function ProductsChoiced({
                 src={el?.image}
                 alt="cart image"
                 width={200}
-                height={200}
+                height={200}    loading="lazy"
                 className="w-[80px]  rounded-md"
               />
               <div className=" flex flex-col gap-1 w-full">

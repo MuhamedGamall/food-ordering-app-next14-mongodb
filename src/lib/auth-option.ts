@@ -47,10 +47,24 @@ export const authOptions: NextAuthOptions = {
   ],
 
   callbacks: {
+    async signIn({ user }) {
+      try {
+        mongoose.connect(process.env.MONGO_URL as string);
+
+        const existingUser = await UserInfos.findOne({ email: user?.email });
+        if (!existingUser) await UserInfos.create({ email: user?.email });
+        return true;
+      } catch (err) {
+        console.log(`Error with callback: ${err}`);
+        return false;
+      }
+    },
     async jwt({ token }) {
       mongoose.connect(process.env.MONGO_URL as string);
+
       const user = await UserInfos.findOne({ email: token?.email });
-      token.role = user?.admin ? "admin" : "member";
+      const isAdmin = user?.admin;
+      token.role = isAdmin ? "admin" : "member";
       return token;
     },
   },

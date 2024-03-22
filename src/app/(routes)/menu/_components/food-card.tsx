@@ -33,7 +33,7 @@ export default function FoodCard({ item, setIsClicked }: FoodCardProps) {
           src={item.image}
           alt="product image"
           objectFit="cover"
-          width={300}
+          width={300}    loading="lazy"
           height={250}
           className="w-full object-top rounded-t-[5px] transition min-w-[100px] aspect-[1.4/1] object-cover"
         />

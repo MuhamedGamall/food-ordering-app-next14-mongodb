@@ -14,24 +14,34 @@ export async function PATCH(req: NextRequest) {
     const session = await getServerSession(authOptions);
     const user = session?.user;
 
-    let filter = {};
-    if (_id) {
-      filter = { _id };
-    } else {
-      const email = session?.user?.email;
-      filter = { email };
-    }
+    // let filter = {};
+    // if (_id) {
+    //   filter = { _id };
+    // } else {
+    //   const email = session?.user?.email;
+    //   filter = { email };
+    // }
 
     if (!user && !name && name?.length === 0) {
       return new NextResponse("Unauthorized", { status: 401 });
     }
 
-    const userData = await User.updateOne(filter, { name, image });
-    const userInfos = await UserInfos.findOneAndUpdate(
+    // const userData = await User.updateOne(filter, { name, image });
+    // const userInfos = await UserInfos.findOneAndUpdate(
+    //   { email: user?.email },
+    //   otherData,
+    //   { upsert: true }
+    // );
+
+    const userData = await User.updateOne(
       { email: user?.email },
-      otherData,
-      { upsert: true }
-    );
+      { name,image }
+    ).lean();
+
+    const userInfos = await UserInfos.updateOne(
+      { email: user?.email },
+      otherData
+    ).lean();
 
     const fullData = { ...userData, ...userInfos };
 

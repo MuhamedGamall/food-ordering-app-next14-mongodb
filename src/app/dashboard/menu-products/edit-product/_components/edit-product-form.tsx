@@ -108,6 +108,7 @@ export default function EditProductForm({
   const isValid = !Object.values({ ...form.getValues(), imageURL64 }).some(
     Boolean
   );
+  
   const { isSubmitting, isSubmitted } = form.formState;
   return (
     <Form {...form}>

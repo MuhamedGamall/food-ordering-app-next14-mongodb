@@ -12,7 +12,7 @@ export default function About() {
           src={"/about-hero-works.webp"}
           alt="about-hero-works-image"
           width={1920}
-          height={853}
+          height={853}    loading="lazy"
           className=" object-cover sm:object-center  h-full w-full rounded-sm my-4"
         />
       </div>
