@@ -33,10 +33,9 @@ This is a web application for food ordering, designed to provide users with an e
 3. **Browse Products**: Allows users to browse available products.
 4. **Menu**: Displays the food menu.
 5. **Cart**: Shows the items added to the cart.
-6. **Track Orders**: Enables users to track their orders.
-7. **Review Order**: Allows users to review their orders.
-8. **Profile**: User profile page.
-9. **About Page**: Information about the application.
+6. **Review Order**: Allows users to review their orders.
+7. **Profile**: User profile page.
+8. **About Page**: Information about the application.
 
 ## Admin Pages:
 
