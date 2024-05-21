@@ -53,7 +53,7 @@ This is a web application for food ordering, designed to provide users with an e
 - **Typescript**: A superset of JavaScript that adds static typing to the language.
 - **NextAuth**: An authentication library for Next.js applications.
 - **Redux**: A predictable state container for JavaScript apps.
-- **Shadcn**: (No information available. Please provide details if needed.)
+- **Shadcn**: Components library
 - **MongoDB**: A document-based NoSQL database.
 - **React Hook Form**: A library for managing form state and validation in React.
 - **Zod**: A TypeScript-first schema declaration and validation library.
