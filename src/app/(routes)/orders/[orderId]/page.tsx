@@ -3,7 +3,7 @@
 import { useAppDispatch, useAppSelector } from "@/hooks/redux";
 import { deleteAllProductsFromCart } from "@/lib/RTK/slices/cart-slice";
 import { useEffect } from "react";
-import ProductsChoiced from "../../_comonents/products-choiced";
+import ProductsChoiced from "../../_components/products-choiced";
 import { getOrder } from "@/lib/RTK/slices/orders-slice";
 import formatPrice from "@/utils/format/format-price";
 import totalCartPrice from "@/utils/total-cart-price";

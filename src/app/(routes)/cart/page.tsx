@@ -8,15 +8,15 @@ import {
 } from "@/lib/RTK/slices/cart-slice";
 
 import React, { useEffect, useState } from "react";
-import ProductsChoiced from "../_comonents/products-choiced";
+import ProductsChoiced from "../_components/products-choiced";
 import { Button } from "@/components/ui/button";
 import { useRouter } from "next/navigation";
 import CartCheckout from "./_components/cart-checkout";
 import toast from "react-hot-toast";
-import NoData from "../_comonents/no-data";
+import NoData from "../_components/no-data";
 import SectionHeader from "@/components/section-header";
 import { DeleteConfirm } from "../../../components/delete-confirm";
-import NotificationBanner from "../_comonents/notification-banner";
+import NotificationBanner from "../_components/notification-banner";
 
 export default function CartPage() {
   const dispatch = useAppDispatch();

@@ -1,5 +1,5 @@
 import React from "react";
-import AboutSection from "../../_comonents/about-section";
+import AboutSection from "../../_components/about-section";
 import SectionHeader from "@/components/section-header";
 import Link from "next/link";
 import { ArrowRight, ArrowRightCircle, MoveRight } from "lucide-react";

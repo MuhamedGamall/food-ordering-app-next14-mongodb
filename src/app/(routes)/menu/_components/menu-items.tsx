@@ -1,7 +1,7 @@
 import FoodCard from "./food-card";
 import { InitProductState } from "../../../../../types";
 import { useState } from "react";
-import ProductDialog from "../../_comonents/product-dialog";
+import ProductDialog from "../../_components/product-dialog";
 
 interface MenuItemsProps {
   products: InitProductState[];

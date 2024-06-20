@@ -1,7 +1,7 @@
 import SectionHeader from "@/components/section-header";
 import Image from "next/image";
 import React from "react";
-import AboutSection from "../_comonents/about-section";
+import AboutSection from "../_components/about-section";
 
 export default function About() {
   return (
@@ -12,7 +12,8 @@ export default function About() {
           src={"/about-hero-works.webp"}
           alt="about-hero-works-image"
           width={1920}
-          height={853}    loading="lazy"
+          height={853}
+          loading="lazy"
           className=" object-cover sm:object-center  h-full w-full rounded-sm my-4"
         />
       </div>

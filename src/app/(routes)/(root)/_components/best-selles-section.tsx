@@ -4,7 +4,7 @@ import { useAppDispatch, useAppSelector } from "@/hooks/redux";
 import { getProducts } from "@/lib/RTK/slices/menu-products-slice";
 import { useEffect, useState } from "react";
 import FoodCard from "../../menu/_components/food-card";
-import ProductDialog from "../../_comonents/product-dialog";
+import ProductDialog from "../../_components/product-dialog";
 import SectionHeader from "@/components/section-header";
 
 export default function BestSelles() {

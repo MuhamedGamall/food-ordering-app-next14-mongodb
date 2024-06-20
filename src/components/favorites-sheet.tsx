@@ -1,4 +1,4 @@
-import ProductsChoiced from "@/app/(routes)/_comonents/products-choiced";
+import ProductsChoiced from "@/app/(routes)/_components/products-choiced";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { useAppDispatch, useAppSelector } from "@/hooks/redux";
 import {
@@ -13,7 +13,7 @@ import { Button } from "./ui/button";
 import { MoveRight } from "lucide-react";
 import Link from "next/link";
 import { cn } from "@/lib/utils";
-import NotificationBanner from "@/app/(routes)/_comonents/notification-banner";
+import NotificationBanner from "@/app/(routes)/_components/notification-banner";
 
 export default function FavoriteSheet() {
   const { favorites, loading } = useAppSelector((state) => state.favoritesData);
