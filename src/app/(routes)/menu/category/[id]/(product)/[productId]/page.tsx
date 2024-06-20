@@ -25,12 +25,12 @@ export default function ProductPage({
   const { favorites } = useAppSelector((state) => state.favoritesData);
 
   const dispatch = useAppDispatch();
-  const product = products.filter((el) => el._id === productId)[0];
-
+  
   useEffect(() => {
     dispatch(getProducts());
     dispatch(getFavorites());
   }, [dispatch]);
+  const product = products?.filter((el) => el._id === productId)?.[0];
 
   const isFav = favorites
     .map((el: any) => el.product_id)
