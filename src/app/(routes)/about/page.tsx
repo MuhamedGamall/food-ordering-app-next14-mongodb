@@ -9,7 +9,7 @@ export default function About() {
       <SectionHeader title="ABOUT FOOD ORDERING" className="my-5" />
       <div className="sm:h-[300px]  w-full my-2">
         <Image
-          src={"/about-hero-works.webp"}
+          src={"/about-hero-works.jpg"}
           alt="about-hero-works-image"
           width={1920}
           height={853}
